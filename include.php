@@ -9,36 +9,54 @@ Author URI:
 */
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
+function CreateCustemerTableSql()
+{
+	return <<<<EOF
+		CREATE TABLE
+	EOF;
+}
+
 function InitTable()
 {
 	global $wpdb;
-	$strSql = <<<SQL
-		CREATE TABLE Customer (
-			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			tanto_id bigint(20) UNSIGNED,
-			name_kanji 	varbinary(200),
-			name_kana  	varbinary(200),
-			sex TINYINT UNSIGNED,	
-			old TINYINT UNSIGNED,
-			birthday varbinary(20),
-			last_visit_date varbinary(20),
-			phone_number bigint(11),
-			address varbinary(500),
-			occupation varbinary(200),
-			number_of_visit bigint(10),
-			email varbinary(200),
-			enable_dm TINYINT UNSIGNED,
-			next_visit_reservation_date varbinary(200),
-			reservation_route varbinary(500),
-			remarks varbinary(500),
-			PRIMARY KEY(id)
-		)
-SQL;
-	dbDelta($strSql);	
+	dbDelta($strSql);
+	$prefix = $wpdb->prefix;
+	
 }
 
-//プラグイン有効かしたとき実行
-register_activation_hook (__FILE__, 'InitTable');
+class CustomMetaTable {
+	//プラグインのテーブル名
+	var $table_name;
+	public function __construct()
+	{
+		global $wpdb;
+		//接頭辞（wp_）を付けてテーブル名を設定
+		$this->table_name = $wpdb->prefix . 'ex_meta';
+		//プラグイン有効かしたとき実行
+		register_activation_hook (__FILE__, array($this, 'cmt_activate'));
+	}
+
+	function cmt_activate(){
+		global $wpdb;
+		$cmt_db_version = '1.0';
+		$installed_ver = get_option('cmt_meta_version');
+	
+		$sql = "CREATE TABLE " . $this->table_name." (
+				meta_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				post_id bigint(20) UNSIGNED DEFAULT '0' NOT NULL,
+				item_name text,
+				price int(11),
+				UNIQUE KEY meta_id (meta_id)
+				)
+				CHARACTER SET 'utf8';";
+
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
+		update_option('cmt_meta_version', $cmt_db_version);	
+	}
+}
+
+$exmeta = new CustomMetaTable;
 
 require_once('ui/itabledata.php');
 require_once('business/entity/customer.php');
