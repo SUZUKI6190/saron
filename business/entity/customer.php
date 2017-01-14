@@ -42,7 +42,7 @@
 			yield "誕生日";
 			yield "最終来店日";
 			yield "電話番号";
-			
+			yield "";
 		}
 
 		public function RowGenerator()
@@ -53,9 +53,7 @@
 			yield $this->old;
 			yield $this->birthday;
 			yield $this->last_visit_date;
-			yield $this->phone_number;
-			$detail_url = get_bloginfo('wpurl')."/customer_detail?id=".$this->id;
-			yield "<a href='" . $detail_url . "' >詳細はこちら</a>";
+			yield $this->phone_number;			
 		}
 	}
 ?>
