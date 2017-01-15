@@ -38,8 +38,8 @@ class CustomerTableData implements ITableData
 
 	public function RowGenerator()
 	{
-		yield $this->_customerData->name_kanji;
-		yield $this->_customerData->name_kana;
+		yield $this->_customerData->name_kanji_last.$this->_customerData->name_kanji_first;
+		yield $this->_customerData->name_kana_last.$this->_customerData->name_kana_first;
 		yield $this->_customerData->sex;
 		yield $this->_customerData->old;
 		yield $this->_customerData->birthday;

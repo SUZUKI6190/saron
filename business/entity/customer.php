@@ -3,8 +3,10 @@ namespace business\entity;
 class Customer{
 	public $id;
 	public $tanto_id;
-	public $name_kanji = "test1";
-	public $name_kana = "test1";
+	public $name_kanji_last = "test1";
+	public $name_kanji_first = "test1";
+	public $name_kana_last = "test1";
+	public $name_kana_first = "test1";
 	public $sex;
 	public $old;
 	public $birthday;

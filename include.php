@@ -11,19 +11,21 @@ require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 function InitTable()
 {
 	global $wpdb;
-	$strSql = <<<SQL
+	dbDelta(<<<SQL
 		CREATE TABLE Customer (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			tanto_id bigint(20) UNSIGNED,
-			name_kanji 	varbinary(200),
-			name_kana  	varbinary(200),
+			name_kanji_last varbinary(100),
+			name_kanji_first varbinary(100),
+			name_kana_last varbinary(100),
+			name_kana_first varbinary(100),
 			sex TINYINT UNSIGNED,	
 			old TINYINT UNSIGNED,
 			birthday varbinary(20),
 			last_visit_date varbinary(20),
 			phone_number bigint(11),
 			address varbinary(500),
-			occupation varbinary(200),
+			occupation TINYINT UNSIGNED,,
 			number_of_visit bigint(10),
 			email varbinary(200),
 			enable_dm TINYINT UNSIGNED,
@@ -33,7 +35,15 @@ function InitTable()
 			PRIMARY KEY(id)
 		)
 SQL;
-	dbDelta($strSql);	
+		);
+	dbDelta(<<<SQL
+		CREATE TABLE Staff (
+			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			name varchar(100),
+			PRIMARY KEY(id)
+		)
+SQL
+		);	
 }
 
 //プラグイン有効かしたとき実行
