@@ -44,5 +44,5 @@ require_once('ui/itabledata.php');
 require_once('business/entity/customer.php');
 require_once('business/facade/customer.php');
 require_once('ui/customerTable.php');
-add_shortcode('CreaterCustomerTable', 'CreaterCustomerTable');
+add_shortcode('CreaterCustomerTable', 'ui\CreaterCustomerTable');
 ?>

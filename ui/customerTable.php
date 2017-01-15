@@ -1,4 +1,5 @@
 <?php
+namespace ui;
 function CreaterCustomerTable()
 {
 	$tableGenerator = new TableGenerator();
