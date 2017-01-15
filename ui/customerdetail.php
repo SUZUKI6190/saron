@@ -1,10 +1,11 @@
-﻿<?php
-
-function CreateCustomerDetailForm(string $id = "")
+<?php
+namespace ui;
+use business\entity;
+function CreateCustomerDetailForm()
 {
 	$customerData;
-	if($id = "")
-	{
+	$id = $_GET["id"];
+	if($id = ""){
 		$customerData = new Customer();
 	}else{
 	}
@@ -19,7 +20,7 @@ function CreateCustomerDetailForm(string $id = "")
                         氏名(漢字)：
                     </div>
                     <div>
-                        <input type="text" />
+                        <input type="text" value="test" />
                         <input type="text" />
                     </div>
                 </div>
@@ -158,7 +159,6 @@ function CreateCustomerDetailForm(string $id = "")
             </div>
         </div>
 
-	
 	<?php
 }
 

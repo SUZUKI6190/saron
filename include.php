@@ -8,7 +8,6 @@ Version: 1.0
 Author URI:
 */
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-
 function InitTable()
 {
 	global $wpdb;
@@ -44,5 +43,7 @@ require_once('ui/itabledata.php');
 require_once('business/entity/customer.php');
 require_once('business/facade/customer.php');
 require_once('ui/customerTable.php');
+require_once('ui/customerdetail.php');
 add_shortcode('CreaterCustomerTable', 'ui\CreaterCustomerTable');
+add_shortcode('CreateCustomerDetailForm', 'ui\CreateCustomerDetailForm');
 ?>
