@@ -1,7 +1,8 @@
 <?php
-namespace ui;
+namespace ui\customer;
+use ui;
 use \business\entity\Customer;
-class CustomerTableData implements ITableData
+class CustomerTableData implements ui\ITableData
 {
 	private $_customerData;
 
@@ -50,9 +51,9 @@ class CustomerTableData implements ITableData
 	}
 }
 
-function CreaterCustomerTable()
+function CreateCustomerTable()
 {
-	$tableGenerator = new TableGenerator();
+	$tableGenerator = new ui\TableGenerator();
 	$data = [];
 	foreach(\business\facade\GetCustomerAll() as $customerData)
 	{

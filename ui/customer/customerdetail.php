@@ -1,5 +1,6 @@
 <?php
-namespace ui;
+namespace ui\customeser;
+use ui;
 use business\entity;
 function CreateCustomerDetailForm()
 {

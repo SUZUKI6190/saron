@@ -25,7 +25,7 @@ function InitTable()
 			last_visit_date varbinary(20),
 			phone_number bigint(11),
 			address varbinary(500),
-			occupation TINYINT UNSIGNED,,
+			occupation TINYINT UNSIGNED,
 			number_of_visit bigint(10),
 			email varbinary(200),
 			enable_dm TINYINT UNSIGNED,
@@ -34,8 +34,9 @@ function InitTable()
 			remarks varbinary(500),
 			PRIMARY KEY(id)
 		)
-SQL;
+SQL
 		);
+
 	dbDelta(<<<SQL
 		CREATE TABLE Staff (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -52,8 +53,6 @@ register_activation_hook (__FILE__, 'InitTable');
 require_once('ui/itabledata.php');
 require_once('business/entity/customer.php');
 require_once('business/facade/customer.php');
-require_once('ui/customerTable.php');
-require_once('ui/customerdetail.php');
-add_shortcode('CreaterCustomerTable', 'ui\CreaterCustomerTable');
-add_shortcode('CreateCustomerDetailForm', 'ui\CreateCustomerDetailForm');
+require_once('ui/customer/controller.php');
+add_shortcode('CreaterCustomerTable', 'ui\customer\CreateCustomerPage');
 ?>
