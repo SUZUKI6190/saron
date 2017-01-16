@@ -22,5 +22,9 @@ class Customer{
 	public $reservation_route;
 	public $remarks;
 
+	public static function GetPassword()
+	{
+		return "password";
+	}
 }
 ?>

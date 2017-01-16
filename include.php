@@ -47,7 +47,7 @@ SQL
 		);	
 }
 
-//プラグイン有効かしたとき実行
+//プラグイン有効化時にテーブルを作成
 register_activation_hook (__FILE__, 'InitTable');
 
 //必要な情報の受け渡しが出来るようquery_varsを追加
@@ -81,6 +81,8 @@ function inno_front_controller() {
 	$rule = get_query_var( 'action' );
     switch ( $rule ) {
         case 'customer':
+			require_once(dirname(__FILE__).'/business/facade/customer.php');		
+			require_once(dirname(__FILE__).'/business/entity/customer.php');
 			include dirname(__FILE__) . '/ui/customer/controller.php';
 			exit;
 			break;
@@ -91,7 +93,6 @@ function inno_front_controller() {
 			break;
 	}
 }
-
 
 add_shortcode('CreaterCustomerTable', 'ui\customer\CreateCustomerPage');
 ?>
