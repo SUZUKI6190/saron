@@ -50,9 +50,48 @@ SQL
 //プラグイン有効かしたとき実行
 register_activation_hook (__FILE__, 'InitTable');
 
-require_once('ui/itabledata.php');
-require_once('business/entity/customer.php');
-require_once('business/facade/customer.php');
-require_once('ui/customer/controller.php');
+//必要な情報の受け渡しが出来るようquery_varsを追加
+add_action( 'query_vars', 'inno_add_query_vars' );
+
+//プラグイン側から固定ページを作成したので、特定のURLでアクセスできるように設定を追加
+add_action( 'template_redirect', 'inno_front_controller' );
+
+//プラグインを有効化した場合にURLルールを追加
+register_activation_hook( __FILE__, 'inno_add_rule' );
+
+/*
+* rewrite_ruleの追加
+*/
+function inno_add_rule() {
+	add_rewrite_rule( '^manage/([^/]+)/?', 'index.php?action=$matches[1]', 'top' );
+	flush_rewrite_rules();
+}
+/*
+* $actionパラメータを受け取る準備
+*/
+function inno_add_query_vars( $vars ) {
+	$vars[] = 'action';
+	return $vars;
+}
+
+/*
+* パラメータによりファイルを切り替える
+*/
+function inno_front_controller() {
+	$rule = get_query_var( 'action' );
+    switch ( $rule ) {
+        case 'customer':
+			include dirname(__FILE__) . '/ui/customer/controller.php';
+			exit;
+			break;
+
+		case 'login':
+			include dirname(__FILE__) . '/templates/login.php';
+			exit;
+			break;
+	}
+}
+
+
 add_shortcode('CreaterCustomerTable', 'ui\customer\CreateCustomerPage');
 ?>

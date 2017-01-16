@@ -2,6 +2,7 @@
 namespace ui\customer;
 use ui;
 use \business\entity\Customer;
+require_once(dirname(__FILE__).'/../itabledata.php');
 class CustomerTableData implements ui\ITableData
 {
 	private $_customerData;
