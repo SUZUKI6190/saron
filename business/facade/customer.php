@@ -6,7 +6,6 @@ function GetCustomerAll()
 	$test1 = new Customer();
 	$test1->name_kana_last = "aaa";
 	$test2 = new Customer();
-	SaveCustomer($test1);
 	return [$test1,$test2];
 }
 
@@ -56,7 +55,7 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->remarks', $passWord)
   )
 SQL;
-	echo $strSql;
+
 	dbDelta($strSql);
 }
 

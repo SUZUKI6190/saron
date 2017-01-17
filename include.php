@@ -63,14 +63,17 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
-	add_rewrite_rule( '^manage/([^/]+)/?', 'index.php?action=$matches[1]', 'top' );
+	add_rewrite_rule( '^manage/customer/view', 'index.php?mode=view&action=customer', 'top');
+	add_rewrite_rule( '^manage/customer/detail/([^/]+)/?', 'index.php?mode=detail&action=customer&edit=$matches[1]', 'top' );
 	flush_rewrite_rules();
 }
 /*
 * $actionパラメータを受け取る準備
 */
 function inno_add_query_vars( $vars ) {
+	$vars[] = 'edit';
 	$vars[] = 'action';
+	$vars[] = 'mode';
 	return $vars;
 }
 
@@ -78,15 +81,17 @@ function inno_add_query_vars( $vars ) {
 * パラメータによりファイルを切り替える
 */
 function inno_front_controller() {
-	$rule = get_query_var( 'action' );
-    switch ( $rule ) {
+	$mode = get_query_var( 'mode' );
+	$act = get_query_var( 'action' );
+	$edit = get_query_var( 'edit' );
+    switch ( $act ) {
         case 'customer':
-			require_once(dirname(__FILE__).'/business/facade/customer.php');		
-			require_once(dirname(__FILE__).'/business/entity/customer.php');
-			include dirname(__FILE__) . '/ui/customer/controller.php';
+			require_once(dirname(__FILE__).'/business/facade/customer.php');
+			require_once(dirname(__FILE__).'/business/entity/customer.php');		
+			require_once(dirname(__FILE__) . '/ui/customer/controller.php');
+			ui\customer\CustomerController($edit);
 			exit;
 			break;
-
 		case 'login':
 			include dirname(__FILE__) . '/templates/login.php';
 			exit;

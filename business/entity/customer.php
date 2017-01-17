@@ -7,7 +7,7 @@ class Customer{
 	public $name_kanji_first = "test1";
 	public $name_kana_last = "test1";
 	public $name_kana_first = "test1";
-	public $sex;
+	public $sex = "";
 	public $old;
 	public $birthday;
 	public $last_visit_date;
@@ -25,6 +25,11 @@ class Customer{
 	public static function GetPassword()
 	{
 		return "password";
+	}
+	
+	public static function CreateEmptyObject()
+	{
+		return new Customer();
 	}
 }
 ?>
