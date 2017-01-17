@@ -1,15 +1,9 @@
 <?php
-namespace ui\customeser;
+namespace ui\customer;
 use ui;
 use business\entity;
-function CreateCustomerDetailForm()
+function CreateCustomerDetailForm(Customer $data)
 {
-	$customerData;
-	$id = $_GET["id"];
-	if($id = ""){
-		$customerData = new Customer();
-	}else{
-	}
 	?>
 		<div style="text-align:right;">
             <input type="button" value="お客様情報を新しく登録する" />
@@ -21,8 +15,8 @@ function CreateCustomerDetailForm()
                         氏名(漢字)：
                     </div>
                     <div>
-                        <input type="text" value="test" />
-                        <input type="text" />
+                        <input name="name_kanji_last" type="text" value=<?php $data->name_kanji_last ?> />
+                        <input name="name_kanji_first" type="text" value=<?php $data->name_kanji_first ?> />
                     </div>
                 </div>
                 <div class="line">
@@ -30,8 +24,8 @@ function CreateCustomerDetailForm()
                         氏名(カナ)：
                     </div>
                     <div>
-                        <input type="text" />
-                        <input type="text" />
+                        <input name="name_kana_first" type="text" value=<?php $data->name_kana_last ?> />
+                        <input name="name_kana_last" type="text" value=<?php $data->name_kana_first ?> />
                     </div>
                 </div>
                 <div class="line">
