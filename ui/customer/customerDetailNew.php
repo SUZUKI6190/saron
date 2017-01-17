@@ -1,6 +1,7 @@
 <?php
 namespace ui\customer;
-use business\entity;
+use business\entity\Customer;
+use business\facade;
 require_once("customerdetail.php");
 class CustomerDetailNew extends CustomerDetail
 {
@@ -16,6 +17,11 @@ class CustomerDetailNew extends CustomerDetail
 	public function CreateCustomerData()
 	{
 		return  \business\entity\Customer::CreateEmptyObject();
+	}
+	
+	public function SaveInner(Customer $data)
+	{
+		InsertCustomer($data);
 	}
 }
 ?>

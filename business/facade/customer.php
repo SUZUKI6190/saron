@@ -9,7 +9,7 @@ function GetCustomerAll()
 	return [$test1,$test2];
 }
 
-function SaveCustomer(Customer $data)
+function InsertCustomer(Customer $data)
 {
 	global $wpdb;
 	$passWord = "'".Customer::GetPassword()."'";

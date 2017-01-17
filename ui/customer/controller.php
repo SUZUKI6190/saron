@@ -18,17 +18,19 @@ function ViewDetail()
 function CustomerController($detail)
 {
 	$detailView;
-	echo $detail;
 	if($detail == 'new')
 	{
 		$detailView = new CustomerDetailNew();
-	}elseif($detail == 'edit')
-	{
+	}elseif($detail == 'edit'){
 		$detailView = new CustomerDetailNew();
 	}
 	
-	$detailView->View();
-	
+	if($detailView->IsSavePost())
+	{
+		$detailView->Save();
+	}else{
+		$detailView->View();
+	}
 }
 
 ?>

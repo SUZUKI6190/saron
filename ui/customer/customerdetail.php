@@ -1,7 +1,6 @@
 <?php
 namespace ui\customer;
-use ui;
-use business\entity;
+use business\entity\Customer;
 
 abstract class CustomerDetail
 {
@@ -11,8 +10,24 @@ abstract class CustomerDetail
 		$this->CreateHeader();
 		$this->CreateForm($data);
 	}
+
+	public function Save()
+	{
+		$data = new Customer();
+		$data->name_kanji_last = _POST["name_kanji_last"];
+		$this->SaveInner($data);
+	}
+
+	protected static $SavePostKey = 'save';
+	
+	public function IsSavePost()
+	{
+		return $_Post[$SavePostKey];
+	}
+	
 	protected abstract function CreateHeader();
 	public abstract function CreateCustomerData();
+	protected abstract function SaveInner(Customer $data);
 	protected function CreateOprionValue($text, $value, $selectedValue)
 	{	
 		if($value == $selectedValue){
@@ -22,7 +37,8 @@ abstract class CustomerDetail
 		}
 		echo "\n";
 	}
-	protected function CreateForm(\business\entity\Customer $data)
+	
+	protected function CreateForm(Customer $data)
 	{
 		?>
 			<div class="detail">
@@ -80,7 +96,7 @@ abstract class CustomerDetail
 							年齢：
 						</div>
 						<div>
-							<input name='old' type="text" value=<?php echo $data->old; ?>/>
+							<input name='old' type="text" value=<?php echo $data->old; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -88,7 +104,7 @@ abstract class CustomerDetail
 							誕生日：
 						</div>
 						<div>
-							<input name='birthday' type="text" value=<?php echo $data->birthday; ?>/>
+							<input name='birthday' type="date" value=<?php echo $data->birthday; ?> />
 						</div>
 					</div>
 				</div>
@@ -106,7 +122,7 @@ abstract class CustomerDetail
 							職業：
 						</div>
 						<div>
-							<input name='occupation' type="text" value=<?php echo $data->occupation; ?>/>
+							<input name='occupation' type="text" value=<?php echo $data->occupation; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -114,7 +130,7 @@ abstract class CustomerDetail
 							電話番号：
 						</div>
 						<div>
-							<input name='phone_number' type="text" value=<?php echo $data->phone_number; ?>/>
+							<input name='phone_number' type="text" value=<?php echo $data->phone_number; ?> />
 						</div>
 					</div>
 
@@ -123,7 +139,7 @@ abstract class CustomerDetail
 							来店回数：
 						</div>
 						<div>
-							<input name='number_of_visit' type="text" value=<?php echo $data->number_of_visit; ?>/>
+							<input name='number_of_visit' type="text" value=<?php echo $data->number_of_visit; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -131,7 +147,7 @@ abstract class CustomerDetail
 							スタッフ：
 						</div>
 						<div>
-							<input name='staff' type="text" value=<?php echo $data->tant_id; ?>/>
+							<input name='staff' type="text" value=<?php echo $data->tant_id; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -139,7 +155,7 @@ abstract class CustomerDetail
 							最終来店日：
 						</div>
 						<div>
-							<input name='last_visit_date' type="date" value=<?php echo $data->last_visit_date; ?>/>
+							<input name='last_visit_date' type="date" value=<?php echo $data->last_visit_date; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -147,7 +163,7 @@ abstract class CustomerDetail
 							次回来店予約日：
 						</div>
 						<div>
-							<input name='next_visit_reservation_date' type="date" value=<?php echo $data->next_visit_reservation_date; ?>/>
+							<input name='next_visit_reservation_date' type="date" value=<?php echo $data->next_visit_reservation_date; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -155,7 +171,7 @@ abstract class CustomerDetail
 							予約経路：
 						</div>
 						<div>
-							<input name='reservation_route' type="date" value=<?php echo $data->reservation_route; ?>/>
+							<input name='reservation_route' type="date" value=<?php echo $data->reservation_route; ?> />
 						</div>
 					</div>
 					<div class="line">
@@ -163,7 +179,7 @@ abstract class CustomerDetail
 							DM不可：
 						</div>
 						<div>
-							<input type="checkbox" name="enable_dm" value="1" checked="checked">
+							<input type="checkbox" name="enable_dm" value="1" checked="checked" />
 						</div>
 					</div>
 					<div class="line">
@@ -171,7 +187,7 @@ abstract class CustomerDetail
 							備考：
 						</div>
 						<div>
-							<input name='remarks' type="text" value=<?php echo $data->remarks; ?>/>
+							<input name='remarks' type="text" value=<?php echo $data->remarks; ?> />
 						</div>
 					</div>
 				</div>
