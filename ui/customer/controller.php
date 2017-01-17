@@ -4,8 +4,8 @@ require_once('customerTable.php');
 require_once('customerdetail.php');
 try
 {
-CreateCustomerTable();
-CreateCustomerDetailForm(null);
+	CreateCustomerTable();
+	CreateCustomerDetailForm(null);
 }catch (Exception $e) {
 	echo $e->getMessage();
 }
