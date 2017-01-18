@@ -4,6 +4,13 @@ require_once('customerTable.php');
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
 
+class ControlContext
+{
+	public $Page;
+	public $RegistMode;
+	public $Id;
+}
+
 function ViewTable()
 {
 	CreateCustomerTable();
@@ -15,18 +22,19 @@ function ViewDetail()
 	CreateCustomerDetailForm($data);
 }
 
-function CustomerController($detail)
+function CustomerController(ControlContext $context)
 {
 	$detailView;
-	if($detail == 'new')
+	if($context->RegistMode == 'new')
 	{
 		$detailView = new CustomerDetailNew();
-	}elseif($detail == 'edit'){
+	}elseif($context->RegistMode == 'edit'){
 		$detailView = new CustomerDetailNew();
 	}
 	
 	if($detailView->IsSavePost())
 	{
+		echo "save";
 		$detailView->Save();
 	}else{
 		$detailView->View();

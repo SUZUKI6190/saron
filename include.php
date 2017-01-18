@@ -64,7 +64,8 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 */
 function inno_add_rule() {
 	add_rewrite_rule( '^manage/customer/view', 'index.php?mode=view&action=customer', 'top');
-	add_rewrite_rule( '^manage/customer/detail/([^/]+)/?', 'index.php?mode=detail&action=customer&edit=$matches[1]', 'top' );
+	add_rewrite_rule( '^manage/customer/detail/new', 'index.php?mode=detail&action=customer&edit=new', 'top' );
+	add_rewrite_rule( '^manage/customer/detail/edit/([^/]+)/?', 'index.php?mode=detail&action=customer&edit=edit&id=$matches[1]', 'top' );
 	flush_rewrite_rules();
 }
 /*
@@ -74,6 +75,7 @@ function inno_add_query_vars( $vars ) {
 	$vars[] = 'edit';
 	$vars[] = 'action';
 	$vars[] = 'mode';
+	$vars[] = 'id';
 	return $vars;
 }
 
@@ -84,12 +86,17 @@ function inno_front_controller() {
 	$mode = get_query_var( 'mode' );
 	$act = get_query_var( 'action' );
 	$edit = get_query_var( 'edit' );
+	$id = get_query_var( 'id' );
     switch ( $act ) {
         case 'customer':
 			require_once(dirname(__FILE__).'/business/facade/customer.php');
 			require_once(dirname(__FILE__).'/business/entity/customer.php');		
 			require_once(dirname(__FILE__) . '/ui/customer/controller.php');
-			ui\customer\CustomerController($edit);
+			$context = new ui\customer\ControlContext();
+			$context->Page = $mode;
+			$context->RegistMode = $edit;
+			$context->Id = $id;
+			ui\customer\CustomerController($context);
 			exit;
 			break;
 		case 'login':

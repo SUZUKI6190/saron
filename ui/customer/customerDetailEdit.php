@@ -9,14 +9,14 @@ class CustomerDetailNew extends CustomerDetail
 	{
 		?>
 			<div style="text-align:right;">
-				<input type='submit' name='save' value='お客様情報を新しく登録する' />
+				<input type='submit' name='save' value='お客様情報を更新する' />
 			</div>
 		<?php
 	}
 	
 	public function CreateCustomerData()
 	{
-		return  \business\entity\Customer::CreateEmptyObject();
+		return \business\entity\Customer::CreateEmptyObject();
 	}
 	
 	public function SaveInner(Customer $data)
