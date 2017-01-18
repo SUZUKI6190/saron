@@ -3,6 +3,7 @@ namespace ui\customer;
 require_once('customerTable.php');
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
+require_once('customerDetailEdit.php');
 
 class ControlContext
 {
@@ -25,16 +26,13 @@ function ViewDetail()
 function CustomerController(ControlContext $context)
 {
 	$detailView;
-	if($context->RegistMode == 'new')
-	{
+	if($context->RegistMode == 'new'){
 		$detailView = new CustomerDetailNew();
 	}elseif($context->RegistMode == 'edit'){
-		$detailView = new CustomerDetailNew();
+		$detailView = new CustomerDetailEdit($context->Id);
 	}
-	
-	if($detailView->IsSavePost())
-	{
-		echo "save";
+
+	if($detailView->IsSavePost()){
 		$detailView->Save();
 	}else{
 		$detailView->View();

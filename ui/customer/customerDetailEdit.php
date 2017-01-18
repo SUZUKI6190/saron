@@ -3,8 +3,13 @@ namespace ui\customer;
 use business\entity\Customer;
 use business\facade;
 require_once("customerdetail.php");
-class CustomerDetailNew extends CustomerDetail
+class CustomerDetailEdit extends CustomerDetail
 {
+	private $_id;
+	public function __construct($id)
+	{
+		$this->_id = $id;
+	}
 	public function CreateHeader()
 	{
 		?>
@@ -16,12 +21,13 @@ class CustomerDetailNew extends CustomerDetail
 	
 	public function CreateCustomerData()
 	{
-		return \business\entity\Customer::CreateEmptyObject();
+		$data = \business\facade\SelectCustomerById(33);
+		return $data;
 	}
 	
 	public function SaveInner(Customer $data)
 	{
-		\business\facade\InsertCustomer($data);
+		\business\facade\UpdateCustomer($data);
 	}
 }
 ?>

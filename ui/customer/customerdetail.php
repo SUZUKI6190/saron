@@ -31,7 +31,7 @@ abstract class CustomerDetail
 		$data->address = $_POST["address"];
 		$data->occupation = $_POST["occupation"];
 		$data->number_of_visit = $_POST["number_of_visit"];
-		$data-> staff= $_POST["staff"];
+		$data->staff= $_POST["staff"];
 		$data->email = $_POST["email"];
 		$data->enable_dm = $_POST["enable_dm"];
 		$data->next_visit_reservation_date = $this->GetDatePostData("next_visit_reservation_date");
