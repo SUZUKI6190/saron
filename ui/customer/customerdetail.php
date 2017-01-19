@@ -23,7 +23,7 @@ abstract class CustomerDetail
 		$data->name_kanji_first = $_POST["name_kanji_first"];
 		$data->name_kana_last = $_POST["name_kana_last"];
 		$data->name_kana_first = $_POST["name_kana_first"];
-		$data->sex  = $_POST["sex "];
+		$data->sex  = $_POST["se "];
 		$data->old = $_POST["old"];
 		$data->birthday = $this->GetDatePostData("birthday");
 		$data->last_visit_date = $this->GetDatePostData("last_visit_date");
@@ -37,6 +37,8 @@ abstract class CustomerDetail
 		$data->next_visit_reservation_date = $this->GetDatePostData("next_visit_reservation_date");
 		$data->eservation_route = $_POST["eservation_route"];
 		$data->remarks = $_POST["remarks"];
+		
+		print_r($data);
 		$this->SaveInner($data);
 	}
 
@@ -153,15 +155,6 @@ abstract class CustomerDetail
 							<input name='occupation' type="text" value='<?php echo $data->occupation; ?>' />
 						</div>
 					</div>
-					<div class="line">
-						<div class="name">
-							電話番号：
-						</div>
-						<div>
-							<input name='phone_number' type="text" value='<?php echo $data->phone_number; ?>' />
-						</div>
-					</div>
-
 					<div class="line">
 						<div class="name">
 							来店回数：

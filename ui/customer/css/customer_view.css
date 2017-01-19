@@ -1,0 +1,61 @@
+.wrap
+{
+        width:1024px;
+}
+table.view
+{
+    border:1px solid #ccc;
+    border-collapse: collapse;
+width:100%;
+    table-layout:fixed;
+}
+
+table.view td
+{
+    text-align:center;
+    border:1px solid #ccc;
+}
+
+tr.header td
+{
+    background-color:#f6ebcd;
+    border:1px solid #ccc;
+    text-align:center;
+    font-weight:600;
+}
+
+.sort
+{
+    color:blue;
+}
+
+div.detail
+{
+            
+    flex-direction:row;
+    background-color:#ccccff;
+    flex-direction:row;
+    display:flex;
+}
+
+div.detail .area
+    {
+        width:50%;
+    }
+    div.detail .line
+    {
+        flex-direction:row;
+        display:flex;
+    }
+    div.detail .line input
+    {
+        width:auto;
+        text-align:left;
+    }
+    div.detail .area .name
+    {
+        vertical-align:middle;
+        width:30%;
+        height:100%;
+        font-weight:600;
+    }

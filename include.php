@@ -23,7 +23,7 @@ function InitTable()
 			old TINYINT UNSIGNED,
 			birthday varbinary(20),
 			last_visit_date varbinary(20),
-			phone_number bigint(11),
+			phone_number varbinary(30),
 			address varbinary(500),
 			occupation TINYINT UNSIGNED,
 			number_of_visit bigint(10),

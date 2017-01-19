@@ -34,7 +34,6 @@ class Customer{
 	
 	public static function CreateObjectFromWpdb($db)
 	{
-		print_r($db->id);
 		$result = Customer::CreateEmptyObject();
 		$result->id = $db->id;
 		$result->tanto_id = $db->tanto_id;
@@ -50,7 +49,7 @@ class Customer{
 		$result->address = $db->address;
 		$result->occupation = $db->occupation;
 		$result->number_of_visit =  $db->number_of_visit;
-		$result->email = $db->email ;
+		$result->email = $db->email;
 		$result->enable_dm = $db->enable_dm;
 		$result->next_visit_reservation_date = $db->next_visit_reservation_date;
 		$result->eservation_route = $db->eservation_route;

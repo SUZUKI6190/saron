@@ -14,6 +14,13 @@ class ControlContext
 
 function ViewTable()
 {
+	$newUrl = get_bloginfo('url')."/manage/customer/detail/new/"
+	?>
+	<form method = 'post' action='<?php echo $newUrl; ?>'>
+		<input type='submit' value="新規登録" /></br>
+	<form>
+	<?php
+
 	CreateCustomerTable();
 }
 
@@ -25,6 +32,11 @@ function ViewDetail()
 
 function CustomerController(ControlContext $context)
 {
+	if($context->Page == "view")
+	{
+		ViewTable();
+		exit;
+	}
 	$detailView;
 	if($context->RegistMode == 'new'){
 		$detailView = new CustomerDetailNew();

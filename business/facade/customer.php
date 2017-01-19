@@ -1,30 +1,44 @@
 <?php
 namespace business\facade;
 use business\entity\Customer;
-function GetCustomerAll()
-{
-	$test1 = new Customer();
-	$test1->name_kana_last = "aaa";
-	$test2 = new Customer();
-	return [$test1,$test2];
-}
 
 function CreateDecQuery($value)
 {
 	$passWord = "'".Customer::GetPassword()."'";
 	
 	return "unhex(AES_DECRYPT('$value', $password))";
-}
+}	
 
-function GetCustomer()
+function GetCustomers()
 {
+	$password = Customer::GetPassword();
 	$strSql = <<<SQL
-		select * 
+		select
+		`id`,
+		`tanto_id`,
+		convert(AES_DECRYPT(name_kanji_last, '$password') using utf8) as name_kanji_last,
+		convert(AES_DECRYPT(name_kanji_first, '$password') using utf8) as name_kanji_first,
+		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
+		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
+		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
+		convert(AES_DECRYPT(old, '$password') using utf8) as old,
+		convert(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
+		convert(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
+		convert(AES_DECRYPT(phone_number, '$password') using utf8) as phone_number
 		from customer
 SQL;
 	global $wpdb;
-	$result = $wpdb->get_row($strSql);
-	return Customer::CreateObjectFromWpdb($result);
+	$result = $wpdb->get_results($strSql);
+	$ret = [];
+	foreach($result as $data)
+	{
+		$c = Customer::CreateObjectFromWpdb($data);
+		//print_r($c);
+		$ret[] = $c;
+	}
+	
+	return $ret;
+	//return array_map('call', $result);
 }
 
 function SelectCustomerById($id)
@@ -34,26 +48,27 @@ function SelectCustomerById($id)
 	SELECT 
 		`id`,
 		`tanto_id`,
-		UNHEX(AES_DECRYPT(name_kanji_last, '$password')) as name_kanji_last,
-		UNHEX(AES_DECRYPT(name_kanji_first, '$password')) as name_kanji_first,
-		UNHEX(AES_DECRYPT(name_kana_last, '$password')) as name_kana_last,
-		UNHEX(AES_DECRYPT(name_kana_first, '$password')) as name_kana_first,
-		UNHEX(AES_DECRYPT(sex, '$password')) as sex,
+		convert(AES_DECRYPT(name_kanji_last, '$password') using utf8) as name_kanji_last,
+		convert(AES_DECRYPT(name_kanji_first, '$password') using utf8) as name_kanji_first,
+		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
+		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
+		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
 		UNHEX(AES_DECRYPT(old, '$password')) as old,
-		UNHEX(AES_DECRYPT(birthday, '$password')) as birthday,
-		UNHEX(AES_DECRYPT(last_visit_date, '$password')) as last_visit_date,
-		UNHEX(AES_DECRYPT(phone_number, '$password')) as phone_number,
-		UNHEX(AES_DECRYPT(address, '$password')) as address,
-		UNHEX(AES_DECRYPT(occupation, '$password')) as occupation,
+		UNHEX(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
+		UNHEX(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
+		convert(AES_DECRYPT(phone_number, '$password') using utf8) as phone_number,
+		convert(AES_DECRYPT(address, '$password')) as address,
+		convert(AES_DECRYPT(occupation, '$password')) as occupation,
 		`number_of_visit`,
-		UNHEX(AES_DECRYPT(email, '$password')) as email,
+		convert(AES_DECRYPT(email, '$password')) as email,
 		`enable_dm`,
-		UNHEX(AES_DECRYPT(next_visit_reservation_date, '$password')) as next_visit_reservation_date,
-		UNHEX(AES_DECRYPT(reservation_route, '$password')) as reservation_route,
-		UNHEX(AES_DECRYPT(remarks, '$password')) as remarks
+		convert(AES_DECRYPT(next_visit_reservation_date, '$password')) as next_visit_reservation_date,
+		convert(AES_DECRYPT(reservation_route, '$password')) as reservation_route,
+		convert(AES_DECRYPT(remarks, '$password')) as remarks
 	FROM `customer`
 	where id = '$id'
 SQL;
+
 	global $wpdb;
 	$result = $wpdb->get_row($strSql);
 	return Customer::CreateObjectFromWpdb($result);
@@ -115,17 +130,17 @@ INSERT INTO `customer` (
 	)
   VALUES (
 	'$data->tanto_id',
-	'$data->name_kanji_last',
-	'$data->name_kanji_first',
-	'$data->name_kana_last',
-	'$data->name_kana_first',
-	'$data->sex',
-	'$data->old',
+	AES_ENCRYPT('$data->name_kanji_last', $passWord),
+	AES_ENCRYPT('$data->name_kanji_first', $passWord),
+	AES_ENCRYPT('$data->name_kana_last', $passWord),
+	AES_ENCRYPT('$data->name_kana_first', $passWord),
+	AES_ENCRYPT('$data->sex', $passWord),
+	AES_ENCRYPT('$data->old', $passWord),
 	AES_ENCRYPT('$data->birthday', $passWord),
 	AES_ENCRYPT('$data->last_visit_date', $passWord),
 	AES_ENCRYPT('$data->phone_number', $passWord),
 	AES_ENCRYPT('$data->address', $passWord),
-	'$data->occupation',
+	AES_ENCRYPT('$data->occupation', $passWord),
 	'$data->number_of_visit',
 	AES_ENCRYPT('$data->email', $passWord),
 	'$data->enable_dm',
@@ -134,7 +149,7 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->remarks', $passWord)
   )
 SQL;
-
+	echo $strSql;
 	dbDelta($strSql);
 }
 
