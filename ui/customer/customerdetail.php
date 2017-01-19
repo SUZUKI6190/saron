@@ -23,7 +23,7 @@ abstract class CustomerDetail
 		$data->name_kanji_first = $_POST["name_kanji_first"];
 		$data->name_kana_last = $_POST["name_kana_last"];
 		$data->name_kana_first = $_POST["name_kana_first"];
-		$data->sex  = $_POST["se "];
+		$data->sex  = $_POST["sex"];
 		$data->old = $_POST["old"];
 		$data->birthday = $this->GetDatePostData("birthday");
 		$data->last_visit_date = $this->GetDatePostData("last_visit_date");
