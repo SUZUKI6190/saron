@@ -21,7 +21,7 @@ class CustomerDetailEdit extends CustomerDetail
 	
 	public function CreateCustomerData()
 	{
-		$data = \business\facade\SelectCustomerById(33);
+		$data = \business\facade\SelectCustomerById($this->_id);
 		return $data;
 	}
 	

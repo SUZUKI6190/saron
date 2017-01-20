@@ -106,5 +106,17 @@ function inno_front_controller() {
 	}
 }
 
+add_action('wp_enqueue_scripts', regist_css);
+function regist_css()
+{
+	wp_register_style(
+		'customer_view.css', 
+		 plugins_url("/css/customer_view.css", __FILE__)
+		 
+	);
+	
+	wp_enqueue_style('customer_view.css');
+}
+
 add_shortcode('CreaterCustomerTable', 'ui\customer\CreateCustomerPage');
 ?>
