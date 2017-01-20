@@ -53,9 +53,6 @@ register_activation_hook (__FILE__, 'InitTable');
 //必要な情報の受け渡しが出来るようquery_varsを追加
 add_action( 'query_vars', 'inno_add_query_vars' );
 
-//プラグイン側から固定ページを作成したので、特定のURLでアクセスできるように設定を追加
-add_action( 'template_redirect', 'inno_front_controller' );
-
 //プラグインを有効化した場合にURLルールを追加
 register_activation_hook( __FILE__, 'inno_add_rule' );
 
@@ -63,9 +60,9 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
-	add_rewrite_rule( '^manage/customer/view', 'index.php?mode=view&action=customer', 'top');
-	add_rewrite_rule( '^manage/customer/detail/new', 'index.php?mode=detail&action=customer&edit=new', 'top' );
-	add_rewrite_rule( '^manage/customer/detail/edit/([^/]+)/?', 'index.php?mode=detail&action=customer&edit=edit&id=$matches[1]', 'top' );
+	add_rewrite_rule( '([^/]+)/customer/view', 'index.php?pagename=$matches[1]&mode=view&action=customer', 'top');
+	add_rewrite_rule( '([^/]+)/customer/detail/new', 'index.php?pagename=$matches[1]&mode=detail&action=customer&edit=new', 'top' );
+	add_rewrite_rule( '([^/]+)/customer/detail/edit/([^/]+)', 'index.php?pagename=$matches[1]&mode=detail&action=customer&edit=edit&id=$matches[2]', 'top' );
 	flush_rewrite_rules();
 }
 /*
@@ -79,33 +76,6 @@ function inno_add_query_vars( $vars ) {
 	return $vars;
 }
 
-/*
-* パラメータによりファイルを切り替える
-*/
-function inno_front_controller() {
-	$mode = get_query_var( 'mode' );
-	$act = get_query_var( 'action' );
-	$edit = get_query_var( 'edit' );
-	$id = get_query_var( 'id' );
-    switch ( $act ) {
-        case 'customer':
-			require_once(dirname(__FILE__).'/business/facade/customer.php');
-			require_once(dirname(__FILE__).'/business/entity/customer.php');		
-			require_once(dirname(__FILE__) . '/ui/customer/controller.php');
-			$context = new ui\customer\ControlContext();
-			$context->Page = $mode;
-			$context->RegistMode = $edit;
-			$context->Id = $id;
-			ui\customer\CustomerController($context);
-			exit;
-			break;
-		case 'login':
-			include dirname(__FILE__) . '/templates/login.php';
-			exit;
-			break;
-	}
-}
-
 add_action('wp_enqueue_scripts', regist_css);
 function regist_css()
 {
@@ -117,6 +87,8 @@ function regist_css()
 	
 	wp_enqueue_style('customer_view.css');
 }
-
-add_shortcode('CreaterCustomerTable', 'ui\customer\CreateCustomerPage');
+require_once(dirname(__FILE__).'/business/facade/customer.php');
+require_once(dirname(__FILE__).'/business/entity/customer.php');		
+require_once(dirname(__FILE__) . '/ui/controller.php');
+add_shortcode('CreaterCustomerTable', 'ui\YoyakuManageConroll');
 ?>

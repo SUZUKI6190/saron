@@ -10,18 +10,24 @@ class ControlContext
 	public $Page;
 	public $RegistMode;
 	public $Id;
+	public $TemplatePageName;
+	
+	public function GetCustomerUrl()
+	{
+		return get_bloginfo('url')."/".$this->TemplatePageName."/customer";
+	}
 }
 
-function ViewTable()
+function ViewTable(ControlContext $c)
 {
-	$newUrl = get_bloginfo('url')."/manage/customer/detail/new/"
+	$newUrl = $c->GetCustomerUrl()."/detail/new/";
 	?>
 	<form method = 'post' action='<?php echo $newUrl; ?>'>
 		<input type='submit' value="新規登録" /></br>
 	<form>
 	<?php
 
-	CreateCustomerTable();
+	CreateCustomerTable($c);
 }
 
 function ViewDetail()
@@ -32,9 +38,8 @@ function ViewDetail()
 
 function CustomerController(ControlContext $context)
 {
-	if($context->Page == "view")
-	{
-		ViewTable();
+	if($context->Page == "view"){
+		ViewTable($context);
 		exit;
 	}
 	$detailView;

@@ -53,18 +53,18 @@ function SelectCustomerById($id)
 		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
 		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
 		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
-		UNHEX(AES_DECRYPT(old, '$password')) as old,
-		UNHEX(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
-		UNHEX(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
+		convert(AES_DECRYPT(old, '$password') using utf8) as old,
+		convert(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
+		convert(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
 		convert(AES_DECRYPT(phone_number, '$password') using utf8) as phone_number,
-		convert(AES_DECRYPT(address, '$password')) as address,
-		convert(AES_DECRYPT(occupation, '$password')) as occupation,
+		convert(AES_DECRYPT(address, '$password')  using utf8) as address,
+		convert(AES_DECRYPT(occupation, '$password')  using utf8) as occupation,
 		`number_of_visit`,
-		convert(AES_DECRYPT(email, '$password')) as email,
+		convert(AES_DECRYPT(email, '$password')  using utf8) as email,
 		`enable_dm`,
-		convert(AES_DECRYPT(next_visit_reservation_date, '$password')) as next_visit_reservation_date,
-		convert(AES_DECRYPT(reservation_route, '$password')) as reservation_route,
-		convert(AES_DECRYPT(remarks, '$password')) as remarks
+		convert(AES_DECRYPT(next_visit_reservation_date, '$password')  using utf8) as next_visit_reservation_date,
+		convert(AES_DECRYPT(reservation_route, '$password')  using utf8) as reservation_route,
+		convert(AES_DECRYPT(remarks, '$password')  using utf8) as remarks
 	FROM `customer`
 	where id = '$id'
 SQL;

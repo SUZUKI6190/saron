@@ -6,10 +6,11 @@ require_once(dirname(__FILE__).'/../itabledata.php');
 class CustomerTableData implements ui\ITableData
 {
 	private $_customerData;
-
-	public function __construct(Customer $custmerData)
+	private $_controlContext;
+	public function __construct(Customer $custmerData, ControlContext $c)
 	{
 		$this->_customerData = $custmerData;
+		$this->_controlContext = $c;
 	}
 
 	public static function GetHeader()
@@ -47,18 +48,20 @@ class CustomerTableData implements ui\ITableData
 		yield $this->_customerData->birthday;
 		yield $this->_customerData->last_visit_date;
 		yield $this->_customerData->phone_number;
-		$detail_url = get_bloginfo('wpurl')."/manage/customer/detail/edit/".$this->_customerData->id;
-		yield "<a href='" . $detail_url . "' >詳細はこちら</a>";
+
+		$detail_url = $this->_controlContext->GetCustomerUrl()."/detail/edit/".$this->_customerData->id;
+		echo  $detail_url;
+		yield "<a href='$detail_url' >詳細はこちら</a>";
 	}
 }
 
-function CreateCustomerTable()
+function CreateCustomerTable(ControlContext $c)
 {
 	$tableGenerator = new ui\TableGenerator();
 	$data = [];
 	foreach(\business\facade\GetCustomers() as $customerData)
 	{
-		array_push($data, new CustomerTableData($customerData));
+		array_push($data, new CustomerTableData($customerData, $c));
 	}
 	
 	$tableGenerator->DataSource = $data;
