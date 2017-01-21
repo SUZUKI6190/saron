@@ -13,7 +13,7 @@ class Customer{
 	public $last_visit_date = "";
 	public $phone_number = "";
 	public $address = "";
-	public $occupation = "ss";
+	public $occupation = "";
 	public $number_of_visit = 0;
 	public $staff = "";
 	public $email = "";
@@ -52,7 +52,7 @@ class Customer{
 		$result->email = $db->email;
 		$result->enable_dm = $db->enable_dm;
 		$result->next_visit_reservation_date = $db->next_visit_reservation_date;
-		$result->eservation_route = $db->eservation_route;
+		$result->reservation_route = $db->reservation_route;
 		$result->remarks = $db->remarks;
 		return $result;
 	}

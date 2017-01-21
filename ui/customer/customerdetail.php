@@ -12,10 +12,14 @@ abstract class CustomerDetail
 
 	private function GetDatePostData($key)
 	{
-		echo date('Ymd',strtotime($_POST[$key]));
 		return date('Ymd',strtotime($_POST[$key]));
 	}
 	
+	private function ConvertInputDateFormat($strDate)
+	{
+		return date('Y-m-d',strtotime($strDate));
+	}
+
 	public function Save()
 	{
 		$data = new Customer();
@@ -35,18 +39,16 @@ abstract class CustomerDetail
 		$data->email = $_POST["email"];
 		$data->enable_dm = $_POST["enable_dm"];
 		$data->next_visit_reservation_date = $this->GetDatePostData("next_visit_reservation_date");
-		$data->eservation_route = $_POST["eservation_route"];
+		$data->reservation_route = $_POST["reservation_route"];
 		$data->remarks = $_POST["remarks"];
 		
-		print_r($data);
 		$this->SaveInner($data);
 	}
 
 	protected static $SavePostKey = 'name_kanji_last';
-	
+
 	public function IsSavePost()
 	{
-		//print_r($_POST);
 		$postdata = $_POST[CustomerDetail::$SavePostKey];
 		return  $postdata != "";
 	}
@@ -66,9 +68,12 @@ abstract class CustomerDetail
 	
 	protected function CreateForm(Customer $data)
 	{
+		
 		?>
+		
+	<form method="POST" action=".">
+		<div class="wrap">
 			<div class="detail">
-				<form method="POST" action=".">
 				<?php
 				$this->CreateHeader();
 				?>
@@ -87,8 +92,8 @@ abstract class CustomerDetail
 							氏名(カナ)：
 						</div>
 						<div>
-							<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_last; ?>' />
-							<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_first; ?>' />
+							<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_last; ?>' />
+							<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_first; ?>' />
 						</div>
 					</div>
 					<div class="line">
@@ -134,7 +139,7 @@ abstract class CustomerDetail
 							誕生日：
 						</div>
 						<div>
-							<input name='birthday' type="date" value='<?php echo $data->birthday; ?>' />
+							<input name='birthday' type="date" value='<?php echo $this->ConvertInputDateFormat($data->birthday); ?>' />
 						</div>
 					</div>
 				</div>
@@ -144,7 +149,7 @@ abstract class CustomerDetail
 							住所：
 						</div>
 						<div>
-							<input type="text" name='address' value='<?php echo $data->addres; ?>' />
+							<input type="text" name='address' value='<?php echo $data->address; ?>' />
 						</div>
 					</div>
 					<div class="line">
@@ -176,7 +181,7 @@ abstract class CustomerDetail
 							最終来店日：
 						</div>
 						<div>
-							<input name='last_visit_date' type="date" value='<?php echo $data->last_visit_date; ?>' />
+							<input name='last_visit_date' type="date" value='<?php echo $this->ConvertInputDateFormat($data->last_visit_date); ?>' />
 						</div>
 					</div>
 					<div class="line">
@@ -184,7 +189,7 @@ abstract class CustomerDetail
 							次回来店予約日：
 						</div>
 						<div>
-							<input name='next_visit_reservation_date' type="date" value='<?php echo $data->next_visit_reservation_date; ?>' />
+							<input name='next_visit_reservation_date' type="date" value='<?php echo $this->ConvertInputDateFormat($data->next_visit_reservation_date); ?>' />
 						</div>
 					</div>
 					<div class="line">
@@ -192,7 +197,7 @@ abstract class CustomerDetail
 							予約経路：
 						</div>
 						<div>
-							<input name='reservation_route' type="date" value='<?php echo $data->reservation_route; ?>' />
+							<input name='reservation_route' type="text" value='<?php echo $data->reservation_route; ?>' />
 						</div>
 					</div>
 					<div class="line">
@@ -200,8 +205,22 @@ abstract class CustomerDetail
 							DM不可：
 						</div>
 						<div>
-							<input type="checkbox" name="enable_dm" value='1' checked="checked" />
+							<?php
+							
+								if($data->enable_dm == 0)
+								{
+									?>
+								<input type="checkbox" name="enable_dm" value='0' />							
+									<?php
+								}else{
+									
+									?>
+								<input type="checkbox" name="enable_dm" value='1' checked="checked" />						
+									<?php
+								}
+						?>
 						</div>
+						
 					</div>
 					<div class="line">
 						<div class="name">
@@ -212,9 +231,9 @@ abstract class CustomerDetail
 						</div>
 					</div>
 				</div>
-				</form>
 			</div>
-
+		</div>
+		</form>
 		<?php
 	}
 }

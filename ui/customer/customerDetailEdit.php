@@ -27,6 +27,7 @@ class CustomerDetailEdit extends CustomerDetail
 	
 	public function SaveInner(Customer $data)
 	{
+		$data->id = $this->_id;
 		\business\facade\UpdateCustomer($data);
 	}
 }

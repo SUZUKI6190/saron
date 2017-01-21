@@ -69,6 +69,7 @@ function SelectCustomerById($id)
 	where id = '$id'
 SQL;
 
+echo $strSql;
 	global $wpdb;
 	$result = $wpdb->get_row($strSql);
 	return Customer::CreateObjectFromWpdb($result);
@@ -77,30 +78,32 @@ SQL;
 function UpdateCustomer(Customer $data)
 {
 	$passWord = "'".Customer::GetPassword()."'";
-	$strSsql = <<<SQL
+	$strSql = <<<SQL
 	update `customer` set
 		tanto_id = '$data->tanto_id',
-		name_kanji_last = '$data->name_kanji_last',
-		name_kanji_first = '$data->name_kanji_first',
-		name_kana_last = '$data->name_kana_last',
-		name_kana_first = '$data->name_kana_last',
-		sex = '$data->sex ',	
-		old = '$data->old',
-		birthday = '$data->birthday',
-		last_visit_date = '$data->last_visit_date',
-		phone_number = '$data->phone_number ',
-		address = '$data->address',
-		occupation = '$data->occupation',
+		name_kanji_last = AES_ENCRYPT('$data->name_kanji_last', $passWord),
+		name_kanji_first = AES_ENCRYPT('$data->name_kanji_first', $passWord),
+		name_kana_last = AES_ENCRYPT('$data->name_kana_last', $passWord),
+		name_kana_first = AES_ENCRYPT('$data->name_kana_first', $passWord),
+		sex = AES_ENCRYPT('$data->sex',	 $passWord),
+		old = AES_ENCRYPT('$data->old', $passWord),
+		birthday = AES_ENCRYPT('$data->birthday', $passWord),
+		last_visit_date = AES_ENCRYPT('$data->last_visit_date', $passWord),
+		phone_number = AES_ENCRYPT('$data->phone_number ', $passWord),
+		address = AES_ENCRYPT('$data->address', $passWord),
+		occupation = AES_ENCRYPT('$data->occupation', $passWord),
 		number_of_visit = '$data->number_of_visit',
-		email = '$data->email',
-		enable_dm = '$data->enable_dm ',
-		next_visit_reservation_date = '$data->next_visit_reservation_date',
-		reservation_route = '$data->reservation_route',
-		remarks = '$data->remarks'
-		where id = '$data->id',
+		email = AES_ENCRYPT('$data->email', $passWord),
+		enable_dm = '$data->enable_dm',
+		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord),
+		reservation_route = AES_ENCRYPT('$data->reservation_route', $passWord),
+		remarks = AES_ENCRYPT('$data->remarks', $passWord)
+	where id = '$data->id'
 SQL;
-
-	dbDelta($strSql);
+	
+	echo $strSql;
+	global $wpdb;
+	$wpdb->query($strSql);
 }
 
 function InsertCustomer(Customer $data)
@@ -149,7 +152,7 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->remarks', $passWord)
   )
 SQL;
-	echo $strSql;
+	
 	dbDelta($strSql);
 }
 

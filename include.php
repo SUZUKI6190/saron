@@ -8,43 +8,10 @@ Version: 1.0
 Author URI:
 */
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+require_once('business/facade/init.php');
 function InitTable()
 {
-	global $wpdb;
-	dbDelta(<<<SQL
-		CREATE TABLE Customer (
-			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			tanto_id bigint(20) UNSIGNED,
-			name_kanji_last varbinary(100),
-			name_kanji_first varbinary(100),
-			name_kana_last varbinary(100),
-			name_kana_first varbinary(100),
-			sex TINYINT UNSIGNED,	
-			old TINYINT UNSIGNED,
-			birthday varbinary(20),
-			last_visit_date varbinary(20),
-			phone_number varbinary(30),
-			address varbinary(500),
-			occupation TINYINT UNSIGNED,
-			number_of_visit bigint(10),
-			email varbinary(200),
-			enable_dm TINYINT UNSIGNED,
-			next_visit_reservation_date varbinary(200),
-			reservation_route varbinary(500),
-			remarks varbinary(500),
-			PRIMARY KEY(id)
-		)
-SQL
-		);
-
-	dbDelta(<<<SQL
-		CREATE TABLE Staff (
-			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			name varchar(100),
-			PRIMARY KEY(id)
-		)
-SQL
-		);	
+	business\facade\init_db();
 }
 
 //プラグイン有効化時にテーブルを作成
@@ -81,7 +48,9 @@ function regist_css()
 {
 	wp_register_style(
 		'customer_view.css', 
-		 plugins_url("/css/customer_view.css", __FILE__)
+		plugins_url("/css/customer_view.css", __FILE__),
+		array(),
+		"1.0"
 		 
 	);
 	
