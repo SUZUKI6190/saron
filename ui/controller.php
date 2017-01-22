@@ -1,6 +1,6 @@
 <?php
 namespace ui;
-require_once('/customer/controller.php');
+//require_once('/customer/controller.php');
 function YoyakuManageConroll()
 {
 	$templateName = get_query_var( 'pagename' );
@@ -10,7 +10,6 @@ function YoyakuManageConroll()
 	$id = get_query_var( 'id' );
 	switch ( $act ) {
 		case 'customer':
-			require_once('/customer/controller.php');
 			$context = new customer\ControlContext();
 			$context->Page = $mode;
 			$context->RegistMode = $edit;
