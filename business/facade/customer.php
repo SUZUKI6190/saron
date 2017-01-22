@@ -9,7 +9,7 @@ function CreateDecQuery($value)
 	return "unhex(AES_DECRYPT('$value', $password))";
 }	
 
-function GetCustomers()
+function GetCustomers( $strWhere)
 {
 	$password = Customer::GetPassword();
 	$strSql = <<<SQL
@@ -26,6 +26,7 @@ function GetCustomers()
 		convert(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
 		convert(AES_DECRYPT(phone_number, '$password') using utf8) as phone_number
 		from customer
+		$strWhere
 SQL;
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);

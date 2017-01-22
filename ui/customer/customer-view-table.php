@@ -55,11 +55,11 @@ class CustomerTableData implements ui\ITableData
 	}
 }
 
-function CreateCustomerTable(ControlContext $c)
+function create_customer_view(ControlContext $c, $strWhere)
 {
 	$tableGenerator = new ui\TableGenerator();
 	$data = [];
-	foreach(\business\facade\GetCustomers() as $customerData)
+	foreach(\business\facade\GetCustomers($strWhere) as $customerData)
 	{
 		array_push($data, new CustomerTableData($customerData, $c));
 	}
