@@ -69,7 +69,6 @@ function SelectCustomerById($id)
 	where id = '$id'
 SQL;
 
-echo $strSql;
 	global $wpdb;
 	$result = $wpdb->get_row($strSql);
 	return Customer::CreateObjectFromWpdb($result);
@@ -101,7 +100,6 @@ function UpdateCustomer(Customer $data)
 	where id = '$data->id'
 SQL;
 	
-	echo $strSql;
 	global $wpdb;
 	$wpdb->query($strSql);
 }

@@ -4,6 +4,7 @@ require_once('customerTable.php');
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
 require_once('customerDetailEdit.php');
+require_once('customerSearch.php');
 
 class ControlContext
 {
@@ -36,12 +37,23 @@ function ViewDetail()
 	CreateCustomerDetailForm($data);
 }
 
+function view_search_page()
+{
+	view_search();
+}
+
 function CustomerController(ControlContext $context)
 {
 	if($context->Page == "view"){
 		ViewTable($context);
 		exit;
+	}elseif($context->Page == "search"){
+		
+		view_search_page();
+		exit;
 	}
+
+	
 	$detailView;
 	if($context->RegistMode == 'new'){
 		$detailView = new CustomerDetailNew();

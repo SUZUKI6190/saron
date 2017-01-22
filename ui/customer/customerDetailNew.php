@@ -7,7 +7,6 @@ class CustomerDetailNew extends CustomerDetail
 {
 	public function CreateHeader()
 	{
-		wp_enqueue_style( 'myplugin-css', plugins_url( plugins_url()."/css/customer_view.css", __FILE__ ) ); 
 		?>
 			<link rel="stylesheet" type="text/css" href="<?php echo plugins_url()."/css/customer_view.css"; ?>">
 			<div style="text-align:right;">

@@ -37,11 +37,15 @@ abstract class CustomerDetail
 		$data->number_of_visit = $_POST["number_of_visit"];
 		$data->staff= $_POST["staff"];
 		$data->email = $_POST["email"];
-		$data->enable_dm = $_POST["enable_dm"];
+		if($_POST["enable_dm"] =="")
+		{
+			$data->enable_dm = 0;
+		}else{
+			$data->enable_dm = 1;
+		}
 		$data->next_visit_reservation_date = $this->GetDatePostData("next_visit_reservation_date");
 		$data->reservation_route = $_POST["reservation_route"];
 		$data->remarks = $_POST["remarks"];
-		
 		$this->SaveInner($data);
 	}
 
@@ -49,8 +53,12 @@ abstract class CustomerDetail
 
 	public function IsSavePost()
 	{
-		$postdata = $_POST[CustomerDetail::$SavePostKey];
-		return  $postdata != "";
+		if(empty($_POST[CustomerDetail::$SavePostKey]))
+		{
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	protected abstract function CreateHeader();
@@ -59,16 +67,15 @@ abstract class CustomerDetail
 	protected function CreateOprionValue($text, $value, $selectedValue)
 	{	
 		if($value == $selectedValue){
-			echo "<option value=''$value' selected>$text</option>";
+			echo "<option value='$value' selected>$text</option>";
 		}else{
-			echo "<option value=''$value'>$text</option>";
+			echo "<option value='$value'>$text</option>";
 		}
 		echo "\n";
 	}
 	
 	protected function CreateForm(Customer $data)
 	{
-		
 		?>
 		
 	<form method="POST" action=".">
@@ -119,9 +126,9 @@ abstract class CustomerDetail
 						<div>
 							<select name="sex" id="sex">
 								<?php
-									$this->CreateOprionValue("", "", $this->sex);
-									$this->CreateOprionValue("女性", "F", $this->sex);
-									$this->CreateOprionValue("男性", "M", $this->sex);
+									$this->CreateOprionValue("", "None", $data->sex);
+									$this->CreateOprionValue("女性", "F", $data->sex);
+									$this->CreateOprionValue("男性", "M", $data->sex);
 								?>
 							</select>
 					   </div>
@@ -173,7 +180,7 @@ abstract class CustomerDetail
 							スタッフ：
 						</div>
 						<div>
-							<input name='staff' type="text" value='<?php echo $data->tant_id; ?>' />
+							<input name='staff' type="text" value='<?php echo $data->tanto_id; ?>' />
 						</div>
 					</div>
 					<div class="line">
@@ -210,12 +217,12 @@ abstract class CustomerDetail
 								if($data->enable_dm == 0)
 								{
 									?>
-								<input type="checkbox" name="enable_dm" value='0' />							
+								<input type="checkbox" name="enable_dm" value='enable_dm' />							
 									<?php
 								}else{
 									
 									?>
-								<input type="checkbox" name="enable_dm" value='1' checked="checked" />						
+								<input type="checkbox" name="enable_dm" value='enable_dm' checked="checked" />						
 									<?php
 								}
 						?>

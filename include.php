@@ -28,6 +28,7 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 */
 function inno_add_rule() {
 	add_rewrite_rule( '([^/]+)/customer/view', 'index.php?pagename=$matches[1]&mode=view&action=customer', 'top');
+	add_rewrite_rule( '([^/]+)/customer/search', 'index.php?pagename=$matches[1]&mode=search&action=customer', 'top');
 	add_rewrite_rule( '([^/]+)/customer/detail/new', 'index.php?pagename=$matches[1]&mode=detail&action=customer&edit=new', 'top' );
 	add_rewrite_rule( '([^/]+)/customer/detail/edit/([^/]+)', 'index.php?pagename=$matches[1]&mode=detail&action=customer&edit=edit&id=$matches[2]', 'top' );
 	flush_rewrite_rules();
