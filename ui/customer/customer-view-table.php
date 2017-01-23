@@ -43,7 +43,13 @@ class CustomerTableData implements ui\ITableData
 	{
 		yield $this->_customerData->name_kanji_last.$this->_customerData->name_kanji_first;
 		yield $this->_customerData->name_kana_last.$this->_customerData->name_kana_first;
-		yield $this->_customerData->sex;
+		$sex_name = "";
+		if($this->_customerData->sex == 'M'){
+			$sex_name = "男性";
+		}elseif($this->_customerData->sex == 'F'){
+			$sex_name = "女性";
+		}
+		yield $sex_name;
 		yield $this->_customerData->old;
 		yield $this->_customerData->birthday;
 		yield $this->_customerData->last_visit_date;

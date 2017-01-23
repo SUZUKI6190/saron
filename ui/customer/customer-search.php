@@ -10,9 +10,11 @@ function view_search(ControlContext $c)
 		CustomerSearchItemFactory::create_phonenum(),
 		CustomerSearchItemFactory::create_email(),
 		CustomerSearchItemFactory::create_old(),
-				CustomerSearchItemFactory::create_sex()
-
+		CustomerSearchItemFactory::create_sex(),
+		CustomerSearchItemFactory::create_birthday(),
+		CustomerSearchItemFactory::create_occupation()
 	];
+
 	$repeater = new SearchitemRepeater($item, $c);
 	
 	if($c->SearchResult == "result"){

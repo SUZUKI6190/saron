@@ -11,7 +11,7 @@ class KanjiNameItem extends SearchItem
 	public function view()
 	{
 		?>
-			<span>名前(漢字):</span>
+			<span class='search_item_name'>名前(漢字):</span>
 			<input type = 'text' name='name_kanji_last' />
 			<input type = 'text' name='name_kanji_first' />
 		<?php
@@ -52,7 +52,7 @@ class KanaNameItem extends SearchItem
 	public function view()
 	{
 		?>
-			<span>名前(カナ):</span>
+			<span class='search_item_name'>名前(カナ):</span>
 			<input type = 'text' name='name_kana_last' />
 			<input type = 'text' name='name_kana_first' />
 		<?php
@@ -93,7 +93,7 @@ class PhoneNumItem extends SearchItem
 	public function view()
 	{
 		?>
-			<span>電話番号:</span>
+			<span class='search_item_name'>電話番号:</span>
 			<input type = 'text' name='<?php echo PhoneNumItem::$post_key; ?>' />
 		<?php
 	}
@@ -106,14 +106,9 @@ class PhoneNumItem extends SearchItem
 	public function get_criteria_query()
 	{
 		$ret = [];
-
-		if(!$this->is_empty_post(PhoneNumItem::$post_key))
-		{
-			$query= $this->create_decparam(PhoneNumItem::$post_key);
-			$param = $this->get_post(PhoneNumItem::$post_key);
-			$ret[] = "$query = '$param'";
-		}
-		
+		$query= $this->create_decparam(PhoneNumItem::$post_key);
+		$param = $this->get_post(PhoneNumItem::$post_key);
+		$ret[] = "$query = '$param'";		
 		return $ret;
 	}
 }
@@ -126,7 +121,7 @@ class EmailItem extends SearchItem
 	public function view()
 	{
 		?>
-			<span>email:</span>
+			<span class='search_item_name'>email:</span>
 			<input type = 'text' name='<?php echo EmailItem::$post_key; ?>' />
 		<?php
 	}
@@ -158,7 +153,7 @@ class OldItem extends SearchItem
 	public function view()
 	{
 		?>
-			<span>年代:</span>
+			<span class='search_item_name'>年代:</span>
 			<select name='<?php echo OldItem::$post_key; ?>' id="ageId" class="">
 				<option value="none"></option>
 				<option value="10">10代</option>
@@ -201,7 +196,7 @@ class SexItem extends SearchItem
 	public function view()
 	{
 		?>
-			<span>性別:</span>
+			<span class='search_item_name'>性別:</span>
 			<select name="sex" id="sex">
 				<option value='None'></option>
 				<option value='M'>男性</option>
@@ -226,5 +221,69 @@ class SexItem extends SearchItem
 		return $ret;
 	}
 }
+
+class BirthdayItem extends SearchItem
+{
+	private static $post_from_day = 'from_day';
+	private static $post_to_day = 'to_day';
+
+	public function view()
+	{
+		?>
+		<span class='search_item_name'>誕生日：</span>
+		<input type = 'date' name='<?php echo BirthdayItem::$post_from_day; ?>' />
+		<span>から</span>
+		<input type = 'date' name='<?php echo BirthdayItem::$post_to_day; ?>' />
+		<?php
+	}
+
+	public function exist_criteria()
+	{
+		return !$this->is_empty_post(BirthdayItem::$post_from_day) and !$this->is_empty_post(BirthdayItem::$post_to_day);
+	}
+
+	public function get_criteria_query()
+	{
+		$ret = [];
+
+		$birthday_col = $this->create_decparam('birthday');
+		$param_from= $this->get_post(BirthdayItem::$post_from_day);
+		$ret[] = "$birthday_col  >= '$param_from'";
+		
+		$param_to= $this->get_post(BirthdayItem::$post_from_day);
+		$ret[] = "$birthday_col  >= '$param_to'";
+		
+		return $ret;
+	}
+}
+
+
+class OccupationItem extends SearchItem
+{
+	private static $post_occupation = 'occupation';
+
+	public function view()
+	{
+		?>
+		<span class='search_item_name'>職業：</span>
+		<input type = 'text' name='<?php echo OccupationItem::$post_occupation; ?>' />
+		<?php
+	}
+
+	public function exist_criteria()
+	{
+		return !$this->is_empty_post(OccupationItem::$post_occupation);
+	}
+
+	public function get_criteria_query()
+	{
+		$ret = [];
+		$query= $this->create_decparam(OccupationItem::$post_occupation);
+		$param = $this->get_post(OccupationItem::$post_occupation);
+		$ret[] = "$query = '$param'";		
+		return $ret;
+	}
+}
+
 
 ?>

@@ -36,6 +36,16 @@ class CustomerSearchItemFactory
 	{
 		return new SexItem();
 	}
+	
+	public static function create_birthday()
+	{
+		return new BirthdayItem();
+	}
+	
+	public static function create_occupation()
+	{
+		return new OccupationItem();
+	}
 }
 
 ?>
