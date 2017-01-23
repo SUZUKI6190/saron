@@ -16,10 +16,15 @@ abstract class SearchItem
 		return empty($_POST[$key]);
 	}
 	
-	protected function create_aesparam($param)
+	protected function create_decparam($param)
 	{
 		$password = \business\entity\Customer::GetPassword();
-		return "CONVERT(AES_ENCRYPT($param, '$password') USING utf8)";
+		return "CONVERT(AES_DECRYPT($param, '$password') USING utf8)";
+	}
+	protected function create_decparam_unsigned($param)
+	{
+		$password = \business\entity\Customer::GetPassword();
+		return "cast(CONVERT(AES_DECRYPT($param, '$password') USING utf8) as SIGNED)";
 	}
 }
 
