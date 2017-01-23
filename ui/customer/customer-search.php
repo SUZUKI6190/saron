@@ -4,9 +4,11 @@ require_once('customer-search-factory.php');
 require_once('customer-search-item.php');
 function view_search(ControlContext $c)
 {
-	$item = [];
-	$item[] = CustomerSearchItemFactory::create_kanjiname();
-	$item[] = CustomerSearchItemFactory::create_kananame();
+	$item = [
+		CustomerSearchItemFactory::create_kanjiname(),
+		CustomerSearchItemFactory::create_kananame(),
+		CustomerSearchItemFactory::create_phonenum()
+	];
 	$repeater = new SearchitemRepeater($item, $c);
 	
 	if($c->SearchResult == "result"){

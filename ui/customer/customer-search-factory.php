@@ -82,6 +82,40 @@ class KanaNameItem extends SearchItem
 	}
 }
 
+
+class PhoneNumItem extends SearchItem
+{
+	private static $post_key = 'phone_number';
+	
+	public function view()
+	{
+		?>
+			<span>電話番号:</span>
+			<input type = 'text' name='<?php echo PhoneNumItem::$post_key; ?>' />
+		<?php
+	}
+
+	public function exist_criteria()
+	{
+		return !$this->is_empty_post(PhoneNumItem::$post_key);
+	}
+
+	public function get_criteria_query()
+	{
+		$ret = [];
+
+		if(!$this->is_empty_post(PhoneNumItem::$post_key))
+		{
+			$query= $this->create_aesparam(PhoneNumItem::$post_key);
+			$param = $this->get_post(PhoneNumItem::$post_key);
+			$ret[] = "$query = '$param'";
+		}
+		
+		return $ret;
+	}
+}
+
+
 class CustomerSearchItemFactory
 {
 	public static function create_kanjiname()
@@ -92,6 +126,11 @@ class CustomerSearchItemFactory
 	public static function create_kananame()
 	{
 			return new KanaNameItem();
+	}
+	
+	public static function create_phonenum()
+	{
+		return new PhoneNumItem();
 	}
 }
 

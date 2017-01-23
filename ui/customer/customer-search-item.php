@@ -19,7 +19,7 @@ abstract class SearchItem
 	protected function create_aesparam($param)
 	{
 		$password = \business\entity\Customer::GetPassword();
-		return "AES_ENCRYPT('$param', '$password')";
+		return "CONVERT(AES_ENCRYPT($param, '$password') USING utf8)";
 	}
 }
 
