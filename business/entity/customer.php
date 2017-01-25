@@ -47,6 +47,7 @@ class Customer{
 		$result->last_visit_date = $db->last_visit_date;
 		$result->phone_number= $db->phone_number;
 		//一覧表示時はここまでしかselectしていない
+		if(!property_exists( $db, 'address'))
 		{
 			return $result;
 		}
