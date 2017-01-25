@@ -8,6 +8,7 @@ class CustomerDetailEdit extends CustomerDetail
 	private $_id;
 	public function __construct($id)
 	{
+		parent::__construct();
 		$this->_id = $id;
 	}
 	public function CreateHeader()

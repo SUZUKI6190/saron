@@ -46,6 +46,11 @@ class CustomerSearchItemFactory
 	{
 		return new OccupationItem();
 	}
+	
+	public static function create_enable_dm()
+	{
+		return new EnabeleDMItem();
+	}
 }
 
 ?>

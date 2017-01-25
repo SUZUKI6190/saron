@@ -51,12 +51,12 @@ class CustomerTableData implements ui\ITableData
 		}
 		yield $sex_name;
 		yield $this->_customerData->old;
-		yield $this->_customerData->birthday;
-		yield $this->_customerData->last_visit_date;
+		yield date('Y/m/d',strtotime($this->_customerData->birthday));
+		yield date('Y/m/d',strtotime($this->_customerData->last_visit_date));
 		yield $this->_customerData->phone_number;
 
 		$detail_url = $this->_controlContext->GetCustomerUrl()."/detail/edit/".$this->_customerData->id;
-		echo  $detail_url;
+
 		yield "<a href='$detail_url' >詳細はこちら</a>";
 	}
 }

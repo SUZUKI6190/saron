@@ -5,8 +5,7 @@
 div.detail
 {
             
-    flex-direction:row;
-    background-color:#ccccff;
+
     flex-direction:row;
     display:flex;
 }

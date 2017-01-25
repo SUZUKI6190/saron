@@ -46,6 +46,10 @@ class Customer{
 		$result->birthday = $db->birthday;
 		$result->last_visit_date = $db->last_visit_date;
 		$result->phone_number= $db->phone_number;
+		//一覧表示時はここまでしかselectしていない
+		{
+			return $result;
+		}
 		$result->address = $db->address;
 		$result->occupation = $db->occupation;
 		$result->number_of_visit =  $db->number_of_visit;

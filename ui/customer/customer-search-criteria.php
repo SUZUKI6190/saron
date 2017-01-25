@@ -286,4 +286,37 @@ class OccupationItem extends SearchItem
 }
 
 
+class EnabeleDMItem extends SearchItem
+{
+	private static $post_enable_dm = 'enable_dm';
+
+	public function view()
+	{
+		?>
+		<span class='search_item_name'>DM可：</span>
+			<input type = 'radio' name='<?php echo EnabeleDMItem::$post_enable_dm; ?>' value="" checked/>指定なし
+			<input type = 'radio' name='<?php echo EnabeleDMItem::$post_enable_dm; ?>' value="enable"/>可
+			<input type = 'radio' name='<?php echo EnabeleDMItem::$post_enable_dm; ?>' value="disable"/>不可
+		<?php
+	}
+
+	public function exist_criteria()
+	{
+		return $this->get_post(EnabeleDMItem::$post_enable_dm) != "";
+	}
+
+	public function get_criteria_query()
+	{
+		$ret = [];
+		$param = $this->get_post(EnabeleDMItem::$post_enable_dm);
+		if($param == "enable"){
+			$ret[] = "enable_dm = '0'";	
+		}else{
+			$ret[] = "$enable_dm = '1'";	
+		}
+		return $ret;
+	}
+}
+
+
 ?>

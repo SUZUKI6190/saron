@@ -1,9 +1,15 @@
 <?php
 namespace ui\customer;
 use business\entity\Customer;
-
+require_once("/../staff.php");
 abstract class CustomerDetail
 {
+	private $_view_staff;
+	
+	public function __construct()
+	{
+		$this->_view_staff = new \ui\ViewStaff("staff");
+	}
 	public function View()
 	{
 		$data = $this->CreateCustomerData();
@@ -35,7 +41,7 @@ abstract class CustomerDetail
 		$data->address = $_POST["address"];
 		$data->occupation = $_POST["occupation"];
 		$data->number_of_visit = $_POST["number_of_visit"];
-		$data->staff= $_POST["staff"];
+		$data->staff= $this->_view_staff->get_value();
 		$data->email = $_POST["email"];
 		if($_POST["enable_dm"] =="")
 		{
@@ -180,7 +186,9 @@ abstract class CustomerDetail
 							スタッフ：
 						</div>
 						<div>
-							<input name='staff' type="text" value='<?php echo $data->tanto_id; ?>' />
+							<?php
+							$this->_view_staff->view_staff_select();
+							?>
 						</div>
 					</div>
 					<div class="line">
