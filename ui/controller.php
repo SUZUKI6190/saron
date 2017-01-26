@@ -4,17 +4,16 @@ require_once('/customer/controller.php');
 function YoyakuManageConroll()
 {
 	$templateName = get_query_var( 'pagename' );
-	$act = get_query_var( 'target' );
+	$act = get_query_var( 'category' );
 
 	switch ( $act ) {
 		case 'customer':
 			$context = new customer\ControlContext();
-			$context->Page = get_query_var( 'mode' );;
+			$context->Page = get_query_var( 'sub_category' );;
 			$context->RegistMode = get_query_var( 'edit' );
 			$context->Id = get_query_var( 'id' );
 			$context->TemplatePageName = $templateName;
 			$context->SearchResult = get_query_var( 'result' );
-			//print_r($context);
 			customer\CustomerController($context);
 			
 			exit;

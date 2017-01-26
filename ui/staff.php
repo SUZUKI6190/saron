@@ -19,7 +19,6 @@ class ViewStaff
 		$staff_list = \business\facade\get_staff_all();
 		
 		echo "<select name='$this->_name' class = '$this->_class_name'>";
-		
 			
 			foreach($staff_list as $staff_data)
 			{
@@ -35,7 +34,7 @@ class ViewStaff
 		echo "</select>";
 	
 	}
-	
+
 	public function get_value()
 	{
 		$value = $_POST[$this->_name];

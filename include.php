@@ -27,10 +27,10 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
-	add_rewrite_rule( '([^/]+)/customer/search?$', 'index.php?pagename=$matches[1]&mode=search&target=customer', 'top');
-	add_rewrite_rule( '([^/]+)/customer/search/result?$', 'index.php?pagename=$matches[1]&mode=search&result=result&target=customer', 'top');
-	add_rewrite_rule( '([^/]+)/customer/detail/new?$', 'index.php?pagename=$matches[1]&mode=detail&target=customer&edit=new', 'top' );
-	add_rewrite_rule( '([^/]+)/customer/detail/edit/([^/]+)', 'index.php?pagename=$matches[1]&mode=detail&target=customer&edit=edit&id=$matches[2]', 'top' );
+	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]', 'top');
+	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=$matches[2]&sub_category=$matches[3]', 'top');
+	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&edit=new', 'top' );
+	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/edit/([^/]+)', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&edit=edit&id=$matches[4]', 'top' );
 	flush_rewrite_rules();
 }
 /*
@@ -38,8 +38,8 @@ function inno_add_rule() {
 */
 function inno_add_query_vars( $vars ) {
 	$vars[] = 'edit';
-	$vars[] = 'target';
-	$vars[] = 'mode';
+	$vars[] = 'category';
+	$vars[] = 'sub_category';
 	$vars[] = 'id';
 	$vars[] = 'result';
 	return $vars;

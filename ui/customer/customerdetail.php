@@ -41,7 +41,7 @@ abstract class CustomerDetail
 		$data->address = $_POST["address"];
 		$data->occupation = $_POST["occupation"];
 		$data->number_of_visit = $_POST["number_of_visit"];
-		$data->staff= $this->_view_staff->get_value();
+		$data->tanto_id = $this->_view_staff->get_value();
 		$data->email = $_POST["email"];
 		if($_POST["enable_dm"] =="")
 		{
@@ -53,14 +53,21 @@ abstract class CustomerDetail
 		$data->reservation_route = $_POST["reservation_route"];
 		$data->remarks = $_POST["remarks"];
 		$this->SaveInner($data);
+
+		?>
+
+		<div class="regist_finish">
+			<span>登録が完了しました。</span>
+		</div>
+
+		<?php
 	}
 
 	protected static $SavePostKey = 'name_kanji_last';
 
 	public function IsSavePost()
 	{
-		if(empty($_POST[CustomerDetail::$SavePostKey]))
-		{
+		if(empty($_POST[CustomerDetail::$SavePostKey])){
 			return false;
 		}else{
 			return true;
@@ -86,10 +93,11 @@ abstract class CustomerDetail
 		
 	<form method="POST" action=".">
 		<div class="wrap">
+			<?php
+			$this->CreateHeader();
+			?>
 			<div class="detail">
-				<?php
-				$this->CreateHeader();
-				?>
+
 				<div class="area">
 					<div class="line">
 						<div class="name">
@@ -224,14 +232,13 @@ abstract class CustomerDetail
 							
 								if($data->enable_dm == 0)
 								{
-									?>
+								?>
 								<input type="checkbox" name="enable_dm" value='enable_dm' />							
-									<?php
+								<?php
 								}else{
-									
-									?>
+								?>
 								<input type="checkbox" name="enable_dm" value='enable_dm' checked="checked" />						
-									<?php
+								<?php
 								}
 						?>
 						</div>

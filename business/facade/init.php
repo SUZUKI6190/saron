@@ -34,8 +34,8 @@ SQL
 	dbDelta(<<<SQL
 		CREATE TABLE Staff (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			name_last varchar(100),
-			name_first varchar(100),
+			name_last varchar(100) character set utf8,
+			name_first varchar(100) character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL

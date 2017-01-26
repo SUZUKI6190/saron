@@ -31,7 +31,7 @@ function CustomerController(ControlContext $context)
 		view_search($context);
 		exit;
 	}
-	
+
 	$detailView;
 	if($context->RegistMode == 'new'){
 		$detailView = new CustomerDetailNew();
