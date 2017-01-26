@@ -1,17 +1,17 @@
 <?php
 	namespace ui\frame;
-	require_once("hedear-item.php");
+	require_once("header-item.php");
 
 	abstract class ManageFrame
 	{
 		protected $_item_list;
 
-		public function __construct($hedear_item)
-		{
+		public function __construct($header_item)
+		{			
 			$this->_item_list = $header_item;
 		}
 
-		public void view()
+		public function view()
 		{
 			?>
 			<div class = "main_header">
@@ -27,6 +27,8 @@
 				
 			</div>
 			<?php
+			
+			$this->view_main();
 		}
 		
 		abstract protected function view_main();
