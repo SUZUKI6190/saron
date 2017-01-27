@@ -1,25 +1,43 @@
 <?php
 namespace ui\frame;
+require_once("manage-frame-context.php");
 
 abstract class HeaderItem
 {
 	public $sub_header_list;
-	abstract function get_name();
-	abstract function get_url();
+	public $name;
+	public $url;
 
-	public function is_selected()
-	{
-	}
+	abstract public function is_selected();
 	
 	public function view()
 	{
 		?>
-		<a href = '<?php echo $this->get_url(); ?>' class='header_button' >
+		<a href = '<?php echo $this->url; ?>' class='header_button' >
 			<span>
-				<?php echo $this->get_name(); ?> 
+				<?php echo $this->name; ?> 
 			</span>
 		</a>
 		<?php
+	}
+}
+
+class MainHeaderItem extends HeaderItem
+{
+	public function is_selected()
+	{
+		$mc = ManageFrameContext::get_instance();
+		return $mc->current_main_category->name == $this->get_name();
+	}
+	
+}
+
+class SubHeaderItem extends HeaderItem
+{
+	public function is_selected()
+	{
+		$mc = ManageFrameContext::get_instance();
+		return $mc->current_sub_category->get_name() == $this->get_name();
 	}
 }
 

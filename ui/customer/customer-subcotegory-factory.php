@@ -31,6 +31,27 @@ class Search extends CastomerSubBase
 	}
 }
 
+function create_customer_category(ControlContext $context)
+{
+	
+	if($context->Page == "search"){
+		return new Search($context);
+	}
+
+	$detailView;
+	if($context->RegistMode == 'new'){
+		$detailView = new CustomerDetailNew();
+	}elseif($context->RegistMode == 'edit'){
+		$detailView = new CustomerDetailEdit($context->Id);
+	}
+
+	if($detailView->IsSavePost()){
+		$detailView->Save();
+	}else{
+		$detailView->View();
+	}
+}
+
 
 
 ?>

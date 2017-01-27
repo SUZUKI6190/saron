@@ -2,15 +2,27 @@
 namespace ui;
 
 require_once("frame/manage-frame.php");
+require_once("frame/manage-frame-context.php");
+
+function create_main_header($name)
+{
+	switch($name)
+	{
+		case("customer"):
+			break;
+	}
+}
 
 class YoyakuManageFrame extends \ui\frame\ManageFrame
 {
 	public function view_main()
 	{
 		$templateName = get_query_var( 'pagename' );
-		$act = get_query_var( 'category' );
+		$category= get_query_var( 'category' );
 		
-		switch ( $act ) {
+		$mc = \ui\frame\ManageFrameContext::get_instance();
+		$mc->template_page_name = $templateName;
+		switch ( $category ) {
 			case 'customer':
 				$context = new customer\ControlContext();
 				$context->Page = get_query_var( 'sub_category' );;

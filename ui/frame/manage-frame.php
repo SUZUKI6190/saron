@@ -4,26 +4,24 @@
 
 	abstract class ManageFrame
 	{
-		protected $_item_list;
-
-		public function __construct($header_item)
-		{			
-			$this->_item_list = $header_item;
-		}
 
 		public function view()
 		{
+			$mc = ManageFrameContext::get_instance();
 			?>
-			<div class = "main_header">
+			<div class = "main_header_wrap">
 			<?php
-			foreach($this->_item_list as $header_item)
+			foreach($mc->main_category_list as $main_category)
 			{
-				$header_item->view();
+				$hb = new MainHeaderItem();
+				$hb->name = $main_category->text;
+				$hb->url = $mc->get_url()."/".$main_category->name;
+				$hb->view();
 			}
 			
 			?>
 			</div>
-			<div class = "sub_header">
+			<div class = "sub_header_wrap">
 				
 			</div>
 			<?php

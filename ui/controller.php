@@ -3,46 +3,24 @@ namespace ui;
 require_once('/customer/controller.php');
 require_once('/frame/manage-frame-context.php');
 require_once('yoyaku-manage-frame.php');
-
-function get_sub_cotegory_list($main_category_name)
+use \ui\frame;
+function create_main_category()
 {
-	switch($main_category_name)
-	{
-		case 'customer':
-			return ['search'];
-			break;
-		default:
-			break;
-	}
+	
+	return [
+		new \ui\frame\MainCategory("customer", "お客様管理"),
+		new \ui\frame\MainCategory("yoyaku", "予約管理")
+	];
 }
 
 function YoyakuManageConroll()
 {
 	$frame = new YoyakuManageFrame([]);
-	
+	$mc = \ui\frame\ManageFrameContext::get_instance();
+	$mc->main_category_list = create_main_category();
+	$mc->template_page_name = get_query_var( 'pagename' );
 	$frame->view();
-	/*
-	$templateName = get_query_var( 'pagename' );
-	$act = get_query_var( 'category' );
-	
-	switch ( $act ) {
-		case 'customer':
-			$context = new customer\ControlContext();
-			$context->Page = get_query_var( 'sub_category' );;
-			$context->RegistMode = get_query_var( 'edit' );
-			$context->Id = get_query_var( 'id' );
-			$context->TemplatePageName = $templateName;
-			$context->SearchResult = get_query_var( 'result' );
-			customer\CustomerController($context);
-			
-			exit;
-			break;
-		case 'login':
-			include dirname(__FILE__) . '/templates/login.php';
-			exit;
-			break;
-	}
-	*/
+
 }
 
 ?>

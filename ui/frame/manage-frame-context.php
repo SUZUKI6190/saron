@@ -3,8 +3,13 @@ namespace ui\frame;
 
 class MainCategory
 {
-	private $_sub_category_list;
 	public $name;
+	public $text;
+	public function __construct($name, $text)
+	{
+		$this->name = $name;
+		$this->text = $text;
+	}
 }
 
 abstract class SubCategory
@@ -13,27 +18,30 @@ abstract class SubCategory
 	abstract public function get_name();
 	abstract public function get_title_name();
 }
-
-class CurrentState
-{
-	public static $main_category;
-	public static $sub_category;
-}
 	
-class ManagFrameContext
+class ManageFrameContext
 {
 	private static $_current;
+	
+	public static $current_main_category;
+	public static $current_sub_category;
 
-	public $main_category_list;
+	public $main_category_list = [];
+	public $template_page_name;
 
+	public function get_url()
+	{
+		return get_bloginfo('url')."/".$this->template_page_name;
+	}
+	
 	public static function get_instance()
 	{
-		if(is_null(PageContext::$_current))
+		if(is_null(self::$_current))
 		{
-			PageContext::$_current = new ManagFrameContext();
+			self::$_current = new ManageFrameContext();
 		}
 		
-		return PageContext::$_current;
+		return self::$_current;
 	}
 }
 
