@@ -1,14 +1,21 @@
 <?php
 namespace ui\customer;
 use business\entity\Customer;
+use ui\util;
 require_once("/../staff.php");
+require_once("/../util/control-util.php");
 abstract class CustomerDetail
 {
 	private $_view_staff;
-	
+	private $_birth;
+	private $_last_visit_date;
+	private $_next_visit_reservation_date;
 	public function __construct()
 	{
 		$this->_view_staff = new \ui\ViewStaff("staff");
+		$this->_birth = new \ui\util\view_date_input("birth");
+		$this->_last_visit_date = new \ui\util\view_date_input("last_visit_date");
+		$this->_next_visit_reservation_date= new \ui\util\view_date_input("next_visit_reservation_date");
 	}
 	public function View()
 	{
@@ -35,8 +42,8 @@ abstract class CustomerDetail
 		$data->name_kana_first = $_POST["name_kana_first"];
 		$data->sex  = $_POST["sex"];
 		$data->old = $_POST["old"];
-		$data->birthday = $this->GetDatePostData("birthday");
-		$data->last_visit_date = $this->GetDatePostData("last_visit_date");
+		$data->birthday = $this->_birth->get_selected_value();
+		$data->last_visit_date = $this->_last_visit_date->get_selected_value();
 		$data->phone_number = $_POST["phone_number"];
 		$data->address = $_POST["address"];
 		$data->occupation = $_POST["occupation"];
@@ -160,7 +167,9 @@ abstract class CustomerDetail
 							誕生日：
 						</div>
 						<div>
-							<input name='birthday' type="date" value='<?php echo $this->ConvertInputDateFormat($data->birthday); ?>' />
+							<?php
+								$this->_birth->view($data->birthday);
+							?>
 						</div>
 					</div>
 				</div>
@@ -204,7 +213,9 @@ abstract class CustomerDetail
 							最終来店日：
 						</div>
 						<div>
-							<input name='last_visit_date' type="date" value='<?php echo $this->ConvertInputDateFormat($data->last_visit_date); ?>' />
+							<?php
+							$this->_last_visit_date->view($data->last_visit_date);
+							?>
 						</div>
 					</div>
 					<div class="line">
@@ -212,7 +223,9 @@ abstract class CustomerDetail
 							次回来店予約日：
 						</div>
 						<div>
-							<input name='next_visit_reservation_date' type="date" value='<?php echo $this->ConvertInputDateFormat($data->next_visit_reservation_date); ?>' />
+							<?php
+							$this->_next_visit_reservation_date->view($data->next_visit_reservation_date);
+							?>
 						</div>
 					</div>
 					<div class="line">
