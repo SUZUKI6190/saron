@@ -2,6 +2,7 @@
 namespace ui\customer;
 
 require_once('customer-search-item.php');
+require_once("/../util/control-util.php");
 
 class KanjiNameItem extends SearchItem
 {
@@ -222,41 +223,102 @@ class SexItem extends SearchItem
 	}
 }
 
-class BirthdayItem extends SearchItem
+abstract class DayFromTo extends SearchItem
 {
-	private static $post_from_day = 'from_day';
-	private static $post_to_day = 'to_day';
-
+	protected $_from_day;
+	protected $_to_day;
+	protected $_text;
+	public function __construct($name, $text)
+	{
+		$this->_text = $text;
+		$this->_from_day = new \ui\util\view_date_input($name."_from");
+		$this->_to_day = new \ui\util\view_date_input($name."_to");
+	}
 	public function view()
 	{
 		?>
-		<span class='search_item_name'>誕生日：</span>
-		<input type = 'date' name='<?php echo BirthdayItem::$post_from_day; ?>' />
+		<span class='search_item_name'><?php echo $this->_text; ?>：</span>
+		<?php echo $this->_from_day->view(); ?>
 		<span>から</span>
-		<input type = 'date' name='<?php echo BirthdayItem::$post_to_day; ?>' />
+		<?php echo $this->_to_day->view(); ?>
 		<?php
 	}
 
 	public function exist_criteria()
 	{
-		return !$this->is_empty_post(BirthdayItem::$post_from_day) and !$this->is_empty_post(BirthdayItem::$post_to_day);
+		return !$this->_from_day->is_empty() and !$this->_to_day->is_empty();
 	}
 
+}
+
+class BirthdayItem extends DayFromTo
+{
+	public function __construct()
+	{
+		 parent::__construct("birth", "誕生日");
+
+	}
+	
 	public function get_criteria_query()
 	{
 		$ret = [];
 
 		$birthday_col = $this->create_decparam('birthday');
-		$param_from= $this->get_post(BirthdayItem::$post_from_day);
+		$param_from= $this->_from_day->get_selected_value();
 		$ret[] = "$birthday_col  >= '$param_from'";
 		
-		$param_to= $this->get_post(BirthdayItem::$post_from_day);
-		$ret[] = "$birthday_col  >= '$param_to'";
+		$param_to= $this->_to_day->get_selected_value();
+		$ret[] = "$birthday_col  <= '$param_to'";
 		
 		return $ret;
 	}
 }
 
+class LastVisitItem extends DayFromTo
+{
+	public function __construct()
+	{
+		 parent::__construct("last_visit_date", "最終来店日");
+
+	}
+	
+	public function get_criteria_query()
+	{
+		$ret = [];
+
+		$birthday_col = $this->create_decparam('last_visit_date');
+		$param_from= $this->_from_day->get_selected_value();
+		$ret[] = "$birthday_col  >= '$param_from'";
+		
+		$param_to= $this->_to_day->get_selected_value();
+		$ret[] = "$birthday_col  <= '$param_to'";
+		
+		return $ret;
+	}
+}
+
+class NextVisitItem extends DayFromTo
+{
+	public function __construct()
+	{
+		 parent::__construct("next_visit_reservation_date", "次回来店予定日");
+
+	}
+	
+	public function get_criteria_query()
+	{
+		$ret = [];
+
+		$birthday_col = $this->create_decparam('next_visit_reservation_date');
+		$param_from= $this->_from_day->get_selected_value();
+		$ret[] = "$birthday_col  >= '$param_from'";
+		
+		$param_to= $this->_to_day->get_selected_value();
+		$ret[] = "$birthday_col  <= '$param_to'";
+		
+		return $ret;
+	}
+}
 
 class OccupationItem extends SearchItem
 {

@@ -51,6 +51,15 @@ class CustomerSearchItemFactory
 	{
 		return new EnabeleDMItem();
 	}
+	
+	public static function create_last_visit_item()
+	{
+		return new LastVisitItem();
+	}
+	public static function create_next_visit_reservation_item()
+	{
+		return new NextVisitItem();
+	}
 }
 
 ?>

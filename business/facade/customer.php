@@ -28,7 +28,7 @@ function GetCustomers( $strWhere)
 		from customer
 		$strWhere
 SQL;
-	echo $strSql;
+
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
 	$ret = [];

@@ -11,9 +11,13 @@ class view_date_input
 		$this->_name = $name;
 	}
 	
-	public function view($value)
+	public function view($value = "")
 	{
-		$converted = $this->convert_inputDateFormat($value);
+		if($value == ""){
+			$converted = "";
+		}else{
+			$converted = $this->convert_inputDateFormat($value);
+		}
 		?>
 		<input name='<?php echo $this->_name; ?>' type="date" value='<?php echo $converted; ?>' />
 		<?php
@@ -24,6 +28,11 @@ class view_date_input
 		return date('Ymd', strtotime($_POST[$this->_name]));
 	}
 
+	public function is_empty()
+	{
+		return empty($_POST[$this->_name]);
+	}
+	
 	private function GetDatePostData($key)
 	{
 		return date('Ymd',strtotime($_POST[$key]));

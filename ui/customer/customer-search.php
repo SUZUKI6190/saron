@@ -13,6 +13,8 @@ function view_search(ControlContext $c)
 		CustomerSearchItemFactory::create_sex(),
 		CustomerSearchItemFactory::create_birthday(),
 		CustomerSearchItemFactory::create_occupation(),
+		CustomerSearchItemFactory::create_last_visit_item(),
+		CustomerSearchItemFactory::create_next_visit_reservation_item(),
 		CustomerSearchItemFactory::create_enable_dm()
 	];
 
