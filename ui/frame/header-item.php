@@ -12,11 +12,12 @@ abstract class HeaderItem
 	
 	public function view()
 	{
+		
 		?>
 		<a href = '<?php echo $this->url; ?>' class='header_button' >
-			<span>
+			<div class="main_header_button">
 				<?php echo $this->name; ?> 
-			</span>
+			</div>
 		</a>
 		<?php
 	}

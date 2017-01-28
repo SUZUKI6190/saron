@@ -1,0 +1,18 @@
+.wrap_search
+{
+    flex-direction:row;
+    display:flex;
+}
+
+div.search_detail
+{
+            
+    flex-direction:row;
+    display:flex;
+}
+
+div.wrap_search .area
+{
+    width:50%;
+
+}

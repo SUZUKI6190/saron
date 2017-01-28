@@ -45,7 +45,6 @@ function inno_add_query_vars( $vars ) {
 	return $vars;
 }
 
-add_action('wp_enqueue_scripts', regist_css);
 function regist_css()
 {
 	wp_register_style(
@@ -57,7 +56,32 @@ function regist_css()
 	);
 	
 	wp_enqueue_style('customer_view.css');
+
+	wp_register_style(
+		'customer_search.css', 
+		plugins_url("/css/customer_search.css", __FILE__),
+		array(),
+		"0.001"
+		 
+	);
+	
+	wp_enqueue_style('customer_search.css');
+	
+	wp_enqueue_style('manage_common.css');
+
+	wp_register_style(
+		'manage_common.css', 
+		plugins_url("/css/manage_common.css", __FILE__),
+		array(),
+		"0.1"
+	);
+	
+	wp_enqueue_style('manage_common.css');
+	
 }
+
+add_action('wp_enqueue_scripts', regist_css);
+
 require_once(dirname(__FILE__).'/business/facade/customer.php');
 require_once(dirname(__FILE__).'/business/entity/customer.php');		
 require_once(dirname(__FILE__) . '/ui/controller.php');

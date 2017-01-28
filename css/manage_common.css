@@ -1,0 +1,12 @@
+.main_header_wrap
+{
+    flex-direction:row;
+    display:flex;
+
+}
+
+.main_header_button
+{
+    margin:10px;
+    border-bottom-style:solid;
+}

@@ -46,7 +46,13 @@ class SearchitemRepeater
 			return '';
 		}
 
-		$exits_list = array_filter($this->_item_list, function($item){
+		$meaged_list = [];
+		foreach($this->_item_list as $list)
+		{
+			$meaged_list = array_merge($meaged_list, $list);
+		}
+		
+		$exits_list = array_filter($meaged_list, function($item){
 			return $item->exist_criteria();
 		});
 		
@@ -74,6 +80,7 @@ class SearchitemRepeater
 	public function view_search_result()
 	{
 		$newUrl = $this->_controlContext->GetCustomerUrl()."/detail/new/";
+
 		?>
 		<form method = 'post' action='<?php echo $newUrl; ?>'>
 			<input type='submit' value="新規登録" /></br>
@@ -88,31 +95,42 @@ class SearchitemRepeater
 	{
 		$search_result_url = $this->_controlContext->GetCustomerUrl()."/search/result/";
 		?>
-		<form method="post" name='customer_search' value="customer_search" action='<?php echo $search_result_url; ?>' >
-		<div>
-			<input type='submit'　 value="検索する" />
+		<div class="wrap_search">
+			<form method="post" name='customer_search' value="customer_search" action='<?php echo $search_result_url; ?>' >
+			<div>
+				<input type='submit'　 value="検索する" />
+			</div>
+			<?php $this->repeat(); ?>
+			</form>
 		</div>
-		<?php $this->repeat(); ?>
-		</form>
 		<?php
 	}
 	
 	private function repeat(){
-	?>
-		<div class='area'>
+	
+		?>
+		<div class="search_detail">
 		<?php
-
-		foreach($this->_item_list as $item)
+		foreach($this->_item_list as $items)
 		{
 			?>
-			<div class='search_item_line'>
+
+			<div class='area'>
 			<?php
-			$item->view();
+			foreach($items as $item)
+			{
+				?>
+				<div class='search_item_line'>
+				<?php
+				$item->view();
+				?>
+				</div>
+				<?php
+			}
 			?>
 			</div>
 			<?php
 		}
-
 		?>
 		</div>
 		<?php
