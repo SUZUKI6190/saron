@@ -13,7 +13,7 @@ class KanjiNameItem extends SearchItem
 	{
 		?>
 			<span class='search_item_name'>名前(漢字):</span>
-			<input type = 'text' name='name_kanji_last' />
+			<input type = 'text' name='name_kanji_last' /></br>
 			<input type = 'text' name='name_kanji_first' />
 		<?php
 	}

@@ -114,7 +114,6 @@ class SearchitemRepeater
 		foreach($this->_item_list as $items)
 		{
 			?>
-
 			<div class='area'>
 			<?php
 			foreach($items as $item)
@@ -136,5 +135,4 @@ class SearchitemRepeater
 		<?php
 	}
 }
-
 ?>

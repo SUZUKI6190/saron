@@ -2,6 +2,7 @@
 {
     flex-direction:row;
     display:flex;
+    width:1024px;
 }
 
 div.search_detail
@@ -15,4 +16,24 @@ div.wrap_search .area
 {
     width:50%;
 
+}
+
+.search_item_name
+{
+    display:inline-block;
+    width:20%;
+    vertical-align:middle;
+}
+
+.search_item_line
+{
+    display:flex;
+    flex-direction:row;
+    width:auto;
+}
+
+.search_item_line input
+{
+   width:auto;
+  text-align:left;
 }

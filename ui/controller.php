@@ -9,7 +9,9 @@ function create_main_category()
 	
 	return [
 		new \ui\frame\MainCategory("customer", "お客様管理"),
-		new \ui\frame\MainCategory("yoyaku", "予約管理")
+		new \ui\frame\MainCategory("yoyaku", "予約管理"),
+		new \ui\frame\MainCategory("send-message", "メッセージ配信管理"),
+		new \ui\frame\MainCategory("staff", "スタッフ管理")
 	];
 }
 
