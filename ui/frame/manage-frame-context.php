@@ -29,6 +29,9 @@ class ManageFrameContext
 	public $main_category_list = [];
 	public $template_page_name;
 
+	public $selected_main_category_name;
+	public $selected_sub_category_name;
+	
 	public function get_url()
 	{
 		return get_bloginfo('url')."/".$this->template_page_name;

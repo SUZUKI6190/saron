@@ -1,41 +1,44 @@
 <?php
 namespace ui\customer;
-require_once("/../frame/manage-frame-contexst.php");
-require_once('customer-search.php');
+require_once("/../frame/manage-frame-context.php");
 
-abstract class CastomerSubBase extends SubCotegory
+abstract class CastomerSubBase extends \ui\frame\SubCategory
 {
 	protected $_context;
 	public function __construct(ControlContext $context)
 	{
-		parent::__construct();
 		$this->_context = $context;
 	}
 }
 
-class Search extends CastomerSubBase
+class SearchSub extends CastomerSubBase
 {	
-	public view()
+	public function view()
 	{
 		view_search($this->_context);
 	}
 	
-	public get_name()
+	public function get_name()
 	{
 		return "search";
 	}
 	
-	public get_title_name()
+	public function get_title_name()
 	{
 		return "お客様検索";
 	}
+}
+
+function create_customer_sub_category(ControlContext $context)
+{
+	return [new SearchSub($context)];
 }
 
 function create_customer_category(ControlContext $context)
 {
 	
 	if($context->Page == "search"){
-		return new Search($context);
+		return new SearchSub($context);
 	}
 
 	$detailView;

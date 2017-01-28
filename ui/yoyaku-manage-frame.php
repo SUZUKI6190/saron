@@ -3,6 +3,8 @@ namespace ui;
 
 require_once("frame/manage-frame.php");
 require_once("frame/manage-frame-context.php");
+require_once("frame/manage-frame-context.php");
+require_once('customer/customer-subcotegory-factory.php');
 
 function create_main_header($name)
 {
@@ -37,6 +39,25 @@ class YoyakuManageFrame extends \ui\frame\ManageFrame
 			case 'login':
 				include dirname(__FILE__) . '/templates/login.php';
 				exit;
+				break;
+		}
+	}
+	
+	public function create_sub_category_list($main_category_name)
+	{
+		$mc = \ui\frame\ManageFrameContext::get_instance();
+		switch ( $main_category_name ) {
+			case 'customer':
+				$context = new customer\ControlContext();
+				$context->Page = get_query_var( 'sub_category' );;
+				$context->RegistMode = get_query_var( 'edit' );
+				$context->Id = get_query_var( 'id' );
+				$context->TemplatePageName = get_query_var( 'pagename' );
+				$context->SearchResult = get_query_var( 'result' );
+				return \ui\customer\create_customer_sub_category($context);
+				break;
+			default;
+				return [];
 				break;
 		}
 	}
