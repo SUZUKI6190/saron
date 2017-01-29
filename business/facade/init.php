@@ -6,7 +6,7 @@ function init_db()
 {
 	global $wpdb;
 	dbDelta(<<<SQL
-		CREATE TABLE Customer (
+		CREATE TABLE customer (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			tanto_id bigint(20) UNSIGNED,
 			name_kanji_last varbinary(100),
@@ -32,7 +32,7 @@ SQL
 		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE Staff (
+		CREATE TABLE staff (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			name_last varchar(100) character set utf8,
 			name_first varchar(100) character set utf8,
