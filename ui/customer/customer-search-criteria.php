@@ -2,7 +2,7 @@
 namespace ui\customer;
 
 require_once('customer-search-item.php');
-require_once("/../util/control-util.php");
+require_once(dirname(__FILE__)."/../util/control-util.php");
 
 class KanjiNameItem extends SearchItem
 {

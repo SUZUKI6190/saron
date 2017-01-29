@@ -1,7 +1,7 @@
 <?php
 namespace ui;
-require_once('/customer/controller.php');
-require_once('/frame/manage-frame-context.php');
+require_once('customer/controller.php');
+require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once('yoyaku-manage-frame.php');
 use \ui\frame;
 function create_main_category()

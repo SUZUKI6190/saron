@@ -1,8 +1,8 @@
 <?php
 
 namespace ui;
-require_once("/../business/facade/staff.php");
-require_once("/../business/entity/staff.php");
+require_once(dirname(__FILE__)."/../business/facade/staff.php");
+require_once(dirname(__FILE__)."/../business/entity/staff.php");
 class ViewStaff
 {
 	private $_name;

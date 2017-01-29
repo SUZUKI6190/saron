@@ -1,6 +1,6 @@
 <?php
 namespace ui\customer;
-require_once("/../frame/manage-frame-context.php");
+require_once(dirname(__FILE__)."/../frame/manage-frame-context.php");
 
 abstract class CastomerSubBase extends \ui\frame\SubCategory
 {
