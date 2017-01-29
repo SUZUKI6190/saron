@@ -2,7 +2,7 @@
 namespace ui\customer;
 use business\entity\Customer;
 use ui\util;
-require_once(dirname(__FILE__)."\..\staff.php");
+require_once(dirname(__FILE__)."/../staff.php");
 require_once(dirname(__FILE__)."/../util/control-util.php");
 abstract class CustomerDetail
 {
