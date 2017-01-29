@@ -61,7 +61,7 @@ function regist_css()
 		'customer_search.css', 
 		plugins_url("/css/customer_search.css", __FILE__),
 		array(),
-		"0.004"
+		"0.006"
 		 
 	);
 	
