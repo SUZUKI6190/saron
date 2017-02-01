@@ -21,29 +21,50 @@
 		public function view()
 		{
 			$mc = ManageFrameContext::get_instance();
+
 			$main_cate_list = $this->_main_catgory_list;
+
 			?>
 			<div class = "main_header_wrap">
-			<?php
-			foreach($main_cate_list as $main_category)
-			{
-				$sub_list = $this->_frame_implementor->get_sub_category_list();
-				$sub_name = "";
-				if(count($sub_list) > 0)
+				<?php
+				foreach($main_cate_list as $key => $main_category)
 				{
-					$sub_name = $sub_list[0]->get_name();
+					$sub_list = $this->_frame_implementor->get_sub_category_list();
+					$sub_name = "";
+					if(count($sub_list) > 0)
+					{
+						$sub_name = $sub_list[0]->get_name();
+					}
+					
+					$hb = new MainHeaderItem();
+					$hb->name = $main_category->text;
+					$hb->url = $mc->get_url()."/".$main_category->name."/".$sub_name;
+					$hb->view();
 				}
 				
-				$hb = new MainHeaderItem();
-				$hb->name = $main_category->text;
-				$hb->url = $mc->get_url()."/".$main_category->name."/".$sub_name;
-				$hb->view();
-			}
-			
-			?>
+				?>
 			</div>
-			<div class = "sub_header_wrap">
+			<?php
+			$main_cate = $mc->get_selected_main_category();
+			?>
+			<div class = "sub_header_area">
+				<?php
+				$sub_list = $this->_frame_implementor->get_sub_category_list();
 				
+				foreach($sub_list as $sub_cate)
+				{
+					$url = $mc->get_url()."/".$main_cate->name."/".$sub_cate->get_name();
+					?>
+					<a href = '<?php echo $url; ?>'>
+						<div class="sub_header_button">
+							<?php
+							echo $sub_cate->get_title_name();
+							?>
+						</div>
+					</a>
+					<?php
+				}
+				?>
 			</div>
 			<?php
 

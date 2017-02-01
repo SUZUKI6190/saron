@@ -10,3 +10,16 @@
     margin:10px;
     border-bottom-style:solid;
 }
+
+.sub_header_area
+{
+     flex-direction:row;
+    display:flex;
+    margin-left:10px;
+}
+
+.sub_header_button
+{
+    margin:10px;
+    border-bottom-style:solid;
+}

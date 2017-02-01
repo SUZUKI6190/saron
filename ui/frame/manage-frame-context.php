@@ -37,6 +37,11 @@ class ManageFrameContext
 		return get_bloginfo('url')."/".$this->template_page_name;
 	}
 	
+	public function get_selected_main_category()
+	{
+		return $this->main_category_list[$this->selected_main_category_name];
+	}
+	
 	public static function get_instance()
 	{
 		if(is_null(self::$_current))

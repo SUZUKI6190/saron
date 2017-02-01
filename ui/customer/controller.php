@@ -24,43 +24,4 @@ function ViewDetail()
 	CreateCustomerDetailForm($data);
 }
 
-function CustomerController(ControlContext $context)
-{
-
-	$newUrl = $context->GetCustomerUrl()."/detail/new/";
-	$searchUrl = $context->GetCustomerUrl()."/search/";
-	?>
-	<div class ="customer_header" >
-		<a href = '<?php echo $searchUrl; ?>'>
-			<div class="sub_header_button">
-				お客様検索
-			</div>
-		</a>
-		<a href = '<?php echo $newUrl; ?>' >
-			<div class="sub_header_button">
-				新規登録
-			</div>
-		</a>
-	</div>
-	<?php
-
-	if($context->Page == "search"){
-		view_search($context);
-		exit;
-	}
-
-	$detailView;
-	if($context->RegistMode == 'new'){
-		$detailView = new CustomerDetailNew();
-	}elseif($context->RegistMode == 'edit'){
-		$detailView = new CustomerDetailEdit($context->Id);
-	}
-
-	if($detailView->IsSavePost()){
-		$detailView->Save();
-	}else{
-		$detailView->View();
-	}
-}
-
 ?>

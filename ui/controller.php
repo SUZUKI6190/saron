@@ -5,15 +5,22 @@ require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once('manage-frame-implementer-factory.php');
 use \ui\frame;
+
 function create_main_category()
 {
-	
-	return [
-		new \ui\frame\MainCategory("customer", "お客様管理"),
-		new \ui\frame\MainCategory("yoyaku", "予約管理"),
-		new \ui\frame\MainCategory("send-message", "メッセージ配信管理"),
-		new \ui\frame\MainCategory("staff", "スタッフ管理")
-	];
+	$ret =[];
+	$set_array = function ($name, $text) use(&$ret)
+	{
+		$ret[$name] = new \ui\frame\MainCategory($name, $text);
+	};
+
+	$set_array("customer", "お客様管理");
+	$set_array("customer", "お客様管理");
+	$set_array("yoyaku", "予約管理");
+	$set_array("send-message", "メッセージ配信管理");
+	$set_array("staff", "スタッフ管理");
+
+	return $ret;
 }
 
 function YoyakuManageConroll()

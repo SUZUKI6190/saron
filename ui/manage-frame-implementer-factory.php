@@ -15,7 +15,7 @@ function create_iplementer($category_name)
 			$context->Id = get_query_var( 'id' );
 			$context->TemplatePageName = get_query_var( 'pagename' );;
 			$context->SearchResult = get_query_var( 'result' );
-			return new  customer\CustomerFameImplementer($context);
+			return new  customer\CustomerFameImplementor($context);
 			break;
 		default:
 			break;

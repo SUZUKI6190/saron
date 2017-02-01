@@ -73,7 +73,7 @@ function regist_css()
 		'manage_common.css', 
 		plugins_url("/css/manage_common.css", __FILE__),
 		array(),
-		"0.001"
+		"0.002"
 	);
 	
 	wp_enqueue_style('manage_common.css');
