@@ -1,13 +1,12 @@
 <?php
-namespace ui/customer;
-require_once("");
+namespace ui\customer;
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
 require_once('customerDetailEdit.php');
 require_once('customer-search.php');
+require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 
-
-abstract class CastomerSubBase extends \ui\frame\SubCategory
+abstract class CustomerSubBase extends \ui\frame\SubCategory
 {
 	protected $_context;
 	public function __construct(ControlContext $context)
@@ -16,7 +15,7 @@ abstract class CastomerSubBase extends \ui\frame\SubCategory
 	}
 }
 
-class SearchSub extends CastomerSubBase
+class SearchSub extends CustomerSubBase
 {	
 	public function view()
 	{
@@ -34,9 +33,9 @@ class SearchSub extends CastomerSubBase
 	}
 }
 
-class CustomerFameImplementer extends ManageFrameImplementor
+class CustomerFameImplementer extends \ui\frame\ManageFrameImplementor
 {
-	private _context;
+	private $_context;
 	public function __construct(ControlContext $context)
 	{
 		$this->_context= $context;
@@ -44,17 +43,13 @@ class CustomerFameImplementer extends ManageFrameImplementor
 	
 	public function get_sub_category_list()
 	{
-		return [new SearchSub($context)];
+		return [new SearchSub($this->_context)];
 	}
-	
-	public function get_main_category_list()
-	{
-	}
-	
+
 	public function view_main()
 	{
-		$newUrl = $context->GetCustomerUrl()."/detail/new/";
-		$searchUrl = $context->GetCustomerUrl()."/search/";
+		$newUrl = $this->_context->GetCustomerUrl()."/detail/new/";
+		$searchUrl = $this->_context->GetCustomerUrl()."/search/";
 		?>
 		<div class ="customer_header" >
 			<a href = '<?php echo $searchUrl; ?>'>
@@ -70,16 +65,16 @@ class CustomerFameImplementer extends ManageFrameImplementor
 		</div>
 		<?php
 
-		if($context->Page == "search"){
-			view_search($context);
+		if($this->_context->Page == "search"){
+			view_search($this->_context);
 			exit;
 		}
 
 		$detailView;
-		if($context->RegistMode == 'new'){
+		if($this->_context->RegistMode == 'new'){
 			$detailView = new CustomerDetailNew();
-		}elseif($context->RegistMode == 'edit'){
-			$detailView = new CustomerDetailEdit($context->Id);
+		}elseif($this->_context->RegistMode == 'edit'){
+			$detailView = new CustomerDetailEdit($this->_context->Id);
 		}
 
 		if($detailView->IsSavePost()){
