@@ -3,7 +3,6 @@ namespace ui;
 
 require_once("frame/manage-frame.php");
 require_once("frame/manage-frame-context.php");
-require_once("frame/manage-frame-context.php");
 require_once('customer/customer-subcotegory-factory.php');
 
 function create_main_header($name)

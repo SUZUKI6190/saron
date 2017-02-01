@@ -17,7 +17,7 @@ function create_main_category()
 
 function YoyakuManageConroll()
 {
-	$frame = new YoyakuManageFrame([]);
+	$frame = new YoyakuManageFrame();
 	$mc = \ui\frame\ManageFrameContext::get_instance();
 	$mc->main_category_list = create_main_category();
 	$mc->template_page_name = get_query_var( 'pagename' );
