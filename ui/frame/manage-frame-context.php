@@ -22,9 +22,6 @@ abstract class SubCategory
 class ManageFrameContext
 {
 	private static $_current;
-	
-	public static $current_main_category;
-	public static $current_sub_category;
 
 	public $main_category_list = [];
 	public $template_page_name;

@@ -55,7 +55,7 @@ class CustomerTableData implements ui\ITableData
 		yield date('Y/m/d',strtotime($this->_customerData->last_visit_date));
 		yield $this->_customerData->phone_number;
 
-		$detail_url = $this->_controlContext->GetCustomerUrl()."/detail/edit/".$this->_customerData->id;
+		$detail_url = $this->_controlContext->GetCustomerUrl()."/search/detail/".$this->_customerData->id;
 
 		yield "<a href='$detail_url' >詳細はこちら</a>";
 	}

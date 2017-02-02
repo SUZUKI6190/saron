@@ -16,7 +16,23 @@ class SearchSub extends CustomerSubBase
 {	
 	public function view()
 	{
+		$newUrl = $this->_context->GetCustomerUrl()."/new/";
+		$searchUrl = $this->_context->GetCustomerUrl()."/search/";
+
+		if($this->_context->RegistMode == 'detail'){
+			$detailView;
+			$detailView = new CustomerDetailEdit($this->_context->Id);
+			if($detailView->IsSavePost()){
+			$detailView->Save();
+			}else{
+				$detailView->View();
+			}
+			exit;
+		}
+		
 		view_search($this->_context);
+
+	
 	}
 	
 	public function get_name()
@@ -45,7 +61,7 @@ class RegistNewSub extends CustomerSubBase
 	
 	public function get_name()
 	{
-		return "/detail/new/";
+		return "new";
 	}
 	
 	public function get_title_name()

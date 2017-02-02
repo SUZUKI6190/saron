@@ -6,6 +6,13 @@
 	{
 		public abstract function get_sub_category_list();
 		public abstract function view_main();
+		public function get_selected_sub_category()
+		{
+			$mc = ManageFrameContext::get_instance();
+			$sub_list = $this->get_sub_category_list();
+			
+			return $sub_list[$mc->selected_sub_category_name];
+		}
 	}
 	
 	class ManageFrame
@@ -17,7 +24,7 @@
 			$this->_frame_implementor = $frame_implementor;
 			$this->_main_catgory_list = $main_list;
 		}
-		
+
 		public function view()
 		{
 			$mc = ManageFrameContext::get_instance();
@@ -33,9 +40,9 @@
 					$sub_name = "";
 					if(count($sub_list) > 0)
 					{
-						$sub_name = $sub_list[0]->get_name();
+						$sub_name = reset($sub_list)->get_name();
 					}
-					
+
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
 					$hb->url = $mc->get_url()."/".$main_category->name."/".$sub_name;
@@ -51,7 +58,7 @@
 				<?php
 				$sub_list = $this->_frame_implementor->get_sub_category_list();
 				
-				foreach($sub_list as $sub_cate)
+				foreach($sub_list as $key => $sub_cate)
 				{
 					$url = $mc->get_url()."/".$main_cate->name."/".$sub_cate->get_name();
 					?>
@@ -68,6 +75,8 @@
 			</div>
 			<?php
 
+			$selected_sub = $this->_frame_implementor->get_selected_sub_category();
+			$selected_sub->view();
 			$this->_frame_implementor->view_main();
 		}
 	}

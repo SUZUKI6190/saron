@@ -29,6 +29,7 @@ function view_search(ControlContext $c)
 	}else{
 		$repeater->view_search_form();
 	}
+	
 }
 
 ?>
