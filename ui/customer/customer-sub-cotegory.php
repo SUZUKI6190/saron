@@ -2,6 +2,7 @@
 namespace ui\customer;
 use \SplFileObject;
 use \business\entity;
+use \business\facade;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 
 abstract class CustomerSubBase extends \ui\frame\SubCategory
@@ -111,6 +112,12 @@ class MassRegistrationSub extends CustomerSubBase
 			$customer_data_list[] = \business\entity\Customer::create_from_csv($line);
 		}
 		print_r($customer_data_list	);
+	
+		foreach($customer_data_list as $customer)
+		{
+			\business\facade\InsertCustomer($customer);
+		}
+		
 		?>
 		<span>登録完了しました。</span>
 		<?php

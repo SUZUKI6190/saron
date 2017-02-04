@@ -46,7 +46,7 @@
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
 					$hb->url = $mc->get_url()."/".$main_category->name."/".$sub_name;
-					$hb->view();
+					\ui\util\link_button($hb->name,  $hb->url, "main_header_button");
 				}
 				
 				?>
@@ -61,15 +61,7 @@
 				foreach($sub_list as $key => $sub_cate)
 				{
 					$url = $mc->get_url()."/".$main_cate->name."/".$sub_cate->get_name();
-					?>
-					<a href = '<?php echo $url; ?>'>
-						<div class="sub_header_button">
-							<?php
-							echo $sub_cate->get_title_name();
-							?>
-						</div>
-					</a>
-					<?php
+					\ui\util\link_button($sub_cate->get_title_name(),  $url, "sub_header_button");
 				}
 				?>
 			</div>

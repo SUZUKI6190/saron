@@ -7,19 +7,7 @@ abstract class HeaderItem
 	public $sub_header_list;
 	public $name;
 	public $url;
-
 	abstract public function is_selected();
-	
-	public function view()
-	{
-		?>
-		<a href = '<?php echo $this->url; ?>' class='header_button' >
-			<div class="main_header_button">
-				<?php echo $this->name; ?> 
-			</div>
-		</a>
-		<?php
-	}
 }
 
 class MainHeaderItem extends HeaderItem

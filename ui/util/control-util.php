@@ -44,4 +44,20 @@ class view_date_input
 	}
 }
 
+function link_button($text , $url, $add_style = "")
+{
+	?>
+		<a href = '<?php echo $url; ?>' class="manage_button <?php echo $add_style; ?>">
+			<?php echo $text; ?>
+		</a>
+	<?php
+}
+
+function subbmit_button($text, $add_style="")
+{
+	?>
+	<input type='submit' value="<?php echo $text; ?>" class="manage_button <?php echo $add_style; ?>"  />
+	<?php
+}
+
 ?>
