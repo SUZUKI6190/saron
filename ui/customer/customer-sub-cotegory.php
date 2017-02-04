@@ -1,6 +1,7 @@
 <?php
 namespace ui\customer;
-
+use \SplFileObject;
+use \business\entity;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 
 abstract class CustomerSubBase extends \ui\frame\SubCategory
@@ -73,11 +74,63 @@ class RegistNewSub extends CustomerSubBase
 
 class MassRegistrationSub extends CustomerSubBase
 {
+	private static $post_key = "up_file";
+	
 	public function view()
 	{
-		
+		if($this->is_upload()){
+			$this->import();
+		}else{
+			?>
+			<form action="" method="post" enctype="multipart/form-data">
+			  <input type="file" name="<?php echo self::$post_key; ?>" size="30" />
+			  <input type="submit" value="アップロード" />
+			</form>
+			<?php
+		}
 	}
 	
+	private function is_upload()
+	{
+		return is_uploaded_file($_FILES[self::$post_key]["tmp_name"]);
+	}
+	
+	private function import()
+	{
+
+		$file = new SplFileObject($_FILES[self::$post_key]['tmp_name']);
+		$file->setFlags(SplFileObject::READ_CSV); 
+	
+		$map = function($csv){
+			return Customer::create_from_csv($csv);
+		};
+		
+		$customer_data_list = [];
+		foreach($file as $line)
+		{
+			$customer_data_list[] = \business\entity\Customer::create_from_csv($line);
+		}
+		print_r($customer_data_list	);
+		?>
+		<span>登録完了しました。</span>
+		<?php
+/*
+		$tmp = fopen($_FILES[self::$post_key]['tmp_name'], "r");
+		$ret = [];
+		try
+		{
+			// ファイル内容を出力
+			while ($line = fgets($tmp)) {
+			  $ret[] = $line;
+			}
+		}finally{
+			// ファイルポインタをクローズ
+			fclose($tmp);
+		}
+		*/
+		
+	}
+
 	public function get_name()
 	{
 		return "upload";
@@ -85,7 +138,7 @@ class MassRegistrationSub extends CustomerSubBase
 	
 	public function get_title_name()
 	{
-		return "ファイルから登録";
+		return "一括登録";
 	}
 }
 

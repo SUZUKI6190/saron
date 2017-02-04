@@ -82,9 +82,9 @@ class SearchitemRepeater
 		$newUrl = $this->_controlContext->GetCustomerUrl()."/detail/new/";
 
 		?>
-		<form method = 'post' action='<?php echo $newUrl; ?>'>
-			<input type='submit' value="新規登録" /></br>
-		<form>
+		<a href="<?php echo $this->_controlContext->GetCustomerUrl(); ?>" download="myData" id="export">
+			<input type="button" value="検索結果をファイルに出力する">
+		</a>
 		<?php
 
 		create_customer_view($this->_controlContext,  $this->create_where_query());

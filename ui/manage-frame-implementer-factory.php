@@ -14,7 +14,7 @@ function create_iplementer($category_name)
 			$context->RegistMode = get_query_var( 'edit' );
 			$context->Id = get_query_var( 'id' );
 			$context->TemplatePageName = get_query_var( 'pagename' );;
-			$context->SearchResult = get_query_var( 'result' ););
+			$context->SearchResult = get_query_var( 'result' );
 			return new  customer\CustomerFameImplementor($context);
 			break;
 		default:

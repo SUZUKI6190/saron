@@ -23,6 +23,7 @@ class CustomerDetailEdit extends CustomerDetail
 	public function CreateCustomerData()
 	{
 		$data = \business\facade\SelectCustomerById($this->_id);
+		echo $data->serialize_csv();
 		return $data;
 	}
 	

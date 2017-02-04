@@ -32,6 +32,80 @@ class Customer{
 		return new Customer();
 	}
 	
+	public function serialize_csv()
+	{
+		$strCsv = "";
+	
+		$concat = function($value) use(&$strCsv)
+		{
+			$strCsv	= $strCsv.$value.",";
+		};
+		
+		$concat($this->name_kanji_last);
+		$concat($this->name_kanji_first);
+		$concat($this->name_kana_last);
+		$concat($this->name_kana_first);
+		$concat($this->sex);
+		$concat($this->old);
+		$concat($this->birthday);
+		$concat($this->last_visit_date);
+		$concat($this->phone_number);
+		$concat($this->address);
+		$concat($this->occupation);
+		$concat($this->number_of_visit);
+		$concat($this->email);
+		$concat($this->enable_dm);
+		$concat($this->next_visit_reservation_date);
+		$concat($this->reservation_route);
+		$concat($this->remarks);
+
+		$strCsv = rtrim($strCsv, ',');
+		return $strCsv;
+	}
+	
+	public static function create_csv($obj_list)
+	{
+		$ret = "";
+		foreach($obj_list as $obj)
+		{
+			$ret = $obj->serialize_csv()."\n";
+		}
+		
+		return $ret;
+	}
+	
+	public static function create_from_csv($csv)
+	{
+		$index = 0;
+		
+		$get_value = function() use(&$csv, &$index){
+			$csv[$index];
+			$index++;
+		};
+		
+		$ret = self::CreateEmptyObject();
+		
+		$ret->name_kanji_last = $get_value();
+		$ret->name_kanji_first = $get_value();
+		$ret->name_kana_last = $get_value();
+		$ret->name_kana_first = $get_value();
+		$ret->sex = $get_value();
+		$ret->old = $get_value();
+		$ret->birthday = $get_value();
+		$ret->last_visit_date = $get_value();
+		$ret->phone_number = $get_value();
+		$ret->address = $get_value();
+		$ret->occupation = $get_value();
+		$ret->number_of_visit = $get_value();
+		$ret->email = $get_value();
+		$ret->enable_dm = $get_value();
+		$ret->next_visit_reservation_date = $get_value();
+		$ret->reservation_route = $get_value();
+		$ret->remarks = $get_value();
+		
+		return ret;
+	}
+	
 	public static function CreateObjectFromWpdb($db)
 	{
 		$result = Customer::CreateEmptyObject();
