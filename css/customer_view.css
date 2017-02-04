@@ -5,7 +5,7 @@
 div.detail
 {
             
-
+    margin-top:10px;
     flex-direction:row;
     display:flex;
 }
@@ -13,6 +13,7 @@ div.detail
 div.detail .area
 {
     width:50%;
+    margin-right:10px;
 }
 div.detail .line
 {
@@ -27,6 +28,5 @@ div.detail .line input
 div.detail .area .name
 {
     vertical-align:middle;
-    width:30%;
-    font-weight:600;
+    width:40%;
 }

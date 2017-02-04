@@ -94,6 +94,13 @@ abstract class CustomerDetail
 		echo "\n";
 	}
 	
+	private function required_text()
+	{
+		?>
+		<span style="color:red;">※入力必須</span>
+		<?php
+	}
+	
 	protected function CreateForm(Customer $data)
 	{
 		?>
@@ -108,20 +115,22 @@ abstract class CustomerDetail
 				<div class="area">
 					<div class="line">
 						<div class="name">
-							氏名(漢字)：
+							氏名(漢字)：<br>
+							<?php $this->required_text() ?>
 						</div>
 						<div>
-							<input name="name_kanji_last" type="text" value='<?php echo $data->name_kanji_last; ?>' />
-							<input name="name_kanji_first" type="text" value='<?php echo $data->name_kanji_first; ?>' />
+							<input name="name_kanji_last" type="text" value='<?php echo $data->name_kanji_last; ?>' required />
+							<input name="name_kanji_first" type="text" value='<?php echo $data->name_kanji_first; ?>' required/>
 						</div>
 					</div>
 					<div class="line">
 						<div class="name">
 							氏名(カナ)：
+							<?php $this->required_text() ?>
 						</div>
 						<div>
-							<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_last; ?>' />
-							<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_first; ?>' />
+							<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_last; ?>' required/>
+							<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_first; ?>' required/>
 						</div>
 					</div>
 					<div class="line">

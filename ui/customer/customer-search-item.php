@@ -80,13 +80,6 @@ class SearchitemRepeater
 	public function view_search_result()
 	{
 		$newUrl = $this->_controlContext->GetCustomerUrl()."/detail/new/";
-
-		?>
-		<a href="<?php echo $this->_controlContext->GetCustomerUrl(); ?>" download="myData" id="export">
-			<input type="button" value="検索結果をファイルに出力する">
-		</a>
-		<?php
-
 		create_customer_view($this->_controlContext,  $this->create_where_query());
 
 	}
