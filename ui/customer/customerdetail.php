@@ -168,7 +168,7 @@ abstract class CustomerDetail
 							年齢：
 						</div>
 						<div>
-							<input name='old' type="text" value='<?php echo $data->old; ?>' />
+							<?php \ui\util\numeric_input("old", $data->old); ?>
 						</div>
 					</div>
 					<div class="line">
@@ -204,7 +204,7 @@ abstract class CustomerDetail
 							来店回数：
 						</div>
 						<div>
-							<input name='number_of_visit' type="text" value='<?php echo $data->number_of_visit; ?>' />
+							<?php \ui\util\numeric_input("number_of_visit", $data->number_of_visit); ?>
 						</div>
 					</div>
 					<div class="line">
