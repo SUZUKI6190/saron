@@ -61,17 +61,57 @@ class CustomerTableData implements ui\ITableData
 	}
 }
 
+function search_by_input($strWhere)
+{	
+	return \business\facade\GetCustomers($strWhere) ;
+}
+
+function search_by_hidden($hidden_name)
+{
+	$csv = str_getcsv($_POST[$hidden_name]);
+	$ret = [];
+	foreach($csv as $id)
+	{
+		$ret[] = \business\facade\SelectCustomerById($id);
+	}
+	
+	return $ret;
+}
+
 function create_customer_view(ControlContext $c, $strWhere)
 {
+	$name_value_hidden = "key_value_list";
+	$name_delete_submit = "delete";
+	$name_export_submit = "csv_export";
+	
 	$tableGenerator = new ui\TableGenerator();
 	$data = [];
-	foreach(\business\facade\GetCustomers($strWhere) as $customerData)
+	$key_hidden ="";
+	$customer_data_list;
+	if($_POST[$name_export_submit]){
+		$customer_data_list = search_by_hidden($name_value_hidden);
+	}else{
+		$customer_data_list = search_by_input($strWhere);
+	}
+	foreach($customer_data_list as $customerData)
 	{
+		$key_hidden = $key_hidden.$customerData->id.",";
 		array_push($data, new CustomerTableData($customerData, $c));
 	}
 	
+	$key_hidden = rtrim($key_hidden, ',');
+	
+	?>
+	<form method="post" action="./">
+	<?php
+	echo "<input type='hidden' name='$name_value_hidden' value='$key_hidden' />";
+	\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
+	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
 	$tableGenerator->DataSource = $data;
 	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
 	$tableGenerator->GenerateTable();
+	?>
+	</form>
+	<?php
 }
 ?>

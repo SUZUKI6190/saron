@@ -38,8 +38,8 @@ input[type="button"].manage_button
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    display:block;
-      text-decoration: none;
+    display:inline-block;
+    text-decoration: none;
 }
 
 

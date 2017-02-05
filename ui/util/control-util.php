@@ -53,10 +53,10 @@ function link_button($text , $url, $add_style = "")
 	<?php
 }
 
-function subbmit_button($text, $add_style="")
+function submit_button($text, $name = "", $add_style="")
 {
 	?>
-	<input type='submit' value="<?php echo $text; ?>" class="manage_button <?php echo $add_style; ?>"  />
+	<input type='submit' value="<?php echo $text; ?>" name="<?php echo $name; ?>" class="manage_button <?php echo $add_style; ?>"  />
 	<?php
 }
 
