@@ -3,6 +3,7 @@ namespace ui\customer;
 use ui;
 use \business\entity\Customer;
 require_once(dirname(__FILE__).'/../itabledata.php');
+require_once("customer-download.php");
 class CustomerTableData implements ui\ITableData
 {
 	private $_customerData;
@@ -80,7 +81,6 @@ function search_by_hidden($hidden_name)
 
 function create_customer_view(ControlContext $c, $strWhere)
 {
-	$name_value_hidden = "key_value_list";
 	$name_delete_submit = "delete";
 	$name_export_submit = "csv_export";
 	
@@ -88,24 +88,27 @@ function create_customer_view(ControlContext $c, $strWhere)
 	$data = [];
 	$key_hidden ="";
 	$customer_data_list;
-	if($_POST[$name_export_submit]){
-		$customer_data_list = search_by_hidden($name_value_hidden);
-	}else{
-		$customer_data_list = search_by_input($strWhere);
-	}
+
+	$customer_data_list = search_by_input($strWhere);
+	
 	foreach($customer_data_list as $customerData)
 	{
 		$key_hidden = $key_hidden.$customerData->id.",";
 		array_push($data, new CustomerTableData($customerData, $c));
 	}
-	
-	$key_hidden = rtrim($key_hidden, ',');
-	
+
 	?>
+	<form method="post" action="<?php echo get_bloginfo('url')."/customerview/download"; ?>">
+	<?php
+	$key_hidden = rtrim($key_hidden, ',');
+	$key = CustomerDownload::CUSTOMER_ID_NAME;
+	echo "<input type='hidden' name='$key' value='$key_hidden' />";
+	\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
+	?>
+	</form>
 	<form method="post" action="./">
 	<?php
-	echo "<input type='hidden' name='$name_value_hidden' value='$key_hidden' />";
-	\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
+
 	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
 	$tableGenerator->DataSource = $data;
 	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();

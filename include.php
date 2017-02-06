@@ -27,6 +27,7 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
+	add_rewrite_rule( '([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]', 'top');
 	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]', 'top');
 	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=$matches[2]&sub_category=$matches[3]', 'top');
 	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&edit=new', 'top' );
@@ -85,5 +86,16 @@ add_action('wp_enqueue_scripts', 'regist_css');
 require_once(dirname(__FILE__).'/business/facade/customer.php');
 require_once(dirname(__FILE__).'/business/entity/customer.php');		
 require_once(dirname(__FILE__) . '/ui/controller.php');
-add_shortcode('CreaterCustomerTable', 'ui\YoyakuManageConroll');
+
+function my_temp_redirect()
+{
+
+	ui\YoyakuManageConroll();
+
+}
+
+//プラグイン側から特定のURLでアクセスできるように設定を追加
+add_action( 'template_redirect', 'ui\YoyakuManageConroll' );
+
+//add_shortcode('CreaterCustomerTable', 'ui\YoyakuManageConroll');
 ?>

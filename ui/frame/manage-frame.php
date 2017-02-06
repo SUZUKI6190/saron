@@ -65,11 +65,15 @@
 				}
 				?>
 			</div>
+			<div class ="main_content">
 			<?php
 
 			$selected_sub = $this->_frame_implementor->get_selected_sub_category();
 			$selected_sub->view();
 			$this->_frame_implementor->view_main();
+			?>
+			</div>
+			<?php
 		}
 	}
 

@@ -1,30 +1,30 @@
 <?php
 namespace ui;
 require_once('customer/controller.php');
+require_once("customer/customer-download.php");
 require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once('manage-frame-implementer-factory.php');
 use \ui\frame;
 
-function create_main_category()
+function view_manage_gamen()
 {
-	$ret =[];
-	$set_array = function ($name, $text) use(&$ret)
+	function create_main_category()
 	{
-		$ret[$name] = new \ui\frame\MainCategory($name, $text);
-	};
+		$ret =[];
+		$set_array = function ($name, $text) use(&$ret)
+		{
+			$ret[$name] = new \ui\frame\MainCategory($name, $text);
+		};
 
-	$set_array("customer", "お客様管理");
-	$set_array("customer", "お客様管理");
-	$set_array("yoyaku", "予約管理");
-	$set_array("send-message", "メッセージ配信管理");
-	$set_array("staff", "スタッフ管理");
+		$set_array("customer", "お客様管理");
+		$set_array("customer", "お客様管理");
+		$set_array("yoyaku", "予約管理");
+		$set_array("send-message", "メッセージ配信管理");
+		$set_array("staff", "スタッフ管理");
 
-	return $ret;
-}
-
-function YoyakuManageConroll()
-{
+		return $ret;
+	}
 
 	$mc = \ui\frame\ManageFrameContext::get_instance();
 	$mc->main_category_list = create_main_category();
@@ -32,10 +32,46 @@ function YoyakuManageConroll()
 	$mc->selected_main_category_name = get_query_var("category");
 	$mc->selected_sub_category_name = get_query_var("sub_category");
 	
+?>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=1024" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="Expires" content="0" /><title></title>
+	<link rel="stylesheet" type="text/css" href="xxx.css">
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_common.css", __FILE__); ?>"  type="text/css" />
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>"  type="text/css" />
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_view.css", __FILE__); ?>"  type="text/css" />
+	
+	<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="msapplication-config" content="none"/>
+	</head>
+	<body>
+	<div class="main_wrap">
+<?php
+
 	$inplementer = create_iplementer($mc->selected_main_category_name);
+	
 	$frame = new \ui\frame\ManageFrame($mc->main_category_list, $inplementer);
 	$frame->view();
 
+	?>
+	</div>
+	<body>
+	<?php
+}
+
+function YoyakuManageConroll()
+{
+	if(get_query_var("category") == "download"){
+		\ui\customer\get_customer_csv("");
+	}else{
+		view_manage_gamen();
+	}
+	exit;
 }
 
 ?>
