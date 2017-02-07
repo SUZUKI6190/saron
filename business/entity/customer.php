@@ -70,7 +70,7 @@ class Customer{
 		{
 			$ret = $obj->serialize_csv()."\n";
 		}
-		
+		$strCsv = rtrim($ret, "\n");
 		return $ret;
 	}
 	
@@ -87,9 +87,29 @@ class Customer{
 		$ret = self::CreateEmptyObject();
 		
 		$ret->name_kanji_last = $get_value();
+		
+		if($ret->name_kanji_last == "")
+		{
+			return null;
+		}
+		
 		$ret->name_kanji_first = $get_value();
+		if($ret->name_kanji_first == "")
+		{
+			return null;
+		}
+		
 		$ret->name_kana_last = $get_value();
+		if($ret->name_kana_last == "")
+		{
+			return null;
+		}
 		$ret->name_kana_first = $get_value();
+		
+		if($ret->name_kana_first == "")
+		{
+			return null;
+		}
 		$ret->sex = $get_value();
 		$ret->old = $get_value();
 		$ret->birthday = $get_value();

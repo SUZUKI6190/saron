@@ -102,16 +102,14 @@ class MassRegistrationSub extends CustomerSubBase
 		$file = new SplFileObject($_FILES[self::$post_key]['tmp_name']);
 		$file->setFlags(SplFileObject::READ_CSV); 
 	
-		$map = function($csv){
-			return Customer::create_from_csv($csv);
-		};
-		
 		$customer_data_list = [];
 		foreach($file as $line)
 		{
-			$customer_data_list[] = \business\entity\Customer::create_from_csv($line);
+			$data = \business\entity\Customer::create_from_csv($line);
+			if(!is_null($data)){
+				$customer_data_list[] = $data;
+			}
 		}
-		print_r($customer_data_list	);
 	
 		foreach($customer_data_list as $customer)
 		{
@@ -121,20 +119,6 @@ class MassRegistrationSub extends CustomerSubBase
 		?>
 		<span>登録完了しました。</span>
 		<?php
-/*
-		$tmp = fopen($_FILES[self::$post_key]['tmp_name'], "r");
-		$ret = [];
-		try
-		{
-			// ファイル内容を出力
-			while ($line = fgets($tmp)) {
-			  $ret[] = $line;
-			}
-		}finally{
-			// ファイルポインタをクローズ
-			fclose($tmp);
-		}
-		*/
 		
 	}
 
