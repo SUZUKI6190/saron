@@ -33,6 +33,7 @@
 
 			?>
 			<div class = "main_header_wrap">
+			<div class="centering">
 				<?php
 				foreach($main_cate_list as $key => $main_category)
 				{
@@ -46,15 +47,18 @@
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
 					$hb->url = $mc->get_url()."/".$main_category->name."/".$sub_name;
-					\ui\util\link_button($hb->name,  $hb->url, "main_header_button");
+					
+					\ui\util\main_header_button($hb->name,  $hb->url);
 				}
 				
 				?>
+				</div>
 			</div>
 			<?php
 			$main_cate = $mc->get_selected_main_category();
 			?>
 			<div class = "sub_header_area">
+				<div class="centering">
 				<?php
 				$sub_list = $this->_frame_implementor->get_sub_category_list();
 				
@@ -64,8 +68,9 @@
 					\ui\util\link_button($sub_cate->get_title_name(),  $url, "sub_header_button");
 				}
 				?>
+				</div>
 			</div>
-			<div class ="main_content">
+			<div class ="main_content centering">
 			<?php
 
 			$selected_sub = $this->_frame_implementor->get_selected_sub_category();

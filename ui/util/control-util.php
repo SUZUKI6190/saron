@@ -44,6 +44,15 @@ class view_date_input
 	}
 }
 
+function main_header_button($text , $url)
+{
+	?><div class="main_header_button">
+	<a href = '<?php echo $url; ?>'>
+		<?php echo $text; ?>
+	</a>
+	</div><?php
+}
+
 function link_button($text , $url, $add_style = "")
 {
 	?>

@@ -8,6 +8,14 @@ div.detail
     margin-top:10px;
     flex-direction:row;
     display:flex;
+
+    border:outset 1px;
+    background-color:#ddeeff;
+    margin:20px;
+    padding:5px;
+    border-radius:10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
 }
 
 div.detail .area

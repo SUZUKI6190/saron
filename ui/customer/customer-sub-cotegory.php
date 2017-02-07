@@ -83,10 +83,17 @@ class MassRegistrationSub extends CustomerSubBase
 			$this->import();
 		}else{
 			?>
+			<div class="input_form centering">
 			<form action="" method="post" enctype="multipart/form-data">
-			  <input type="file" name="<?php echo self::$post_key; ?>" size="30" />
-			  <input type="submit" value="アップロード" />
+
+				<input type="file" id="inp" name="<?php echo self::$post_key; ?>"  />
+		
+
+			<?php
+			\ui\util\submit_button("アップロード");
+			?>
 			</form>
+			</div>
 			<?php
 		}
 	}

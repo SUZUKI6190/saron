@@ -90,8 +90,11 @@ class SearchitemRepeater
 		?>
 		<div class="wrap_search">
 			<form method="post" name='customer_search' value="customer_search" action='<?php echo $search_result_url; ?>' >
-			<?php \ui\util\submit_button("検索する"); ?>
 			<?php $this->repeat(); ?>
+			<div class="search_button">
+				<?php \ui\util\submit_button("検索する"); ?>
+				<input class="manage_button" type="reset" value="検索条件をクリアする" />
+			</div>
 			</form>
 		</div>
 		<?php

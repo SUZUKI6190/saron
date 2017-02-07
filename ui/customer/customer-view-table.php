@@ -109,6 +109,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 	}
 
 	?>
+	<div class ="search_menu">
 	<form method="post" action="<?php echo get_bloginfo('url')."/customerview/download"; ?>">
 	<?php
 	$key_hidden = rtrim($key_hidden, ',');
@@ -124,6 +125,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
 	?>
 	</form>
+	</div>
 	<?php
 	$tableGenerator->DataSource = $data;
 	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();

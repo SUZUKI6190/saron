@@ -4,6 +4,18 @@
     flex-direction:row;
     display:flex;
     margin-top:10px;
+    border:outset 1px;
+    background-color:#ddeeff;
+    margin:20px;
+    padding:5px;
+    border-radius:10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+}
+
+.wrap_search form
+{
+    width:100%;
 }
 
 div.search_detail
@@ -11,6 +23,8 @@ div.search_detail
     margin-top:10px;
     flex-direction:row;
     display:flex;
+    width:100%;
+
 }
 
 div.wrap_search .area
@@ -22,7 +36,7 @@ div.wrap_search .area
 .search_item_name
 {
     display:inline-block;
-    width:40%;
+    width:20%;
     vertical-align:middle;
 }
 
@@ -40,4 +54,17 @@ div.wrap_search .area
     width:auto;
     text-align:left;
     vertical-align:middle;
+}
+
+.search_menu
+{
+    display:flex;
+    flex-direction:row;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.search_button
+{
+    text-align:right;
 }

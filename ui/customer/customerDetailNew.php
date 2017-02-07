@@ -8,9 +8,12 @@ class CustomerDetailNew extends CustomerDetail
 	public function CreateHeader()
 	{
 		?>
-			<link rel="stylesheet" type="text/css" href="<?php echo plugins_url()."/css/customer_view.css"; ?>">
-			<div style="text-align:right;">
-				<input type='submit' name='save' value='お客様情報を新しく登録する' />
+	
+			<div style="text-align:right;" class="centering">
+				<?php
+				\ui\util\submit_button("お客様情報を新しく登録する", "./", "save");
+				?>
+				
 			</div>
 		<?php
 	}
