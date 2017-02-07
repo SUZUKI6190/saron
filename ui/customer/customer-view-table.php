@@ -110,7 +110,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 
 	?>
 	<div class ="search_menu">
-	<form method="post" action="<?php echo get_bloginfo('url')."/customerview/download"; ?>">
+	<form method="post" action="<?php echo get_bloginfo('url').'/'.$c->TemplatePageName.'/download'; ?>">
 	<?php
 	$key_hidden = rtrim($key_hidden, ',');
 	$key = CustomerDownload::CUSTOMER_ID_NAME;
