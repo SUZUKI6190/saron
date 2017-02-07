@@ -4,7 +4,7 @@ class CustomerDownload
 {
 	const CUSTOMER_ID_NAME = "key_value_list";
 }
-function get_customer_csv($csv)
+function get_customer_csv()
 {
 
 	header('Content-Type: application/octet-stream');
@@ -16,9 +16,11 @@ function get_customer_csv($csv)
 	
 	foreach($id_list as $id)
 	{
-		$ret=  $ret.\business\facade\SelectCustomerById($id)->serialize_csv()."\n";
+		$ret = $ret.\business\facade\SelectCustomerById($id)->serialize_csv()."\n";
 	}
 
+	$ret = rtrim($ret, '\n');
+	
 	$stream = fopen('php://output', 'w');
 
 	fputcsv($stream, str_getcsv($ret));

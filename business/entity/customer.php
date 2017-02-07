@@ -79,8 +79,9 @@ class Customer{
 		$index = 0;
 		
 		$get_value = function() use(&$csv, &$index){
-			$csv[$index];
+			$temp = $index;
 			$index++;
+			return $csv[$temp];
 		};
 		
 		$ret = self::CreateEmptyObject();
@@ -103,7 +104,7 @@ class Customer{
 		$ret->reservation_route = $get_value();
 		$ret->remarks = $get_value();
 		
-		return ret;
+		return $ret;
 	}
 	
 	public static function CreateObjectFromWpdb($db)

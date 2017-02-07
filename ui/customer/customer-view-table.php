@@ -84,10 +84,21 @@ function create_customer_view(ControlContext $c, $strWhere)
 	$name_delete_submit = "delete";
 	$name_export_submit = "csv_export";
 	
+	if(isset($_POST[$name_delete_submit])){
+		$csv = str_getcsv($_POST[CustomerDownload::CUSTOMER_ID_NAME]);
+		$counter = 0;
+		foreach($csv as $id)
+		{
+			\business\facade\delete_customer_byid($id);
+			$counter = $counter + 1;
+		}
+		echo $counter."件のデータを削除しました。";
+		return;
+	}
+	
 	$tableGenerator = new ui\TableGenerator();
 	$data = [];
 	$key_hidden ="";
-	$customer_data_list;
 
 	$customer_data_list = search_by_input($strWhere);
 	
@@ -106,15 +117,17 @@ function create_customer_view(ControlContext $c, $strWhere)
 	\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
 	?>
 	</form>
+	
 	<form method="post" action="./">
 	<?php
-
+	echo "<input type='hidden' name='$key' value='$key_hidden' />";
 	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
-	$tableGenerator->DataSource = $data;
-	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
-	$tableGenerator->GenerateTable();
 	?>
 	</form>
 	<?php
+	$tableGenerator->DataSource = $data;
+	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
+	$tableGenerator->GenerateTable();
+
 }
 ?>

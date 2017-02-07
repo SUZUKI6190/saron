@@ -107,6 +107,17 @@ SQL;
 	$wpdb->query($strSql);
 }
 
+function delete_customer_byid($id)
+{
+	global $wpdb;
+	$wpdb->query(
+	<<<SQL
+	DELETE FROM	customer
+	WHERE	id='$id'
+SQL
+);
+}
+
 function InsertCustomer(Customer $data)
 {
 	global $wpdb;
