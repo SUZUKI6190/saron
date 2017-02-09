@@ -46,13 +46,8 @@ class SearchitemRepeater
 			return '';
 		}
 
-		$meaged_list = [];
-		foreach($this->_item_list as $list)
-		{
-			$meaged_list = array_merge($meaged_list, $list);
-		}
 		
-		$exits_list = array_filter($meaged_list, function($item){
+		$exits_list = array_filter($this->_item_list, function($item){
 			return $item->exist_criteria();
 		});
 		
