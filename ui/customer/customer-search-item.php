@@ -103,28 +103,23 @@ class SearchitemRepeater
 	private function repeat(){
 	
 		?>
-		<div class="search_detail">
+		<div class="input_form">
+		<div class='area'>
 		<?php
-		foreach($this->_item_list as $items)
+		foreach($this->_item_list as $item)
 		{
 			?>
-			<div class='area'>
-			<?php
-			foreach($items as $item)
-			{
-				?>
-				<div class='search_item_line'>
+				<div class='line'>
 				<?php
 				$item->view();
 				?>
 				</div>
-				<?php
-			}
-			?>
-			</div>
+
 			<?php
 		}
 		?>
+		
+		</div>
 		</div>
 		<?php
 	}

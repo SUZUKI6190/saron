@@ -9,7 +9,7 @@ class CustomerDetailNew extends CustomerDetail
 	{
 		?>
 	
-			<div style="text-align:right;" class="centering">
+			<div class="new_regist centering">
 				<?php
 				\ui\util\submit_button("お客様情報を新しく登録する", "./", "save");
 				?>

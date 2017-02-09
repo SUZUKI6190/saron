@@ -4,37 +4,41 @@
 }
 div.detail
 {
-            
-    margin-top:10px;
-    flex-direction:row;
-    display:flex;
-
-    border:outset 1px;
-    background-color:#ddeeff;
-    margin:20px;
-    padding:5px;
-    border-radius:10px;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
+           
+  
 }
 
+div.new_regist
+{
+    text-align:left;
+    padding-top:10px;
+}
 div.detail .area
 {
-    width:50%;
+    width:auto;
     margin-right:10px;
+    margin:0 auto;
+
 }
 div.detail .line
 {
-    flex-direction:row;
-    display:flex;
+
+    margin-bottom:20px;
+
 }
-div.detail .line input
+div.detail .line input,
+div.detail .line select
 {
     width:auto;
-    text-align:left;
+    text-align:left;    
+
+    box-sizing: border-box; /* [borde-box]‚Å‰E‚Ì”ò‚Ño‚µ‚ğ‰ñ”ğ */
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
 }
+
 div.detail .area .name
 {
     vertical-align:middle;
-    width:40%;
+    
 }

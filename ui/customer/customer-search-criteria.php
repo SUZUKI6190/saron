@@ -12,7 +12,7 @@ class KanjiNameItem extends SearchItem
 	public function view()
 	{
 		?>
-			<div class='search_item_name'>名前(漢字):</div>
+			<div class='name'>名前(漢字):</div>
 			<div>
 			<input type = 'text' name='name_kanji_last' />
 			<input type = 'text' name='name_kanji_first' />
@@ -55,7 +55,7 @@ class KanaNameItem extends SearchItem
 	public function view()
 	{
 		?>
-			<div class='search_item_name'>名前(カナ):</div>
+			<div class='name'>名前(カナ):</div>
 			<div>
 				<input type = 'text' name='name_kana_last' />
 				<input type = 'text' name='name_kana_first' />
@@ -98,7 +98,7 @@ class PhoneNumItem extends SearchItem
 	public function view()
 	{
 		?>
-			<div class='search_item_name'>電話番号:</div>
+			<div class='name'>電話番号:</div>
 			<input type = 'text' name='<?php echo PhoneNumItem::$post_key; ?>' />
 		<?php
 	}
@@ -126,7 +126,7 @@ class EmailItem extends SearchItem
 	public function view()
 	{
 		?>
-			<div class='search_item_name'>email:</div>
+			<div class='name'>email:</div>
 			<input type = 'text' name='<?php echo EmailItem::$post_key; ?>' />
 		<?php
 	}
@@ -158,7 +158,7 @@ class OldItem extends SearchItem
 	public function view()
 	{
 		?>
-			<div class='search_item_name'>年代:</div>
+			<div class='name'>年代:</div>
 			<div>
 				<select name='<?php echo OldItem::$post_key; ?>' id="ageId" class="">
 					<option value="none"></option>
@@ -203,7 +203,7 @@ class SexItem extends SearchItem
 	public function view()
 	{
 		?>
-			<div class='search_item_name'>性別:</div>
+			<div class='name'>性別:</div>
 			<div>
 			<select name="sex" id="sex">
 				<option value='None'></option>
@@ -245,7 +245,7 @@ abstract class DayFromTo extends SearchItem
 	public function view()
 	{
 		?>
-		<div class='search_item_name'><?php echo $this->_text; ?>：</div>
+		<div class='name'><?php echo $this->_text; ?>：</div>
 		<div>
 			<?php echo $this->_from_day->view(); ?>
 			<span>から</span></br>
@@ -339,7 +339,7 @@ class OccupationItem extends SearchItem
 	public function view()
 	{
 		?>
-		<div class='search_item_name'>職業：</div>
+		<div class='name'>職業：</div>
 		<div>
 		<input type = 'text' name='<?php echo OccupationItem::$post_occupation; ?>' />
 		</div>
@@ -369,12 +369,12 @@ class EnabeleDMItem extends SearchItem
 	public function view()
 	{
 		?>
-		<div class='search_item_name'>DM可：</div>
-		<div>
+		<div class='name'>DM可：</div>
+
 			<input type = 'radio' name='<?php echo EnabeleDMItem::$post_enable_dm; ?>' value="" checked/>指定なし
 			<input type = 'radio' name='<?php echo EnabeleDMItem::$post_enable_dm; ?>' value="enable"/>可
 			<input type = 'radio' name='<?php echo EnabeleDMItem::$post_enable_dm; ?>' value="disable"/>不可
-		</div>
+
 		<?php
 	}
 

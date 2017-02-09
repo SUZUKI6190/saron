@@ -110,169 +110,139 @@ abstract class CustomerDetail
 			<?php
 			$this->CreateHeader();
 			?>
-			<div class="detail">
+			<div class="input_form detail">
 
 				<div class="area">
 					<div class="line">
 						<div class="name">
-							氏名(漢字)：<br>
+							氏名(漢字)：
 							<?php $this->required_text() ?>
 						</div>
-						<div>
-							<input name="name_kanji_last" type="text" value='<?php echo $data->name_kanji_last; ?>' required />
-							<input name="name_kanji_first" type="text" value='<?php echo $data->name_kanji_first; ?>' required/>
-						</div>
+						<input name="name_kanji_last" type="text" value='<?php echo $data->name_kanji_last; ?>' required />
+						<br>
+						<input name="name_kanji_first" type="text" value='<?php echo $data->name_kanji_first; ?>' required/>
+					
 					</div>
 					<div class="line">
 						<div class="name">
-							氏名(カナ)：
-							<?php $this->required_text() ?>
+							氏名(カナ)：<?php $this->required_text() ?>
 						</div>
-						<div>
-							<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_last; ?>' required/>
-							<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_first; ?>' required/>
-						</div>
-					</div>
+						<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_last; ?>' required/>
+						<br>
+						<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_first; ?>' required/>	
+					</div>	
 					<div class="line">
 						<div class="name">
 							電話番号：
-						</div>
-						<div>
-							<input name="phone_number" type="text" value='<?php echo $data->phone_number; ?>' />
-						</div>
+						</div>							
+						<input name="phone_number" type="tel" value='<?php echo $data->phone_number; ?>' />
 					</div>
 					<div class="line">
 						<div class="name">
 							E-mail：
 						</div>
-						<div>
-							<input name="email" type="text" value='<?php echo $data->email; ?>' />
-						</div>
+						<input name="email" type="email" value='<?php echo $data->email; ?>' />
 					</div>
 					<div class="line">
 						<div class="name">
 							性別：
 						</div>
-						<div>
-							<select name="sex" id="sex">
-								<?php
-									$this->CreateOprionValue("", "None", $data->sex);
-									$this->CreateOprionValue("女性", "F", $data->sex);
-									$this->CreateOprionValue("男性", "M", $data->sex);
-								?>
-							</select>
-					   </div>
+						<select name="sex" id="sex">
+							<?php
+								$this->CreateOprionValue("", "None", $data->sex);
+								$this->CreateOprionValue("女性", "F", $data->sex);
+								$this->CreateOprionValue("男性", "M", $data->sex);
+							?>
+						</select>	
 					</div>
 					<div class="line">
 						<div class="name">
 							年齢：
 						</div>
-						<div>
-							<?php \ui\util\numeric_input("old", $data->old); ?>
-						</div>
+						<?php \ui\util\numeric_input("old", $data->old); ?>
 					</div>
 					<div class="line">
 						<div class="name">
 							誕生日：
 						</div>
-						<div>
-							<?php
-								$this->_birth->view($data->birthday);
-							?>
-						</div>
+						<?php
+							$this->_birth->view($data->birthday);
+						?>
+					
 					</div>
-				</div>
-				<div class="area">
+
 					<div class="line">
 						<div class="name">
-							住所：
-						</div>
-						<div>
-							<input type="text" name='address' value='<?php echo $data->address; ?>' />
-						</div>
+							住所：	
+						</div>				
+						<input type="text" name='address' value='<?php echo $data->address; ?>' />
 					</div>
 					<div class="line">
 						<div class="name">
 							職業：
-						</div>
-						<div>
-							<input name='occupation' type="text" value='<?php echo $data->occupation; ?>' />
-						</div>
+						</div>				
+						<input name='occupation' type="text" value='<?php echo $data->occupation; ?>' />
 					</div>
 					<div class="line">
 						<div class="name">
 							来店回数：
-						</div>
-						<div>
-							<?php \ui\util\numeric_input("number_of_visit", $data->number_of_visit); ?>
-						</div>
+						</div>					
+						<?php \ui\util\numeric_input("number_of_visit", $data->number_of_visit); ?>
 					</div>
 					<div class="line">
 						<div class="name">
 							スタッフ：
-						</div>
-						<div>
-							<?php
-							$this->_view_staff->view_staff_select();
-							?>
-						</div>
+						</div>					
+						<?php
+						$this->_view_staff->view_staff_select();
+						?>
+				
 					</div>
 					<div class="line">
 						<div class="name">
 							最終来店日：
 						</div>
-						<div>
-							<?php
-							$this->_last_visit_date->view($data->last_visit_date);
-							?>
-						</div>
+						<?php
+						$this->_last_visit_date->view($data->last_visit_date);
+						?>						
 					</div>
 					<div class="line">
 						<div class="name">
 							次回来店予約日：
-						</div>
-						<div>
-							<?php
+						</div>								
+						<?php
 							$this->_next_visit_reservation_date->view($data->next_visit_reservation_date);
 							?>
-						</div>
 					</div>
 					<div class="line">
 						<div class="name">
-							予約経路：
-						</div>
-						<div>
+							予約経路：	
+						</div>							
 							<input name='reservation_route' type="text" value='<?php echo $data->reservation_route; ?>' />
-						</div>
 					</div>
 					<div class="line">
 						<div class="name">
 							DM不可：
-						</div>
-						<div>
+						</div>		
+						<?php
+							if($data->enable_dm == 0)
+							{
+							?>
+							<input type="checkbox" name="enable_dm" value='enable_dm' />							
 							<?php
-							
-								if($data->enable_dm == 0)
-								{
-								?>
-								<input type="checkbox" name="enable_dm" value='enable_dm' />							
-								<?php
-								}else{
-								?>
-								<input type="checkbox" name="enable_dm" value='enable_dm' checked="checked" />						
-								<?php
-								}
-						?>
-						</div>
-						
+							}else{
+							?>
+							<input type="checkbox" name="enable_dm" value='enable_dm' checked="checked" />						
+							<?php
+							}
+					?>						
 					</div>
 					<div class="line">
 						<div class="name">
 							備考：
 						</div>
-						<div>
-							<input name='remarks' type="text" value='<?php echo $data->remarks; ?>' />
-						</div>
+						<input name='remarks' type="text" value='<?php echo $data->remarks; ?>' />
+						
 					</div>
 				</div>
 			</div>

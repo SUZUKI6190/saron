@@ -1,16 +1,7 @@
 
 .wrap_search
 {
-    flex-direction:row;
-    display:flex;
-    margin-top:10px;
-    border:outset 1px;
-    background-color:#ddeeff;
-    margin:20px;
-    padding:5px;
-    border-radius:10px;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
+   
 }
 
 .wrap_search form
