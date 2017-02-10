@@ -77,15 +77,12 @@ table td {
    
 }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="tel"],
-input[type="date"],
-select
+.line input,
+.line select
  {
    font-size: 100%;
    margin :10px;
+
 }
 
 .manage_button,

@@ -19,11 +19,23 @@
 .main_header_button
 {
     display:inline-block;
-    border-right :solid 1px;
-    border-left:solid 1px;
     text-align:center;
     width:200px;
+    border:solid #ddeeff 1px;
 }
+
+
+.main_header_button:hover
+{
+    background-color: #f2f9ff;
+}
+
+
+.main_header_button:active
+{
+    border:inset #ddeeff 1px;
+}
+
 
 .main_header_button a
 {
