@@ -27,5 +27,6 @@ class CustomerDetailNew extends CustomerDetail
 	{
 		\business\facade\InsertCustomer($data);
 	}
+	
 }
 ?>

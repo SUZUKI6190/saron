@@ -4,6 +4,54 @@ use business\entity\Customer;
 use ui\util;
 require_once(dirname(__FILE__)."/../staff.php");
 require_once(dirname(__FILE__)."/../util/control-util.php");
+require_once("customer-detail-item-list.php");
+
+abstract class DetailItem
+{
+	protected $_customer_data;
+	public function __construct(Customer $cd)
+	{
+		$this->_customer_data = $cd;
+	}
+	public abstract function view();
+	public abstract function get_name();
+	public abstract function save();
+	public function is_validate()
+	{
+		return true;
+	}
+	public function get_err_msg()
+	{
+		return "";
+	}
+	
+	private function required_text()
+	{
+		return "<span style='color:red';>※入力必須</span>";
+	}
+
+	protected function CreateOprionValue($text, $value, $selectedValue)
+	{	
+		if($value == $selectedValue){
+			echo "<option value='$value' selected>$text</option>";
+		}else{
+			echo "<option value='$value'>$text</option>";
+		}
+		echo "\n";
+	}
+	
+	protected function GetDatePostData($key)
+	{
+		return date('Ymd',strtotime($_POST[$key]));
+	}
+	
+	protected function ConvertInputDateFormat($strDate)
+	{
+		return date('Y-m-d',strtotime($strDate));
+	}
+
+}
+
 abstract class CustomerDetail
 {
 	private $_view_staff;
@@ -36,29 +84,11 @@ abstract class CustomerDetail
 	public function Save()
 	{
 		$data = new Customer();
-		$data->name_kanji_last = $_POST["name_kanji_last"];
-		$data->name_kanji_first = $_POST["name_kanji_first"];
-		$data->name_kana_last = $_POST["name_kana_last"];
-		$data->name_kana_first = $_POST["name_kana_first"];
-		$data->sex  = $_POST["sex"];
-		$data->old = $_POST["old"];
-		$data->birthday = $this->_birth->get_selected_value();
-		$data->last_visit_date = $this->_last_visit_date->get_selected_value();
-		$data->phone_number = $_POST["phone_number"];
-		$data->address = $_POST["address"];
-		$data->occupation = $_POST["occupation"];
-		$data->number_of_visit = $_POST["number_of_visit"];
-		$data->tanto_id = $this->_view_staff->get_value();
-		$data->email = $_POST["email"];
-		if($_POST["enable_dm"] =="")
+		foreach($this->get_item_list($data) as $item)
 		{
-			$data->enable_dm = 0;
-		}else{
-			$data->enable_dm = 1;
+			$item->save();
 		}
-		$data->next_visit_reservation_date = $this->GetDatePostData("next_visit_reservation_date");
-		$data->reservation_route = $_POST["reservation_route"];
-		$data->remarks = $_POST["remarks"];
+
 		$this->SaveInner($data);
 
 		?>
@@ -83,6 +113,10 @@ abstract class CustomerDetail
 	
 	protected abstract function CreateHeader();
 	public abstract function CreateCustomerData();
+	protected function get_item_list(Customer $data)
+	{
+		return create_item_list($data);
+	}
 	protected abstract function SaveInner(Customer $data);
 	protected function CreateOprionValue($text, $value, $selectedValue)
 	{	
@@ -103,7 +137,7 @@ abstract class CustomerDetail
 	
 	protected function CreateForm(Customer $data)
 	{
-		?>
+	?>
 		
 	<form method="POST" action=".">
 		<div class="wrap">
@@ -113,141 +147,24 @@ abstract class CustomerDetail
 			<div class="input_form detail">
 
 				<div class="area">
-					<div class="line">
-						<div class="name">
-							氏名(漢字)：
-							<?php $this->required_text() ?>
-						</div>
-						<input name="name_kanji_last" type="text" value='<?php echo $data->name_kanji_last; ?>' required />
-						<br>
-						<input name="name_kanji_first" type="text" value='<?php echo $data->name_kanji_first; ?>' required/>
-					
-					</div>
-					<div class="line">
-						<div class="name">
-							氏名(カナ)：<?php $this->required_text() ?>
-						</div>
-						<input name="name_kana_last" type="text" value='<?php echo $data->name_kana_last; ?>' required/>
-						<br>
-						<input name="name_kana_first" type="text" value='<?php echo $data->name_kana_first; ?>' required/>	
-					</div>	
-					<div class="line">
-						<div class="name">
-							電話番号：
-						</div>							
-						<input name="phone_number" type="tel" value='<?php echo $data->phone_number; ?>' />
-					</div>
-					<div class="line">
-						<div class="name">
-							E-mail：
-						</div>
-						<input name="email" type="email" value='<?php echo $data->email; ?>' />
-					</div>
-					<div class="line">
-						<div class="name">
-							性別：
-						</div>
-						<select name="sex" id="sex">
-							<?php
-								$this->CreateOprionValue("", "None", $data->sex);
-								$this->CreateOprionValue("女性", "F", $data->sex);
-								$this->CreateOprionValue("男性", "M", $data->sex);
-							?>
-						</select>	
-					</div>
-					<div class="line">
-						<div class="name">
-							年齢：
-						</div>
-						<?php \ui\util\numeric_input("old", $data->old); ?>
-					</div>
-					<div class="line">
-						<div class="name">
-							誕生日：
-						</div>
-						<?php
-							$this->_birth->view($data->birthday);
+					<?php
+					foreach($this->get_item_list($data) as $item)
+					{
 						?>
-					
-					</div>
-
-					<div class="line">
-						<div class="name">
-							住所：	
-						</div>				
-						<input type="text" name='address' value='<?php echo $data->address; ?>' />
-					</div>
-					<div class="line">
-						<div class="name">
-							職業：
-						</div>				
-						<input name='occupation' type="text" value='<?php echo $data->occupation; ?>' />
-					</div>
-					<div class="line">
-						<div class="name">
-							来店回数：
-						</div>					
-						<?php \ui\util\numeric_input("number_of_visit", $data->number_of_visit); ?>
-					</div>
-					<div class="line">
-						<div class="name">
-							スタッフ：
-						</div>					
-						<?php
-						$this->_view_staff->view_staff_select();
-						?>
-				
-					</div>
-					<div class="line">
-						<div class="name">
-							最終来店日：
+						<div class="line">
+							<div class="name">
+								<?php echo $item->get_name(); ?>:
+							</div>
+							<?php echo $item->view(); ?>:
 						</div>
 						<?php
-						$this->_last_visit_date->view($data->last_visit_date);
-						?>						
-					</div>
-					<div class="line">
-						<div class="name">
-							次回来店予約日：
-						</div>								
-						<?php
-							$this->_next_visit_reservation_date->view($data->next_visit_reservation_date);
-							?>
-					</div>
-					<div class="line">
-						<div class="name">
-							予約経路：	
-						</div>							
-							<input name='reservation_route' type="text" value='<?php echo $data->reservation_route; ?>' />
-					</div>
-					<div class="line">
-						<div class="name">
-							DM不可：
-						</div>		
-						<?php
-							if($data->enable_dm == 0)
-							{
-							?>
-							<input type="checkbox" name="enable_dm" value='enable_dm' />							
-							<?php
-							}else{
-							?>
-							<input type="checkbox" name="enable_dm" value='enable_dm' checked="checked" />						
-							<?php
-							}
-					?>						
-					</div>
-					<div class="line">
-						<div class="name">
-							備考：
-						</div>
-						<input name='remarks' type="text" value='<?php echo $data->remarks; ?>' />
-						
-					</div>
+					}
+					?>
+	
 				</div>
 			</div>
 		</div>
-		</form>
+	</form>
 		<?php
 	}
 }
