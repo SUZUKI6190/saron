@@ -88,7 +88,7 @@ abstract class CustomerDetail
 		{
 			$item->save();
 		}
-
+		
 		$this->SaveInner($data);
 
 		?>
@@ -138,14 +138,13 @@ abstract class CustomerDetail
 	protected function CreateForm(Customer $data)
 	{
 	?>
-		
-	<form method="POST" action=".">
+
+	<form method="POST">
 		<div class="wrap">
 			<?php
 			$this->CreateHeader();
 			?>
 			<div class="input_form detail">
-
 				<div class="area">
 					<?php
 					foreach($this->get_item_list($data) as $item)
