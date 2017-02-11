@@ -25,7 +25,7 @@ class SearchSub extends CustomerSubBase
 			$detailView;
 			$detailView = new CustomerDetailEdit($this->_context->Id);
 			if($detailView->IsSavePost()){
-			$detailView->Save();
+				$detailView->Save();
 			}else{
 				$detailView->View();
 			}

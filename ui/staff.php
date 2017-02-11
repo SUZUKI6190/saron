@@ -37,8 +37,11 @@ class ViewStaff
 
 	public function get_value()
 	{
-		$value = $_POST[$this->_name];
-		return $value;
+		if(empty($_POST[$this->_name])){
+			return "";
+		}else{
+			return $_POST[$this->_name];
+		}
 	}
 }
 

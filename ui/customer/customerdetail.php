@@ -16,7 +16,8 @@ abstract class DetailItem
 	public abstract function view();
 	public abstract function get_name();
 	public abstract function save();
-	public function is_validate()
+
+	public function input_check()
 	{
 		return true;
 	}
@@ -71,11 +72,6 @@ abstract class CustomerDetail
 		$this->CreateForm($data);
 	}
 
-	private function GetDatePostData($key)
-	{
-		return date('Ymd',strtotime($_POST[$key]));
-	}
-	
 	private function ConvertInputDateFormat($strDate)
 	{
 		return date('Y-m-d',strtotime($strDate));
@@ -84,7 +80,20 @@ abstract class CustomerDetail
 	public function Save()
 	{
 		$data = new Customer();
-		foreach($this->get_item_list($data) as $item)
+		$item_list = $this->get_item_list($data);
+		
+		$result = array_filter($item_list, function($item){
+			return !$item->input_check();
+		});
+		
+		if(count($result) > 0)
+		{
+			print_r(count($result));
+			$this->View();
+			return;
+		}
+		
+		foreach($item_list as $item)
 		{
 			$item->save();
 		}
@@ -111,6 +120,7 @@ abstract class CustomerDetail
 		}
 	}
 	
+	
 	protected abstract function CreateHeader();
 	public abstract function CreateCustomerData();
 	protected function get_item_list(Customer $data)
@@ -118,15 +128,6 @@ abstract class CustomerDetail
 		return create_item_list($data);
 	}
 	protected abstract function SaveInner(Customer $data);
-	protected function CreateOprionValue($text, $value, $selectedValue)
-	{	
-		if($value == $selectedValue){
-			echo "<option value='$value' selected>$text</option>";
-		}else{
-			echo "<option value='$value'>$text</option>";
-		}
-		echo "\n";
-	}
 	
 	private function required_text()
 	{
@@ -147,16 +148,47 @@ abstract class CustomerDetail
 			<div class="input_form detail">
 				<div class="area">
 					<?php
+					$view_func;
+					if($this->IsSavePost()){
+						$view_func = function($item)
+						{
+							?>
+							<div class="line">
+								<div class="name">
+									<?php echo $item->get_name(); ?>:
+								</div>
+								<?php 
+								if(!$item->input_check())
+								{
+									?>
+									<div class="detail_input_error">
+										<span><?php echo $item->get_err_msg(); ?></span>
+									</div>
+									<?php 
+								}
+								echo $item->view();
+								?>
+							</div>
+							<?php
+						};
+					}else{
+						$view_func = function($item)
+						{
+							?>
+							<div class="line">
+								<div class="name">
+									<?php echo $item->get_name(); ?>:
+								</div>
+								<?php 
+								echo $item->view();
+								?>
+							</div>
+							<?php
+						};
+					}
 					foreach($this->get_item_list($data) as $item)
 					{
-						?>
-						<div class="line">
-							<div class="name">
-								<?php echo $item->get_name(); ?>:
-							</div>
-							<?php echo $item->view(); ?>
-						</div>
-						<?php
+						$view_func($item);
 					}
 					?>
 	

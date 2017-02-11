@@ -17,13 +17,21 @@ class KanjiNameDetailItem extends DetailItem
 	{
 		return "氏名(漢字)".$this->required_text();
 	}
-	public function is_validate() : bool
+	public function input_check() : bool
 	{
+		if(empty($_POST["name_kanji_last"])){
+			return false;
+		}
+
+		if(empty($_POST["name_kanji_first"])){
+			return false;
+		}
+
 		return true;
 	}
 	public function get_err_msg() : string
 	{
-		return "";
+		return "氏名(漢字)が未入力です。";
 	}
 	public function save()
 	{
@@ -46,7 +54,7 @@ class KanaNameDetailItem extends DetailItem
 	{
 		return 	"氏名(カナ)".$this->required_text();
 	}
-	public function is_validate() : bool
+	public function input_check() : bool
 	{
 		return true;
 	}
@@ -332,7 +340,7 @@ class EnableDMDetailItem extends DetailItem
 	
 	public function save()
 	{
-		if($_POST["enable_dm"] =="")
+		if(empty($_POST["enable_dm"]))
 		{
 			$this->_customer_data->enable_dm = 0;
 		}else{

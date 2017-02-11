@@ -42,3 +42,18 @@ div.detail .area .name
     vertical-align:middle;
     
 }
+
+div.detail_input_error
+{
+    margin-bottom : 10px;
+    margin-top : 10px;
+}
+div.detail_input_error span
+{
+    color:red;
+}
+
+div.regist_finish
+{
+    margin-top:20px;
+}
