@@ -25,7 +25,7 @@ abstract class DetailItem
 		return "";
 	}
 	
-	private function required_text()
+	protected function required_text()
 	{
 		return "<span style='color:red';>※入力必須</span>";
 	}
@@ -155,7 +155,7 @@ abstract class CustomerDetail
 							<div class="name">
 								<?php echo $item->get_name(); ?>:
 							</div>
-							<?php echo $item->view(); ?>:
+							<?php echo $item->view(); ?>
 						</div>
 						<?php
 					}
