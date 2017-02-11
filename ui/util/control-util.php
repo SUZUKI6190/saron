@@ -13,7 +13,7 @@ class view_date_input
 	
 	public function view($value = "")
 	{
-		if($value == ""){
+		if(is_null($value == "") or empty($value)){
 			$converted = "";
 		}else{
 			$converted = $this->convert_inputDateFormat($value);
