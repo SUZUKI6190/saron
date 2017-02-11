@@ -72,7 +72,7 @@ function submit_button($text, $name = "", $add_style="")
 function numeric_input($name, $value, $class = "")
 {
 	?>
-		<input name='<?php echo $name; ?>' type="number" value='<?php echo $value; ?>' pattern="^[0-9]+$" title="数字"style = "<?php echo $class; ?>" />
+		<input name='<?php echo $name; ?>' type="number" value='<?php echo $value; ?>' pattern="^[0-9]+$" title="数字" style = "<?php echo $class; ?>" />
 	<?php
 }
 

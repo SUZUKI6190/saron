@@ -117,10 +117,12 @@ function create_customer_view(ControlContext $c, $strWhere)
 		$key_hidden = $key_hidden.$customerData->id.",";
 		array_push($data, new CustomerTableData($customerData, $c));
 	}
-
+	
+	$mc = \ui\frame\ManageFrameContext::get_instance();
+	$download_url = $mc->get_url()."/download"
 	?>
 	<div class ="search_menu">
-	<form method="post" action="<?php echo get_bloginfo('url').'/'.$c->TemplatePageName.'/download'; ?>">
+	<form method="post" action="<?php echo $download_url; ?>">
 	<?php
 	$key_hidden = rtrim($key_hidden, ',');
 	$key = CustomerDownload::CUSTOMER_ID_NAME;
@@ -131,7 +133,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 	
 	<form method="post" action="./">
 	<?php
-	echo "<input type='hidden' name='$key' value='$key_hidden' />";
+	echo "<input type='hidden' name='$key' value='$key_hidden'/>";
 	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
 	?>
 	</form>
