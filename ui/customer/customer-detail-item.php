@@ -1,5 +1,6 @@
 <?php
 namespace ui\customer;
+use business\entity\Customer;
 require_once("customerdetail.php");
 
 class KanjiNameDetailItem extends DetailItem
