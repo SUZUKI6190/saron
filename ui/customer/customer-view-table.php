@@ -40,6 +40,16 @@ class CustomerTableData implements ui\ITableData
 		
 	}
 
+	private function get_date_value($value)
+	{
+		if(empty($value))
+		{
+			return "";
+		}else{
+			return date('Y/m/d',strtotime($value));
+		}
+	}
+	
 	public function RowGenerator()
 	{
 		yield $this->_customerData->name_kanji_last.$this->_customerData->name_kanji_first;
@@ -52,8 +62,8 @@ class CustomerTableData implements ui\ITableData
 		}
 		yield $sex_name;
 		yield $this->_customerData->old;
-		yield date('Y/m/d',strtotime($this->_customerData->birthday));
-		yield date('Y/m/d',strtotime($this->_customerData->last_visit_date));
+		yield $this->get_date_value($this->_customerData->birthday);
+		yield $this->get_date_value($this->_customerData->last_visit_date);
 		yield $this->_customerData->phone_number;
 
 		$detail_url = $this->_controlContext->GetCustomerUrl()."/search/detail/".$this->_customerData->id;

@@ -25,17 +25,17 @@ class view_date_input
 	
 	public function get_selected_value()
 	{
+		if(empty($_POST[$this->_name]))
+		{
+			return "";
+		}
+			
 		return date('Ymd', strtotime($_POST[$this->_name]));
 	}
 
 	public function is_empty()
 	{
 		return empty($_POST[$this->_name]);
-	}
-	
-	private function GetDatePostData($key)
-	{
-		return date('Ymd',strtotime($_POST[$key]));
 	}
 	
 	private function convert_inputDateFormat($strDate)

@@ -293,7 +293,7 @@ class NextVisitReservationDateDetailItem extends DetailItem
 	
 	public function save()
 	{
-		$this->_customer_data->next_visit_reservation_date = $this->GetDatePostData("next_visit_reservation_date");
+		$this->_customer_data->next_visit_reservation_date = $this->_next_visit_reservation_date->get_selected_value();
 	}
 }
 
