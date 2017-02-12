@@ -170,8 +170,8 @@ class DeleteSub extends CustomerSubBase
 		<div class="input_form centering">
 			<div class = "delete_item">
 				<span>
-					最終来店日
-				</span>
+					最終来店日から
+				</span><br>
 				<select name='selected_month'>
 				<?php
 				foreach(DeleteSub::$month_list as $month)
@@ -184,9 +184,9 @@ class DeleteSub extends CustomerSubBase
 					}
 				}
 				?>
-				</select>
+				</select>か月<br>
 				<span>
-					か月経過したお客様情報を自動で削除
+					経過したお客様情報を自動で削除
 				</span>
 			<div>
 			

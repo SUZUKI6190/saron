@@ -115,7 +115,7 @@ function delete_customer_byid($id)
 	$wpdb->query(
 	<<<SQL
 	DELETE FROM	customer
-	WHERE	last_visit_date='$id'
+	WHERE id = '$id'
 SQL
 );
 }
