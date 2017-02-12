@@ -219,7 +219,11 @@ SQL;
 
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
-	return $result[0]->value;
+	if(count($result) > 0){
+		return $result[0]->value;
+	}else{
+		return "";
+	}
 
 }
 
