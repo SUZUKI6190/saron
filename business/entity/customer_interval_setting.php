@@ -1,5 +1,5 @@
 <?php
-namespace busines\entity;
+namespace business\entity;
 
 class CustomerIntervalSetting
 {

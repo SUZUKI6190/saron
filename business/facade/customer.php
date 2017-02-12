@@ -181,7 +181,7 @@ SQL;
 	dbDelta($strSql);
 }
 
-function set_customer_interval_setting(CustomerIntervalSetting $cis)
+function set_customer_interval_setting(\business\entity\CustomerIntervalSetting $cis)
 {
 	global $wpdb;
 	$id = $cis->id;
@@ -200,9 +200,27 @@ SQL
 	value
 	)
 	values (
-		$id,
-		$value
+		'$id',
+		'$value'
+	)
 SQL
 );
 }
+
+function get_interval_setting_byid($id) : string
+{
+	$password = Customer::GetPassword();
+	$strSql = <<<SQL
+		select
+			value
+		from customer_interval_setting
+		where id = '$id'
+SQL;
+
+	global $wpdb;
+	$result = $wpdb->get_results($strSql);
+	return $result[0]->value;
+
+}
+
 ?>

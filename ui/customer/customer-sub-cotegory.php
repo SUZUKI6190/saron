@@ -1,9 +1,11 @@
 <?php
 namespace ui\customer;
 use \SplFileObject;
-use \business\entity;
+use \business\entity\CustomerIntervalSetting;
 use \business\facade;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
+require_once(dirname(__FILE__).'/../../business/entity/customer_interval_setting.php');
+require_once(dirname(__FILE__).'/../../business/facade/customer.php');
 
 abstract class CustomerSubBase extends \ui\frame\SubCategory
 {
@@ -100,6 +102,10 @@ class MassRegistrationSub extends CustomerSubBase
 	
 	private function is_upload()
 	{
+		if(empty($_FILES[self::$post_key]))
+		{
+			return false;
+		}
 		return is_uploaded_file($_FILES[self::$post_key]["tmp_name"]);
 	}
 	
@@ -143,30 +149,44 @@ class MassRegistrationSub extends CustomerSubBase
 
 class DeleteSub extends CustomerSubBase
 {	
+	private static $month_list = [3,6,9,12,15];
 	private function setup_cron()
 	{
 	}
 
 	public function view()
 	{
-		if(empty($__POST["confirm_cron"]))
+		if(!empty($_POST["confirm_cron"]))
 		{
+			$data = new CustomerIntervalSetting();
+			$data->id = CustomerIntervalSetting::DeleteID;
+			$data->value = $_POST["selected_month"];
+			\business\facade\set_customer_interval_setting($data);
 		}
-		
+		$saved_month = \business\facade\get_interval_setting_byid(CustomerIntervalSetting::DeleteID);
 		?>
-		<form method="post" action="./"　>
+
+		<form method="post" action=""　>
 		<div class="input_form centering">
-			<div class = "midasi">
+			<div class = "delete_item">
 				<span>
 					最終来店日
 				</span>
-				<select>
-					<option value="3">3</option>
-					<option value="3">6</option>
-					<option value="3">12</option>
+				<select name='selected_month'>
+				<?php
+				foreach(DeleteSub::$month_list as $month)
+				{
+					if($month == $saved_month)
+					{
+						echo "<option value='$month' selected>$month</option>";	
+					}else{
+						echo "<option value='$month'>$month</option>";	
+					}
+				}
+				?>
 				</select>
 				<span>
-					か月経過
+					か月経過したお客様情報を自動で削除
 				</span>
 			<div>
 			
@@ -186,7 +206,7 @@ class DeleteSub extends CustomerSubBase
 	
 	public function get_title_name()
 	{
-		return "削除設定";
+		return "一括削除";
 	}
 }
 
