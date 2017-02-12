@@ -1,6 +1,8 @@
 <?php
 namespace business\facade;
+require_once(dirname(__FILE__).'/../entity/customer_interval_setting.php');
 use business\entity\Customer;
+use business\entity\CostomerIntervalSetting;
 
 function CreateDecQuery($value)
 {
@@ -113,7 +115,18 @@ function delete_customer_byid($id)
 	$wpdb->query(
 	<<<SQL
 	DELETE FROM	customer
-	WHERE	id='$id'
+	WHERE	last_visit_date='$id'
+SQL
+);
+}
+
+function delete_customer_by_last_visit_date($lapsed_month)
+{
+	global $wpdb;
+	$wpdb->query(
+	<<<SQL
+	DELETE FROM	customer
+	WHERE now() > (convert(AES_DECRYPT(last_visit_date, 'password') using utf8) + INTERVAL $lapsed_month MONTH)
 SQL
 );
 }
@@ -168,4 +181,28 @@ SQL;
 	dbDelta($strSql);
 }
 
+function set_customer_interval_setting(CustomerIntervalSetting $cis)
+{
+	global $wpdb;
+	$id = $cis->id;
+	$value = $cis->value;
+	$wpdb->query(
+	<<<SQL
+	DELETE FROM	customer_interval_setting
+	WHERE id = '$id'
+SQL
+);
+	$wpdb->query(
+	<<<SQL
+	INSERT INTO	customer_interval_setting
+	(
+	id,
+	value
+	)
+	values (
+		$id,
+		$value
+SQL
+);
+}
 ?>

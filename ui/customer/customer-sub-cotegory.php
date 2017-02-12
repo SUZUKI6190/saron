@@ -140,4 +140,54 @@ class MassRegistrationSub extends CustomerSubBase
 	}
 }
 
+
+class DeleteSub extends CustomerSubBase
+{	
+	private function setup_cron()
+	{
+	}
+
+	public function view()
+	{
+		if(empty($__POST["confirm_cron"]))
+		{
+		}
+		
+		?>
+		<form method="post" action="./"　>
+		<div class="input_form centering">
+			<div class = "midasi">
+				<span>
+					最終来店日
+				</span>
+				<select>
+					<option value="3">3</option>
+					<option value="3">6</option>
+					<option value="3">12</option>
+				</select>
+				<span>
+					か月経過
+				</span>
+			<div>
+			
+			<div class = "bottom_button_area">
+				<?php \ui\util\submit_button('確定する', "confirm_cron"); ?>
+			</div>
+		</div>
+		</form>
+		<?php
+	
+	}
+	
+	public function get_name()
+	{
+		return "delete";
+	}
+	
+	public function get_title_name()
+	{
+		return "削除設定";
+	}
+}
+
 ?>

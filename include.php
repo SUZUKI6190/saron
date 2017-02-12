@@ -84,7 +84,7 @@ function regist_css()
 add_action('wp_enqueue_scripts', 'regist_css');
 
 require_once(dirname(__FILE__).'/business/facade/customer.php');
-require_once(dirname(__FILE__).'/business/entity/customer.php');		
+require_once(dirname(__FILE__).'/business/entity/customer.php');
 require_once(dirname(__FILE__) . '/ui/controller.php');
 
 function my_temp_redirect()

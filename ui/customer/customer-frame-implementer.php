@@ -26,6 +26,7 @@ class CustomerFameImplementor extends \ui\frame\ManageFrameImplementor
 		$set_array(new SearchSub($this->_context));
 		$set_array(new RegistNewSub($this->_context));
 		$set_array(new MassRegistrationSub($this->_context));
+		$set_array(new DeleteSub($this->_context));
 		
 		return $ret;
 	}

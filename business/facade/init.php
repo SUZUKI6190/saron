@@ -39,6 +39,14 @@ SQL
 			PRIMARY KEY(id)
 		)
 SQL
+		);
+	dbDelta(<<<SQL
+		CREATE TABLE customer_interval_setting (
+			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			value int(20) UNSIGNED NOT NULL,
+			PRIMARY KEY(id)
+		)
+SQL
 		);	
 }
 ?>

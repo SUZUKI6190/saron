@@ -140,3 +140,7 @@ input[type="button"].manage_button.active
     border: solid 1px #203E5F;
 }
 
+.bottom_button_area
+{
+    text-align:right;
+}

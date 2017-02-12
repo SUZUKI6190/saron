@@ -41,11 +41,11 @@ function view_manage_gamen()
 	<meta http-equiv="Cache-Control" content="no-cache" />
 	<meta http-equiv="Expires" content="0" /><title></title>
 	
-	<link rel="stylesheet" type="text/css" href="xxx.css">
-	<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_common.css", __FILE__); ?>?ver=0.01"  type="text/css" />
-	<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_header.css", __FILE__); ?>?ver=0.01"  type="text/css" />
-	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>?ver=0.01"  type="text/css" />
-	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_view.css", __FILE__); ?>?ver=0.01"  type="text/css" />
+	<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.02" ></script>
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_common.css", __FILE__); ?>?ver=0.02"  type="text/css" />
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_header.css", __FILE__); ?>?ver=0.02"  type="text/css" />
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>?ver=0.02"  type="text/css" />
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_view.css", __FILE__); ?>?ver=0.02"  type="text/css" />
 	
 	<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 	<meta name="format-detection" content="telephone=no"/>
