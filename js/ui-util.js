@@ -1,12 +1,15 @@
-function common() {
-    function disp(msg, url) {
 
-        // 「OK」時の処理開始 ＋ 確認ダイアログの表示
-        if (window.confirm(msg)) {
+function check(msg) {
 
-            location.href = "example_confirm.html"; // example_confirm.html へジャンプ
 
-        }
+    if (window.confirm(msg)) { // 確認ダイアログを表示
+
+        return true; 
+
+    }
+    else { // 「キャンセル」時の処理
+
+        return false; // 送信を中止
 
     }
 

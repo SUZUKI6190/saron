@@ -122,7 +122,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 	$download_url = $mc->get_url()."/download"
 	?>
 	<div class ="search_menu">
-	<form method="post" action="<?php echo $download_url; ?>">
+	<form method="post" action="<?php echo $download_url; ?>" >
 	<?php
 	$key_hidden = rtrim($key_hidden, ',');
 	$key = CustomerDownload::CUSTOMER_ID_NAME;
@@ -130,18 +130,22 @@ function create_customer_view(ControlContext $c, $strWhere)
 	\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
 	?>
 	</form>
-	
-	<form method="post" action="./">
-	<?php
-	echo "<input type='hidden' name='$key' value='$key_hidden'/>";
-	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
-	?>
-	</form>
+
 	</div>
 	<?php
 	$tableGenerator->DataSource = $data;
 	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
 	$tableGenerator->GenerateTable();
+?>	
+	<form method="post" action="./"　 onSubmit="return check('検索結果を削除します。');">
 
+	<div class="search_delete">
+	<?php
+	echo "<input type='hidden' name='$key' value='$key_hidden'/>";
+	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
+	?>
+	</div>
+	</form>
+	<?php
 }
 ?>
