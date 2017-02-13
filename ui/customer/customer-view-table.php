@@ -20,11 +20,15 @@ class CustomerTableData implements ui\ITableData
 		return [
 			new HeaderData("氏名(漢字)", "header_kanji",
 			function($d1, $d2) {
-				return $d1->_customerData->name_kanji_last.$d1->_customerData->name_kanji_first <=> $d2->_customerData->name_kanji_last.$d2->_customerData->name_kanji_first;
+				$name1 = $d1->_customerData->name_kanji_last.$d1->_customerData->name_kanji_first;
+				$name2 = $d2->_customerData->name_kanji_last.$d2->_customerData->name_kanji_first;
+				return $name1 <=> $name2;
 			}),
 			new HeaderData("氏名(カナ)", "header_kana",
 			function($d1, $d2) {
-				return $d1->_customerData->name_kana_last.$d1->_customerData->name_kana_first <=> $d2->_customerData->name_kana_last.$d2->_customerData->name_kana_first;
+				$name1 = $d1->_customerData->name_kana_last.$d1->_customerData->name_kana_first;
+				$name2 = $d2->_customerData->name_kana_last.$d2->_customerData->name_kana_first;
+				return $name1 <=> $name2;
 			}),
 			new HeaderData("性別", "header_sex",
 			function($d1, $d2) {
@@ -95,7 +99,6 @@ function search_by_hidden($hidden_name)
 	$ret = [];
 	foreach($csv as $id)
 	{
-		echo "id".$id."\n";
 		$ret[] = \business\facade\SelectCustomerById($id);
 	}
 	

@@ -63,7 +63,6 @@ class SearchitemRepeater
 		{
 			foreach($item->get_criteria_query() as $q)
 			{
-				echo "$strWhere</br>";
 				$strWhere = $strWhere.$add.$q;
 				$add = ' and ';
 			}
