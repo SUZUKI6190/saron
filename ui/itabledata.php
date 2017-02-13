@@ -5,43 +5,61 @@ interface ITableData
 	function RowGenerator();
 }
 
-interface IHeaderData
+class HeaderData
 {
-	function HeaderGenerator();
+	public $header_text = "";
+	public $header_name = "";
+	public function __construct($text, $name)
+	{
+		$this->header_text = $text;
+		$this->header_name = $name;
+	}
 }
 
 class TableGenerator
 {
 	public $DataSource = [];
 	public $HeaderDataSource = [];
-	
-	public function GenerateTable()
+	private static $heaer_name = "heqader_submit";
+
+	public function is_sort_change():bool
 	{
-		echo "<table>";
-		echo "<thead><tr>";
+		return !empty($_POST[TableGenerator::$heaer_name]);
+	}
+
+	public function GenerateTable($formid)
+	{
+?>
+		<table>
+		<thead><tr>
+		<?php
 		foreach($this->HeaderDataSource as $data)
 		{
 			echo "<th>";
-			echo $data;
-			?>
-			<span>▼</span>
-			<?php
+			echo $data->header_text;
+			$name = $data->header_name;
+			if($name != ""){
+				?>
+				<a href="javascript:void(0)" onClick="FormSubmit('<?php echo $formid; ?>', '<?php echo TableGenerator::$heaer_name; ?>', '<?php echo $name; ?>');">▼</a>
+				<?php
+			}
 			echo "</th>";
 		}
-		echo "</tr></thead>";
-		echo "<tr>";
+		?>
+		</tr></thead>
+		<tr>
+		<?php
 		foreach($this->DataSource as $data)
 		{
 			foreach($data->RowGenerator() as $d)
 			{
-				echo "<td>";
-				echo $d;
-				echo "</td>";
+				echo "<td>$d</td>";
 			}
 			echo "</tr>";
 		}
-		
-		echo "</table>";
+		?>
+		</table>
+		<?php
 	}
 }
 ?>

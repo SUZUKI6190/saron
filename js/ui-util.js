@@ -14,3 +14,16 @@ function check(msg) {
     }
 
 }
+
+function FormSubmit(formid, name, value) {
+    var target = document.getElementById(formid);
+    // エレメントを作成
+    var ele = document.createElement('input');
+    // データを設定
+    ele.setAttribute('type', 'hidden');
+    ele.setAttribute('name', name);
+    ele.setAttribute('value', value);
+    // 要素を追加
+    target.appendChild(ele);
+    target.submit();
+}

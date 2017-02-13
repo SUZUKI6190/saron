@@ -1,6 +1,7 @@
 <?php
 namespace ui\customer;
 use ui;
+use ui\HeaderData;
 use \business\entity\Customer;
 require_once(dirname(__FILE__).'/../itabledata.php');
 require_once("customer-download.php");
@@ -17,14 +18,14 @@ class CustomerTableData implements ui\ITableData
 	public static function GetHeader()
 	{
 		return [
-			"氏名(漢字)",
-			"氏名(カナ)",
-			"性別",
-			"年齢",
-			"誕生日",
-			"最終来店日",
-			"電話番号",
-			""
+			new HeaderData("氏名(漢字)", "header_kanji"),
+			new HeaderData("氏名(カナ)", "header_kana"),
+			new HeaderData("性別", "header_sex"),
+			new HeaderData("年齢", "header_old"),
+			new HeaderData("誕生日", "header_birth"),
+			new HeaderData("最終来店日", "header_last_visit"),
+			new HeaderData("電話番号", "header_tell"),
+			new HeaderData("", ""),
 		];
 	}
 	
@@ -83,6 +84,7 @@ function search_by_hidden($hidden_name)
 	$ret = [];
 	foreach($csv as $id)
 	{
+		echo "id".$id."\n";
 		$ret[] = \business\facade\SelectCustomerById($id);
 	}
 	
@@ -110,41 +112,48 @@ function create_customer_view(ControlContext $c, $strWhere)
 	$data = [];
 	$key_hidden ="";
 
-	$customer_data_list = search_by_input($strWhere);
-	
+
+	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
+
+	$customer_data_list;
+
+	if($tableGenerator->is_sort_change()){
+		$customer_data_list = search_by_hidden(CustomerDownload::CUSTOMER_ID_NAME);
+	}else{
+		$customer_data_list = search_by_input($strWhere);
+	}
+
 	foreach($customer_data_list as $customerData)
 	{
 		$key_hidden = $key_hidden.$customerData->id.",";
 		array_push($data, new CustomerTableData($customerData, $c));
 	}
-	
-	$mc = \ui\frame\ManageFrameContext::get_instance();
-	$download_url = $mc->get_url()."/download"
 	?>
 	<div class ="search_menu">
 	<form method="post" action="<?php echo $download_url; ?>" >
-	<?php
-	$key_hidden = rtrim($key_hidden, ',');
-	$key = CustomerDownload::CUSTOMER_ID_NAME;
-	echo "<input type='hidden' name='$key' value='$key_hidden' />";
-	\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
-	?>
+		<?php
+		$key_hidden = rtrim($key_hidden, ',');
+		$key = CustomerDownload::CUSTOMER_ID_NAME;
+		echo "<input type='hidden' name='$key' value='$key_hidden' />";
+		\ui\util\submit_button('検索結果をCSVで出力する', $name_export_submit);
+		?>
 	</form>
-
 	</div>
 	<?php
-	$tableGenerator->DataSource = $data;
-	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
-	$tableGenerator->GenerateTable();
-?>	
-	<form method="post" action="./"　 onSubmit="return check('検索結果を削除します。');">
+	$tableGenerator->DataSource = $data;	
+	$tableGenerator->GenerateTable("mein_form");
 
-	<div class="search_delete">
-	<?php
-	echo "<input type='hidden' name='$key' value='$key_hidden'/>";
-	\ui\util\submit_button('検索結果を削除する', $name_delete_submit);
-	?>
-	</div>
+	$mc = \ui\frame\ManageFrameContext::get_instance();
+	$download_url = $mc->get_url()."/download"
+?>
+
+	<form method="post" action="./" id="mein_form">
+		<div class="search_delete">
+		<?php
+		echo "<input type='hidden' name='$key' value='$key_hidden'/>";
+		\ui\util\confirm_submit_button('検索結果を削除する', $name_delete_submit);
+		?>
+		</div>
 	</form>
 	<?php
 }
