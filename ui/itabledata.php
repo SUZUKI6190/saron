@@ -9,10 +9,18 @@ class HeaderData
 {
 	public $header_text = "";
 	public $header_name = "";
-	public function __construct($text, $name)
+	protected $compare_callbacks;
+
+	public function __construct($text, $name, callable $callback)
 	{
 		$this->header_text = $text;
 		$this->header_name = $name;
+		$this->compare_callbacks = $callback;
+	}
+	
+	public function sort($data1, $data2)
+	{
+		return call_user_func_array($this->compare_callbacks , [$data1, $data2]);
 	}
 }
 
@@ -27,6 +35,21 @@ class TableGenerator
 		return !empty($_POST[TableGenerator::$heaer_name]);
 	}
 
+	public function sort_table()
+	{
+		$value = $_POST[TableGenerator::$heaer_name];
+		$selected_header = array_values(array_filter($this->HeaderDataSource, function($data) use(&$value){
+			return $data->header_name == $value;
+		}));
+
+		if(count($selected_header) > 0)
+		{	
+			usort($this->DataSource , function($d1,$d2) use(&$selected_header) {
+				return $selected_header[0]->sort($d1, $d2);
+			});
+		}
+	}
+	
 	public function GenerateTable($formid)
 	{
 ?>

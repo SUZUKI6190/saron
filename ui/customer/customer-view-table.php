@@ -18,27 +18,38 @@ class CustomerTableData implements ui\ITableData
 	public static function GetHeader()
 	{
 		return [
-			new HeaderData("氏名(漢字)", "header_kanji"),
-			new HeaderData("氏名(カナ)", "header_kana"),
-			new HeaderData("性別", "header_sex"),
-			new HeaderData("年齢", "header_old"),
-			new HeaderData("誕生日", "header_birth"),
-			new HeaderData("最終来店日", "header_last_visit"),
-			new HeaderData("電話番号", "header_tell"),
-			new HeaderData("", ""),
+			new HeaderData("氏名(漢字)", "header_kanji",
+			function($d1, $d2) {
+				return $d1->_customerData->name_kanji_last.$d1->_customerData->name_kanji_first <=> $d2->_customerData->name_kanji_last.$d2->_customerData->name_kanji_first;
+			}),
+			new HeaderData("氏名(カナ)", "header_kana",
+			function($d1, $d2) {
+				return $d1->_customerData->name_kana_last.$d1->_customerData->name_kana_first <=> $d2->_customerData->name_kana_last.$d2->_customerData->name_kana_first;
+			}),
+			new HeaderData("性別", "header_sex",
+			function($d1, $d2) {
+				return $d1->_customerData->sex <=> $d2->_customerData->sex;
+			}),
+			new HeaderData("年齢", "header_old",
+			function($d1, $d2) {
+				return $d1->_customerData->old <=> $d2->_customerData->old;
+			}),
+			new HeaderData("誕生日", "header_birth",
+			function($d1, $d2) {
+				return $d1->_customerData->birthday <=> $d2->_customerData->birthday;
+			}),
+			new HeaderData("最終来店日", "header_last_visit",
+			function($d1, $d2) {
+				return $d1->_customerData->last_visit_date <=> $d2->_customerData->last_visit_date;
+			}),
+			new HeaderData("電話番号", "header_tell",
+			function($d1, $d2) {
+				return $d1->_customerData->phone_number <=> $d2->_customerData->phone_number;
+			}),
+			new HeaderData("", "",function($d1, $d2) {
+				return 0;
+			}),
 		];
-	}
-	
-	public function HeaderGenerator()
-	{
-		yield "氏名(漢字)";
-		yield "氏名(カナ)";
-		yield "性別";
-		yield "年齢";
-		yield "誕生日";
-		yield "最終来店日";
-		yield "電話番号";
-		
 	}
 
 	private function get_date_value($value)
@@ -140,7 +151,10 @@ function create_customer_view(ControlContext $c, $strWhere)
 	</form>
 	</div>
 	<?php
-	$tableGenerator->DataSource = $data;	
+	$tableGenerator->DataSource = $data;
+	if($tableGenerator->is_sort_change()){
+		$tableGenerator->sort_table();
+	}
 	$tableGenerator->GenerateTable("mein_form");
 
 	$mc = \ui\frame\ManageFrameContext::get_instance();
