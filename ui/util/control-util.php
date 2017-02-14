@@ -44,6 +44,25 @@ class view_date_input
 	}
 }
 
+abstract class submit_base
+{
+	private $_style;
+	private $_text;
+	private $_name;
+	abstract function view();
+	public function __construct($name, $text , $style="")
+	{
+		$this->_name = $name;
+		$this->_text = $text;
+		$this->_style = $style;
+	}
+
+	public function on_submit() : bool
+	{
+		return !empty($_POST[$this->_name]);
+	}
+}
+
 function main_header_button($text , $url)
 {
 	?><div class="main_header_button">
