@@ -46,20 +46,32 @@ class view_date_input
 
 abstract class submit_base
 {
-	private $_style;
-	private $_text;
-	private $_name;
-	abstract function view();
-	public function __construct($name, $text , $style="")
+	protected $_style;
+	protected $_text;
+	protected $_name;
+	protected $_form_id;
+	public abstract function view();
+	public function __construct($name, $text , $form_id, $style="")
 	{
 		$this->_name = $name;
 		$this->_text = $text;
+		$this->_form_id = $form_id;
 		$this->_style = $style;
 	}
 
-	public function on_submit() : bool
+	public function is_submit() : bool
 	{
 		return !empty($_POST[$this->_name]);
+	}
+}
+
+class sort_button extends submit_base
+{
+	public function view()
+	{
+		?>
+		<a href="javascript:void(0)" onClick="FormSubmit('<?php echo $this->_form_id; ?>', '<?php echo $this->_name; ?>', '<?php echo $this->_name; ?>');">▼</a>
+		<?php
 	}
 }
 
