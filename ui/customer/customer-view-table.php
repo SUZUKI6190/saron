@@ -122,12 +122,10 @@ function create_customer_view(ControlContext $c, $strWhere)
 		return;
 	}
 	
-	$tableGenerator = new ui\TableGenerator();
+	$tableGenerator = new ui\TableGenerator(CustomerTableData::GetHeader());
 	$data = [];
 	$key_hidden ="";
 
-
-	$tableGenerator->HeaderDataSource = CustomerTableData::GetHeader();
 
 	$customer_data_list;
 

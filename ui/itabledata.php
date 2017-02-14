@@ -28,18 +28,41 @@ class TableGenerator
 {
 	public $DataSource = [];
 	public $HeaderDataSource = [];
+	private $_header_button_list = [];
 	private static $heaer_name = "heqader_submit";
+	public function __construct($HeaderDataSource)
+	{
+		$this->HeaderDataSource = $HeaderDataSource;
+		$this->_header_button_list = array_map( function($data) use(&$formid){
+			return new \ui\util\SortButton($data->header_name, $data->header_text, $formid);
+		} , $this->HeaderDataSource);
+	}
 
 	public function is_sort_change():bool
 	{
-		return !empty($_POST[TableGenerator::$heaer_name]);
+		foreach($this->_header_button_list as $header_button)
+		{
+			if($header_button->is_submit())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function sort_table()
 	{
-		$value = $_POST[TableGenerator::$heaer_name];
-		$selected_header = array_values(array_filter($this->HeaderDataSource, function($data) use(&$value){
-			return $data->header_name == $value;
+		$selected_button_list = array_values(array_filter($this->_header_button_list, function($data){
+			return $data->is_submit();
+		}));
+		
+		if(count($selected_button_list) == 0)
+		{
+			return;
+		}
+		$selected_button = $selected_button_list[0];
+		$selected_header = array_values(array_filter($this->HeaderDataSource, function($data) use(&$selected_button){
+			return $data->header_name == $selected_button->get_name();
 		}));
 
 		if(count($selected_header) > 0)
@@ -56,16 +79,13 @@ class TableGenerator
 		<table>
 		<thead><tr>
 		<?php
-		foreach($this->HeaderDataSource as $data)
+		$sort_button_list = array_map( function($data) use(&$formid){
+			return new \ui\util\SortButton($data->header_name, $data->header_text, $formid);
+		} , $this->HeaderDataSource);
+		foreach($sort_button_list as $data)
 		{
 			echo "<th>";
-			echo $data->header_text;
-			$name = $data->header_name;
-			if($name != ""){
-				?>
-				<a href="javascript:void(0)" onClick="FormSubmit('<?php echo $formid; ?>', '<?php echo TableGenerator::$heaer_name; ?>', '<?php echo $name; ?>');">▼</a>
-				<?php
-			}
+			$data->view();
 			echo "</th>";
 		}
 		?>
@@ -82,6 +102,7 @@ class TableGenerator
 		}
 		?>
 		</table>
+		
 		<?php
 	}
 }

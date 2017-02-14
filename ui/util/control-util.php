@@ -50,6 +50,10 @@ abstract class submit_base
 	protected $_text;
 	protected $_name;
 	protected $_form_id;
+	public function get_name() : string
+	{
+		return $this->_name;
+	}
 	public abstract function view();
 	public function __construct($name, $text , $form_id, $style="")
 	{
@@ -61,16 +65,43 @@ abstract class submit_base
 
 	public function is_submit() : bool
 	{
-		return !empty($_POST[$this->_name]);
+		return isset($_POST[$this->_name]);
 	}
 }
 
-class sort_button extends submit_base
+class SortButton extends submit_base
 {
+	const normal = "";
+	const descending = "▲";
+	const ascending = "▼";
+	
 	public function view()
 	{
+		$value_set = SortButton::normal;
+
+		if($this->is_submit())
+		{
+			$value = $_POST[$this->_name];
+			switch($value)
+			{
+				case SortButton::normal:
+					$this->_text = $this->_text.SortButton::descending;
+					$value_set = SortButton::descending;
+					break;
+				case SortButton::descending:
+					$this->_text = $this->_text.SortButton::ascending;
+					$value_set = SortButton::ascending;
+					break;
+				case SortButton::ascending:
+					$this->_text = $this->_text.SortButton::descending;
+					$value_set = SortButton::descending;
+					break;
+			}
+		}else{
+			$this->_text = $this->_text.SortButton::normal;
+		}
 		?>
-		<a href="javascript:void(0)" onClick="FormSubmit('<?php echo $this->_form_id; ?>', '<?php echo $this->_name; ?>', '<?php echo $this->_name; ?>');">▼</a>
+		<a href="javascript:void(0)" onClick="FormSubmit('<?php echo $this->_form_id; ?>', '<?php echo $this->_name; ?>', '<?php echo $value_set; ?>');"><?php echo $this->_text; ?></a>
 		<?php
 	}
 }
