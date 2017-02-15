@@ -44,7 +44,7 @@ class view_date_input
 	}
 }
 
-abstract class submit_base
+abstract class SubmitBase
 {
 	protected $_style;
 	protected $_text;
@@ -69,12 +69,12 @@ abstract class submit_base
 	}
 }
 
-class SortButton extends submit_base
+class SortButton extends SubmitBase
 {
 	const normal = "";
 	const descending = "▲";
 	const ascending = "▼";
-	
+
 	public function get_state() : string
 	{
 		return $_POST[$this->_name];
@@ -150,6 +150,30 @@ function numeric_input($name, $value, $class = "")
 	?>
 		<input name='<?php echo $name; ?>' type="number" value='<?php echo $value; ?>' pattern="^[0-9]+$" title="数字" style = "<?php echo $class; ?>" />
 	<?php
+}
+
+class SubmitButton extends SubmitBase
+{
+	public function view(){
+	?>	
+		<input type='submit' value="<?php echo $this->_text; ?>" name="<?php echo $this->_name; ?>" class="manage_button <?php echo $this->_style; ?>"  />
+	<?php
+	}
+}
+
+class ConfirmSubmitButton extends SubmitBase
+{
+	private $_confirm_msg;
+	public function __construct($name, $text , $form_id, $confirm_msg, $style="")
+	{
+		parent::__construct($name, $text , $form_id, $style);
+		$this->_confirm_msg = $confirm_msg;
+	}
+	public function view(){
+	?>	
+		<input type='submit' value="<?php echo $this->_text; ?>" name="<?php echo $this->_name; ?>" class="manage_button <?php echo $this->_style; ?>" onClick="return check('<?php echo $this->_confirm_msg; ?>');" />
+	<?php
+	}
 }
 
 ?>

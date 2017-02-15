@@ -109,7 +109,7 @@ abstract class CustomerDetail
 		<?php
 	}
 
-	protected static $SavePostKey = 'name_kanji_last';
+	protected static $SavePostKey = 'save';
 
 	public function IsSavePost()
 	{
@@ -136,8 +136,13 @@ abstract class CustomerDetail
 		<?php
 	}
 	
+	protected function on_pre_view()
+	{
+	}
+	
 	protected function CreateForm(Customer $data)
 	{
+		$this->on_pre_view();
 	?>
 
 	<form method="POST">
