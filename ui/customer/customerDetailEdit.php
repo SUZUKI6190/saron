@@ -3,29 +3,35 @@ namespace ui\customer;
 use business\entity\Customer;
 use business\facade;
 use ui\util\ConfirmSubmitButton;
+use ui\util\SubmitButton;
 require_once("customerdetail.php");
 class CustomerDetailEdit extends CustomerDetail
 {
 	private $_id;
 	private $_delete_button;
+	private $_update_button;
 	public function __construct($id)
 	{
 		parent::__construct();
 		$this->_id = $id;
-		$this->_delete_button = new ConfirmSubmitButton("delete_cutomer", "このお客様情報を削除する", "", "削除してもよろしいですか？");
+		$this->_delete_button = new ConfirmSubmitButton("delete_cutomer", "このお客様情報を削除する", "", "削除してもよろしいですか？", "search_delete");
+		$this->_update_button = new SubmitButton( CustomerDetail::$SavePostKey, "お客様情報を更新する", "");
 	}
 	public function CreateHeader()
 	{
 		?>
-			<div style="text-align:right;">
-				<input type='submit' name='<?php echo CustomerDetail::$SavePostKey; ?>' value='お客様情報を更新する' />
-			</div>
+			<div style="text-align:right;:">
+				<?php
+				$this->_update_button->view();
+				?>
+			
 	
-		<div class="search_delete">
+		
 			<?php
 			$this->_delete_button->view();
 			?>
 			</div>		
+		
 		<?php
 	}
 	protected function on_pre_view()

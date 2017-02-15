@@ -107,20 +107,7 @@ function search_by_hidden($hidden_name)
 
 function create_customer_view(ControlContext $c, $strWhere)
 {
-	$name_delete_submit = "delete";
 	$name_export_submit = "csv_export";
-	
-	if(isset($_POST[$name_delete_submit])){
-		$csv = str_getcsv($_POST[CustomerDownload::CUSTOMER_ID_NAME]);
-		$counter = 0;
-		foreach($csv as $id)
-		{
-			\business\facade\delete_customer_byid($id);
-			$counter = $counter + 1;
-		}
-		echo $counter."件のデータを削除しました。";
-		return;
-	}
 	
 	$tableGenerator = new ui\TableGenerator(CustomerTableData::GetHeader());
 	$data = [];
@@ -160,16 +147,9 @@ function create_customer_view(ControlContext $c, $strWhere)
 
 	$mc = \ui\frame\ManageFrameContext::get_instance();
 	$download_url = $mc->get_url()."/download"
+	
 ?>
 
-	<form method="post" action="./" id="mein_form">
-		<div class="search_delete">
-		<?php
-		echo "<input type='hidden' name='$key' value='$key_hidden'/>";
-		\ui\util\confirm_submit_button('検索結果を削除する', $name_delete_submit);
-		?>
-		</div>
-	</form>
 	<?php
 }
 ?>
