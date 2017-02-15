@@ -107,12 +107,12 @@ function search_by_hidden($hidden_name)
 
 function create_customer_view(ControlContext $c, $strWhere)
 {
+	$name_delete_submit = "delete";
 	$name_export_submit = "csv_export";
 	
 	$tableGenerator = new ui\TableGenerator(CustomerTableData::GetHeader());
 	$data = [];
 	$key_hidden ="";
-
 
 	$customer_data_list;
 
@@ -127,6 +127,9 @@ function create_customer_view(ControlContext $c, $strWhere)
 		$key_hidden = $key_hidden.$customerData->id.",";
 		array_push($data, new CustomerTableData($customerData, $c));
 	}
+	
+	$mc = \ui\frame\ManageFrameContext::get_instance();
+	$download_url = $mc->get_url()."/download"
 	?>
 	<div class ="search_menu">
 	<form method="post" action="<?php echo $download_url; ?>" >
@@ -138,6 +141,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 		?>
 	</form>
 	</div>
+	<form method="post" action="./" id="mein_form">
 	<?php
 	$tableGenerator->DataSource = $data;
 	if($tableGenerator->is_sort_change()){
@@ -145,11 +149,14 @@ function create_customer_view(ControlContext $c, $strWhere)
 	}
 	$tableGenerator->GenerateTable("mein_form");
 
-	$mc = \ui\frame\ManageFrameContext::get_instance();
-	$download_url = $mc->get_url()."/download"
-	
 ?>
 
+		<?php
+		echo "<input type='hidden' name='$key' value='$key_hidden'/>";
+		
+		?>
+		
+	</form>
 	<?php
 }
 ?>
