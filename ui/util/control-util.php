@@ -75,13 +75,18 @@ class SortButton extends submit_base
 	const descending = "▲";
 	const ascending = "▼";
 	
+	public function get_state() : string
+	{
+		return $_POST[$this->_name];
+	}
+	
 	public function view()
 	{
 		$value_set = SortButton::normal;
 
 		if($this->is_submit())
 		{
-			$value = $_POST[$this->_name];
+			$value = $this->get_state();
 			switch($value)
 			{
 				case SortButton::normal:

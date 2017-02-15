@@ -1,5 +1,6 @@
 <?php
 namespace ui;
+use ui\util\SortButton;
 interface ITableData
 {
 	function RowGenerator();
@@ -67,8 +68,13 @@ class TableGenerator
 
 		if(count($selected_header) > 0)
 		{	
-			usort($this->DataSource , function($d1,$d2) use(&$selected_header) {
-				return $selected_header[0]->sort($d1, $d2);
+			$convert_param = 1;
+			if($selected_button->get_state() == SortButton::ascending)
+			{
+				$convert_param = -1;
+			}
+			usort($this->DataSource , function($d1,$d2) use(&$selected_header, &$convert_param) {
+				return $convert_param * $selected_header[0]->sort($d1, $d2);
 			});
 		}
 	}
