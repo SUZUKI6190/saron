@@ -3,6 +3,7 @@ namespace ui;
 
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
+require_once("publish/publish-frame-implementor.php");
 
 function create_iplementer($category_name)
 {
@@ -16,6 +17,9 @@ function create_iplementer($category_name)
 			$context->TemplatePageName = get_query_var( 'pagename' );;
 			$context->SearchResult = get_query_var( 'result' );
 			return new  customer\CustomerFameImplementor($context);
+			break;
+		case "publish":
+			return new  publish\PublishFrameImplementor();
 			break;
 		default:
 			break;

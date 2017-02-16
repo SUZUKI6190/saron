@@ -18,7 +18,7 @@ function view_manage_gamen()
 		};
 
 		$set_array("customer", "お客様管理");
-		$set_array("customer", "お客様管理");
+		$set_array("publish", "掲載管理");
 		$set_array("yoyaku", "予約管理");
 		$set_array("send-message", "メッセージ配信管理");
 		$set_array("staff", "スタッフ管理");

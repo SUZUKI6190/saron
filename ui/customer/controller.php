@@ -18,10 +18,4 @@ class ControlContext
 	}
 }
 
-function ViewDetail()
-{
-	$data = new \business\entity\Customer();
-	CreateCustomerDetailForm($data);
-}
-
 ?>

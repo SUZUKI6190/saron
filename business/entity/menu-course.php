@@ -1,14 +1,11 @@
 <?php
 namespace business\entity;
-
-class Menu
+class MenuCourse
 {
 	public $menu_id;
+	public $course_id;
 	public $name;
+	public $time_require;
 	public $price;
-	public $description
-	public $time_required;
-	public $course_list;
 }
-
 ?>
