@@ -6,18 +6,18 @@ use \ui\util\SubmitButton;
 use \business\entity\Menu;
 use \business\entity\MenuCourse;
 
-class MenuCourse
+class MenuCourseForm
 {
 	private $_course;
 	private $_edit_button;
 	private $_delete_button;
-	public function __construct(MenuCourse $course)
+	public function __construct(MenuCourse $course, $form_id)
 	{
 		$this->_cours = $course;
-		$this->_edit_button = new submit_button('編集', "edit_course_".$course->couse_id);
-		$this->_delete_button = new submit_button('削除', "delete_course_".$course->couse_id);
+		$this->_edit_button = new SubmitButton('編集', "edit_course_".$course->couse_id, $form_id);
+		$this->_delete_button = new SubmitButton('削除', "delete_course_".$course->couse_id, $form_id);
 	}
-	private const $name_format = "%s（%d分）　%d円";
+	const name_format = "%s（%d分）　%d円";
 	public function view()
 	{
 		?>
@@ -34,10 +34,11 @@ abstract class ViewMenuDetail
 {
 	private $_add_course_button;
 	private $_menu;
+	private $_form_id;
 	public function __construct(Menu $menu)
 	{
 		$this->_menu = $menu;
-		$this->_add_course_button = new submit_button('コースを追加する', "add_course");
+		$this->_add_course_button = new SubmitButton('コースを追加する', "add_course", $this->_form_id);
 	}
 	
 	public abstract function save_inner();
@@ -58,7 +59,7 @@ abstract class ViewMenuDetail
 		<?php echo $this->_menu->time_required; ?>
 		<div>コース</div>
 	<?php
-		foreach($this->course_list as $couse)
+		foreach($this->_menu->course_list as $couse)
 		{?>
 			
 		<?php

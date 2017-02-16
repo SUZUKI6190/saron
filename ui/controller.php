@@ -12,16 +12,16 @@ function view_manage_gamen()
 	function create_main_category()
 	{
 		$ret =[];
-		$set_array = function ($name, $text) use(&$ret)
+		$set_array = function ($name, $text, $default_name) use(&$ret)
 		{
-			$ret[$name] = new \ui\frame\MainCategory($name, $text);
+			$ret[$name] = new \ui\frame\MainCategory($name, $text, $default_name);
 		};
 
-		$set_array("customer", "お客様管理");
-		$set_array("publish", "掲載管理");
-		$set_array("yoyaku", "予約管理");
-		$set_array("send-message", "メッセージ配信管理");
-		$set_array("staff", "スタッフ管理");
+		$set_array("customer", "お客様管理", "search");
+		$set_array("publish", "掲載管理", "menu");
+		$set_array("yoyaku", "予約管理" , "menu");
+		$set_array("send-message", "メッセージ配信管理", "menu");
+		$set_array("staff", "スタッフ管理", "menu");
 
 		return $ret;
 	}
@@ -46,6 +46,7 @@ function view_manage_gamen()
 	<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_header.css", __FILE__); ?>?ver=0.03"  type="text/css" />
 	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>?ver=0.03"  type="text/css" />
 	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_view.css", __FILE__); ?>?ver=0.03"  type="text/css" />
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/publish_menu.css", __FILE__); ?>?ver=0.03"  type="text/css" />
 	
 	<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 	<meta name="format-detection" content="telephone=no"/>

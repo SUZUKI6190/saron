@@ -5,10 +5,12 @@ class MainCategory
 {
 	public $name;
 	public $text;
-	public function __construct($name, $text)
+	public $default_name;
+	public function __construct($name, $text, $default_name)
 	{
 		$this->name = $name;
 		$this->text = $text;
+		$this->default_name = $default_name;
 	}
 }
 

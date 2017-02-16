@@ -47,6 +47,29 @@ SQL
 			PRIMARY KEY(id)
 		)
 SQL
-		);	
+		);
+	dbDelta(<<<SQL
+		CREATE TABLE menu (
+			id int UNSIGNED NOT NULL,
+			name varchar(100),
+			price int UNSIGNED,
+			description text,
+			time_required tinyint UNSIGNED,
+			PRIMARY KEY(id)
+		)
+SQL
+		);
+
+	dbDelta(<<<SQL
+		CREATE TABLE menu_course (
+			id int UNSIGNED NOT NULL,
+			menu_id int UNSIGNED NOT NULL,
+			name varchar(100),
+			price int UNSIGNED,
+			time_required tinyint UNSIGNED,
+			PRIMARY KEY(id, manu_id)
+		)
+SQL
+		);
 }
 ?>

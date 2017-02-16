@@ -37,16 +37,9 @@
 				<?php
 				foreach($main_cate_list as $key => $main_category)
 				{
-					$sub_list = $this->_frame_implementor->get_sub_category_list();
-					$sub_name = "";
-					if(count($sub_list) > 0)
-					{
-						$sub_name = reset($sub_list)->get_name();
-					}
-
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
-					$hb->url = $mc->get_url()."/".$main_category->name."/".$sub_name;
+					$hb->url = $mc->get_url()."/".$main_category->name."/".$main_category->default_name;
 					
 					\ui\util\main_header_button($hb->name,  $hb->url);
 				}
