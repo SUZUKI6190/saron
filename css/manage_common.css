@@ -4,6 +4,10 @@ body
     margin:0px;
 }
 
+input[type="textarea"]{
+    vertical-align:top;
+}
+
 main
 {
     margin-left:initial;

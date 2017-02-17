@@ -176,4 +176,48 @@ class ConfirmSubmitButton extends SubmitBase
 	}
 }
 
+class InputBase
+{
+	protected $_name;
+	protected $_value;
+	protected $_style;
+	protected $_type;
+	protected $_atribute;
+	public function __construct($type, $name, $value, $style="", $add_atribute = [])
+	{
+		$this->_type = $type;
+		$this->_name = $name;
+		$this->_value = $value;
+		$this->_style = $style;
+		$this->_atribute = $add_atribute;
+	}
+
+	public function get_value() :string
+	{
+		return $_POST[$this->name];
+	}
+
+	public function view()
+	{
+		?>	
+		<input type='<?php echo $this->_type; ?>' value="<?php echo $this->_value; ?>" name="<?php echo $this->_name; ?>" class="<?php echo $this->_style; ?>"/>
+		<?php
+	}
+}
+
+class InputTextarea extends InputBase
+{
+	public function __construct( $name, $value, $style="", $add_atribute = [])
+	{
+		parent::__construct("", $name, $value, $style, $add_atribute);
+	}
+	public function view()
+	{
+		?>	
+		<textarea  name="<?php echo $this->_name; ?>" class="<?php echo $this->_style; ?>"><?php echo $this->_value; ?></textarea>
+		<?php
+	}
+}
+	
+
 ?>

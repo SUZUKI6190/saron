@@ -4,6 +4,8 @@ namespace ui;
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once("publish/publish-frame-implementor.php");
+require_once("publish/publish-context.php");
+use ui\publish\PublishContext;
 
 function create_iplementer($category_name)
 {
@@ -19,6 +21,9 @@ function create_iplementer($category_name)
 			return new  customer\CustomerFameImplementor($context);
 			break;
 		case "publish":
+			$context = PublishContext::get_instance();
+			$context->menu_id = get_query_var( 'id' );
+			$context->edit_mode = get_query_var( 'edit' );
 			return new  publish\PublishFrameImplementor();
 			break;
 		default:

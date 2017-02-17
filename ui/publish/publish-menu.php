@@ -3,6 +3,8 @@ namespace ui\publish;
 require_once(dirname(__FILE__).'/../../business/entity/menu.php');
 require_once(dirname(__FILE__).'/../../business/entity/menu-course.php');
 use \ui\util\SubmitButton;
+use \ui\util\InputBase;
+use \ui\util\InputTextarea;
 use \business\entity\Menu;
 use \business\entity\MenuCourse;
 
@@ -30,40 +32,73 @@ class MenuCourseForm
 	}
 }
 
+class PublishMenuInput extends InputBase
+{
+	public function __construct($type, $name, $value, $style = "")
+	{
+		parent::__construct($type, $name, $value, "publish_menu ".$style);
+	}
+}
+
 abstract class ViewMenuDetail
 {
 	private $_add_course_button;
 	private $_menu;
 	private $_form_id;
+	protected $_price, $_time_required, $_menu_name, $_description;
 	public function __construct(Menu $menu)
 	{
 		$this->_menu = $menu;
-		$this->_add_course_button = new SubmitButton('コースを追加する', "add_course", $this->_form_id);
+		$this->_add_course_button = new SubmitButton("add_course" ,'新しいコースを追加する', $this->_form_id);
+		$this->_menu_name = new PublishMenuInput("text", "name", $menu->name);
+		$this->_time_required = new PublishMenuInput("numeric", "time_required", $menu->time_required);
+		$this->_price = new PublishMenuInput("numeric", "price", $menu->price);
+		$this->_description = new InputTextarea("description", $menu->description, "menu_description");
 	}
 	
-	public abstract function save_inner();
+	protected abstract function save_inner(Menu $menu);
 
+	private function create_menu() : Menu
+	{
+		$menu = new Menu();
+		
+		
+		return $menu;
+	}
+	
 	public function view()
 	{?>
-		<div style="text-align:right;">
-            <input type="submit"  value="+メニューを追加する"/>
-        </div>
-        <div class="menu_midasi">
-            <div>メニュー設定</div>
-        </div>
-		<div>メニュー名</div>
-		<?php echo $this->_menu->name; ?>
-		<div>価格</div>
-		<?php echo $this->_menu->price; ?>
-		<div>所要目安時間</div>
-		<?php echo $this->_menu->time_required; ?>
-		<div>コース</div>
-	<?php
-		foreach($this->_menu->course_list as $couse)
-		{?>
+		<div class="input_form">
+	
+		<div class="line">
+			<div>メニュー名</div>
+			<?php echo $this->_menu_name->view(); ?>
+		</div>
+		<div class="line">
+			<div>価格</div>
+			<?php echo $this->_price->view(); ?>
+		</div>
+		<div class="line">
+			<div>所要目安時間</div>
+			<?php echo $this->_time_required->view(); ?>
+		</div>
+		<div class="line">
+			<div>説明</div>
+			<?php echo $this->_description->view(); ?>
+		</div>
+		<div class="line">
+			<div>コース</div>
+			<?php
+			$this->_add_course_button->view();
+			foreach($this->_menu->course_list as $couse)
+			{?>
 			
+			<?php
+			}
+			?>
+		</div>
+		</div>
 		<?php
-		}
 	}
 }
 

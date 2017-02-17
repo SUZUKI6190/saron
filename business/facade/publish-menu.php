@@ -13,7 +13,8 @@ function get_menu_list()
 		name,
 		price,
 		description,
-		time_required
+		time_required,
+		enable_reservation
 		from menu
 SQL;
 
@@ -25,10 +26,65 @@ SQL;
 		$temp->price = $result->price;
 		$temp->time_required = $result->time_required;
 		$temp->description = $result->description;
+		$temp->enable_reservation = $result->enable_reservation;
 		return $temp;
 	}, $result);
 
 	return $ret;
+}
+
+function delete_menu($id)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		delete from menu_course
+		where menu_id = '$id'
+SQL);
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		delete from menu
+		where id = '$id'
+SQL
+);
+}
+
+function insert_menu(Menu $menu)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+insert into menu (
+	name,
+	price,
+	description,
+	time_required,
+	enable_reservation
+)values(
+	$menu->name,
+	$menu->price,
+	$menu->description,
+	$menu->time_required,
+	$menu->enable_reservation
+)
+SQL
+);
+}
+
+function update_menu(Menu $menu)
+{
+	$strSql = <<<SQL
+		update `customer` set
+		name = '$menu->name',
+		price = '$menu->price',
+		description = '$menu->description',
+		time_required = '$menu->time_required',
+		enable_reservation = '$menu->enable_reservation',
+	where id = '$data->id'
+SQL;
+	global $wpdb;
+	$wpdb->query($strSql);
 }
 
 function get_menu_course_by_menuid($menu_id)
@@ -56,5 +112,38 @@ SQL;
 
 	return $ret;
 }
+
+function delete_menu_course($id, $menu_id)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		delete from menu_course
+		where id = '$id',
+		  and menu_id = '$menu_id'
+SQL
+);
+}
+
+function insert_menu_course(MenuCourse $mc)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		insert into menu_course (
+			name,
+			price,
+			description,
+			time_required
+		)values(
+			$menu->name,
+			$menu->price,
+			$menu->description,
+			$menu->time_required
+		)
+SQL
+);
+}
+
 
 ?>

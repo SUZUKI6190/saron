@@ -4,6 +4,7 @@ require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 require_once('publish-sub-cotegory.php');
 use \ui\frame\ManageFrameImplementor;
 use \ui\publish\MenuSub;
+use \ui\publish\MenuNewAddSub;
 
 class PublishFrameImplementor extends ManageFrameImplementor
 {
@@ -15,6 +16,7 @@ class PublishFrameImplementor extends ManageFrameImplementor
 			$ret[$sub->get_name()] = $sub;
 		};
 		$set_array(new MenuSub());
+		$set_array(new MenuNewAddSub());
 		
 		return $ret;
 	}
