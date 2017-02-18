@@ -8,7 +8,7 @@ class ViewMenuDetailNew extends ViewMenuDetail
 {
 	public function save_inner(Menu $menu)
 	{
-		insert_menu_course($menu);
+		\business\facade\insert_menu($menu);
 	}
 }
 

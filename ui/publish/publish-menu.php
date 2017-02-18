@@ -44,10 +44,11 @@ abstract class ViewMenuDetail
 {
 	private $_add_course_button;
 	private $_menu;
-	private $_form_id;
+	protected $_form_id;
 	protected $_price, $_time_required, $_menu_name, $_description;
-	public function __construct(Menu $menu)
+	public function __construct(Menu $menu, $form_id)
 	{
+		$this->_form_id = $form_id;
 		$this->_menu = $menu;
 		$this->_add_course_button = new SubmitButton("add_course" ,'新しいコースを追加する', $this->_form_id);
 		$this->_menu_name = new PublishMenuInput("text", "name", $menu->name);
@@ -58,10 +59,18 @@ abstract class ViewMenuDetail
 	
 	protected abstract function save_inner(Menu $menu);
 
+	public function save()
+	{
+		$this->save_inner($this->create_menu());
+	}
+	
 	private function create_menu() : Menu
 	{
 		$menu = new Menu();
-		
+		$menu->name = $this->_menu_name->get_value();
+		$menu->time_required = $this->_time_required->get_value();
+		$menu->price = $this->_price->get_value();
+		$menu->description = $this->_description->get_value();
 		
 		return $menu;
 	}

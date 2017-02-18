@@ -22,11 +22,11 @@ SQL;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_map(function($data) {
 		$temp = new Menu();
-		$temp->name = $result->name;
-		$temp->price = $result->price;
-		$temp->time_required = $result->time_required;
-		$temp->description = $result->description;
-		$temp->enable_reservation = $result->enable_reservation;
+		$temp->name = $data->name;
+		$temp->price = $data->price;
+		$temp->time_required = $data->time_required;
+		$temp->description = $data->description;
+		$temp->enable_reservation = $data->enable_reservation;
 		return $temp;
 	}, $result);
 
@@ -62,11 +62,11 @@ insert into menu (
 	time_required,
 	enable_reservation
 )values(
-	$menu->name,
-	$menu->price,
-	$menu->description,
-	$menu->time_required,
-	$menu->enable_reservation
+	'$menu->name',
+	'$menu->price',
+	'$menu->description',
+	'$menu->time_required',
+	'$menu->enable_reservation'
 )
 SQL
 );
@@ -103,10 +103,10 @@ SQL;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_map(function($data) {
 		$temp = new MenuCiurse();
-		$temp->id = $result->id;
-		$temp->name = $result->name;
-		$temp->price = $result->price;
-		$temp->time_required = $result->time_required;
+		$temp->id = $data->id;
+		$temp->name = $data->name;
+		$temp->price = $data->price;
+		$temp->time_required = $data->time_required;
 		return $temp;
 	}, $result);
 
@@ -136,14 +136,13 @@ function insert_menu_course(MenuCourse $mc)
 			description,
 			time_required
 		)values(
-			$menu->name,
-			$menu->price,
-			$menu->description,
-			$menu->time_required
+			'$menu->name',
+			'$menu->price',
+			'$menu->description',
+			'$menu->time_required'
 		)
 SQL
 );
 }
-
 
 ?>

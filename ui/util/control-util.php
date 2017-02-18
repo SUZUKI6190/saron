@@ -194,7 +194,7 @@ class InputBase
 
 	public function get_value() :string
 	{
-		return $_POST[$this->name];
+		return $_POST[$this->_name];
 	}
 
 	public function view()

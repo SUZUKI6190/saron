@@ -1,11 +1,16 @@
 <?php
 	namespace ui\frame;
 	require_once("header-item.php");
+	require_once("result.php");
 	
 	abstract class ManageFrameImplementor
 	{
 		public abstract function get_sub_category_list();
 		public abstract function view_main();
+		public function create_result() : Result
+		{
+			return new Result();
+		}
 		public function get_selected_sub_category()
 		{
 			$mc = ManageFrameContext::get_instance();
@@ -63,12 +68,20 @@
 				?>
 				</div>
 			</div>
+
 			<div class ="main_content centering">
 			<?php
 
 			$selected_sub = $this->_frame_implementor->get_selected_sub_category();
-			$selected_sub->view();
-			$this->_frame_implementor->view_main();
+			$result = $selected_sub->get_result();
+			if($result->is_regist_finished()){
+				$selected_sub->regist();
+				view_result($result);
+			}else{
+				$selected_sub->view();
+				$this->_frame_implementor->view_main();
+			}
+
 			?>
 			</div>
 			<?php
