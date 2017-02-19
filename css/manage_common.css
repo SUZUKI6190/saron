@@ -66,6 +66,12 @@ table td {
 	border: 1px solid #ccc;
 }
 
+.input_form,
+.setting_width
+{
+    width:300px;   
+}
+
 .input_form
 {
 
@@ -73,7 +79,7 @@ table td {
     margin-top:10px;
     border:outset 1px;
     background-color:#ddeeff;
-    width:300px;
+ 
     padding:5px;
     border-radius:10px;
     -webkit-border-radius:10px;

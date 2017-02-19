@@ -5,7 +5,7 @@ require_once(dirname(__FILE__).'/../entity/menu-course.php');
 use business\entity\Menu;
 use business\entity\MenuCourse;
 
-function get_menu_list()
+function get_menu_list($id = "")
 {
 	$strSql = <<<SQL
 		select
@@ -18,10 +18,16 @@ function get_menu_list()
 		from menu
 SQL;
 
+	if(!empty($id))
+	{
+		$strSql = $strSql." where id = '$id'";
+	}
+
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_map(function($data) {
 		$temp = new Menu();
+		$temp->menu_id = $data->id;
 		$temp->name = $data->name;
 		$temp->price = $data->price;
 		$temp->time_required = $data->time_required;
@@ -33,14 +39,15 @@ SQL;
 	return $ret;
 }
 
+function get_menu_by_id($id) : Menu
+{
+	$ret = get_menu_list($id);
+	return $ret[0];
+}
+
+
 function delete_menu($id)
 {
-	global $wpdb;
-	$wpdb->query(
-		<<<SQL
-		delete from menu_course
-		where menu_id = '$id'
-SQL);
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL

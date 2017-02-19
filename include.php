@@ -31,7 +31,8 @@ function inno_add_rule() {
 	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]', 'top');
 	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=$matches[2]&sub_category=$matches[3]', 'top');
 	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&edit=new', 'top' );
-	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/detail/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&id=$matches[4]&edit=detail', 'top' );
+	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/([^/]+)/([0-9]+$)', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&id=$matches[5]&edit=$matches[4]', 'top' );
+	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/([0-9]+$)', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&id=$matches[4]', 'top' );
 	flush_rewrite_rules();
 }
 /*

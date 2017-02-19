@@ -4,3 +4,23 @@
     width:80%;
     vertical-align:top;
 }
+
+table.menu_table
+{
+    width:100%;
+    margin-top:10px;
+}
+table.menu_table,
+table.menu_table td
+{
+    border:1px solid #ccc;
+}
+
+table.menu_table a,
+table.menu_table input[type="submit"].manage_button
+{  
+    padding: 0px 5px;
+}
+td.menu_edit{
+    width:40px;
+}
