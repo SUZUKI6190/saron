@@ -76,7 +76,12 @@ abstract class ViewMenuDetail
 	}
 	
 	public function view()
-	{?>
+	{
+		if($this->_add_course_button->is_submit())
+		{
+			return;
+		}
+		?>
 		<div class="input_form">
 	
 		<div class="line">

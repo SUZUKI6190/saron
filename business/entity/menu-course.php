@@ -8,5 +8,10 @@ class MenuCourse
 	public $name;
 	public $time_required;
 	public $price;
+	
+	public static function get_empty_object() : MenuCourse
+	{
+		return new MenuCourse();
+	}
 }
 ?>

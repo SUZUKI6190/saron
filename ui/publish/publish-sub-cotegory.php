@@ -37,7 +37,8 @@ class MenuSub extends \ui\frame\SubCategory
 		}
 		$this->_delete_button = new ConfirmSubmitButton("delete_menu" ,'削除', $this->_form_id, "本当に削除しますか？");
 	}
-	public function view()
+	
+	public function view_menu_form()
 	{
 		$pc = PublishContext::get_instance();
 		$mc = ManageFrameContext::get_instance();
@@ -72,7 +73,6 @@ class MenuSub extends \ui\frame\SubCategory
 		}
 		?>
 		</table>
-		</form>
 		</div>
 		<?php
 		if(!empty($pc->menu_id))
@@ -84,6 +84,21 @@ class MenuSub extends \ui\frame\SubCategory
 			$this->_view_menu = new ViewMenuDetailNew($menu[0] , $this->_form_id);
 			$this->_view_menu->view();
 		}
+		?>
+		</form>
+		<?php
+	}
+
+	public function view()
+	{
+		$pc = PublishContext::get_instance();
+	
+		if($pc->edit_mode == "add_course"){
+			
+		}else{
+			$this->view_menu_form();
+		}
+		
 	}
 	public function get_result() : Result
 	{
