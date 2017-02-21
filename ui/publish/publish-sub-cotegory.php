@@ -81,7 +81,7 @@ class MenuSub extends \ui\frame\SubCategory
 			$menu = array_values(array_filter($this->_menu_list , function($menu) use($id){
 				return $menu->menu_id == $id;
 			}));
-			$this->_view_menu = new ViewMenuDetailNew($menu[0] , $this->_form_id);
+			$this->_view_menu = new ViewMenuDetailEdit($menu[0] , $this->_form_id);
 			$this->_view_menu->view();
 		}
 		?>

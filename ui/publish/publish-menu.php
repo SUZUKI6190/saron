@@ -42,15 +42,13 @@ class PublishMenuInput extends InputBase
 
 abstract class ViewMenuDetail
 {
-	private $_add_course_button;
-	private $_menu;
+	protected $_menu;
 	protected $_form_id;
 	protected $_price, $_time_required, $_menu_name, $_description;
 	public function __construct(Menu $menu, $form_id)
 	{
 		$this->_form_id = $form_id;
 		$this->_menu = $menu;
-		$this->_add_course_button = new SubmitButton("add_course" ,'新しいコースを追加する', $this->_form_id);
 		$this->_menu_name = new PublishMenuInput("text", "name", $menu->name);
 		$this->_time_required = new PublishMenuInput("numeric", "time_required", $menu->time_required);
 		$this->_price = new PublishMenuInput("numeric", "price", $menu->price);
@@ -77,10 +75,6 @@ abstract class ViewMenuDetail
 	
 	public function view()
 	{
-		if($this->_add_course_button->is_submit())
-		{
-			return;
-		}
 		?>
 		<div class="input_form">
 	
@@ -99,17 +93,6 @@ abstract class ViewMenuDetail
 		<div class="line">
 			<div>説明</div>
 			<?php echo $this->_description->view(); ?>
-		</div>
-		<div class="line">
-			<div>コース</div>
-			<?php
-			$this->_add_course_button->view();
-			foreach($this->_menu->course_list as $couse)
-			{?>
-			
-			<?php
-			}
-			?>
 		</div>
 		</div>
 		<?php
