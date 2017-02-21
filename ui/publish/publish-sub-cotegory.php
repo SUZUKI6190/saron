@@ -38,6 +38,11 @@ class MenuSub extends \ui\frame\SubCategory
 		$this->_add_course_button = new SubmitButton("add_course" ,'新しいコースを追加する', $this->_form_id);
 		foreach(\business\facade\get_menu_list() as $menu)
 		{
+			foreach(\business\facade\get_menu_course_by_menuid($menu->menu_id) as $course)
+			{
+				$menu->course_list[] = $course;
+				$this->_delete_course_button_list[$course->id] = new ConfirmSubmitButton("delete_course_".$course->id ,'削除', $this->_form_id, "本当に削除しますか？");;
+			}
 			$this->_menu_list[$menu->menu_id] = $menu;
 		}
 		foreach($this->_menu_list as $menu)
@@ -45,17 +50,13 @@ class MenuSub extends \ui\frame\SubCategory
 			$this->_delete_button_list[$menu->menu_id] = new ConfirmSubmitButton("delete_menu_".$menu->menu_id ,'削除', $this->_form_id, "本当に削除しますか？");
 		}
 		$this->_delete_button = new ConfirmSubmitButton("delete_menu" ,'削除', $this->_form_id, "本当に削除しますか？");
+		$pc = PublishContext::get_instance();
+		$this->_course_form = new MenuCourseNew(MenuCourse::get_empty_object(), $pc->menu_id, $this->_form_id);
 	}
 
 	public function view_course_form()
 	{
-		$pc = PublishContext::get_instance();
-		$this->_course_form = new MenuCourseNew(MenuCourse::get_empty_object(), $pc->menu_id, $this->_form_id);
-		if($this->_course_form->is_save()){
-			$this->_course_form->save();
-		}else{
-			$this->_course_form->view();
-		}
+		$this->_course_form->view();		
 	}
 
 	public function view_menu_form()
@@ -125,7 +126,7 @@ class MenuSub extends \ui\frame\SubCategory
                 </td>
                 <td class="menu_edit">
 				<?php
-					$this->_delete_course_button_list[$couse->course_id]->view();
+					$this->_delete_course_button_list[$couse->id]->view();
 				?>
                 </td>        
 			</tr>
@@ -144,8 +145,8 @@ class MenuSub extends \ui\frame\SubCategory
 	public function view()
 	{
 		?>
-			<form id='<?php echo $this->_edit_form_id; ?>' name='<?php echo $this->_edit_form_name; ?>' method='post'>
-			<?php
+		<form id='<?php echo $this->_edit_form_id; ?>' name='<?php echo $this->_edit_form_name; ?>' method='post'>
+		<?php
 		$pc = PublishContext::get_instance();
 	
 		if($this->_add_course_button->is_submit()){
@@ -161,6 +162,22 @@ class MenuSub extends \ui\frame\SubCategory
 	public function get_result() : Result
 	{
 		$ret =  new Result();
+
+		if($this->_course_form->is_save())
+		{
+			$ret->message = "コースを追加しました。";
+			$ret->set_regist_state(true);
+			return $ret;
+		}
+		foreach($this->_delete_course_button_list as $key => $button)
+		{
+			if($button->is_submit())
+			{
+				$ret->message = "コースを削除しました。";
+				$ret->set_regist_state(true);
+				return $ret;
+			}
+		}
 		foreach($this->_delete_button_list as $key => $button)
 		{
 			if($button->is_submit())
@@ -184,6 +201,21 @@ class MenuSub extends \ui\frame\SubCategory
 		
 	public function regist()
 	{
+		$pc = PublishContext::get_instance();
+		if($this->_course_form->is_save())
+		{
+			$this->_course_form->save();
+			return;
+		}			
+		
+		foreach($this->_delete_course_button_list as $key => $button)
+		{
+			if($button->is_submit())
+			{
+				\business\facade\delete_menu_course($key, $pc->menu_id);
+			}
+		}
+		
 		foreach($this->_delete_button_list as $key => $button)
 		{
 			if($button->is_submit())

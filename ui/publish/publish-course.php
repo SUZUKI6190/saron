@@ -4,6 +4,7 @@ require_once(dirname(__FILE__).'/../../business/entity/menu-course.php');
 require_once('publish-menu.php');
 use \business\entity\MenuCourse;
 use \ui\util\SubmitButton;
+
 abstract class MenuCourseForm
 {
 	private $_menu_id;
@@ -53,7 +54,8 @@ abstract class MenuCourseForm
 
 	private function create_course() : MenuCourse
 	{
-		$course = new Menu();
+		$course = new MenuCourse();
+		$course->menu_id = $this->_menu_id;
 		$course->name = $this->_name->get_value();
 		$course->time_required = $this->_time_required->get_value();
 		$course->price = $this->_price->get_value();
