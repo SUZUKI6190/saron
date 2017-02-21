@@ -68,7 +68,7 @@ SQL
 			name varchar(100),
 			price int UNSIGNED,
 			time_required tinyint UNSIGNED,
-			PRIMARY KEY(id, manu_id)
+			PRIMARY KEY(id, menu_id)
 		)
 SQL
 		);

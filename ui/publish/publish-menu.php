@@ -8,7 +8,7 @@ use \ui\util\InputTextarea;
 use \business\entity\Menu;
 use \business\entity\MenuCourse;
 
-class MenuCourseForm
+class MenuCourseView
 {
 	private $_course;
 	private $_edit_button;
