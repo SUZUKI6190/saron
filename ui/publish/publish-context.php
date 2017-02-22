@@ -9,6 +9,7 @@ class PublishContext
 	}
 
 	public $menu_id;
+	public $course_id;
 	public $edit_mode;
 
 	public static function get_instance() : PublishContext

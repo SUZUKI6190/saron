@@ -72,5 +72,13 @@ class MenuCourseNew extends MenuCourseForm
 		\business\facade\insert_menu_course($course);
 	}
 }
+class MenuCourseEdit extends MenuCourseForm
+{
+	protected function save_inner(MenuCourse $course)
+	{
+		\business\facade\delete_menu_course_by_menuid($course->menu_id);
+		\business\facade\insert_menu_course($course);
+	}
+}
 
 ?>

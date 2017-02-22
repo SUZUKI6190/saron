@@ -22,11 +22,14 @@ function create_iplementer($category_name)
 			break;
 		case "publish":
 			$context = PublishContext::get_instance();
+			$context->course_id = get_query_var( 'id' );
 			$context->menu_id = get_query_var( 'id' );
 			$context->edit_mode = get_query_var( 'edit' );
+			print_r($context);
 			return new  publish\PublishFrameImplementor();
 			break;
 		default:
+			echo "invalid url error";
 			break;
 	}
 }

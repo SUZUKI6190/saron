@@ -122,6 +122,36 @@ SQL;
 	return $ret;
 }
 
+
+function get_menu_course($id, $menu_id)
+{
+	$strSql = <<<SQL
+		select
+		id,
+		menu_id,
+		name,
+		price,
+		time_required
+		from menu_course
+		where menu_id = '$menu_id'
+		  and id = '$id'
+SQL;
+
+	global $wpdb;
+	$result = $wpdb->get_results($strSql);
+	$ret = array_values(array_map(function($data) {
+		$temp = new MenuCourse();
+		$temp->id = $data->id;
+		$temp->menu_id = $data->menu_id;
+		$temp->name = $data->name;
+		$temp->price = $data->price;
+		$temp->time_required = $data->time_required;
+		return $temp;
+	}, $result));
+
+	return $ret;
+}
+
 function delete_menu_course($id, $menu_id)
 {
 	global $wpdb;
@@ -130,6 +160,17 @@ function delete_menu_course($id, $menu_id)
 		delete from menu_course
 		where id = '$id'
 		  and menu_id = '$menu_id'
+SQL
+);
+}
+
+function delete_menu_course_by_menuid($menu_id)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		delete from menu_course
+		where menu_id = '$menu_id'
 SQL
 );
 }

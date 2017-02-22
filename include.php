@@ -27,12 +27,13 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
-	add_rewrite_rule( '([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]', 'top');
-	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=$matches[2]&sub_category=$matches[3]', 'top');
-	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&edit=new', 'top' );
-	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/([^/]+)/([0-9]+$)', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&id=$matches[5]&edit=$matches[4]', 'top' );
-	add_rewrite_rule( '([^/]+)/([^/]+)/([^/]+)/([0-9]+$)', 'index.php?pagename=$matches[1]&category=$matches[2]&sub_category=$matches[3]&id=$matches[4]', 'top' );
+	add_rewrite_rule( '([^/]+)/customer?$', 'index.php?pagenamecustomer&category=$matches[1]', 'top');
+	add_rewrite_rule( '([^/]+)/customer/([^/]+)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( '([^/]+)/customer/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=customer&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( '([^/]+)/customer/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&edit=new', 'top' );
+	add_rewrite_rule( '([^/]+)/customer/([^/]+)/([^/]+)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&id=$matches[4]&edit=$matches[3]', 'top' );
+	add_rewrite_rule( '([^/]+)/publish/([^/]+)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( '([^/]+)/publish/menu/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu&id=$matches[2]', 'top' );
 	flush_rewrite_rules();
 }
 /*
@@ -44,6 +45,7 @@ function inno_add_query_vars( $vars ) {
 	$vars[] = 'sub_category';
 	$vars[] = 'id';
 	$vars[] = 'result';
+	$vars[] = 'menu_id';
 	return $vars;
 }
 
