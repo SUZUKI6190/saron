@@ -51,9 +51,9 @@ SQL
 	dbDelta(<<<SQL
 		CREATE TABLE menu (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
-			name varchar(100),
+			name varchar(100)  character set utf8,
 			price int UNSIGNED,
-			description text,
+			description text character set utf8,
 			enable_reservation tinyint UNSIGNED,
 			time_required tinyint UNSIGNED,
 			PRIMARY KEY(id)
@@ -65,7 +65,7 @@ SQL
 		CREATE TABLE menu_course (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			menu_id int UNSIGNED NOT NULL,
-			name varchar(100),
+			name varchar(100) character set utf8,
 			price int UNSIGNED,
 			time_required tinyint UNSIGNED,
 			PRIMARY KEY(id, menu_id)
