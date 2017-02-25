@@ -1,6 +1,6 @@
 <?php
-namespace ui\send_message;
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
+namespace ui\send_message\sub_category;
+require_once(dirname(__FILE__).'/../../frame/manage-frame.php');
 use ui\frame\ManageFrameContext;
 use ui\util\view_date_input;
 use ui\util\InputBase;
@@ -48,21 +48,22 @@ class SettingSub extends \ui\frame\SubCategory
 {
 	
 	private $_birth, $_lase_visit, $_next_visit;
-	private $_sending_mail;
+	private $_sending_mail, $_confirm_mail;
 	private $_message;
 	public function __construct()
 	{
 		$this->_birth= new DayCriteriaForm("birth", "", "");
 		$this->_last_visit = new DayCriteriaForm("last_visi", "", "");
 		$this->_next_visit = new DayCriteriaForm("next_visit", "", "");
-		$this->_sending_mail = new InputBase("email", "mail", "");
+		$this->_sending_mail = new InputBase("email", "sending_mail", "");
+		$this->_confirm_mail = new InputBase("email", "confirm_mail", "");
 		$this->_message = new InputTextarea("msg", "");
 	}
 	public function view()
 	{
 		?>
 		<form id="form" name="setting">
-		<div class="input_form">
+		<div class="input_form message_setting">
 			<div class="area">
 				<div class="line">
 					<div class="name">
@@ -96,6 +97,14 @@ class SettingSub extends \ui\frame\SubCategory
 					</div>
 					<div class="">
 						<?php $this->_sending_mail->view(); ?>
+					</div>
+				</div>
+				<div class="line">
+					<div class="name">
+					送信後の確認メールアドレス
+					</div>
+					<div class="">
+						<?php $this->_confirm_mail->view(); ?>
 					</div>
 				</div>
 				<div class="line">

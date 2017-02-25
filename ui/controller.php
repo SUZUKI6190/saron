@@ -48,7 +48,7 @@ function view_manage_gamen()
 	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>?ver=0.04"  type="text/css" />
 	<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_view.css", __FILE__); ?>?ver=0.04"  type="text/css" />
 	<link rel="stylesheet" href="<?php echo plugins_url("../css/publish_menu.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-	
+	<link rel="stylesheet" href="<?php echo plugins_url("../css/send_message.css", __FILE__); ?>?ver=0.04"  type="text/css" />
 	<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 	<meta name="format-detection" content="telephone=no"/>
 	<meta name="msapplication-config" content="none"/>
