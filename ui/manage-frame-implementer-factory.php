@@ -1,10 +1,10 @@
 <?php
 namespace ui;
-
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once("publish/publish-frame-implementor.php");
 require_once("publish/publish-context.php");
+require_once("send-message/send-message-frame-implementor.php");
 use ui\publish\PublishContext;
 
 function create_iplementer($category_name)
@@ -28,6 +28,9 @@ function create_iplementer($category_name)
 
 			return new  publish\PublishFrameImplementor();
 			break;
+		case "send_message":
+			return new  send_message\SendMessageImplementor();
+			break;	
 		default:
 			echo "invalid url error";
 			break;

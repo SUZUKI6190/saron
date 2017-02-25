@@ -20,8 +20,8 @@ function view_manage_gamen()
 
 		$set_array("customer", "お客様管理", "search");
 		$set_array("publish", "掲載管理", "menu");
+		$set_array("send_message", "メッセージ配信管理", "setting");
 		$set_array("yoyaku", "予約管理" , "menu");
-		$set_array("send-message", "メッセージ配信管理", "menu");
 		$set_array("staff", "スタッフ管理", "menu");
 
 		return $ret;
