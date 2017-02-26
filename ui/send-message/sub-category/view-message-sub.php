@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/../../frame/manage-frame.php');
 require_once('view-message-detail-new.php');
 use ui\frame\ManageFrameContext;
 
-class SettingSub extends \ui\frame\SubCategory
+class ViewMessageSub extends \ui\frame\SubCategory
 {
 	private $_view_detail;
 	public function __construct()
@@ -18,12 +18,12 @@ class SettingSub extends \ui\frame\SubCategory
 
 	public function get_name()
 	{
-		return "sendnew";
+		return "view";
 	}
 	
 	public function get_title_name()
 	{
-		return "メッセージ配信設定を追加";
+		return "配信メッセージ一覧";
 	}
 
 }
