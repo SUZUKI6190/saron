@@ -44,9 +44,8 @@ class DayCriteriaForm
 	}
 }
 
-class SettingSub extends \ui\frame\SubCategory
+abstract class ViewMessageDetail
 {
-	
 	private $_birth, $_lase_visit, $_next_visit;
 	private $_sending_mail, $_confirm_mail;
 	private $_message;
@@ -59,9 +58,10 @@ class SettingSub extends \ui\frame\SubCategory
 		$this->_confirm_mail = new InputBase("email", "confirm_mail", "");
 		$this->_message = new InputTextarea("msg", "");
 	}
+	
 	public function view()
 	{
-		?>
+?>
 		<form id="form" name="setting">
 		<div class="input_form message_setting">
 			<div class="area">
@@ -119,18 +119,7 @@ class SettingSub extends \ui\frame\SubCategory
 		</div>
 		</form>
 		<?php
-	}
-
-	public function get_name()
-	{
-		return "setting";
-	}
-	
-	public function get_title_name()
-	{
-		return "メッセージ配信設定";
-	}
-
+	}	
 }
 
 ?>

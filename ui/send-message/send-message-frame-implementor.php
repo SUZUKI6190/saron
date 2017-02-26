@@ -1,7 +1,7 @@
 <?php
 namespace ui\send_message;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once('sub-category/send-message-sub-cotegory.php');
+require_once('sub-category/setting-sub.php');
 use \ui\frame\ManageFrameImplementor;
 use \ui\send_message\sub_category\SettingSub;
 
