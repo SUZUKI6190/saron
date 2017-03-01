@@ -14,14 +14,15 @@ class Staff
 		return new Staff();
 	}
 	
-	public static function CreateFromeWpdb($wpdb)
+	public static function CreateFromWpdb($wpdb)
 	{
 		$data = new Staff();
 		$data->id = $wpdb->id;
 		$data->name_last = $wpdb->name_last;
 		$data->name_first= $wpdb->name_first;
 		$data->tell = $wpdb->tell;
-		$data->email = $wpdb->email;		
+		$data->email = $wpdb->email;
+		
 		return $data;
 	}
 }

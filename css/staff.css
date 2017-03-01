@@ -2,3 +2,13 @@
 {
     text-align:right;
 }
+
+table.staff_view_table a, table.staff_view_table input[type="submit"].manage_button {
+    padding: 0px 5px;
+}
+
+table.staff_view_table td,
+table.staff_view_table th
+{
+     /*display: list-item;*/
+}

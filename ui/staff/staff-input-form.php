@@ -5,14 +5,15 @@ require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 require_once(dirname(__FILE__).'/../../business/facade/staff.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
+use \ui\util\ConfirmSubmitButton;
 use \ui\util\InputBase;
 
 abstract class StaffInputFormBase
 {
 	private $_staff;
 	private $_name_first, $_name_last, $_tell, $_email;
-	private $_save_button;
-	private $_form_id = "staff_input_form";
+	protected $_save_button;
+	protected $_form_id = "staff_input_form";
 	public function __construct()
 	{
 		$this->_staff = $this->create_staff();
@@ -30,12 +31,22 @@ abstract class StaffInputFormBase
 	
 	public function save()
 	{
-		$this->innser_save($this->_staff);
+		$staff = new Staff();
+		$staff->id = StaffContext::get_instance()->staff_id;
+		$staff->name_first = $this->_name_first->get_value();
+		$staff->name_last = $this->_name_last->get_value();
+		$staff->tell = $this->_tell->get_value();
+		$staff->email = $this->_email->get_value();
+		$this->innser_save($staff);
 	}
 	
 	public function is_save() : bool
 	{
 		return $this->_save_button->is_submit();
+	}
+	
+	protected function add_button()
+	{
 	}
 	
 	public function view()
@@ -44,7 +55,10 @@ abstract class StaffInputFormBase
 		<form method="post" id='<?php echo $this->_form_id; ?>' >
 		<div class="input_form">
 		<div class="staff_form_button">
-		<?php $this->_save_button->view(); ?>
+		<?php
+		$this->_save_button->view();
+		$this->add_button();
+		?>
 		</div>
 		<div class="line">
 			<div>名前(性)</div>
@@ -73,6 +87,7 @@ class StaffInputFormNew extends StaffInputFormBase
 {
 	protected function innser_save(Staff $staff)
 	{
+		\business\facade\insert_staff($staff);
 	}
 	
 	protected function create_staff() : Staff
@@ -81,4 +96,56 @@ class StaffInputFormNew extends StaffInputFormBase
 	}
 }
 
+
+class StaffInputFormEdit extends StaffInputFormBase
+{
+	private $_delete_button;
+	
+	public function __construct()
+	{
+		parent::__construct();
+		$this->_delete_button = new ConfirmSubmitButton("delete_button", "削除する", $this->_form_id, "削除します。よろしいですか？");
+	}
+	
+	public function is_save() : bool
+	{
+		if(parent::is_save())
+		{
+			return true;
+		}
+		
+		if($this->_delete_button->is_submit())
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	protected function add_button()
+	{
+		$this->_delete_button->view();
+	}
+	
+	protected function innser_save(Staff $staff)
+	{
+
+		if($this->_save_button->is_submit()){
+			\business\facade\delete_staff($staff->id);
+			\business\facade\insert_staff($staff);
+		}
+		
+		if($this->_delete_button->is_submit()){
+			\business\facade\delete_staff($staff->id);
+		}
+			
+	}
+	
+	protected function create_staff() : Staff
+	{
+		$context = StaffContext::get_instance();
+		return \business\facade\get_staff_byid($context->staff_id);
+	}
+}
 ?>

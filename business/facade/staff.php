@@ -2,7 +2,7 @@
 namespace business\facade;
 use \business\entity\Staff;
 
-function get_staff_byid($id)
+function get_staff_byid($id) : Staff
 {
 	$strSql = <<<SQL
 		select
@@ -19,7 +19,7 @@ SQL;
 
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
-	
+	return Staff::CreateFromWpdb($result[0]);
 }
 
 function get_staff_all()
@@ -40,7 +40,7 @@ SQL;
 	
 	$convert = function($data)
 	{
-		return CreateFromeWpdb($data);
+		return Staff::CreateFromWpdb($data);
 	};
 
 	return array_map($convert, $result);

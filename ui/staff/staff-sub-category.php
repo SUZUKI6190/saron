@@ -8,13 +8,19 @@ use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\InputBase;
 use \ui\frame\Result;
+use ui\frame\ManageFrameContext;
 
 class StaffAddNewSub extends \ui\frame\SubCategory
 {
 	private $_input_form;
 	public function __construct()
 	{
-		$this->_input_form = new StaffInputFormNew();
+		$context = StaffContext::get_instance();
+		if(empty($context->staff_id)){
+			$this->_input_form = new StaffInputFormNew();
+		}else{
+			$this->_input_form = new StaffInputFormEdit();
+		}
 	}
 	public function view()
 	{
@@ -22,7 +28,7 @@ class StaffAddNewSub extends \ui\frame\SubCategory
 	}
 	public function get_name()
 	{
-		return "new";
+		return "edit";
 	}
 	
 	public function get_title_name()
@@ -55,7 +61,7 @@ class StaffViewSub extends \ui\frame\SubCategory
 	private $_new_staff_button;
 	public function __construct()
 	{
-		$this->staff_list = \business\facade\get_staff_all();
+		$this->_staff_list = \business\facade\get_staff_all();
 		$context = StaffContext::get_instance();
 		
 		if(empty($context->staff_id)){
@@ -66,14 +72,11 @@ class StaffViewSub extends \ui\frame\SubCategory
 
 	}
 
-	
-	private function view_input_form(Staff $staff)
-	{
-		
-	}
-	
 	public function view()
-	{?>
+	{
+		$mc = ManageFrameContext::get_instance();
+		$url = $mc->get_url()."/staff/edit/";
+		?>
 		<form method="post" id='<?php echo $this->_form_id; ?>' >
 		
 		<?php
@@ -83,11 +86,11 @@ class StaffViewSub extends \ui\frame\SubCategory
 
 		<table class="staff_view_table">
 		<thead><tr>
-		<th>氏名(漢字)</th>
+		<th>氏名</th>
 		<th>電話番号</th>
 		<th>email</th>
 		<th></th>
-		<th></th>
+	
 		</thead>
 
 		<?php
@@ -97,7 +100,7 @@ class StaffViewSub extends \ui\frame\SubCategory
 			<tr>
 				<td class="menu_name">
 					<?php
-					echo $staff->name;
+					echo $staff->name_last.$staff->name_first;
 					?>
 				</td>
                 <td class="menu_edit">
@@ -109,7 +112,10 @@ class StaffViewSub extends \ui\frame\SubCategory
 				<?php
 					echo $staff->email;
 				?>
-                </td>        
+                </td>
+				<td>
+					<?php \ui\util\link_button("編集", $url."/".$staff->id); ?>
+				</td>
 			</tr>
 			<?php
 		}
