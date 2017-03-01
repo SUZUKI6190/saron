@@ -1,5 +1,6 @@
 <?php
 namespace business\facade;
+use \business\entity\Staff;
 
 function get_staff_byid($id)
 {
@@ -7,7 +8,9 @@ function get_staff_byid($id)
 		select
 			id,
 			name_first,
-			name_last
+			name_last,
+			tell,
+			email
 		from
 			staff
 		where
@@ -25,7 +28,9 @@ function get_staff_all()
 		select
 			id,
 			name_first,
-			name_last
+			name_last,
+			tell,
+			email
 		from
 			staff
 SQL;
@@ -35,10 +40,43 @@ SQL;
 	
 	$convert = function($data)
 	{
-		return \business\entity\Staff::CreateFromeWpdb($data);
+		return CreateFromeWpdb($data);
 	};
 
 	return array_map($convert, $result);
+}
+
+function delete_staff($id)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		delete from staff
+		where id = '$id'
+SQL
+);
+}
+
+function insert_staff($staff)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		insert into staff (
+			id,
+			name_first,
+			name_last,
+			tell,
+			email
+		)values(
+			'$staff->id',
+			'$staff->name_first',
+			'$staff->name_last',
+			'$staff->tell',
+			'$staff->email'
+		)
+SQL
+);
 }
 
 ?>

@@ -36,6 +36,8 @@ SQL
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			name_last varchar(100) character set utf8,
 			name_first varchar(100) character set utf8,
+			tell int UNSIGNED,
+			email varchar(100),
 			PRIMARY KEY(id)
 		)
 SQL

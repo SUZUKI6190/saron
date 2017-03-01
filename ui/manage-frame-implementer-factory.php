@@ -4,8 +4,11 @@ require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once("publish/publish-frame-implementor.php");
 require_once("publish/publish-context.php");
+require_once("staff/staff-context.php");
 require_once("send-message/send-message-frame-implementor.php");
+require_once("staff/staff-implementor.php");
 use ui\publish\PublishContext;
+use ui\staff\StaffContext;
 
 function create_iplementer($category_name)
 {
@@ -30,6 +33,11 @@ function create_iplementer($category_name)
 			break;
 		case "send_message":
 			return new  send_message\SendMessageImplementor();
+			break;	
+		case "staff":
+			$context = StaffContext::get_instance();
+			$context->staff_id = get_query_var( 'id' );
+			return new staff\StaffFrameImplementor();
 			break;	
 		default:
 			echo "invalid url error";

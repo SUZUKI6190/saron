@@ -199,8 +199,17 @@ class InputBase
 
 	public function view()
 	{
-		?>	
-		<input type='<?php echo $this->_type; ?>' value="<?php echo $this->_value; ?>" name="<?php echo $this->_name; ?>" class="<?php echo $this->_style; ?>"/>
+		$attr = "";
+		foreach($this->_atribute as $key => $value)
+		{
+			if(empty($value)){
+				$attr = $attr." ".$key; 
+			}else{
+				$attr = $attr." ".$key." = '".$value."'"; 
+			}
+		}
+		?>
+		<input type='<?php echo $this->_type; ?>' value="<?php echo $this->_value; ?>" name="<?php echo $this->_name; ?>" class="<?php echo $this->_style; ?>" <?php echo $attr; ?>/>
 		<?php
 	}
 }
