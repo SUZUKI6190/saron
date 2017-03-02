@@ -74,5 +74,24 @@ SQL
 		)
 SQL
 		);
+		
+	dbDelta(<<<SQL
+		CREATE TABLE sending_message (
+			id int UNSIGNED NOT NULL AUTO_INCREMENT,
+			title varchar(100),
+			birth  int UNSIGNED NOT NULL,
+			last_visit int UNSIGNED NOT NULL,
+			next_visit int UNSIGNED NOT NULL,
+			enable_dm tinyint UNSIGNED,
+			sending_mail varchar(100),
+			confirm_mail varchar(100),
+			message_text text character set utf8,
+			sex varbinary(10),
+			visit_num int UNSIGNED NOT NULL,
+			staff_id int UNSIGNED NOT NULL,
+			PRIMARY KEY(id, menu_id)
+		)
+SQL
+		);
 }
 ?>

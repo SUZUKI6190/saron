@@ -18,7 +18,7 @@ class SettingSub extends \ui\frame\SubCategory
 
 	public function get_name()
 	{
-		return "sendnew";
+		return "edit";
 	}
 	
 	public function get_title_name()

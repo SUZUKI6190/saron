@@ -4,5 +4,8 @@ require_once('view-message-detail.php');
 
 class ViewMessageDetailNew extends ViewMessageDetail
 {
+	protected function inner_save()
+	{
+	}
 }
 ?>

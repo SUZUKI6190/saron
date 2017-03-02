@@ -45,7 +45,7 @@ class DayCriteriaForm
 
 abstract class ViewMessageDetail
 {
-	private $_birth, $_lase_visit, $_next_visit;
+	private $_title, $_birth, $_lase_visit, $_next_visit;
 	private $_sending_mail, $_confirm_mail;
 	private $_message;
 	private $_occupation;
@@ -54,6 +54,7 @@ abstract class ViewMessageDetail
 	private $_staff;
 	public function __construct()
 	{
+		$this->_title =  new InputBase("email", "confirm_mail", "");
 		$this->_birth= new DayCriteriaForm("birth", "", "");
 		$this->_last_visit = new DayCriteriaForm("last_visi", "", "");
 		$this->_next_visit = new DayCriteriaForm("next_visit", "", "");
@@ -67,12 +68,20 @@ abstract class ViewMessageDetail
 	
 	}
 	
+	protected abstract function inner_save();
+	
 	public function view()
 	{
 ?>
 		<form id="form" name="setting">
 		<div class="input_form message_setting">
 			<div class="area">
+				<div class="line">
+					<div class="name">
+					メールタイトル
+					</div>
+					<?php $this->_title->view(); ?>
+				</div>
 				<div class="line">
 					<div class="name">
 					誕生日の

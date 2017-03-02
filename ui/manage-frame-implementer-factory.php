@@ -6,10 +6,11 @@ require_once("publish/publish-frame-implementor.php");
 require_once("publish/publish-context.php");
 require_once("staff/staff-context.php");
 require_once("send-message/send-message-frame-implementor.php");
+require_once("send-message/send-message-context.php");
 require_once("staff/staff-implementor.php");
 use ui\publish\PublishContext;
 use ui\staff\StaffContext;
-
+use ui\send_message\SendMessageContext;
 function create_iplementer($category_name)
 {
 	switch($category_name)
@@ -32,6 +33,8 @@ function create_iplementer($category_name)
 			return new  publish\PublishFrameImplementor();
 			break;
 		case "send_message":
+			$context = SendMessageContext::get_instance();
+			$context->message_id = get_query_var( 'id' );
 			return new  send_message\SendMessageImplementor();
 			break;	
 		case "staff":
