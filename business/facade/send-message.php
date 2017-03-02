@@ -54,18 +54,32 @@ function insert_message_setting($msg)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into staff (
+		insert into sending_message (
 			id,
-			name_first,
-			name_last,
-			tell,
-			email
-		)values(
-			'$staff->id',
-			'$staff->name_first',
-			'$staff->name_last',
-			'$staff->tell',
-			'$staff->email'
+			title,
+			birth,
+			last_visit,
+			next_visit,
+			enable_dm,
+			sending_mail,
+			confirm_mail,
+			message_text,
+			sex,
+			visit_num,
+			staff_id,
+			)values(
+			'$msg->id',
+			'$msg->title',
+			'$msg->birth',
+			'$msg->lastvisit',
+			'$msg->next_visit',
+			'$msg->enable_dm',
+			'$msg->sending_mail',
+			'$msg->confirm_mail',
+			'$msg->message_text',
+			'$msg->sex',
+			'$msg->visit_num',
+			'$msg->staff_id',
 		)
 SQL
 );
