@@ -66,12 +66,12 @@ function insert_message_setting($msg)
 			message_text,
 			sex,
 			visit_num,
-			staff_id,
+			staff_id
 			)values(
 			'$msg->id',
 			'$msg->title',
 			'$msg->birth',
-			'$msg->lastvisit',
+			'$msg->last_visit',
 			'$msg->next_visit',
 			'$msg->enable_dm',
 			'$msg->sending_mail',
@@ -79,7 +79,7 @@ function insert_message_setting($msg)
 			'$msg->message_text',
 			'$msg->sex',
 			'$msg->visit_num',
-			'$msg->staff_id',
+			'$msg->staff_id'
 		)
 SQL
 );

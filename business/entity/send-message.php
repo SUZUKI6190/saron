@@ -15,8 +15,10 @@ class SendMessage
 	public $sex;
 	public $visit_num;
 	public $staff_id;
-	
-	public static function get_empty_object():Staff
+	public $occupation;
+	public $reservation_route;
+
+	public static function get_empty_object():SendMessage
 	{
 		return new SendMessage();
 	}
@@ -25,11 +27,20 @@ class SendMessage
 	{
 		$data = new SendMessage();
 		$data->id = $wpdb->id;
-		$data->name_last = $wpdb->name_last;
-		$data->name_first= $wpdb->name_first;
-		$data->tell = $wpdb->tell;
-		$data->email = $wpdb->email;
-		
+		$data->title = $wpdb->title;
+		$data->birth = $wpdb->birth;
+		$data->last_visit = $wpdb->last_visit;
+		$data->next_visit = $wpdb->next_visit;
+		$data->enable_dm = $wpdb->enable_dm;
+		$data->sending_mail = $wpdb->sending_mail;
+		$data->confirm_mail = $wpdb->confirm_mail;
+		$data->message_text = $wpdb->message_text;
+		$data->sex = $wpdb->sex;
+		$data->visit_num = $wpdb->visit_num;
+		$data->staff_id = $wpdb->staff_id;
+		$data->occupation = $wpdb->occupation;
+		$data->reservation_route = $wpdb->reservation_route;
+
 		return $data;
 	}
 }

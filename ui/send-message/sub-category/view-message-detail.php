@@ -2,12 +2,16 @@
 namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/../../frame/manage-frame.php');
 require_once(dirname(__FILE__)."/../../staff.php");
+require_once(dirname(__FILE__).'/../../../business/entity/send-message.php');
+require_once(dirname(__FILE__).'/../../../business/facade/send-message.php');
 use ui\frame\ManageFrameContext;
 use ui\util\view_date_input;
 use ui\util\InputBase;
+use \ui\util\SubmitButton;
 use ui\util\InputTextarea;
 use ui\ViewStaff;
-
+use business\entity\SendMessage;
+use ui\send_message\SendMessageContext;
 const setting_input_div_name = "setting_input";
 
 class DayCriteriaForm
@@ -15,12 +19,9 @@ class DayCriteriaForm
 	private $_name;
 	private $_from;
 	private $_day_count;
-	private $_from_value;
-	public function __construct($name, $from_value, $day_value)
+	public function __construct($name, $day_value)
 	{
 		$this->_name = $name;
-		$this->_from_value = $from_value;
-		$this->_from = new view_date_input($name."_from");
 		$this->_day_count = new InputBase("number", $name."_days", $day_value);
 	}
 	
@@ -37,10 +38,6 @@ class DayCriteriaForm
 		return $this->_day_count->get_value();
 	}
 	
-	public function get_from_day() : string
-	{
-		return $this->_from->get_value();
-	}
 }
 
 abstract class ViewMessageDetail
@@ -52,29 +49,67 @@ abstract class ViewMessageDetail
 	private $_vist_num;
 	private $_reservation_route;
 	private $_staff;
+	private $_default_msg;
+	private $_save_button;
+	protected $_form_id = "msg_setting_input_form";
 	public function __construct()
 	{
-		$this->_title =  new InputBase("email", "confirm_mail", "");
-		$this->_birth= new DayCriteriaForm("birth", "", "");
-		$this->_last_visit = new DayCriteriaForm("last_visi", "", "");
-		$this->_next_visit = new DayCriteriaForm("next_visit", "", "");
-		$this->_sending_mail = new InputBase("email", "sending_mail", "");
-		$this->_confirm_mail = new InputBase("email", "confirm_mail", "");
-		$this->_message = new InputTextarea("msg", "");
-		$this->_occupation = new InputBase("text", "occupation", "");
-		$this->_vist_num = new InputBase("number", "visit_num", "");
-		$this->_reservation_route = new InputBase("text", "reservation_route", "");
+		$required_attr = [];
+		$required_attr["required"] = "";
+		$this->_save_button = new SubmitButton("save_button", "保存する", $this->_form_id);
+		$this->_default_msg = $this->create_default_msg();
+		$this->_title =  new InputBase("text", "confirm_mail", $this->_default_msg->title, "", $required_attr);
+		$this->_birth= new DayCriteriaForm("birth", "", $this->_default_msg->birth);
+		$this->_last_visit = new DayCriteriaForm("last_visi", $this->_default_msg->last_visit);
+		$this->_next_visit = new DayCriteriaForm("next_visit", $this->_default_msg->next_visit);
+		$this->_sending_mail = new InputBase("email", "sending_mail", $this->_default_msg->sending_mail);
+		$this->_confirm_mail = new InputBase("email", "confirm_mail", $this->_default_msg->confirm_mail);
+		$this->_message = new InputTextarea("msg", $this->_default_msg->message_text);
+		$this->_occupation = new InputBase("text", "occupation", $this->_default_msg->occupation);
+		$this->_vist_num = new InputBase("number", "visit_num", $this->_default_msg->visit_num);
+		$this->_reservation_route = new InputBase("text", "reservation_route", $this->_default_msg->reservation_route);
 		$this->_staff = new ViewStaff("staff");
-	
 	}
 	
-	protected abstract function inner_save();
+	public function save()
+	{
+		$msg = new SendMessage();
+		$msg->id = SendMessageContext::get_instance()->message_id;
+		$msg->title = $this->_title->get_value();
+		$msg->birth = $this->_birth->get_day_num();
+		$msg->last_visit = $this->_last_visit->get_day_num();
+		$msg->next_visit =$this->_next_visit->get_day_num();
+		$msg->sending_mail = $this->_sending_mail->get_value();
+		$msg->confirm_mail = $this->_confirm_mail->get_value();
+		$msg->message_text = $this->_message->get_value();
+		$msg->occupation = $this->_occupation->get_value();
+		$msg->visit_num = $this->_vist_num->get_value();
+		$msg->reservation_route = $this->_reservation_route->get_value();
+		$this->inner_save($msg);
+	}
+
+	protected abstract function inner_save(SendMessage $msg);
+	
+	protected abstract function create_default_msg() : SendMessage;
+	
+	protected abstract function add_button();
+
+	public function is_save() : bool
+	{
+		return $this->_save_button->is_submit();
+	}
 	
 	public function view()
 	{
 ?>
-		<form id="form" name="setting">
+		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
 		<div class="input_form message_setting">
+			<div class="msg_form_button">
+				<?php
+				$this->_save_button->view();
+				$this->add_button();
+				?>
+			</div>
 			<div class="area">
 				<div class="line">
 					<div class="name">

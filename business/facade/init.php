@@ -89,7 +89,9 @@ SQL
 			sex varbinary(10),
 			visit_num int UNSIGNED NOT NULL,
 			staff_id int UNSIGNED NOT NULL,
-			PRIMARY KEY(id, menu_id)
+			occupation varbinary(50),
+			reservation_route varbinary(250),
+			PRIMARY KEY(id)
 		)
 SQL
 		);
