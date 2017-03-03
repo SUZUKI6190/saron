@@ -7,6 +7,7 @@ class ViewMessageDetailNew extends ViewMessageDetail
 {
 	protected function inner_save(SendMessage $msg)
 	{
+		\business\facade\insert_message_setting($msg);
 	}
 
 	protected function add_button()
