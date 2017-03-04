@@ -14,6 +14,8 @@ class ViewMessageDetailEdit extends ViewMessageDetail
 		$context = SendMessageContext::get_instance();
 
 		if($this->_save_button->is_submit()){
+			\business\facade\delete_message_setting($context->message_id);
+			\business\facade\insert_message_setting($msg);
 		}
 
 		if($this->_delete_button->is_submit()){
