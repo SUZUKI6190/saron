@@ -2,6 +2,8 @@
 namespace ui\send_message\sub_category;
 require_once('view-message-detail.php');
 use business\entity\SendMessage;
+use ui\send_message\SendMessageContext;
+use ui\util\ConfirmSubmitButton;
 
 class ViewMessageDetailEdit extends ViewMessageDetail
 {
@@ -10,8 +12,13 @@ class ViewMessageDetailEdit extends ViewMessageDetail
 	protected function inner_save(SendMessage $msg)
 	{
 		$context = SendMessageContext::get_instance();
-		\business\entity\SendMessage\delete_message_setting($context->message_id);
-		\business\entity\SendMessage\insert_message_setting($msg);
+
+		if($this->_save_button->is_submit()){
+		}
+
+		if($this->_delete_button->is_submit()){
+			\business\facade\delete_message_setting($context->message_id);
+		}
 	}
 	
 	public function __construct()
@@ -31,19 +38,19 @@ class ViewMessageDetailEdit extends ViewMessageDetail
 		{
 			return true;
 		}
-		
+
 		if($this->_delete_button->is_submit())
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	protected function create_default_msg() : SendMessage
 	{
 		$context = SendMessageContext::get_instance();
-		return \business\entity\SendMessage\get_message_setting_byid($context->message_id);
+		return \business\facade\get_message_setting_byid($context->message_id);
 	}
 }
 ?>

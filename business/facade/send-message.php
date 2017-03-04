@@ -55,7 +55,6 @@ function insert_message_setting($msg)
 	$wpdb->query(
 		<<<SQL
 		insert into sending_message (
-			id,
 			title,
 			birth,
 			last_visit,
@@ -68,7 +67,6 @@ function insert_message_setting($msg)
 			visit_num,
 			staff_id
 			)values(
-			'$msg->id',
 			'$msg->title',
 			'$msg->birth',
 			'$msg->last_visit',

@@ -11,7 +11,7 @@ class ViewMessageSub extends \ui\frame\SubCategory
 
 	public function __construct()
 	{
-		$this->_msg_list = \business\facade\get_staff_all();
+		$this->_msg_list = \business\facade\get_message_setting_all();
 	}
 	public function view()
 	{
