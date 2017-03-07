@@ -34,9 +34,10 @@ class MenuCourseView
 
 class PublishMenuInput extends InputBase
 {
-	public function __construct($type, $name, $value, $style = "")
+	public function __construct($type, $name, $value, $style = "", $add_atribute = [])
 	{
-		parent::__construct($type, $name, $value, "publish_menu ".$style);
+		$css_class = "publish_menu ".$style;
+		parent::__construct($type, $name, $value, $css_class, $add_atribute);
 	}
 }
 
@@ -45,18 +46,31 @@ abstract class ViewMenuDetail
 	protected $_menu;
 	protected $_form_id;
 	protected $_price, $_time_required, $_menu_name, $_description;
-	public function __construct(Menu $menu, $form_id)
+	public function __construct($form_id)
 	{
 		$this->_form_id = $form_id;
-		$this->_menu = $menu;
-		$this->_menu_name = new PublishMenuInput("text", "name", $menu->name);
-		$this->_time_required = new PublishMenuInput("numeric", "time_required", $menu->time_required);
-		$this->_price = new PublishMenuInput("numeric", "price", $menu->price);
-		$this->_description = new InputTextarea("description", $menu->description, "menu_description");
+		$this->_menu = $this->get_default_menu();
+		
+		$this->_regist_menu_button = new SubmitButton("regist_menu" ,'登録する', $this->_form_id);
+		
+		$required_attr = [];
+		$required_attr["required"] = "";
+		
+		$this->_menu_name = new PublishMenuInput("text", "name", $this->_menu->name, "", $required_attr);
+		$this->_time_required = new PublishMenuInput("numeric", "time_required", $this->_menu->time_required);
+		$this->_price = new PublishMenuInput("numeric", "price", $this->_menu->price);
+		$this->_description = new InputTextarea("description", $this->_menu->description, "menu_description");
 	}
 	
 	protected abstract function save_inner(Menu $menu);
 
+	protected abstract function get_default_menu(): Menu;
+	
+	public function is_save() : bool
+	{
+		return $this->_regist_menu_button->is_submit();
+	}
+	
 	public function save()
 	{
 		$this->save_inner($this->create_menu());
@@ -77,7 +91,9 @@ abstract class ViewMenuDetail
 	{
 		?>
 		<div class="input_form">
-	
+		<div>
+		<?php $this->_regist_menu_button->view(); ?>
+		</div>
 		<div class="line">
 			<div>メニュー名</div>
 			<?php echo $this->_menu_name->view(); ?>

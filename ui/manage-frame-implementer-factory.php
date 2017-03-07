@@ -26,10 +26,9 @@ function create_iplementer($category_name)
 			break;
 		case "publish":
 			$context = PublishContext::get_instance();
-			$context->course_id = get_query_var( 'id' );
+			$context->course_id = get_query_var( 'course_id' );
 			$context->menu_id = get_query_var( 'id' );
-			$context->edit_mode = get_query_var( 'edit' );
-
+			$context->is_course_edit = (get_query_var( 'edit' ) == PublishContext::$CourseEditParam);
 			return new  publish\PublishFrameImplementor();
 			break;
 		case "send_message":

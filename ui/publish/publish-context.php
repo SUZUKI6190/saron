@@ -10,8 +10,10 @@ class PublishContext
 
 	public $menu_id;
 	public $course_id;
-	public $edit_mode;
+	public $is_course_edit = false;
 
+	static $CourseEditParam = "course";
+	
 	public static function get_instance() : PublishContext
 	{
 		if(is_null(self::$_instance))

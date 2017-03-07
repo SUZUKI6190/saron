@@ -10,6 +10,11 @@ class ViewMenuDetailNew extends ViewMenuDetail
 	{
 		\business\facade\insert_menu($menu);
 	}
+	
+	protected function get_default_menu(): Menu
+	{
+		return Menu::get_empty_object();
+	}
 }
 
 ?>

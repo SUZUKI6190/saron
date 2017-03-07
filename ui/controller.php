@@ -71,8 +71,11 @@ function view_manage_gamen()
 
 function YoyakuManageConroll()
 {
-	if(get_query_var("category") == "download"){
+	$category = get_query_var("category");
+	if($category == "download"){
 		\ui\customer\get_customer_csv();
+	}elseif($category == "menu"){
+		
 	}else{
 		view_manage_gamen();
 	}

@@ -33,7 +33,9 @@ function inno_add_rule() {
 	add_rewrite_rule( '([^/]+)/customer/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&edit=new', 'top' );
 	add_rewrite_rule( '([^/]+)/customer/([^/]+)/([^/]+)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&id=$matches[4]&edit=$matches[3]', 'top' );
 	add_rewrite_rule( '([^/]+)/publish/([^/]+)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/publish/menu/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu&id=$matches[2]', 'top' );
+	add_rewrite_rule( '([^/]+)/publish/menu_regist/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&id=$matches[2]', 'top' );
+	add_rewrite_rule( '([^/]+)/publish/menu_regist/course/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&edit=course&id=$matches[2]', 'top' );
+	add_rewrite_rule( '([^/]+)/publish/menu_regist/course/([0-9]+$)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&edit=course&id=$matches[2]&course_id=$matches[3]', 'top' );
 	add_rewrite_rule( '([^/]+)/menu/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=menu&menu_id=$matches[2]', 'top' );
 	add_rewrite_rule( '([^/]+)/send_message/([^/]+)?$', 'index.php?pagename=$matches[1]&category=send_message&sub_category=$matches[2]', 'top');
 	add_rewrite_rule( '([^/]+)/send_message/edit/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=send_message&sub_category=edit&id=$matches[2]', 'top');
@@ -51,6 +53,7 @@ function inno_add_query_vars( $vars ) {
 	$vars[] = 'id';
 	$vars[] = 'result';
 	$vars[] = 'menu_id';
+	$vars[] = 'course_id';
 	return $vars;
 }
 

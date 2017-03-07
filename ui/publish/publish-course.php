@@ -7,14 +7,15 @@ use \ui\util\SubmitButton;
 
 abstract class MenuCourseForm
 {
-	private $_menu_id;
+	protected $_menu_id;
 	protected $_form_id;
 	protected $_name, $_time_required, $_price;
 	protected $_add_course_button;
-	public function __construct($menu_course, $menu_id, $form_id)
+	public function __construct($menu_id, $form_id)
 	{
 		$this->_menu_id = $menu_id;
 		$this->_form_id = $form_id;
+		$menu_course = $this->get_default_course();
 		$this->_name = new PublishMenuInput("text", "course_name", $menu_course->name);
 		$this->_time_required = new PublishMenuInput("numeric", "course_time_required", $menu_course->time_required);
 		$this->_price = new PublishMenuInput("numeric", "course_price", $menu_course->price);
@@ -25,6 +26,8 @@ abstract class MenuCourseForm
 	{
 		return $this->_add_course_button->is_submit();
 	}
+	
+	protected abstract function get_default_course() : MenuCourse;
 	
 	public function view()
 	{
@@ -71,13 +74,29 @@ class MenuCourseNew extends MenuCourseForm
 	{
 		\business\facade\insert_menu_course($course);
 	}
+	protected function get_default_course() : MenuCourse
+	{
+		return MenuCourse::get_empty_object();
+	}
 }
+
 class MenuCourseEdit extends MenuCourseForm
 {
+	private $_course_id;
+	public function __construct($menu_id, $form_id, $course_id)
+	{
+		parent::__construct($menu_id, $form_id);
+		$this->_course_id = course_id;
+	}
 	protected function save_inner(MenuCourse $course)
 	{
-		\business\facade\delete_menu_course_by_menuid($course->menu_id);
+		\business\facade\delete_menu_course($course->menu_id, $course->id);
 		\business\facade\insert_menu_course($course);
+	}
+	
+	protected function get_default_course() : MenuCourse
+	{
+		return \business\facade\get_menu_course($this->_menu_id, $this->_course_id);
 	}
 }
 
