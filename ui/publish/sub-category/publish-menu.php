@@ -1,7 +1,5 @@
 <?php
 namespace ui\publish;
-require_once(dirname(__FILE__).'/../../business/entity/menu.php');
-require_once(dirname(__FILE__).'/../../business/entity/menu-course.php');
 use \ui\util\SubmitButton;
 use \ui\util\InputBase;
 use \ui\util\InputTextarea;

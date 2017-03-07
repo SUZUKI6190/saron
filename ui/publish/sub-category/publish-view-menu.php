@@ -1,8 +1,5 @@
 <?php
 namespace ui\publish;
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once(dirname(__FILE__).'/../../business/facade/publish-menu.php');
-require_once(dirname(__FILE__).'/../../business/entity/menu.php');
 require_once("publish-menu-new.php");
 require_once("publish-menu-edit.php");
 require_once('publish-course.php');

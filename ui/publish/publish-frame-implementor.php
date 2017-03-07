@@ -1,8 +1,11 @@
 <?php
 namespace ui\publish;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once('publish-edit-menu-sub-category.php');
-require_once('publish-view-menu-sub-category.php');
+require_once('sub-category/publish-edit-menu.php');
+require_once('sub-category/publish-view-menu.php');
+require_once(dirname(__FILE__).'/../frame/manage-frame.php');
+require_once(dirname(__FILE__).'/../../business/facade/publish-menu.php');
+require_once(dirname(__FILE__).'/../../business/entity/menu.php');
 use \ui\frame\ManageFrameImplementor;
 use \ui\publish\MenuSub;
 use \ui\publish\MenuNewAddSub;

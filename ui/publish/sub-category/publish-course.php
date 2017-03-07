@@ -1,6 +1,5 @@
 <?php
 namespace ui\publish;
-require_once(dirname(__FILE__).'/../../business/entity/menu-course.php');
 require_once('publish-menu.php');
 use \business\entity\MenuCourse;
 use \ui\util\SubmitButton;
