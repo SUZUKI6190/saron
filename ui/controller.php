@@ -2,6 +2,7 @@
 namespace ui;
 require_once('customer/controller.php');
 require_once("customer/customer-download.php");
+require_once("i-edit.php");
 require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once(dirname(__FILE__).'/frame/result.php');

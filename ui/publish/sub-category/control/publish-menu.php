@@ -6,6 +6,8 @@ use \ui\util\InputTextarea;
 use \business\entity\Menu;
 use \business\entity\MenuCourse;
 
+use \ui\IEdit;
+
 class MenuCourseView
 {
 	private $_course;
@@ -39,7 +41,7 @@ class PublishMenuInput extends InputBase
 	}
 }
 
-abstract class ViewMenuDetail
+abstract class ViewMenuDetail implements IEdit
 {
 	protected $_menu;
 	protected $_form_id;

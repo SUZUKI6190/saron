@@ -1,8 +1,7 @@
 <?php
 namespace ui\publish;
-require_once("control\publish-menu-new.php");
-require_once("control\publish-menu-edit.php");
 require_once('control\publish-course.php');
+require_once('control\publish-iedit-factory.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \business\entity\Menu;
@@ -21,12 +20,7 @@ class MenuNewAddSub extends \ui\frame\SubCategory
 	private $_form_id = "menu_form";
 	public function __construct()
 	{
-		$context = PublishContext::get_instance();
-		if(empty($context->menu_id)){
-			$this->_view_menu_new = new ViewMenuDetailNew( $this->_form_id);
-		}else{
-			$this->_view_menu_new = new ViewMenuDetailEdit( $this->_form_id);
-		}
+		$this->_view_menu_new = create_publish_edit($this->_form_id);
 	}
 	public function view()
 	{?>

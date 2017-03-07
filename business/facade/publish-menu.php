@@ -149,19 +149,19 @@ SQL;
 		return $temp;
 	}, $result));
 
-	return $ret;
+	
+	return $ret[0];
 }
 
 function delete_menu_course($id, $menu_id)
 {
-	global $wpdb;
-	$wpdb->query(
-		<<<SQL
+	global $wpdb;	
+		$strSql = <<<SQL
 		delete from menu_course
 		where id = '$id'
 		  and menu_id = '$menu_id'
-SQL
-);
+SQL;
+$wpdb->query($strSql);
 }
 
 function delete_menu_course_by_menuid($menu_id)

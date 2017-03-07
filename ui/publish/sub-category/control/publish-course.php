@@ -4,7 +4,9 @@ require_once('publish-menu.php');
 use \business\entity\MenuCourse;
 use \ui\util\SubmitButton;
 
-abstract class MenuCourseForm
+use \ui\IEdit;
+
+abstract class MenuCourseForm implements IEdit
 {
 	protected $_menu_id;
 	protected $_form_id;
@@ -84,18 +86,20 @@ class MenuCourseEdit extends MenuCourseForm
 	private $_course_id;
 	public function __construct($menu_id, $form_id, $course_id)
 	{
+		$this->_course_id = $course_id;
 		parent::__construct($menu_id, $form_id);
-		$this->_course_id = course_id;
 	}
+
 	protected function save_inner(MenuCourse $course)
 	{
-		\business\facade\delete_menu_course($course->menu_id, $course->id);
+		\business\facade\delete_menu_course($this->_course_id, $course->menu_id);
 		\business\facade\insert_menu_course($course);
 	}
 	
 	protected function get_default_course() : MenuCourse
 	{
-		return \business\facade\get_menu_course($this->_menu_id, $this->_course_id);
+		$ret = \business\facade\get_menu_course($this->_course_id, $this->_menu_id);
+		return $ret;
 	}
 }
 
