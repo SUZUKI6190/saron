@@ -1,7 +1,8 @@
 <?php
 namespace ui\publish;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once('publish-sub-cotegory.php');
+require_once('publish-edit-menu-sub-category.php');
+require_once('publish-view-menu-sub-category.php');
 use \ui\frame\ManageFrameImplementor;
 use \ui\publish\MenuSub;
 use \ui\publish\MenuNewAddSub;
