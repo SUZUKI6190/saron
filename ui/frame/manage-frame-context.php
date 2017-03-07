@@ -28,6 +28,52 @@ abstract class SubCategory
 	{
 	}
 }
+
+abstract class GamenBase
+{
+	public abstract function view();
+	public abstract function get_result() : Result;
+	public abstract function regist();
+	public abstract function next_gamen_id() : string;
+	private $_id;
+	public function __construct($id)
+	{
+		$this->_id = $id;
+	}
+}
+
+abstract class MultiGamenSubCategory extends SubCategory
+{
+	private $_gamen_list = [];
+	public function __construct()
+	{
+		$this->_gamen_list = $this->get_gamen_list();
+	}
+	abstract protected function get_gamen_list();
+	
+	private function get_current_gamen() : Gamen
+	{
+		$id = $this->get_current_gamen_id();
+		return $this->_gamen_list[$id];
+	}
+	
+	abstract protected function get_current_gamen_id() : string;
+	public function view()
+	{
+		
+		$this->get_current_gamen()->view();
+	}
+
+	public function get_result() : Result
+	{
+		return $this->get_current_gamen()->get_result();
+	}
+
+	public function regist()
+	{
+		return $this->get_current_gamen()->regist();
+	}
+}
 	
 class ManageFrameContext
 {
