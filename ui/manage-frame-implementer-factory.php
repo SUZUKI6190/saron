@@ -3,6 +3,7 @@ namespace ui;
 
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
+require_once("customer/controller.php");
 require_once("publish/publish-frame-implementor.php");
 require_once("publish/publish-context.php");
 require_once("staff/staff-context.php");

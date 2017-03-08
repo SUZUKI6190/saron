@@ -1,12 +1,12 @@
 <?php
 namespace ui;
-require_once('customer/controller.php');
 require_once("customer/customer-download.php");
 require_once("i-edit.php");
 require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once(dirname(__FILE__).'/frame/result.php');
 require_once('manage-frame-implementer-factory.php');
+require_once('menu/menu-controler.php');
 use \ui\frame;
 
 function view_manage_gamen()
@@ -75,12 +75,13 @@ function YoyakuManageConroll()
 	$category = get_query_var("category");
 	if($category == "download"){
 		\ui\customer\get_customer_csv();
+		exit;
 	}elseif($category == "menu"){
-		
+		\ui\menu\view_menu();
 	}else{
 		view_manage_gamen();
+		exit;
 	}
-	exit;
 }
 
 ?>
