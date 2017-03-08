@@ -1,5 +1,6 @@
 <?php
 namespace ui;
+
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once("publish/publish-frame-implementor.php");

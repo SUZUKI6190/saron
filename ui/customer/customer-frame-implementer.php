@@ -1,5 +1,7 @@
 <?php
 namespace ui\customer;
+require_once(dirname(__FILE__).'/../../business/facade/customer.php');
+require_once(dirname(__FILE__).'/../../business/entity/customer.php');
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
 require_once('customerDetailEdit.php');
