@@ -248,7 +248,7 @@ abstract class ButtonList
 			$count++;
 		}
 	}
-	
+
 	public function get_button($key) : SubmitBase
 	{
 		return $this->_button_list[$key];
