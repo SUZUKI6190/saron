@@ -169,10 +169,14 @@ class ConfirmSubmitButton extends SubmitBase
 		parent::__construct($name, $text , $form_id, $style);
 		$this->_confirm_msg = $confirm_msg;
 	}
+	protected function add_view()
+	{
+	}
 	public function view(){
 	?>	
 		<input type='submit' value="<?php echo $this->_text; ?>" name="<?php echo $this->_name; ?>" class="manage_button <?php echo $this->_style; ?>" onClick="return check('<?php echo $this->_confirm_msg; ?>');" />
 	<?php
+	$this->add_view();
 	}
 }
 
@@ -225,6 +229,54 @@ class InputTextarea extends InputBase
 		?>	
 		<textarea  name="<?php echo $this->_name; ?>" class="<?php echo $this->_style; ?>"><?php echo $this->_value; ?></textarea>
 		<?php
+	}
+}
+
+abstract class ButtonList
+{
+	protected $_button_list = [];
+	protected $_data_list = [];
+	protected $_form_id;
+	public function __construct($form_id, $name, $data_src)
+	{
+		$this->_data_list = $data_src;
+		$count = 0;
+		foreach($this->_data_list as $data)
+		{
+			$key =  $this->create_button_key($data);
+			$this->_button_list += array($key => $this->create_button($name."_".$count, $data));
+			$count++;
+		}
+	}
+	
+	public function get_button($key) : SubmitBase
+	{
+		return $this->_button_list[$key];
+	}
+	
+	protected abstract function create_button_key($data);
+	protected abstract function on_click_inner($key);
+	protected abstract function create_button($name, $data) : SubmitBase;
+
+	public function is_submit()
+	{
+		foreach($this->_button_list as $key => $button)
+		{
+			if($button->is_submit()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public function on_click()
+	{
+		foreach($this->_button_list as $key => $button)
+		{
+			if($button->is_submit()){
+				$this->on_click_inner($key);
+			}
+		}
 	}
 }
 	
