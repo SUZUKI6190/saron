@@ -44,7 +44,7 @@ function create_iplementer($category_name)
 			return new staff\StaffFrameImplementor();
 			break;	
 		default:
-			echo "invalid url error";
+			echo "invalid url error : $category_name";
 			break;
 	}
 }
