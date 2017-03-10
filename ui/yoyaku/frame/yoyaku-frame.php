@@ -1,7 +1,7 @@
 <?php
 namespace ui\yoyaku\frame;
 
-abstract class Mainyoyaku
+abstract class YoyakuMenu
 {
 	public abstract function view();
 	protected function get_css_name()
@@ -19,7 +19,7 @@ class YoyakuFrame
 {
 	private $_main_yoyaku;
 	
-	public function __construct(Mainyoyaku $m)
+	public function __construct(YoyakuMenu $m)
 	{
 		$this->_main_yoyaku = $m;
 	}
