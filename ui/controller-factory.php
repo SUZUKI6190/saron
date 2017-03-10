@@ -16,7 +16,7 @@ function create_controller() : IController
 	if($category == "download"){
 		\ui\customer\get_customer_csv();
 		exit;
-	}elseif($category == ""){
+	}elseif($category == "menu"){
 		return new \ui\menu\MenuController();
 	}else{
 		return new ManageController();	

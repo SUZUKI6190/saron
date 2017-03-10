@@ -1,5 +1,5 @@
 <?php
-namespace ui\menu;
+namespace ui\menu\frame;
 
 function view_footer()
 {
