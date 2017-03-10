@@ -1,7 +1,7 @@
 <?php
-namespace ui\menu\frame;
+namespace ui\yoyaku\frame;
 
-abstract class MainMenu
+abstract class Mainyoyaku
 {
 	public abstract function view();
 	protected function get_css_name()
@@ -15,17 +15,19 @@ abstract class MainMenu
 	}
 }
 
-class MenuFrame
+class yoyakuFrame
 {
-	private $_main_menu;
+	private $_main_yoyaku;
 	
-	public function __construct(MainMenu $m)
+	public function __construct(Mainyoyaku $m)
 	{
-		$this->_main_menu = $m;
+		$this->_main_yoyaku = $m;
 	}
 	
 	public function view()
-	{?>	
+	{
+		$css_dir =  plugins_url()."/saron/css/yoyaku/";
+		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -33,7 +35,8 @@ class MenuFrame
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" /><title></title>
-		<link rel="stylesheet" href="<?php echo plugins_url().'/saron/css/menu/common.css'; ?>?ver=0.01"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=0.01"; ?>"  type="text/css"; />
+		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=0.01"; ?>"  type="text/css" />
 		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>
@@ -41,7 +44,7 @@ class MenuFrame
 		<body>
 		<div class="main_wrap">
 		<?php
-			$this->_main_menu->view();
+			$this->_main_yoyaku->view();
 		?>
 		</div>
 		<?php
@@ -54,21 +57,21 @@ class MenuFrame
 	}
 }
 
-function init_menu()
+function init_yoyaku()
 {
 
 
 	function regist_css()
 	{
 		wp_register_style(
-			'menu/common.css', 
-			plugins_url("/css/menu/common.css", __FILE__),
+			'yoyaku/common.css', 
+			plugins_url("/css/yoyaku/common.css", __FILE__),
 			array(),
 			"1.0"
 			 
 		);
 		
-		wp_enqueue_style('menu/common.css');
+		wp_enqueue_style('yoyaku/common.css');
 
 		wp_register_style(
 			'customer_search.css', 

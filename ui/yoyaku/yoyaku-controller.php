@@ -1,17 +1,17 @@
 <?php
-namespace ui\menu;
-require_once("frame/menu-frame.php");
-require_once("frame/menu-footer.php");
-require_once("frame/menu-frame-factory.php");
-require_once('menu-context.php');
+namespace ui\yoyaku;
+require_once("frame/yoyaku-frame.php");
+require_once("frame/yoyaku-footer.php");
+require_once("frame/yoyaku-frame-factory.php");
+require_once('yoyaku-context.php');
 use ui\IController;
 
-class MenuController implements IController
+class YoyakuController implements IController
 {
 	private $_manu_frame;
 	public function init()
 	{
-		$this->_manu_frame = \ui\menu\frame\menu_frame_factory();
+		$this->_manu_frame = \ui\yoyaku\frame\yoyaku_frame_factory();
 	}
 
 	public function view()
@@ -27,7 +27,7 @@ class MenuController implements IController
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" /><title></title>
 		
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/menu/common.css", __FILE__); ?>?ver=0.01"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo plugins_url("../css/yoyaku/common.css", __FILE__); ?>?ver=0.01"  type="text/css" />
 		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>

@@ -1,9 +1,9 @@
 <?php
-require_once('ui\menu\menu-init.php');
+require_once('ui\yoyaku\yoyaku-init.php');
 
 function init()
 {
-	\ui\menu\menu_init();
+	\ui\yoyaku\yoyaku_init();
 }
 
 ?>

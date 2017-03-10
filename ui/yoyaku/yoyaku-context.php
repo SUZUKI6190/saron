@@ -1,21 +1,21 @@
 <?php
-namespace ui\menu;
+namespace ui\yoyaku;
 
-class MenuContext
+class YoyakuContext
 {
 	private static $_instance;
 	private function __construct()
 	{
 	}
 
-	public $menu_id;
+	public $yoyaku_id;
 	public $course_id;
 	
-	public static function get_instance() : MenuContext
+	public static function get_instance() : YoyakuContext
 	{
 		if(is_null(self::$_instance))
 		{
-			self::$_instance = new MenuContext();
+			self::$_instance = new YoyakuContext();
 		}
 		return self::$_instance;
 	}

@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once(dirname(__FILE__).'/frame/result.php');
 require_once('manage-frame-implementer-factory.php');
-require_once('menu/menu-controller.php');
+require_once('yoyaku/yoyaku-controller.php');
 
 function create_controller() : IController
 {
@@ -16,8 +16,8 @@ function create_controller() : IController
 	if($category == "download"){
 		\ui\customer\get_customer_csv();
 		exit;
-	}elseif($category == "menu"){
-		return new \ui\menu\MenuController();
+	}elseif($category == "yoyaku"){
+		return new \ui\yoyaku\YoyakuController();
 	}else{
 		return new ManageController();	
 	}
