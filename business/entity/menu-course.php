@@ -5,6 +5,8 @@ class MenuCourse
 {
 	public $menu_id;
 	public $course_id;
+	public $sequence_no;
+	public $first_discount;
 	public $name;
 	public $time_required;
 	public $price;

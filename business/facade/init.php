@@ -54,10 +54,8 @@ SQL
 		CREATE TABLE menu (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			name varchar(100)  character set utf8,
-			price int UNSIGNED,
 			description text character set utf8,
 			enable_reservation tinyint UNSIGNED,
-			time_required tinyint UNSIGNED,
 			PRIMARY KEY(id)
 		)
 SQL
@@ -69,8 +67,10 @@ SQL
 			menu_id int UNSIGNED NOT NULL,
 			name varchar(100) character set utf8,
 			price int UNSIGNED,
+			sequence_no  int UNSIGNED,
+			first_discount int UNSIGNED,
 			time_required tinyint UNSIGNED,
-			PRIMARY KEY(id, menu_id)
+			PRIMARY KEY(id)
 		)
 SQL
 		);

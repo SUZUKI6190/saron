@@ -10,7 +10,7 @@ abstract class MenuCourseForm implements IEdit
 {
 	protected $_menu_id;
 	protected $_form_id;
-	protected $_name, $_time_required, $_price;
+	protected $_name, $_time_required, $_price, $_first_discount;
 	protected $_add_course_button;
 	public function __construct($menu_id, $form_id)
 	{
@@ -20,6 +20,7 @@ abstract class MenuCourseForm implements IEdit
 		$this->_name = new PublishMenuInput("text", "course_name", $menu_course->name);
 		$this->_time_required = new PublishMenuInput("numeric", "course_time_required", $menu_course->time_required);
 		$this->_price = new PublishMenuInput("numeric", "course_price", $menu_course->price);
+		$this->_first_discount = new PublishMenuInput("numeric", "first_discount", $menu_course->first_discount);
 		$this->_add_course_button = new SubmitButton("regist_course" ,'登録する', $this->_form_id);
 	}
 	
@@ -43,8 +44,12 @@ abstract class MenuCourseForm implements IEdit
 				<?php $this->_time_required->view(); ?>
 			</div>
 			<div class="line">
-				<div>価格</div>
+				<div>料金</div>
 				<?php $this->_price->view(); ?>
+			</div>
+			<div class="line">
+				<div>初回割引</div>
+				<?php $this->_first_discount->view(); ?>
 			</div>
 			<?php $this->_add_course_button->view(); ?>
 		</div>
@@ -63,6 +68,7 @@ abstract class MenuCourseForm implements IEdit
 		$course->name = $this->_name->get_value();
 		$course->time_required = $this->_time_required->get_value();
 		$course->price = $this->_price->get_value();
+		$course->first_discount = $this->_first_discount->get_value();
 		return $course;
 	}
 

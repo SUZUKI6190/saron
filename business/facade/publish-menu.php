@@ -11,9 +11,7 @@ function get_menu_list($id = "")
 		select
 		id,
 		name,
-		price,
 		description,
-		time_required,
 		enable_reservation
 		from menu
 SQL;
@@ -29,8 +27,6 @@ SQL;
 		$temp = new Menu();
 		$temp->menu_id = $data->id;
 		$temp->name = $data->name;
-		$temp->price = $data->price;
-		$temp->time_required = $data->time_required;
 		$temp->description = $data->description;
 		$temp->enable_reservation = $data->enable_reservation;
 		return $temp;
@@ -64,15 +60,11 @@ function insert_menu(Menu $menu)
 		<<<SQL
 insert into menu (
 	name,
-	price,
 	description,
-	time_required,
 	enable_reservation
 )values(
 	'$menu->name',
-	'$menu->price',
 	'$menu->description',
-	'$menu->time_required',
 	'$menu->enable_reservation'
 )
 SQL
@@ -84,9 +76,7 @@ function update_menu(Menu $menu)
 	$strSql = <<<SQL
 		update `customer` set
 		name = '$menu->name',
-		price = '$menu->price',
 		description = '$menu->description',
-		time_required = '$menu->time_required',
 		enable_reservation = '$menu->enable_reservation',
 	where id = '$data->id'
 SQL;
@@ -102,6 +92,8 @@ function get_menu_course_by_menuid($menu_id)
 		menu_id,
 		name,
 		price,
+		sequence_no,
+		first_discount,
 		time_required
 		from menu_course
 		where menu_id = '$menu_id'
@@ -116,12 +108,13 @@ SQL;
 		$temp->name = $data->name;
 		$temp->price = $data->price;
 		$temp->time_required = $data->time_required;
+		$temp->sequence_no = $data->sequence_no;
+		$temp->first_discount = $data->first_discount;
 		return $temp;
 	}, $result));
 
 	return $ret;
 }
-
 
 function get_menu_course($id, $menu_id)
 {
@@ -131,6 +124,8 @@ function get_menu_course($id, $menu_id)
 		menu_id,
 		name,
 		price,
+		sequence_no,
+		first_discount,
 		time_required
 		from menu_course
 		where menu_id = '$menu_id'
@@ -146,20 +141,21 @@ SQL;
 		$temp->name = $data->name;
 		$temp->price = $data->price;
 		$temp->time_required = $data->time_required;
+		$temp->sequence_no = $data->sequence_no;
+		$temp->first_discount = $data->first_discount;
 		return $temp;
 	}, $result));
 
-	return $ret;
+	return $ret[0];
 }
 
-function delete_menu_course($id, $menu_id)
+function delete_menu_course($id)
 {
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
 		delete from menu_course
 		where id = '$id'
-		  and menu_id = '$menu_id'
 SQL
 );
 }
@@ -184,11 +180,15 @@ function insert_menu_course(MenuCourse $mc)
 			menu_id,
 			name,
 			price,
+			first_discount,
+			sequence_no,
 			time_required
 		)values(
 			'$mc->menu_id',
 			'$mc->name',
 			'$mc->price',
+			'$mc->first_discount',
+			'$mc->sequence_no',
 			'$mc->time_required'
 		)
 SQL

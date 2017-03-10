@@ -5,9 +5,7 @@ class Menu
 {
 	public $menu_id;
 	public $name;
-	public $price;
 	public $description;
-	public $time_required;
 	public $enable_reservation = 0;
 	public $course_list = [];
 	

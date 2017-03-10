@@ -45,7 +45,7 @@ abstract class ViewMenuDetail implements IEdit
 {
 	protected $_menu;
 	protected $_form_id;
-	protected $_price, $_time_required, $_menu_name, $_description;
+	protected $_menu_name, $_description;
 	public function __construct($form_id)
 	{
 		$this->_form_id = $form_id;
@@ -57,8 +57,6 @@ abstract class ViewMenuDetail implements IEdit
 		$required_attr["required"] = "";
 		
 		$this->_menu_name = new PublishMenuInput("text", "name", $this->_menu->name, "", $required_attr);
-		$this->_time_required = new PublishMenuInput("numeric", "time_required", $this->_menu->time_required);
-		$this->_price = new PublishMenuInput("numeric", "price", $this->_menu->price);
 		$this->_description = new InputTextarea("description", $this->_menu->description, "menu_description");
 	}
 	
@@ -80,8 +78,6 @@ abstract class ViewMenuDetail implements IEdit
 	{
 		$menu = new Menu();
 		$menu->name = $this->_menu_name->get_value();
-		$menu->time_required = $this->_time_required->get_value();
-		$menu->price = $this->_price->get_value();
 		$menu->description = $this->_description->get_value();
 		
 		return $menu;
@@ -97,14 +93,6 @@ abstract class ViewMenuDetail implements IEdit
 		<div class="line">
 			<div>メニュー名</div>
 			<?php echo $this->_menu_name->view(); ?>
-		</div>
-		<div class="line">
-			<div>価格</div>
-			<?php echo $this->_price->view(); ?>
-		</div>
-		<div class="line">
-			<div>所要目安時間</div>
-			<?php echo $this->_time_required->view(); ?>
 		</div>
 		<div class="line">
 			<div>説明</div>
