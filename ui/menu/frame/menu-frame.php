@@ -33,8 +33,7 @@ class MenuFrame
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" /><title></title>
-		
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/menu/common.css", __FILE__); ?>?ver=0.01"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo plugins_url().'/saron/css/menu/common.css'; ?>?ver=0.01"  type="text/css" />
 		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>

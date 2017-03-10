@@ -1,25 +1,59 @@
-.footer_area
+.yoyaku_area
 {
     background-color:#E2EFDA;
-
-    
+    width:550px;
 }
 
-.footer_btn
+.yoyaku_inner_wrap {
+    padding : 20px;
+}
+
+.yoyaku_btn_area
+{
+    display:flex;
+    flex-direction:row;
+}
+
+div.yoyaku_btn_wrap
+{
+    width:50%;
+    margin-left:10px;
+}
+
+a.yoyaku_btn
 {
     background-color:#A9D08E;
     font-weight:bold;
     color:#fff;
+    padding: 8px 15px;
+    font-size:small;
+    text-align:center;
+    display:block;
+    text-decoration:none; 
+    font-size:inherit;
 }
 
+.tell
+{
+    
+}
 
-.footer_midasi
+.yoyaku_midasi
 {
     color:#726250;
-    text-decoration:underline;
+    border-bottom: double 3px #726250;
+    margin:0px 0px 10px 0px;
+    text-align:center;
 }
 
-.footer_discription
+.yoyaku_midasi span
+{
+    margin-bottom:-35px;
+}
+
+.yoyaku_discription
 {
     color:#393939;
+    margin-bottom:20px;
+    font-size:small;
 }
