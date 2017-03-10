@@ -15,7 +15,7 @@ abstract class Mainyoyaku
 	}
 }
 
-class yoyakuFrame
+class YoyakuFrame
 {
 	private $_main_yoyaku;
 	
