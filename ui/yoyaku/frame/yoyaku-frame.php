@@ -27,6 +27,7 @@ class YoyakuFrame
 	public function view()
 	{
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
+		$js_dir =  plugins_url()."/saron/js/";
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
@@ -37,6 +38,8 @@ class YoyakuFrame
 		<meta http-equiv="Expires" content="0" /><title></title>
 		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=0.01"; ?>"  type="text/css"; />
 		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=0.01"; ?>"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css"; ?>?ver=0.01"  type="text/css" />
+		<script type="text/javascript" charset="utf-8" src="<?php echo $js_dir ?>/menu-select.js?ver=0.03" ></script>
 		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>
