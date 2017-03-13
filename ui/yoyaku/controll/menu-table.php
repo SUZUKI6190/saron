@@ -1,17 +1,23 @@
 <?php
 namespace ui\yoyaku\controll;
-
+use ui\util\SubmitButton;
 class MenuTable
 {
 	private $_menu_list = [];
-	public function __construct($menu_list)
+	private $_next_button;
+	public $_form_id;
+	public function __construct($menu_list, $name)
 	{
 		$this->_menu_list = $menu_list;
+		$this->_form_id = $name;
+		$this->_next_button = new SubmitButton('next_button', "この内容で次へ" , $this->_form_id, 'next_button');
 	}
 	
-	public function view()
+	public function get_checked_course() : MenuCourse
 	{
-		function td($value)
+	}
+
+	private function td($value)
 		{
 			?>
 			<td>
@@ -19,6 +25,9 @@ class MenuTable
 			</td>
 			<?php
 		}
+	
+	public function view()
+	{
 		?>
 		<table class='menu_view_table'>
 		<thead>
@@ -44,10 +53,10 @@ class MenuTable
 			?>
 			<tr class='menu_row'>
 			<?php		
-			td($menu->name);
-			td('');
-			td('');
-			td('');
+			$this->td($menu->name);
+			$this->td('');
+			$this->td('');
+			$this->td('');
 			?>
 			</tr>
 			<?php
@@ -62,9 +71,9 @@ class MenuTable
 				<?php echo $course->name; ?>
 				</td>
 				<?php
-				td($course->time_required);
-				td($course->price);
-				td($course->first_discount);
+				$this->td($course->time_required);
+				$this->td($course->price);
+				$this->td($course->first_discount);
 				?>
 				</tr>
 				<?php
@@ -72,10 +81,15 @@ class MenuTable
 		}
 		?>
 		</table>
+
+		<div class='next_button_area'>
+		<?php
+		$this->_next_button->view();
+		?>
+		</div>
+	
 	<?php
 	}
-
-
 }
 
 ?>

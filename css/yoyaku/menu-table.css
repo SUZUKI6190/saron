@@ -30,3 +30,16 @@ table.menu_view_table thead
     color:#393939;
     background-color:#FCE4D6;
 }
+
+div.next_button_area
+{
+    text-align:right;
+}
+
+input.next_button
+{
+    background-color:#2F75B5;
+    border-color:#2F75B5;
+    font:bold;
+    color:#fff;
+}
