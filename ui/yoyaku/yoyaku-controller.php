@@ -15,6 +15,7 @@ class YoyakuController implements IController
 	{
 		$yc = YoyakuContext::get_instance();
 		$yc->menu_id = get_query_var( 'id' );
+		$yc->sub_category = get_query_var( 'sub_category' );
 		$this->_manu_frame = \ui\yoyaku\yoyaku_frame_factory();
 	}
 

@@ -9,7 +9,7 @@ class YoyakuContext
 	}
 
 	public $yoyaku_id;
-	public $course_id;
+	public $sub_category;
 	
 	public static function get_instance() : YoyakuContext
 	{

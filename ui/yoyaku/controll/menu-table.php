@@ -1,30 +1,55 @@
 <?php
 namespace ui\yoyaku\controll;
 use ui\util\SubmitButton;
+USE ui\util\InputBase;
+
 class MenuTable
 {
 	private $_menu_list = [];
 	private $_next_button;
 	public $_form_id;
-	public function __construct($menu_list, $name)
+	private $_chk_list = [];
+	public function __construct($menu_list, $name, $form_id)
 	{
 		$this->_menu_list = $menu_list;
+		
+		foreach($menu_list as $menu)
+		{
+			foreach($menu->course_list as $c)
+			{
+				$add_atribute = [];
+				$row_id = "row_".$c->id;
+				$onclick = sprintf ( 'on_check_menu("%s", "%d")', $row_id, $c->id);
+				$add_atribute['onclick'] = $onclick;
+				$add_atribute['id'] = $c->id;
+				$this->_chk_list[$c->id] =  new InputBase('checkbox', $c->id, '', '', $add_atribute);
+			}
+		}
 		$this->_form_id = $name;
-		$this->_next_button = new SubmitButton('next_button', "この内容で次へ" , $this->_form_id, 'next_button');
+		$this->_next_button = new SubmitButton('next_button_'.$name, "この内容で次へ" , $this->_form_id, 'next_button');
+	}
+
+	public function is_click_next_button():bool
+	{
+		return $this->_next_button->is_submit();
 	}
 	
 	public function get_checked_course() : MenuCourse
 	{
+		$ret = [];
+		
+		
+		return ret;
 	}
 
 	private function td($value)
-		{
-			?>
-			<td>
-			<?php echo $value; ?>
-			</td>
-			<?php
-		}
+	{
+		?>
+		<td>
+		<?php echo $value; ?>
+		</td>
+		<?php
+	}
 	
 	public function view()
 	{
@@ -67,8 +92,9 @@ class MenuTable
 				?>
 				<tr class='course_row' id = '<?php echo $row_id; ?>'>
 				<td>
-				<input type='checkbox' id = '<?php echo $id; ?>' name = '<?php echo $id; ?>' onchange = 'on_check_menu("<?php echo $row_id; ?>", "<?php echo $id; ?>")' >
-				<?php echo $course->name; ?>
+				<?php
+				$this->_chk_list[$id]->view();
+				echo $course->name; ?>
 				</td>
 				<?php
 				$this->td($course->time_required);
