@@ -53,16 +53,20 @@ class MenuTable
 		<table class='menu_view_table'>
 		<thead>
 		<tr class='menu_header'>
-			<th class='menu_name'>
+			<th class='menu_name' rowspan='2'>
 				選択メニュー
 			</th>
-			<th class='required_time'>
+			<th class='required_time' rowspan='2'>
 				所要時間(目安)
 			</th>
-			<th class='price'>
+			<th class='price dummy_th' rowspan='2'>
 				料金
 			</th>
-			<th class='first_discount'>
+			<th class='dummy_th' >
+				
+			</th>
+		</tr>
+		<th class='first_discount' >
 				初回割引
 			</th>
 		</tr>

@@ -15,6 +15,7 @@ table.menu_view_table th
 {
     border:1px solid ;
     border-collapse: collapse;
+    height:20px;
 }
 
 table.menu_view_table th.price,
@@ -27,6 +28,11 @@ table.menu_view_table th.required_time
 td.course_row
 {
     text-align:right;
+}
+
+table.menu_view_table th.dummy_th
+{
+    border:none;
 }
 
 table.menu_view_table th.menu_name
