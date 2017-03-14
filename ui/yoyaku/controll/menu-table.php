@@ -6,11 +6,9 @@ USE ui\util\InputBase;
 class MenuTable
 {
 	private $_menu_list = [];
-	private $_next_button;
-	public $_form_id;
 	private $_chk_list = [];
 	private $_midasi = '';
-	public function __construct($menu_list, $name, $midasi, $form_id)
+	public function __construct($menu_list, $name, $midasi)
 	{
 		$this->_menu_list = $menu_list;
 		$this->_midasi = $midasi;
@@ -26,8 +24,6 @@ class MenuTable
 				$this->_chk_list[$c->id] =  new InputBase('checkbox', $c->id, '', '', $add_atribute);
 			}
 		}
-		$this->_form_id = $name;
-		$this->_next_button = new SubmitButton('next_button_'.$name, "この内容で次へ" , $this->_form_id, 'next_button');
 	}
 
 	public function is_click_next_button():bool
@@ -96,9 +92,9 @@ class MenuTable
 				echo $course->name; ?>
 				</td>
 				<?php
-				$this->td($course->time_required, 'course_row');
-				$this->td($course->price ,'course_row');
-				$this->td($course->first_discount,'course_row');
+				$this->td($course->time_required.'分', 'value');
+				$this->td('￥'.$course->price, 'value');
+				$this->td('￥'.$course->first_discount, 'value');
 				?>
 				</tr>
 				<?php
@@ -107,12 +103,6 @@ class MenuTable
 		?>
 		</table>
 
-		<div class='next_button_area'>
-		<?php
-		$this->_next_button->view();
-		?>
-		</div>
-	
 	<?php
 	}
 }

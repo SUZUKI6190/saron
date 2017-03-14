@@ -25,7 +25,7 @@ table.menu_view_table th.required_time
     width:150px;   
 }
 
-td.course_row
+.course_row td.value
 {
     text-align:right;
 }
@@ -79,6 +79,16 @@ input.next_button
     border-color:#2F75B5;
     color:#fff;
     font-weight:bold;
+}
+
+input.back_button
+{
+    color:#2F75B5;
+    background-color:#FFF;
+    border-color:#2F75B5;
+    border-radius: 6px;
+    width:150px;
+    float:left;
 }
 
 .menu_table_title
