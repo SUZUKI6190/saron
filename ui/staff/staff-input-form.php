@@ -61,19 +61,19 @@ abstract class StaffInputFormBase
 		?>
 		</div>
 		<div class="line">
-			<div>名前(性)</div>
+			<h1>名前(性)</h1>
 			<?php echo $this->_name_last->view(); ?>
 		</div>
 		<div class="line">
-			<div>名前(名)</div>
+			<h1>名前(名)</h1>
 			<?php echo $this->_name_first->view(); ?>
 		</div>
 		<div class="line">
-			<div>電話番号</div>
+			<h1>電話番号</h1>
 			<?php echo $this->_tell->view(); ?>
 		</div>
 		<div class="line">
-			<div>email</div>
+			<h1>email</h1>
 			<?php echo $this->_email->view(); ?>
 		</div>
 		</div>

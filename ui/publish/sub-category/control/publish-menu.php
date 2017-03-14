@@ -91,11 +91,11 @@ abstract class ViewMenuDetail implements IEdit
 		<?php $this->_regist_menu_button->view(); ?>
 		</div>
 		<div class="line">
-			<div>メニュー名</div>
+			<h1>メニュー名</h1>
 			<?php echo $this->_menu_name->view(); ?>
 		</div>
 		<div class="line">
-			<div>説明</div>
+			<h1>説明</h1>
 			<?php echo $this->_description->view(); ?>
 		</div>
 		</div>

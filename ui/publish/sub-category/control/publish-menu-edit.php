@@ -84,7 +84,7 @@ class ViewMenuDetailEdit extends ViewMenuDetail
 		?>
 		<div class="input_form course_view_form">
 		<div class="line">
-			<div>コース</div>
+			<h1>コース</h1>
 			<?php \ui\util\link_button('新しいコースを追加する', $course_url."/".$this->_menu->menu_id ); ?>
 			<table class="course_view">
 			<?php

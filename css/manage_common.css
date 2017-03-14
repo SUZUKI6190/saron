@@ -95,6 +95,12 @@ table td {
 
 }
 
+.line h1
+{
+    border-bottom:1px solid #000;
+    font-size:unset;
+}
+
 .manage_button,
 .manage_button:visited,
 input[type="submit"].manage_button,

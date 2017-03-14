@@ -112,65 +112,65 @@ abstract class ViewMessageDetail
 			</div>
 			<div class="area">
 				<div class="line">
-					<div class="name">
+					<h1>
 					メールタイトル
-					</div>
+					</h1>
 					<?php $this->_title->view(); ?>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					誕生日の
-					</div>
+					</h1>
 					<?php $this->_birth->view(); ?>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					最終来店日の
-					</div>
+					</h1>
 					<?php $this->_last_visit->view(); ?>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					次回来店予定日の
-					</div>
+					</h1>
 					<?php $this->_next_visit->view(); ?>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					DM不可を除く
-					</div>
+					</h1>
 					<div class="">
 						<input type='checkbox' name='enable_dm' value='enable_dm'>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					送信元のメールアドレス
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_sending_mail->view(); ?>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					送信後の確認メールアドレス
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_confirm_mail->view(); ?>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					メッセージ内容
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_message->view(); ?>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					性別
-					</div>
+					</h1>
 					<div class=""：>
 		
 					<select name="sex" id="sex">
@@ -183,33 +183,33 @@ abstract class ViewMessageDetail
 				</div>
 				
 				<div class="line">
-					<div class="name">
+					<h1>
 					職業
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_occupation->view(); ?>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					来店回数
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_vist_num->view(); ?>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					予約経路
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_reservation_route->view(); ?>
 					</div>
 				</div>
 				<div class="line">
-					<div class="name">
+					<h1>
 					担当スタッフ
-					</div>
+					</h1>
 					<div class="">
 						<?php $this->_staff->view_staff_select(); ?>
 					</div>

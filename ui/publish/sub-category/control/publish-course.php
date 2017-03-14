@@ -36,19 +36,19 @@ abstract class MenuCourseForm implements IEdit
 		?>
 		<div class="input_form">
 			<div class="line">
-				<div>コース名</div>
+				<h1>コース名</h1>
 				<?php $this->_name->view(); ?>
 			</div>
 			<div class="line">
-				<div>所要目安時間</div>
+				<h1>所要目安時間</h1>
 				<?php $this->_time_required->view(); ?>
 			</div>
 			<div class="line">
-				<div>料金</div>
+				<h1>料金</h1>
 				<?php $this->_price->view(); ?>
 			</div>
 			<div class="line">
-				<div>初回割引</div>
+				<h1>初回割引</h1>
 				<?php $this->_first_discount->view(); ?>
 			</div>
 			<?php $this->_add_course_button->view(); ?>
