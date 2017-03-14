@@ -93,8 +93,14 @@ class MenuTable
 				</td>
 				<?php
 				$this->td($course->time_required.'分', 'value');
-				$this->td('￥'.$course->price, 'value');
-				$this->td('￥'.$course->first_discount, 'value');
+				$this->td('￥'.number_format($course->price), 'value');
+				$price;
+				if($course->first_discount == 0){
+					$price = '-';
+				}else{
+					$price = '￥'. number_format($course->first_discount);
+				}
+				$this->td($price, 'value');
 				?>
 				</tr>
 				<?php
