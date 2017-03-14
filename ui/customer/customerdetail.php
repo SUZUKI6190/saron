@@ -159,9 +159,9 @@ abstract class CustomerDetail
 						{
 							?>
 							<div class="line">
-								<h1>
+								<h2>
 									<?php echo $item->get_name(); ?>:
-								</h1>
+								</h2>
 								<?php 
 								if(!$item->input_check())
 								{
@@ -181,9 +181,9 @@ abstract class CustomerDetail
 						{
 							?>
 							<div class="line">
-								<h1>
+								<h2>
 									<?php echo $item->get_name(); ?>:
-								</h1>
+								</h2>
 								<?php 
 								echo $item->view();
 								?>
