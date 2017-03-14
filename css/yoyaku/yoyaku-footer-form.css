@@ -2,6 +2,8 @@
 {
     background-color:#E2EFDA;
     width:550px;
+    margin:auto;
+    margin-top:20px;
 }
 
 .yoyaku_inner_wrap {
@@ -44,6 +46,7 @@ a.yoyaku_btn
     border-bottom: double 3px #726250;
     margin:0px 0px 10px 0px;
     text-align:center;
+    font-weight:bold;
 }
 
 .yoyaku_midasi span

@@ -1,3 +1,13 @@
+div.inner_wrap
+{
+    width:850px;
+}
+
+table.menu_view_table
+{
+    
+}
+
 
 table.menu_view_table,
 table.menu_view_table td,
@@ -7,16 +17,36 @@ table.menu_view_table th
     border-collapse: collapse;
 }
 
+table.menu_view_table th.price,
+table.menu_view_table th.first_discount,
+table.menu_view_table th.required_time
+{
+    width:150px;   
+}
+
+td.course_row
+{
+    text-align:right;
+}
+
+table.menu_view_table th.menu_name
+{
+    width:400px;
+}
+
+
 table.menu_view_table thead
 {
     background-color:#E2EFDA;
     color:#726250;
+    font-weight: bold;
 }
 
 .menu_row
 {
     color:#595959;
     background-color:#F2F2F2 ;
+    font-weight:bold;
 }
 
 .course_row
@@ -34,12 +64,22 @@ table.menu_view_table thead
 div.next_button_area
 {
     text-align:right;
+    margin-top:20px;
 }
 
 input.next_button
 {
     background-color:#2F75B5;
     border-color:#2F75B5;
-    font:bold;
     color:#fff;
+    font-weight:bold;
+}
+
+.menu_table_title
+{
+    color:#2F75B5;
+    text-align:center;
+    margin-bottom:20px;
+    margin-top:20px;
+    font-weight:bold;
 }

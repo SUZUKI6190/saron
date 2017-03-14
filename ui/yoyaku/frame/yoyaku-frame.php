@@ -45,14 +45,20 @@ class YoyakuFrame
 		<meta name="msapplication-config" content="none"/>
 		</head>
 		<body>
-		<div class="main_wrap">
-		<?php
-			$this->_main_yoyaku->view();
-		?>
+		<div class="yoyaku_wrap">
+			<div class="inner_wrap">
+			<div class="main">
+			<?php
+				$this->_main_yoyaku->view();
+			?>
+			</div>
+			<div class="footer">
+			<?php
+				view_footer();
+			?>	
+			</div>
+			</div>
 		</div>
-		<?php
-			view_footer();
-		?>	
 		<body>
 		<?php
 		

@@ -9,10 +9,11 @@ class MenuTable
 	private $_next_button;
 	public $_form_id;
 	private $_chk_list = [];
-	public function __construct($menu_list, $name, $form_id)
+	private $_midasi = '';
+	public function __construct($menu_list, $name, $midasi, $form_id)
 	{
 		$this->_menu_list = $menu_list;
-		
+		$this->_midasi = $midasi;
 		foreach($menu_list as $menu)
 		{
 			foreach($menu->course_list as $c)
@@ -33,19 +34,11 @@ class MenuTable
 	{
 		return $this->_next_button->is_submit();
 	}
-	
-	public function get_checked_course() : MenuCourse
-	{
-		$ret = [];
-		
-		
-		return ret;
-	}
 
-	private function td($value)
+	private function td($value, $class_name='')
 	{
 		?>
-		<td>
+		<td class='<?php echo $class_name; ?>' >
 		<?php echo $value; ?>
 		</td>
 		<?php
@@ -54,20 +47,22 @@ class MenuTable
 	public function view()
 	{
 		?>
+		<div class = 'menu_table_title'>
+		<span><?php echo $this->_midasi ?></span>
+		</div>
 		<table class='menu_view_table'>
 		<thead>
 		<tr class='menu_header'>
-			<th>
+			<th class='menu_name'>
 				選択メニュー
 			</th>
-
-			<th>
+			<th class='required_time'>
 				所要時間(目安)
 			</th>
-			<th>
+			<th class='price'>
 				料金
 			</th>
-			<th>
+			<th class='first_discount'>
 				初回割引
 			</th>
 		</tr>
@@ -97,9 +92,9 @@ class MenuTable
 				echo $course->name; ?>
 				</td>
 				<?php
-				$this->td($course->time_required);
-				$this->td($course->price);
-				$this->td($course->first_discount);
+				$this->td($course->time_required, 'course_row');
+				$this->td($course->price ,'course_row');
+				$this->td($course->first_discount,'course_row');
 				?>
 				</tr>
 				<?php
