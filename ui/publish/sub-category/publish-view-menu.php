@@ -1,8 +1,8 @@
 <?php
 namespace ui\publish;
-require_once("control\publish-menu-new.php");
-require_once("control\publish-menu-edit.php");
-require_once('control\publish-course.php');
+require_once("control/publish-menu-new.php");
+require_once("control/publish-menu-edit.php");
+require_once('control/publish-course.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \business\entity\Menu;

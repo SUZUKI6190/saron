@@ -1,7 +1,7 @@
 <?php
 namespace ui\publish;
-require_once('control\publish-course.php');
-require_once('control\publish-iedit-factory.php');
+require_once(dirname(__FILE__).'/control/publish-course.php');
+require_once(dirname(__FILE__).'/control/publish-iedit-factory.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \business\entity\Menu;
