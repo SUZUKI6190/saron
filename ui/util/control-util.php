@@ -111,9 +111,9 @@ class SortButton extends SubmitBase
 	}
 }
 
-function main_header_button($text , $url)
+function main_header_button($text , $url, $add_style = "")
 {
-	?><div class="main_header_button">
+	?><div class="main_header_button <?php echo $add_style; ?>">
 	<a href = '<?php echo $url; ?>'>
 		<?php echo $text; ?>
 	</a>

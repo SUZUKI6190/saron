@@ -36,6 +36,7 @@
 
 			$main_cate_list = $this->_main_catgory_list;
 
+			$main_cate = $mc->get_selected_main_category();
 			?>
 			<div class = "main_header_wrap">
 			<div class="centering">
@@ -45,16 +46,17 @@
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
 					$hb->url = $mc->get_url()."/".$main_category->name."/".$main_category->default_name;
-					
-					\ui\util\main_header_button($hb->name,  $hb->url);
+					if($main_category->name == $main_cate->name)
+					{
+						\ui\util\main_header_button($hb->name, $hb->url, 'selected');
+					}else{
+						\ui\util\main_header_button($hb->name, $hb->url);
+					}
 				}
-				
 				?>
 				</div>
 			</div>
-			<?php
-			$main_cate = $mc->get_selected_main_category();
-			?>
+			
 			<div class = "sub_header_area">
 				<div class="centering">
 				<?php

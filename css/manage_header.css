@@ -31,7 +31,8 @@
 }
 
 
-.main_header_button:active
+.main_header_button:active,
+.main_header_button.selected
 {
     border:inset #ddeeff 1px;
 }
