@@ -37,6 +37,7 @@ class ManageController implements IController
 			$set_array("send_message", "メッセージ配信管理", "view");
 			$set_array("yoyaku", "予約管理" , "menu");
 			$set_array("staff", "スタッフ管理", "view");
+			$set_array("sales", "売り上げ管理", "month");
 
 			return $ret;
 		}
