@@ -10,9 +10,12 @@ require_once("staff/staff-context.php");
 require_once("send-message/send-message-frame-implementor.php");
 require_once("send-message/send-message-context.php");
 require_once("staff/staff-implementor.php");
+require_once("sales/sales-frame-implementor.php");
 use ui\publish\PublishContext;
 use ui\staff\StaffContext;
 use ui\send_message\SendMessageContext;
+use ui\sales\SalesContext;
+
 function create_iplementer($category_name)
 {
 	switch($category_name)
@@ -37,12 +40,16 @@ function create_iplementer($category_name)
 			$context = SendMessageContext::get_instance();
 			$context->message_id = get_query_var( 'id' );
 			return new  send_message\SendMessageImplementor();
-			break;	
+			break;
 		case "staff":
 			$context = StaffContext::get_instance();
 			$context->staff_id = get_query_var( 'id' );
 			return new staff\StaffFrameImplementor();
 			break;	
+		case "sales":
+			$context = SalesContext::get_instance();
+			return new sales\SalesFrameImplementor();
+			break;
 		default:
 			echo "invalid url error : $category_name";
 			break;

@@ -17,7 +17,7 @@ SQL;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_values(array_map(function($data) {
 		return Sales::CreateFromWpdb($data);
-	}
+	}));
 	return $ret;
 }
 
