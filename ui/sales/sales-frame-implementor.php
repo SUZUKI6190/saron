@@ -19,6 +19,7 @@ class SalesFrameImplementor extends ManageFrameImplementor
 		};
 		$set_array(new SalesPriceSub());
 		
+		
 		return $ret;
 	}
 

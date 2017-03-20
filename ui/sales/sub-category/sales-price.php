@@ -13,13 +13,11 @@ class SalesPriceSub extends \ui\frame\SubCategory
 	private $_form_id = "menu_form";
 	public function __construct()
 	{
-		
+
 	}
 	public function view()
 	{?>
-		<form id='<?php echo $this->_form_id; ?>' method='post' >
-		<?php $this->_view_menu_new->view(); ?>
-		</form>
+
 		<?php
 	}
 

@@ -4,13 +4,7 @@ namespace ui;
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once("customer/controller.php");
-require_once("publish/publish-frame-implementor.php");
-require_once("publish/publish-context.php");
-require_once("staff/staff-context.php");
-require_once("send-message/send-message-frame-implementor.php");
-require_once("send-message/send-message-context.php");
-require_once("staff/staff-implementor.php");
-require_once("sales/sales-frame-implementor.php");
+
 use ui\publish\PublishContext;
 use ui\staff\StaffContext;
 use ui\send_message\SendMessageContext;
@@ -30,6 +24,8 @@ function create_iplementer($category_name)
 			return new  customer\CustomerFameImplementor($context);
 			break;
 		case "publish":
+			require_once("publish/publish-frame-implementor.php");
+			require_once("publish/publish-context.php");
 			$context = PublishContext::get_instance();
 			$context->course_id = get_query_var( 'course_id' );
 			$context->menu_id = get_query_var( 'id' );
@@ -37,16 +33,21 @@ function create_iplementer($category_name)
 			return new  publish\PublishFrameImplementor();
 			break;
 		case "send_message":
+			require_once("send-message/send-message-frame-implementor.php");
+			require_once("send-message/send-message-context.php");
 			$context = SendMessageContext::get_instance();
 			$context->message_id = get_query_var( 'id' );
 			return new  send_message\SendMessageImplementor();
 			break;
 		case "staff":
+			require_once("staff/staff-implementor.php");
+			require_once("staff/staff-context.php");
 			$context = StaffContext::get_instance();
 			$context->staff_id = get_query_var( 'id' );
 			return new staff\StaffFrameImplementor();
 			break;	
 		case "sales":
+			require_once("sales/sales-frame-implementor.php");
 			$context = SalesContext::get_instance();
 			return new sales\SalesFrameImplementor();
 			break;
