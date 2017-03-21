@@ -5,21 +5,33 @@ class view_date_input
 {
 
 	private $_name;
-	
-	public function __construct($name)
+	private $_atribute;
+	public function __construct($name, $add_atribute = [])
 	{
 		$this->_name = $name;
+		$this->_atribute = $add_atribute;
 	}
 	
 	public function view($value = "")
 	{
-		if(is_null($value == "") or empty($value)){
+		if(empty($value)){
 			$converted = "";
 		}else{
 			$converted = $this->convert_inputDateFormat($value);
 		}
+		
+		$attr = "";
+		foreach($this->_atribute as $key => $value)
+		{
+			if(empty($value)){
+				$attr = $attr." ".$key; 
+			}else{
+				$attr = $attr." ".$key." = '".$value."'"; 
+			}
+		}
+		
 		?>
-		<input name='<?php echo $this->_name; ?>' type="date" value='<?php echo $converted; ?>' />
+		<input name='<?php echo $this->_name; ?>' type="date" value='<?php echo $converted; ?>' <?php echo $attr; ?>/>
 		<?php
 	}
 	
@@ -106,7 +118,7 @@ class SortButton extends SubmitBase
 			$this->_text = $this->_text.SortButton::normal;
 		}
 		?>
-		<a href="javascript:void(0)" onClick="FormSubmit('<?php echo $this->_form_id; ?>', '<?php echo $this->_name; ?>', '<?php echo $value_set; ?>');"><?php echo $this->_text; ?></a>
+		<a href="javascript:void(0)" onClick="SortSubmit('<?php echo $this->_form_id; ?>', '<?php echo $this->_name; ?>', '<?php echo $value_set; ?>');"><?php echo $this->_text; ?></a>
 		<?php
 	}
 }

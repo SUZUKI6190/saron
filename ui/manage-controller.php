@@ -57,7 +57,7 @@ class ManageController implements IController
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" /><title></title>
 		
-		<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.03" ></script>
+		<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.04" ></script>
 		<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_common.css", __FILE__); ?>?ver=0.04"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_header.css", __FILE__); ?>?ver=0.04"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>?ver=0.04"  type="text/css" />

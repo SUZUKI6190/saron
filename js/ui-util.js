@@ -15,7 +15,7 @@ function check(msg) {
 
 }
 
-function FormSubmit(formid, name, value) {
+function SortSubmit(formid, name, value) {
     var target = document.getElementById(formid);
     // ƒGƒŒƒƒ“ƒg‚ğì¬
     var ele = document.createElement('input');
