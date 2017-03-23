@@ -27,3 +27,9 @@ function SortSubmit(formid, name, value) {
     target.appendChild(ele);
     target.submit();
 }
+
+
+function SubmitOnClick(formid) {
+    var target = document.getElementById(formid);
+    target.submit();
+}
