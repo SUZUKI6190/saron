@@ -17,8 +17,7 @@ class SalesFrameImplementor extends ManageFrameImplementor
 			$ret[$sub->get_name()] = $sub;
 		};
 		$set_array(new SalesPriceSub());
-		
-		
+
 		return $ret;
 	}
 
@@ -27,20 +26,21 @@ class SalesFrameImplementor extends ManageFrameImplementor
 		
 	}
 	
-		protected function get_css_list()
-		{
-			return [];
-		}
-		
-		protected function get_js_list()
-		{
-			return [
-				new HeaderFile('chart/chart.js', 1.0)
-			];
-		}
-		
-}
+	protected function get_css_list()
+	{
+		return [
+			new HeaderFile('sales.css', 1.0)
+		];
+	}
 	
-
+	protected function get_js_list()
+	{
+		return [
+			new HeaderFile('chart/chart.js', 1.0),
+			new HeaderFile('sales.js', 0.01)
+		];
+	}
+	
+}
 
 ?>

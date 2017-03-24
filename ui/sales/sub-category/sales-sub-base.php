@@ -69,6 +69,8 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 	private $_date_form;
 	private $_view_graph_button;
 
+	private $_canvas_id = 'sales_graph';
+	
 	protected abstract function create_graph_param(Sales $sales);
 
 	public function get_sales_data()
@@ -132,13 +134,16 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 			</div>
 			<?php
 			if($this->_view_graph_button->is_submit())
-			{
-				
+			{?>
+				<div class='sales_graph_area'>
+					<canvas id='<?php echo $this->_canvas_id; ?>' class='sales_graph'></canvas>
+				</div>
+			<?php
 			}
 			?>
 		</form>
 	<?php
 
-	}	
+	}
 }
 ?>
