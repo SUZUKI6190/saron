@@ -49,7 +49,8 @@ class ManageController implements IController
 		$mc->selected_sub_category_name = get_query_var("sub_category");
 		
 		$inplementer = create_iplementer($mc->selected_main_category_name);
-		
+		$css_url = plugins_url("../css" , __FILE__);
+		$js_url = plugins_url("../js" , __FILE__);
 	?>
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
@@ -59,15 +60,11 @@ class ManageController implements IController
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" /><title></title>
 		<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.04" ></script>
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_common.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/manage_header.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_search.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/customer_view.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/publish_menu.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/send_message.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo plugins_url("../css/staff.css", __FILE__); ?>?ver=0.04"  type="text/css" />
-		
-		<?php $inplementer->output_header(plugins_url("../css"), plugins_url("../js")); ?>
+		<link rel="stylesheet" href="<?php echo $css_url."/manage_common.css"; ?>?ver=0.04"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_url."/manage_header.css"; ?>?ver=0.04"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_url."/customer_search.css"; ?>?ver=0.04"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_url."/customer_view.css"; ?>?ver=0.04"  type="text/css" />
+		<?php $inplementer->output_header($css_url, $js_url); ?>
 		
 		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>

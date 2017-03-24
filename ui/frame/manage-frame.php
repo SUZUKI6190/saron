@@ -6,7 +6,7 @@
 	class HeaderFile
 	{
 		public $name, $ver;
-		public function __construct(string $name, int $ver)
+		public function __construct(string $name, float $ver)
 		{
 			$this->ver = $ver;
 			$this->name = $name;
@@ -53,7 +53,7 @@
 			foreach($this->get_js_list() as $js)
 			{
 				?>
-				<script type="text/javascript" charset="utf-8" src="<?php echo $js_url.'/'.$js->name; ?>?ver=?<?php echo $js->ver; ?>" ></script>
+				<script type="text/javascript" charset="utf-8" src="<?php echo $js_url.'/'.$js->name; ?>?ver=<?php echo $js->ver; ?>" ></script>
 				<?php
 			}
 		}

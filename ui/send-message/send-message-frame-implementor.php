@@ -1,11 +1,9 @@
 <?php
 namespace ui\send_message;
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 require_once('sub-category/setting-sub.php');
 require_once('sub-category/view-message-sub.php');
 require_once(dirname(__FILE__).'/../../business/entity/menu.php');
 require_once(dirname(__FILE__).'/../../business/entity/menu-course.php');
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 require_once(dirname(__FILE__).'/../../business/facade/publish-menu.php');
 
 use \ui\frame\ManageFrameImplementor;
@@ -30,6 +28,13 @@ class SendMessageImplementor extends ManageFrameImplementor
 	public function view_main()
 	{
 		
+	}
+	
+	protected function get_css_list()
+	{
+		return [
+			new \ui\frame\HeaderFile('send_message.css', 0.04)
+		];
 	}
 }
 	

@@ -2,8 +2,6 @@
 namespace ui\sales;
 require_once('sales-context.php');
 require_once('sub-category/sales-price.php');
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 require_once(dirname(__FILE__).'/../../business/facade/sales.php');
 require_once(dirname(__FILE__).'/../../business/entity/sales.php');
 use \ui\frame\ManageFrameImplementor;

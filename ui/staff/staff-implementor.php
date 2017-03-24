@@ -28,6 +28,13 @@ class StaffFrameImplementor extends ManageFrameImplementor
 	public function view_main()
 	{
 	}
+	
+	protected function get_css_list()
+	{
+		return [
+		new \ui\frame\HeaderFile('staff.css', 0.04)
+		];
+	}
 }
 	
 
