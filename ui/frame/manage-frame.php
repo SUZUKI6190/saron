@@ -3,6 +3,16 @@
 	require_once("header-item.php");
 	require_once("result.php");
 	
+	class HeaderFile
+	{
+		public $name, $ver;
+		public function __construct(string $name, int $ver)
+		{
+			$this->ver = $ver;
+			$this->name = $name;
+		}
+	}
+	
 	abstract class ManageFrameImplementor
 	{
 		public abstract function get_sub_category_list();
@@ -17,6 +27,35 @@
 			$sub_list = $this->get_sub_category_list();
 			
 			return $sub_list[$mc->selected_sub_category_name];
+		}
+		
+		protected function get_css_list()
+		{
+			return [];
+		}
+		
+		protected function get_js_list()
+		{
+			return [];
+		}
+		
+		public function output_header(string $css_url, string $js_url)
+		{
+			
+			foreach($this->get_css_list() as $css)
+			{
+				
+				?>
+				<link rel="stylesheet" href="<?php echo $css_url.'/'.$css->name; ?>?ver=<?php echo $css->ver; ?>"  type="text/css" />
+				<?php
+			}
+			
+			foreach($this->get_js_list() as $js)
+			{
+				?>
+				<script type="text/javascript" charset="utf-8" src="<?php echo $js_url.'/'.$js->name; ?>?ver=?<?php echo $js->ver; ?>" ></script>
+				<?php
+			}
 		}
 	}
 	

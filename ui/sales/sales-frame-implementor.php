@@ -7,6 +7,7 @@ require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 require_once(dirname(__FILE__).'/../../business/facade/sales.php');
 require_once(dirname(__FILE__).'/../../business/entity/sales.php');
 use \ui\frame\ManageFrameImplementor;
+use ui\frame\HeaderFile;
 
 class SalesFrameImplementor extends ManageFrameImplementor
 {
@@ -27,6 +28,19 @@ class SalesFrameImplementor extends ManageFrameImplementor
 	{
 		
 	}
+	
+		protected function get_css_list()
+		{
+			return [];
+		}
+		
+		protected function get_js_list()
+		{
+			return [
+				new HeaderFile('chart/chart.js', 1.0)
+			];
+		}
+		
 }
 	
 
