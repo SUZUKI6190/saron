@@ -14,10 +14,12 @@ class StaffSelect extends YoyakuMenu
 
 	public function __construct()
 	{
-
 		$yc = YoyakuContext::get_instance();
-
-		
+	}
+	
+	public function get_title() : string
+	{
+		return "セラピスト選択";
 	}
 	
 	public function view()

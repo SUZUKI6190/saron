@@ -46,6 +46,11 @@ class YoyakuSelect extends YoyakuMenu
 		}		
 	}
 	
+	public function get_title() : string
+	{
+		return "メニュー選択";
+	}
+	
 	public function view()
 	{
 		$yc = YoyakuContext::get_instance();
