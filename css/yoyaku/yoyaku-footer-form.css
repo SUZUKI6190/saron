@@ -60,3 +60,20 @@ a.yoyaku_btn
     margin-bottom:20px;
     font-size:small;
 }
+
+@media only screen and (max-width:800px) {
+    .yoyaku_area {
+        width: 330px;
+    }
+    .yoyaku_btn_area {
+        display: flex;
+        flex-direction:column;
+    }
+
+    div.yoyaku_btn_wrap {
+        width:100%;
+        margin:0;
+        margin-bottom:5px;
+    }
+
+}

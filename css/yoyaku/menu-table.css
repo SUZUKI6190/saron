@@ -99,3 +99,34 @@ input.back_button
     margin-top:20px;
     font-weight:bold;
 }
+
+
+@media only screen and (max-width:800px) {
+    div.inner_wrap
+    {
+        width:360px;
+    }
+
+
+    table.menu_view_table
+    {
+        width:100%;
+    }
+
+    table.menu_view_table th.price,
+    table.menu_view_table th.first_discount,
+    table.menu_view_table th.required_time {
+        width: 20%;
+     
+    }
+
+    td.value{
+        
+    }
+
+    table.menu_view_table th.menu_name {
+        width: 40%;
+    }
+
+
+}
