@@ -114,10 +114,13 @@ input.back_button
     }
 
     table.menu_view_table th.price,
-    table.menu_view_table th.first_discount,
-    table.menu_view_table th.required_time {
+    table.menu_view_table th.first_discount {
         width: 20%;
-     
+    }
+
+    able.menu_view_table th.required_time 
+    {
+        width:15%;
     }
 
     td.value{
@@ -125,8 +128,15 @@ input.back_button
     }
 
     table.menu_view_table th.menu_name {
-        width: 40%;
+        width: 45%;
     }
 
-
+    table.menu_view_table th
+    {
+        font-size:x-small;
+    }
+    table.menu_view_table td
+    {
+        font-size:x-small;
+    }
 }
