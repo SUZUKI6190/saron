@@ -43,7 +43,7 @@ class MenuTable
 	public function view()
 	{
 		?>
-		<div class = 'menu_table_title'>
+		<div class = 'yoyaku_midashi'>
 		<span><?php echo $this->_midasi ?></span>
 		</div>
 		<table class='menu_view_table'>
