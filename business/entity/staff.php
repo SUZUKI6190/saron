@@ -8,6 +8,7 @@ class Staff
 	public $name_first;
 	public $tell;
 	public $email;
+	public $image;
 	
 	public static function get_empty_object():Staff
 	{
@@ -22,7 +23,7 @@ class Staff
 		$data->name_first= $wpdb->name_first;
 		$data->tell = $wpdb->tell;
 		$data->email = $wpdb->email;
-		
+		$data->image = $wpdb->image;
 		return $data;
 	}
 }

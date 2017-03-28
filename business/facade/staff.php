@@ -10,7 +10,8 @@ function get_staff_byid($id) : Staff
 			name_first,
 			name_last,
 			tell,
-			email
+			email,
+			image
 		from
 			staff
 		where
@@ -30,7 +31,8 @@ function get_staff_all()
 			name_first,
 			name_last,
 			tell,
-			email
+			email,
+			image
 		from
 			staff
 SQL;
@@ -67,13 +69,15 @@ function insert_staff($staff)
 			name_first,
 			name_last,
 			tell,
-			email
+			email,
+			image
 		)values(
 			'$staff->id',
 			'$staff->name_first',
 			'$staff->name_last',
 			'$staff->tell',
-			'$staff->email'
+			'$staff->email',
+			'$staff->image'
 		)
 SQL
 );
