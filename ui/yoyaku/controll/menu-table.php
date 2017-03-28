@@ -21,7 +21,7 @@ class MenuTable
 				$onclick = sprintf ( 'on_check_menu("%s", "%d")', $row_id, $c->id);
 				$add_atribute['onclick'] = $onclick;
 				$add_atribute['id'] = $c->id;
-				$this->_chk_list[$c->id] =  new InputBase('checkbox', $c->id, '', '', $add_atribute);
+				$this->_chk_list[$c->id] =  new InputBase('checkbox', 'course_id[]', $c->id, '', $add_atribute);
 			}
 		}
 	}

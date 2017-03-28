@@ -56,7 +56,7 @@ class YoyakuSelect extends YoyakuMenu
 		$yc = YoyakuContext::get_instance();
 		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/";
 		?>
-
+		<form method='post' action='<?php echo $url; ?>' >
 			<?php 
 			if(!empty($yc->menu_id)){
 				?>
@@ -65,11 +65,11 @@ class YoyakuSelect extends YoyakuMenu
 				</div>
 								
 				<div class='next_button_area'>
-				<form method='post' action='<?php echo $url; ?>' >
+			
 				<?php
 				$this->_next_button->view();
 				?>
-				</form>
+				
 				</div>
 			
 			<?php
@@ -83,13 +83,13 @@ class YoyakuSelect extends YoyakuMenu
 			<form method='post' action='' >
 				<input type='submit' value="戻る" name="back_button" class="back_button"  />
 			</form>
-			<form method='post' action='<?php echo $url; ?>' >
+		
 			<?php
 				$this->_next_button->view();
 			?>
-			</form>
+
 			</div>
-				
+		</form>	
 	<?php
 	}
 }

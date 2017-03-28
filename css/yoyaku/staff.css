@@ -1,0 +1,33 @@
+div.staff_select_area
+{
+    display:flex;
+    flex-direction:row;
+}
+
+div.staff_info
+{
+    margin-right:10px;
+    border:solid 1px #d3d3d3;
+    width:170px;
+    height:250px;
+}
+
+div.staff_name
+{
+    color:#2F75B5;
+    font-weight:bold;
+    text-align:center;
+}
+
+div.staff_image_wrap
+{
+    text-align:center;
+    padding-top:15px;
+    margin-bottom:10px;
+}
+
+img.staff_image
+{
+    width:140px;
+    height:170px;
+}
