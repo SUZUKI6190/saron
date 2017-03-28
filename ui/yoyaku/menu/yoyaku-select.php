@@ -80,10 +80,7 @@ class YoyakuSelect extends YoyakuMenu
 			</div>
 			
 			<div class='next_button_area'>
-			<form method='post' action='' >
-				<input type='submit' value="戻る" name="back_button" class="back_button"  />
-			</form>
-		
+			<a href='' class="back_button" >戻る</a>	
 			<?php
 				$this->_next_button->view();
 			?>
