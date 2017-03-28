@@ -131,7 +131,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 				$this->_date_form->view_form();
 				?>
 			</div>
-			</div>
+
 			<?php
 			if($this->_view_graph_button->is_submit())
 			{?>
@@ -141,6 +141,8 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 			<?php
 			}
 			?>
+	
+			</div>
 		</form>
 	<?php
 
