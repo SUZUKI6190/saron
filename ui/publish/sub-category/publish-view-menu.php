@@ -73,7 +73,12 @@ class MenuSub extends \ui\frame\SubCategory
                 <td class="menu_edit">
 				<?php
 					$url = $mc->get_url()."/publish/menu_regist/".$menu->menu_id;
-					\ui\util\link_button("編集", $url);
+					?>
+					<a href='<?php echo $url; ?>'>
+					<input type='button' class='manage_button' value='編集' />
+					</a>
+					<?php
+				
 				?>
                 </td>
                 <td class="menu_edit">

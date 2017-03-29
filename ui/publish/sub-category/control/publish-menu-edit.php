@@ -100,8 +100,11 @@ class ViewMenuDetailEdit extends ViewMenuDetail
 			   <td class="menu_edit">
 				<?php
 					$url = $course_url.$pc->menu_id."/".$course->id;
-					\ui\util\link_button("編集", $url);
-					?>
+	
+				?>
+					<a href='<?php echo $url; ?>'>
+						<input type='button' class='manage_button' value='編集' />
+					</a>
                 </td>
                 <td class="menu_edit">
 				<?php

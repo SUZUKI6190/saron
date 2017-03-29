@@ -28,7 +28,7 @@ class PublishFrameImplementor extends ManageFrameImplementor
 	protected function get_css_list()
 	{
 		return [
-		new \ui\frame\HeaderFile('publish_menu.css', 0.05)
+		new \ui\frame\HeaderFile('publish_menu.css', 0.06)
 		];
 	}
 	public function view_main()

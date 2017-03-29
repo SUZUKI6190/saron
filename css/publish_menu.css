@@ -20,7 +20,8 @@ table.menu_table td
 }
 
 table.menu_table a,
-table.menu_table input[type="submit"].manage_button
+table.menu_table input[type="submit"].manage_button,
+table.menu_table input[type="button"].manage_button
 {  
     padding: 0px 5px;
 }
@@ -33,6 +34,13 @@ td.menu_name
 td.menu_edit
 {
     width:40px;
+}
+
+.menu_edit .manage_button
+{
+    display:inline-block;
+    height:28px;
+
 }
 
 table.course_view
@@ -54,7 +62,7 @@ td.menu_url_row
 }
 
 table.course_view a,
-table.course_view input[type="submit"].manage_button
+table.course_view input.manage_button
 {  
     padding: 0px 5px;
     display:inline;
