@@ -60,7 +60,6 @@ class MenuSub extends \ui\frame\SubCategory
 		$mc = ManageFrameContext::get_instance();
 
 		?>
-		<div class="setting_width centering">
 	
 		<table class="menu_table">
 		<?php
@@ -84,7 +83,7 @@ class MenuSub extends \ui\frame\SubCategory
                 </td>        
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td class='menu_url_row' colspan="3">
 				<?php
 					$menu_url = $mc->get_url()."/yoyaku/menu/".$menu->menu_id;
 				?>
@@ -97,7 +96,7 @@ class MenuSub extends \ui\frame\SubCategory
 		}
 		?>
 		</table>
-		</div>
+		
 		<?php
 		
 	}

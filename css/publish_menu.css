@@ -7,19 +7,27 @@
 
 table.menu_table
 {
-    width:100%;
+    width:358px;
+    margin:auto;
     margin-top:10px;
 }
+
 table.menu_table,
 table.menu_table td
 {
     border:1px solid #ccc;
+    word-break: break-all;
 }
 
 table.menu_table a,
 table.menu_table input[type="submit"].manage_button
 {  
     padding: 0px 5px;
+}
+
+td.menu_name
+{
+    
 }
 
 td.menu_edit
@@ -37,6 +45,12 @@ table.course_view
 table.course_view td
 {
     vertical-align:middle
+}
+
+td.menu_url_row
+{
+ 
+    overflow-wrap:break-word;
 }
 
 table.course_view a,
