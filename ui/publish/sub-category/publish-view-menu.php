@@ -27,7 +27,7 @@ class MenuSub extends \ui\frame\SubCategory
 	private $_edit_form_name = "edit_menu_form_name";
 	private $_view_menu;
 	private $_delete_button_list = [];
-	private $_course_form;
+
 	public function __construct()
 	{
 		foreach(\business\facade\get_menu_list() as $menu)
@@ -49,11 +49,6 @@ class MenuSub extends \ui\frame\SubCategory
 
 	}
 	
-	public function view_course_form()
-	{
-		$this->_course_form->view();		
-	}
-
 	public function view_menu_form()
 	{
 		$pc = PublishContext::get_instance();
@@ -145,12 +140,7 @@ class MenuSub extends \ui\frame\SubCategory
 	public function regist()
 	{
 		$pc = PublishContext::get_instance();
-		if($this->_course_form->is_save())
-		{
-			$this->_course_form->save();
-			return;
-		}			
-		
+
 		foreach($this->_delete_course_button_list as $key => $button)
 		{
 			if($button->is_submit())

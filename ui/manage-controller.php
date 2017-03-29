@@ -67,8 +67,6 @@ class ManageController implements IController
 		<link rel="stylesheet" href="<?php echo $css_url."/customer_search.css"; ?>?ver=0.04"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_url."/customer_view.css"; ?>?ver=0.04"  type="text/css" />
 		<?php $inplementer->output_header($css_url, $js_url); ?>
-		
-		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>
 		</head>

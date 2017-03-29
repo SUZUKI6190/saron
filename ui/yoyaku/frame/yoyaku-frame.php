@@ -45,7 +45,6 @@ class YoyakuFrame
 		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=0.02"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."staff.css?ver=0.01"; ?>"  type="text/css" />
 		<script type="text/javascript" charset="utf-8" src="<?php echo $js_dir ?>/menu-select.js?ver=0.03" ></script>
-		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>
 		</head>
