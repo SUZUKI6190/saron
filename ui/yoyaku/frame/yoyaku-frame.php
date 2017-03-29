@@ -39,7 +39,7 @@ class YoyakuFrame
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta http-equiv="Expires" content="0" /><title></title>
+		<meta http-equiv="Expires" content="0" />
 		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=0.02"; ?>"  type="text/css"; />
 		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=0.02"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=0.02"; ?>"  type="text/css" />

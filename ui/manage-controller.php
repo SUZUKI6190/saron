@@ -53,12 +53,14 @@ class ManageController implements IController
 		$js_url = plugins_url("../js" , __FILE__);
 	?>
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+		<head>
+		<title></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta http-equiv="Expires" content="0" /><title></title>
+		<meta http-equiv="Expires" content="0" />
 		<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.04" ></script>
 		<link rel="stylesheet" href="<?php echo $css_url."/manage_common.css"; ?>?ver=0.04"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_url."/manage_header.css"; ?>?ver=0.05"  type="text/css" />
