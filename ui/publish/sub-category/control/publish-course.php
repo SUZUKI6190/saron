@@ -18,9 +18,9 @@ abstract class MenuCourseForm implements IEdit
 		$this->_form_id = $form_id;
 		$menu_course = $this->get_default_course();
 		$this->_name = new PublishMenuInput("text", "course_name", $menu_course->name);
-		$this->_time_required = new PublishMenuInput("numeric", "course_time_required", $menu_course->time_required);
-		$this->_price = new PublishMenuInput("numeric", "course_price", $menu_course->price);
-		$this->_first_discount = new PublishMenuInput("numeric", "first_discount", $menu_course->first_discount);
+		$this->_time_required = new PublishMenuInput("number", "course_time_required", $menu_course->time_required);
+		$this->_price = new PublishMenuInput("number", "course_price", $menu_course->price);
+		$this->_first_discount = new PublishMenuInput("number", "first_discount", $menu_course->first_discount);
 		$this->_add_course_button = new SubmitButton("regist_course" ,'登録する', $this->_form_id);
 	}
 	

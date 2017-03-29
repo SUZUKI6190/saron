@@ -20,10 +20,10 @@ table.menu_table td
 }
 
 table.menu_table a,
-table.menu_table input[type="submit"].manage_button,
-table.menu_table input[type="button"].manage_button
+table.menu_table input.manage_button
 {  
     padding: 0px 5px;
+    text-decoration:none;
 }
 
 td.menu_name
@@ -66,6 +66,7 @@ table.course_view input.manage_button
 {  
     padding: 0px 5px;
     display:inline;
+    text-decoration:none;
 }
 
 div.course_view_form
