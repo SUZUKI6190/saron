@@ -61,7 +61,7 @@ class ManageController implements IController
 		<meta http-equiv="Expires" content="0" /><title></title>
 		<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.04" ></script>
 		<link rel="stylesheet" href="<?php echo $css_url."/manage_common.css"; ?>?ver=0.04"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_url."/manage_header.css"; ?>?ver=0.04"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_url."/manage_header.css"; ?>?ver=0.05"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_url."/customer_search.css"; ?>?ver=0.04"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_url."/customer_view.css"; ?>?ver=0.04"  type="text/css" />
 		<?php $inplementer->output_header($css_url, $js_url); ?>
