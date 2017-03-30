@@ -1,22 +1,28 @@
 <?php
 namespace ui\yoyaku\menu;
 use ui\yoyaku\frame\YoyakuMenu;
-use ui\yoyaku\controll\MenuTable;
 use ui\yoyaku\YoyakuContext;
 use business\entity\Staff;
+
+require_once(dirname(__FILE__).'/../controll/course-table.php');
+use ui\yoyaku\controll\CourseTable;
 
 class StaffSelect extends YoyakuMenu
 {
 	private $_staff_list = [];
+	private $_course_id_list = [];
 	private $_form_id = 'rest_form';
 
+	private $course_table;
+	
 	public function __construct()
 	{
 		$yc = YoyakuContext::get_instance();
 		$this->_staff_list = \business\facade\get_staff_all();
-		$id_list = $_POST['course_id'];
-		
-		print_r($_POST);
+		$this->_course_id_list = $_POST['course_id'];
+
+		$course_list = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
+		$this->course_table = new CourseTable($course_list);
 	}
 
 	public function get_title() : string
@@ -41,6 +47,7 @@ class StaffSelect extends YoyakuMenu
 
 	public function view()
 	{
+		$this->course_table->view();
 		?>
 		<div class = 'yoyaku_midashi'>
 			<span>セラピストを選択してください</span>
