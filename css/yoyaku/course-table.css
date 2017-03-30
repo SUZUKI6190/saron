@@ -1,0 +1,14 @@
+table.course_table,
+table.course_table td,
+table.course_table th
+{
+    border:solid 1px #d3d3d3;
+    border-collapse:collapse;
+}
+
+table.course_table th
+{
+    background-color:#F2F2F2;
+    color:#806445;
+
+}

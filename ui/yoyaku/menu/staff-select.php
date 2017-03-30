@@ -47,12 +47,15 @@ class StaffSelect extends YoyakuMenu
 
 	public function view()
 	{
-		$this->course_table->view();
 		?>
 		<div class = 'yoyaku_midashi'>
 			<span>セラピストを選択してください</span>
 		</div>
-
+		<div class='course_table_area'>
+		<?php
+		$this->course_table->view();
+		?>
+		</div>
 		<div class='staff_select_area'>
 		<?php
 		foreach($this->_staff_list as $s)

@@ -173,7 +173,6 @@ function get_menu_course_by_idlist($id_list)
 		$strWhere
 SQL;
 
-print_r($strSql);
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_values(array_map(function($data) {
@@ -188,7 +187,7 @@ print_r($strSql);
 		return $temp;
 	}, $result));
 
-	return $ret[0];
+	return $ret;
 }
 
 
