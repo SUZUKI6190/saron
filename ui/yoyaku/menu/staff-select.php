@@ -15,6 +15,11 @@ class StaffSelect extends YoyakuMenu
 
 	private $course_table;
 	
+	private function get_therapist_url() : string
+	{
+		return 'http://redear.jp/therapist/';
+	}
+	
 	public function __construct()
 	{
 		$yc = YoyakuContext::get_instance();
@@ -38,7 +43,10 @@ class StaffSelect extends YoyakuMenu
 				<img class='staff_image' src='<?php echo $s->image; ?>' />
 			</div>
 			<div class='staff_name'>
-				<span><?php echo $s->name_last.' '.$s->name_first ?></span>
+				<a class='staff_name_link' href='<?php echo $this->get_therapist_url() ;?>'><?php echo $s->name_last.' '.$s->name_first ?></a>
+			</div>
+			<div class='select_staff_button_area'>
+				<button type='submit' value='<?php echo $s->id; ?>' name='staff_id' class='next_button'>指名して予約</button>
 			</div>
 		</div>
 		<?php
@@ -47,23 +55,36 @@ class StaffSelect extends YoyakuMenu
 
 	public function view()
 	{
+		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/";
+		$before_url = $_SERVER['HTTP_REFERER'];
 		?>
-		<div class = 'yoyaku_midashi'>
-			<span>セラピストを選択してください</span>
+		<form id='send_staff' method='post' action='<?php echo $url; ?>'>
+		<div class='staff_wrap'>
+			<div class = 'yoyaku_midashi'>
+				<span>セラピストを選択してください</span>
+			</div>
+			<div class='course_table_area'>
+			<?php
+			$this->course_table->view();
+			?>
+			</div>
+			<div class='reserve_area'>
+				<button type='submit' value='none' name='staff_id' class='next_button'>指名せず予約する</button>
+			</div>
+			<div class='staff_select_area'>
+			<?php
+			foreach($this->_staff_list as $s)
+			{
+				$this->view_staff_info($s);
+			}
+			$before_url
+			?>
+			</div>
+			<div class='back_button_area'>
+				<a href='<?php echo $before_url; ?>' class="back_button" >戻る</a>	
+			</div>
 		</div>
-		<div class='course_table_area'>
-		<?php
-		$this->course_table->view();
-		?>
-		</div>
-		<div class='staff_select_area'>
-		<?php
-		foreach($this->_staff_list as $s)
-		{
-			$this->view_staff_info($s);
-		}
-		?>
-		</div>
+		</form>
 		<?php
 	}
 }

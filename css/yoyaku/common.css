@@ -1,6 +1,11 @@
 .yoyaku_wrap {
 }
 
+div.main
+{
+    overflow:hidden;
+}
+
 .inner_wrap
 {
     position: absolute;
@@ -17,6 +22,32 @@
     margin-top:20px;
     font-weight:bold;
 }
+
+
+input.next_button,
+button.next_button
+{
+    background-color:#2F75B5;
+    border-color:#2F75B5;
+    color:#fff;
+    font-weight:bold;
+}
+
+a.back_button
+{
+    color:#2F75B5;
+    background-color:#FFF;
+    border-width: 2px;
+    border-style: outset;
+    text-align:center;
+    border-color:#2F75B5;
+    border-radius: 6px;
+    width:150px;
+    float:left;
+    text-decoration:none;
+}
+
+
 
 @media only screen and (max-width:900px) {
     

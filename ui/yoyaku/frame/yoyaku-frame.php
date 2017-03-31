@@ -29,6 +29,7 @@ class YoyakuFrame
 	{
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
 		$js_dir =  plugins_url()."/saron/js/";
+		$css_ver = '0.03';
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
@@ -40,11 +41,11 @@ class YoyakuFrame
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta http-equiv="Expires" content="0" />
-		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=0.02"; ?>"  type="text/css"; />
-		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=0.02"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=0.02"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."course-table.css?ver=0.02"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."staff.css?ver=0.01"; ?>"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=$css_ver"; ?>"  type="text/css"; />
+		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=$css_ver"; ?>"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=$css_ver"; ?>"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."course-table.css?ver=$css_ver"; ?>"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."staff.css?ver=$css_ver"; ?>"  type="text/css" />
 		<script type="text/javascript" charset="utf-8" src="<?php echo $js_dir ?>/menu-select.js?ver=0.03" ></script>
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>

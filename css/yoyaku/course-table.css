@@ -1,3 +1,9 @@
+table.course_table
+{
+    width:100%;
+    margin:auto;
+}
+
 table.course_table,
 table.course_table td,
 table.course_table th
@@ -11,4 +17,23 @@ table.course_table th
     background-color:#F2F2F2;
     color:#806445;
 
+}
+
+table.course_table th.course_name
+{
+    width:60%;
+}
+
+table.course_table th.required_time,
+table.course_table th.price
+{
+    width:20%;
+}
+
+tr.course_row td.price,
+tr.course_row td.required_time,
+tr.course_row td.sum_time,
+tr.course_row td.sum_price
+{
+    text-align:right;
 }

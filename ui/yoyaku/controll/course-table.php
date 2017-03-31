@@ -10,6 +10,17 @@ class CourseTable
 		$this->_course_list = $couse_list;
 	}
 	
+	private function price_view($value)
+	{
+		$v = '-';
+		if(!empty($value))
+		{
+			$v = '￥'.$value;
+		}
+		
+		echo $v;
+	}
+	
 	public function view()
 	{
 		?>
@@ -34,15 +45,15 @@ class CourseTable
 		{
 		?>
 		<tr class='course_row'>
-		<td>
-			<?php echo $c->name; ?>
-		</td>
-		<td>
-			<?php echo $c->price; ?>
-		</td>
-		<td>
-			<?php echo $c->time_required; ?>
-		</td>
+			<td>
+				<?php echo $c->name; ?>
+			</td>
+			<td class='required_time'>
+				<?php echo $c->time_required; ?>分
+			</td>
+			<td class='price'>
+				<?php $this->price_view($c->price); ?>
+			</td>
 		</tr>
 		<?php
 			$sum_price = $sum_price + $c->price;
@@ -51,14 +62,14 @@ class CourseTable
 		
 		?>
 		<tr class='course_row'>
-		<td>
+		<td class='sum_midasi'>
 		合計
 		</td>
-		<td>
-			<?php echo $sum_price; ?>
+		<td class='sum_time'>
+			<?php echo $sum_time; ?>分
 		</td>
-		<td>
-			<?php echo $sum_time; ?>
+		<td class='sum_price'>
+			<?php $this->price_view($sum_price); ?>
 		</td>
 		</table>
 		<?php

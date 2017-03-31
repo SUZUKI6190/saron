@@ -1,3 +1,8 @@
+div.staff_wrap
+{
+    width:700px;
+}
+
 div.staff_select_area
 {
     display:flex;
@@ -8,8 +13,7 @@ div.staff_info
 {
     margin-right:10px;
     border:solid 1px #d3d3d3;
-    width:170px;
-    height:250px;
+    
 }
 
 div.staff_name
@@ -30,4 +34,53 @@ img.staff_image
 {
     width:140px;
     height:170px;
+    margin:0 20px 10px 20px;
+}
+
+a.staff_name_link
+{
+    text-decoration:none;
+}
+
+div.course_table_area
+{
+    display:flex;
+    
+}
+
+div.reserve_area
+{
+    margin-top:10px;
+    margin-bottom:10px;
+    text-align:right;
+}
+
+div.select_staff_button_area
+{
+    text-align:center;
+    margin-top:10px;
+}
+
+div.select_staff_button_area button
+{
+    margin-bottom:20px;
+    font-weight:bold;
+    width:90%;
+    height:40px;
+
+}
+
+div.staff_select_area
+{
+    margin-bottom:15px;
+}
+
+div.back_button_area
+{
+ 
+}
+
+a.back_button
+{
+    
 }
