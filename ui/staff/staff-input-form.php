@@ -12,8 +12,10 @@ abstract class StaffInputFormBase
 {
 	private $_staff;
 	private $_name_first, $_name_last, $_tell, $_email;
+	const upload_name = 'face_image';
 	protected $_save_button;
 	protected $_form_id = "staff_input_form";
+	protected $_up_form_id = "image_send_form";
 	public function __construct()
 	{
 		$this->_staff = $this->create_staff();
@@ -29,6 +31,11 @@ abstract class StaffInputFormBase
 	protected abstract function innser_save(Staff $staff);
 	protected abstract function create_staff() : Staff;
 	
+	private function get_image_save_dir():string
+	{
+		return './image/staff';
+	}
+	
 	public function save()
 	{
 		$staff = new Staff();
@@ -38,6 +45,32 @@ abstract class StaffInputFormBase
 		$staff->tell = $this->_tell->get_value();
 		$staff->email = $this->_email->get_value();
 		$this->innser_save($staff);
+		
+		$files = $_FILES[StaffInputFormBase::upload_name];
+
+		print_r($_FILES);
+		
+		 //一字ファイルができているか（アップロードされているか）チェック
+		if(is_uploaded_file($files['tmp_name'])){
+
+			//一字ファイルを保存ファイルにコピーできたか
+			if(move_uploaded_file($files['tmp_name'], $this->get_image_save_dir().'/'.$files['name'])){
+
+				//正常
+				echo "uploaded";
+
+			}else{
+
+				//コピーに失敗（だいたい、ディレクトリがないか、パーミッションエラー）
+				echo "error while saving.";
+			}
+
+		}else{
+
+			//そもそもファイルが来ていない。
+			echo "file not uploaded.";
+
+		}
 	}
 	
 	public function is_save() : bool
@@ -51,33 +84,40 @@ abstract class StaffInputFormBase
 	
 	public function view()
 	{
+		$image_name = StaffInputFormBase::upload_name;
 		?>
-		<form method="post" id='<?php echo $this->_form_id; ?>' >
-		<div class="input_form">
-		<div class="staff_form_button">
-		<?php
-		$this->_save_button->view();
-		$this->add_button();
-		?>
-		</div>
-		<div class="line">
-			<h2>名前(性)</h2>
-			<?php echo $this->_name_last->view(); ?>
-		</div>
-		<div class="line">
-			<h2>名前(名)</h2>
-			<?php echo $this->_name_first->view(); ?>
-		</div>
-		<div class="line">
-			<h2>電話番号</h2>
-			<?php echo $this->_tell->view(); ?>
-		</div>
-		<div class="line">
-			<h2>email</h2>
-			<?php echo $this->_email->view(); ?>
-		</div>
-		</div>
+		<form method="post" id='<?php echo $this->_form_id; ?>' enctype='multipart/form-data'>
+			<div class="input_form">
+			<div class="staff_form_button">
+			<?php
+			$this->_save_button->view();
+			$this->add_button();
+			?>
+			</div>
+			<div class="line">
+				<h2>名前(性)</h2>
+				<?php echo $this->_name_last->view(); ?>
+			</div>
+			<div class="line">
+				<h2>名前(名)</h2>
+				<?php echo $this->_name_first->view(); ?>
+			</div>
+			<div class="line">
+				<h2>電話番号</h2>
+				<?php echo $this->_tell->view(); ?>
+			</div>
+			<div class="line">
+				<h2>email</h2>
+				<?php echo $this->_email->view(); ?>
+			</div>
+		
 		</form>
+	
+			<div class="line">
+			  <h2>写真</h2>
+			  <input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>
+			</div>
+		
 		<?php
 
 	}
