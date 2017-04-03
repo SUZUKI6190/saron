@@ -37,8 +37,7 @@ SQL
 			name_last varchar(100) character set utf8,
 			name_first varchar(100) character set utf8,
 			tell int UNSIGNED,
-			email varchar(100),
-			image varchar(50),
+			email varchar(100)
 			PRIMARY KEY(id)
 		)
 SQL

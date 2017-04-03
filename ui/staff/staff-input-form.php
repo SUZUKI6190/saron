@@ -47,14 +47,13 @@ abstract class StaffInputFormBase
 		$this->innser_save($staff);
 		
 		$files = $_FILES[StaffInputFormBase::upload_name];
-
-		print_r($_FILES);
+		$name = $files['name'];
 		
 		 //一字ファイルができているか（アップロードされているか）チェック
 		if(is_uploaded_file($files['tmp_name'])){
 
 			//一字ファイルを保存ファイルにコピーできたか
-			if(move_uploaded_file($files['tmp_name'], $this->get_image_save_dir().'/'.$files['name'])){
+			if(move_uploaded_file($files['tmp_name'], $this->get_image_save_dir().'/'.$name)){
 
 				//正常
 				echo "uploaded";
@@ -111,13 +110,11 @@ abstract class StaffInputFormBase
 				<?php echo $this->_email->view(); ?>
 			</div>
 		
-		</form>
-	
 			<div class="line">
 			  <h2>写真</h2>
 			  <input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>
 			</div>
-		
+		</form>
 		<?php
 
 	}
