@@ -16,6 +16,12 @@ function create_controller() : IController
 	if($category == "download"){
 		\ui\customer\get_customer_csv();
 		exit;
+	}elseif($category == 'image'){
+		require_once(dirname(__FILE__).'../image/download-image.php');
+		$id = get_query_var('id');
+		$sub_id = get_query_var('sub_id');
+		\ui\image\ImageDonwloader::create_page($id, $sub_id);
+		exit;
 	}elseif($category == "yoyaku"){
 		require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");
 		return new \ui\yoyaku\YoyakuController();

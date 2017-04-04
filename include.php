@@ -47,6 +47,7 @@ function inno_add_rule() {
 	add_rewrite_rule( '([^/]+)/staff/edit/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=staff&sub_category=edit&id=$matches[2]', 'top' );
 	add_rewrite_rule( '([^/]+)/sales/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]', 'top' );
 	add_rewrite_rule( '([^/]+)/sales/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]&edit=$matches[3]', 'top' );
+	add_rewrite_rule( '([^/]+)/image/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=image&id=$matches[3]&sub_id=$matches[4]', 'top');
 	add_rewrite_rule( '([^/]+)/?$', 'index.php?pagename=$matches[1]', 'top');
 	flush_rewrite_rules();
 }
@@ -90,6 +91,7 @@ function inno_add_query_vars( $vars ) {
 	$vars[] = 'category';
 	$vars[] = 'sub_category';
 	$vars[] = 'id';
+	$vars[] = 'sub_id';
 	$vars[] = 'result';
 	$vars[] = 'menu_id';
 	$vars[] = 'course_id';
