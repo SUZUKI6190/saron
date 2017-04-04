@@ -63,7 +63,7 @@ a.yoyaku_btn
 
 @media only screen and (max-width:800px) {
     .yoyaku_area {
-        width: 330px;
+        width: 100%;
     }
     .yoyaku_btn_area {
         display: flex;

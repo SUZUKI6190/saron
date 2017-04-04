@@ -8,6 +8,8 @@ div.main
 
 .inner_wrap
 {
+      width:850px;
+
     position: absolute;
     left: 50%;
     -webkit-transform:translateX(-50%);
@@ -51,5 +53,10 @@ a.back_button
 
 @media only screen and (max-width:900px) {
     
+    
+.inner_wrap
+{
+    width:100%;
+}
 
 }
