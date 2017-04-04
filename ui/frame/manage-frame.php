@@ -39,14 +39,14 @@
 			return [];
 		}
 		
-		public function output_header(string $css_url, string $js_url)
+		public function output_header(string $css_url, string $js_url, string $css_var)
 		{
 			
 			foreach($this->get_css_list() as $css)
 			{
 				
 				?>
-				<link rel="stylesheet" href="<?php echo $css_url.'/'.$css->name; ?>?ver=<?php echo $css->ver; ?>"  type="text/css" />
+				<link rel="stylesheet" href="<?php echo $css_url.'/'.$css->name; ?>?ver=<?php echo $css_var; ?>"  type="text/css" />
 				<?php
 			}
 			

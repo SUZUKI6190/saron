@@ -41,10 +41,12 @@ table  {
 	line-height: 1.5;
 	border: 1px solid #ccc;
 }
+
 table  thead {
 	border: 1px solid #ccc;
 	background: #f6ebcd;
 }
+
 table thead th {
 	padding: 10px;
 	font-weight: bold;
@@ -77,10 +79,9 @@ table td {
 
     margin:0 auto;
     margin-top:10px;
+    padding:5px;
     border:outset 1px;
     background-color:#ddeeff;
- 
-    padding:5px;
     border-radius:10px;
     -webkit-border-radius:10px;
     -moz-border-radius:10px;

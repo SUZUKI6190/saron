@@ -46,3 +46,12 @@
     width:100%;
     height:100%;
 }
+
+@media only screen and (max-width:900px) {
+ 
+.main_header_button
+{
+    width:49%;
+}
+
+}
