@@ -37,11 +37,15 @@ SQL
 			name_last varchar(100) character set utf8,
 			name_first varchar(100) character set utf8,
 			tell int UNSIGNED,
-			email varchar(100)
+			email varchar(100),
+			`imgdat` blob,
+			`mime` VARCHAR(64),
 			PRIMARY KEY(id)
 		)
 SQL
 		);
+
+
 	dbDelta(<<<SQL
 		CREATE TABLE customer_interval_setting (
 			id bigint(20) UNSIGNED NOT NULL,
@@ -50,6 +54,7 @@ SQL
 		)
 SQL
 		);
+
 	dbDelta(<<<SQL
 		CREATE TABLE menu (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,

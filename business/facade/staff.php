@@ -1,6 +1,7 @@
 <?php
 namespace business\facade;
 use \business\entity\Staff;
+use \business\entity\Image;
 
 function get_staff_byid($id) : Staff
 {
@@ -10,8 +11,7 @@ function get_staff_byid($id) : Staff
 			name_first,
 			name_last,
 			tell,
-			email,
-			image
+			email
 		from
 			staff
 		where
@@ -23,6 +23,23 @@ SQL;
 	return Staff::CreateFromWpdb($result[0]);
 }
 
+function get_staff_image_by_id($id) : Image
+{
+		$strSql = <<<SQL
+		select
+			`imgdat`,
+			`mime`
+		from
+			staff
+		where
+			id = '$id'
+SQL;
+
+	global $wpdb;
+	$result = $wpdb->get_results($strSql);
+	return Image::CreateFromWpdb($result[0]);
+}
+
 function get_staff_all()
 {
 	$strSql = <<<SQL
@@ -31,8 +48,7 @@ function get_staff_all()
 			name_first,
 			name_last,
 			tell,
-			email,
-			image
+			email
 		from
 			staff
 SQL;
@@ -70,14 +86,16 @@ function insert_staff($staff)
 			name_last,
 			tell,
 			email,
-			image
+			imgdat,
+			mime
 		)values(
 			'$staff->id',
 			'$staff->name_first',
 			'$staff->name_last',
 			'$staff->tell',
 			'$staff->email',
-			'$staff->image'
+			'$staff->imgdat',
+			'$staff->mine'
 		)
 SQL
 );

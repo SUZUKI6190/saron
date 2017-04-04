@@ -4,7 +4,7 @@ namespace ui;
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once("customer/controller.php");
-
+require_once(dirname(__FILE__).'/../business/entity/image.php');
 use ui\publish\PublishContext;
 use ui\staff\StaffContext;
 use ui\send_message\SendMessageContext;
