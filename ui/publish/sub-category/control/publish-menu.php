@@ -56,7 +56,7 @@ abstract class ViewMenuDetail implements IEdit
 		$required_attr = [];
 		$required_attr["required"] = "";
 		
-		$this->_menu_name = new PublishMenuInput("text", "name", $this->_menu->name, "", $required_attr);
+		$this->_menu_name = new PublishMenuInput("text", "name", $this->_menu->name, "menu_name", $required_attr);
 		$this->_description = new InputTextarea("description", $this->_menu->description, "menu_description");
 	}
 	

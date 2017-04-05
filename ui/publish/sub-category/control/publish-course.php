@@ -17,7 +17,7 @@ abstract class MenuCourseForm implements IEdit
 		$this->_menu_id = $menu_id;
 		$this->_form_id = $form_id;
 		$menu_course = $this->get_default_course();
-		$this->_name = new PublishMenuInput("text", "course_name", $menu_course->name);
+		$this->_name = new PublishMenuInput("text", "course_name", $menu_course->name, 'course_name');
 		$this->_time_required = new PublishMenuInput("number", "course_time_required", $menu_course->time_required);
 		$this->_price = new PublishMenuInput("number", "course_price", $menu_course->price);
 		$this->_first_discount = new PublishMenuInput("number", "first_discount", $menu_course->first_discount);

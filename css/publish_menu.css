@@ -5,7 +5,8 @@
     vertical-align:top;
 }
 
-input.publish_menu
+input.publish_menu.menu_name,
+input.publish_menu.course_name
 {
     width:80%;
 }
