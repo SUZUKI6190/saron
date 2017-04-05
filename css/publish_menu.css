@@ -1,8 +1,13 @@
 .menu_description
 {
     height:200px;
-    width:80%;
+    width:90%;
     vertical-align:top;
+}
+
+input.publish_menu
+{
+    width:80%;
 }
 
 table.menu_table
@@ -67,6 +72,11 @@ table.course_view input.manage_button
     padding: 0px 5px;
     display:inline;
     text-decoration:none;
+}
+
+div.menu_name
+{
+    width:100%;
 }
 
 div.course_view_form
