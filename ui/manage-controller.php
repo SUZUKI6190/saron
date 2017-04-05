@@ -52,7 +52,6 @@ class ManageController implements IController
 		$css_url = plugins_url("../css" , __FILE__);
 		$js_url = plugins_url("../js" , __FILE__);
 		
-		$cssvar = '0.08';
 	?>
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
