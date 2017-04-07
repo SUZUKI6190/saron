@@ -11,7 +11,8 @@ function get_staff_byid($id) : Staff
 			name_first,
 			name_last,
 			tell,
-			email
+			email,
+			introduce_page_url
 		from
 			staff
 		where
@@ -48,7 +49,8 @@ function get_staff_all()
 			name_first,
 			name_last,
 			tell,
-			email
+			email,
+			introduce_page_url
 		from
 			staff
 SQL;
@@ -87,7 +89,8 @@ function insert_staff($staff)
 			tell,
 			email,
 			imgdat,
-			mime
+			mime,
+			introduce_page_url
 		)values(
 			'$staff->id',
 			'$staff->name_first',
@@ -95,7 +98,8 @@ function insert_staff($staff)
 			'$staff->tell',
 			'$staff->email',
 			'$staff->imgdat',
-			'$staff->mine'
+			'$staff->mine',
+			'$staff->introduce_page_url'
 		)
 SQL
 );

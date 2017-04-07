@@ -10,6 +10,7 @@ class Staff
 	public $email;
 	public $imgdat;
 	public $mine;
+	public $introduce_page_url;
 	
 	public static function get_empty_object():Staff
 	{
@@ -26,6 +27,7 @@ class Staff
 		$data->email = $wpdb->email;
 		$data->imgdat = $wpdb->imgdat;
 		$data->mine = $wpdb->mine;
+		$data->introduce_page_url = $wpdb->$introduce_page_url;
 		return $data;
 	}
 }

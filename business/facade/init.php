@@ -40,6 +40,7 @@ SQL
 			email varchar(100),
 			`imgdat` blob,
 			`mime` VARCHAR(64),
+			introduce_page_url text character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL
