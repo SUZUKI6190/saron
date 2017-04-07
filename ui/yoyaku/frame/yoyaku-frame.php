@@ -5,6 +5,9 @@ abstract class YoyakuMenu
 {
 	public abstract function view();
 	public abstract function get_title() : string;
+	public function pre_render()
+	{
+	}
 	protected function get_css_name()
 	{
 		return [];
@@ -27,6 +30,8 @@ class YoyakuFrame
 	
 	public function view()
 	{
+		$this->_main_yoyaku->pre_render();
+
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
 		$js_dir =  plugins_url()."/saron/js/";
 		$css_ver = '0.03';
