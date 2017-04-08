@@ -88,8 +88,6 @@ function insert_staff($staff)
 			name_last,
 			tell,
 			email,
-			imgdat,
-			mime,
 			introduce_page_url
 		)values(
 			'$staff->id',
@@ -97,10 +95,21 @@ function insert_staff($staff)
 			'$staff->name_last',
 			'$staff->tell',
 			'$staff->email',
-			'$staff->imgdat',
-			'$staff->mine',
 			'$staff->introduce_page_url'
 		)
+SQL
+);
+}
+
+function update_staff_image($id, $mime, $imgdat)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		UPDATE staff SET 
+			mime = '$mime',
+			imgdat = '$imgdat'
+		where id = '$id'
 SQL
 );
 }

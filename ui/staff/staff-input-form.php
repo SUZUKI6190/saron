@@ -11,7 +11,7 @@ use \ui\util\InputBase;
 abstract class StaffInputFormBase
 {
 	private $_staff;
-	private $_name_first, $_name_last, $_tell, $_email;
+	private $_name_first, $_name_last, $_tell, $_email, $_url;
 	const upload_name = 'face_image';
 	protected $_save_button;
 	protected $_form_id = "staff_input_form";
@@ -26,6 +26,7 @@ abstract class StaffInputFormBase
 		$this->_name_last = new InputBase("text", "name_last", $this->_staff->name_last, "", $required_attr);
 		$this->_tell = new InputBase("number", "tell", $this->_staff->tell);
 		$this->_email = new InputBase("email", "email", $this->_staff->email);
+		$this->_url = new InputBase("url", "url", $this->_staff->introduce_page_url);
 	}
 
 	protected abstract function innser_save(Staff $staff);
@@ -44,6 +45,7 @@ abstract class StaffInputFormBase
 		$staff->name_last = $this->_name_last->get_value();
 		$staff->tell = $this->_tell->get_value();
 		$staff->email = $this->_email->get_value();
+		$staff->introduce_page_url = $this->_url->get_value();
 		$this->innser_save($staff);
 		
 		$files = $_FILES[StaffInputFormBase::upload_name];
@@ -51,24 +53,28 @@ abstract class StaffInputFormBase
 		
 		 //一字ファイルができているか（アップロードされているか）チェック
 		if(is_uploaded_file($files['tmp_name'])){
+			
+			// バイナリデータ
+			$fp = fopen($files["tmp_name"], "rb");
+			$imgdat = fread($fp, filesize($files["tmp_name"]));
+			fclose($fp);
+			$imgdat = addslashes($imgdat);
+	
+			// 拡張子
+			$dat = pathinfo($name);
+			$extension = $dat['extension'];
 
-			//一字ファイルを保存ファイルにコピーできたか
-			if(move_uploaded_file($files['tmp_name'], $this->get_image_save_dir().'/'.$name)){
-
-				//正常
-				echo "uploaded";
-
-			}else{
-
-				//コピーに失敗（だいたい、ディレクトリがないか、パーミッションエラー）
-				echo "error while saving.";
+			// MIMEタイプ
+			$mime='';
+			if ( $extension == "jpg" || $extension == "jpeg" ){
+				$mime = "image/jpeg";
+			}elseif( $extension == "gif" ){
+				$mime = "image/gif";
+			}elseif( $extension == "png" ){
+				$mime = "image/png";
 			}
 
-		}else{
-
-			//そもそもファイルが来ていない。
-			echo "file not uploaded.";
-
+			\business\facade\update_staff_image($staff->id, $mime, $imgdat);
 		}
 	}
 	
@@ -109,7 +115,10 @@ abstract class StaffInputFormBase
 				<h2>email</h2>
 				<?php echo $this->_email->view(); ?>
 			</div>
-		
+			<div class="line">
+				<h2>紹介ページURL</h2>
+				<?php echo $this->_url->view(); ?>
+			</div>		
 			<div class="line">
 			  <h2>写真</h2>
 			  <input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>

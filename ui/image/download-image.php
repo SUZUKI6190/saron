@@ -5,7 +5,7 @@ require_once('image-factory.php');
 class ImageDonwloader
 {
 	private $_id, $_sub_id;
-	
+	public $css_class = '';
 	public function __construct(string $id, string $sub_id)
 	{
 		$this->_id = $id;
@@ -19,8 +19,13 @@ class ImageDonwloader
 	
 	public function view()
 	{
+		$css;
+		if(!empty($this->css_class))
+		{
+			$css = "class = '$this->css_class'";
+		}
 		?>
-		<img id='<?php echo $this->_id; ?>' src='<?php echo $this->create_url(); ?>' />
+		<img id='<?php echo $this->_id; ?>' src='<?php echo $this->create_url(); ?>' <?php echo $css; ?> />
 		<?php
 	}
 	

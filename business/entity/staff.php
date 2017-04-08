@@ -25,9 +25,7 @@ class Staff
 		$data->name_first= $wpdb->name_first;
 		$data->tell = $wpdb->tell;
 		$data->email = $wpdb->email;
-		$data->imgdat = $wpdb->imgdat;
-		$data->mine = $wpdb->mine;
-		$data->introduce_page_url = $wpdb->$introduce_page_url;
+		$data->introduce_page_url = $wpdb->introduce_page_url;
 		return $data;
 	}
 }

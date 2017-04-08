@@ -3,6 +3,7 @@ namespace ui\yoyaku\menu;
 use ui\yoyaku\frame\YoyakuMenu;
 use ui\yoyaku\YoyakuContext;
 use business\entity\Staff;
+use ui\image\ImageDonwloader;
 
 require_once(dirname(__FILE__).'/../controll/course-table.php');
 use ui\yoyaku\controll\CourseTable;
@@ -47,13 +48,15 @@ class StaffSelect extends YoyakuMenu
 
 	private function view_staff_info(Staff $s)
 	{
+		$img = new ImageDonwloader('staff', $s->id);
+		$img->css_class = 'staff_image';
 		?>
 		<div class='staff_info'>
 			<div class='staff_image_wrap'>
-				<img class='staff_image' src='<?php echo $s->image; ?>' />
+				<?php $img->view(); ?> 
 			</div>
 			<div class='staff_name'>
-				<a class='staff_name_link' href='<?php echo $this->get_therapist_url() ;?>'><?php echo $s->name_last.' '.$s->name_first ?></a>
+				<a class='staff_name_link' href='<?php echo $s->introduce_page_url;?>'><?php echo $s->name_last.' '.$s->name_first ?></a>
 			</div>
 			<div class='select_staff_button_area'>
 				<button type='submit' value='<?php echo $s->id; ?>' name='staff_id' class='next_button'>指名して予約</button>
@@ -87,7 +90,6 @@ class StaffSelect extends YoyakuMenu
 			{
 				$this->view_staff_info($s);
 			}
-			$before_url
 			?>
 			</div>
 			<div class='back_button_area'>
