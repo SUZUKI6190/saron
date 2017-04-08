@@ -4,13 +4,13 @@ namespace business\entity;
 class Image
 {
 	public $imgdat;
-	public $mine;
+	public $mime;
 
 	public static function CreateFromWpdb($wpdb) : Image
 	{
 		$data = new Image();
 		$data->imgdat = $wpdb->imgdat;
-		$data->mine = $wpdb->mine;
+		$data->mime = $wpdb->mime;
 		return $data;
 	}
 }

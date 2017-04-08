@@ -23,17 +23,18 @@ div.staff_name
     text-align:center;
 }
 
-div.staff_image_wrap
-{
-    text-align:center;
-    padding-top:15px;
-    margin-bottom:10px;
+div.staff_image_wrap {
+
+    height:200px;
+    text-align: center;
+    padding-top: 15px;
+    margin-bottom: 10px;
 }
 
 img.staff_image
 {
-    width:140px;
-    height:170px;
+    max-width:140px;
+    height:auto;
     margin:0 20px 10px 20px;
 }
 

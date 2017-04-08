@@ -32,11 +32,6 @@ abstract class StaffInputFormBase
 	protected abstract function innser_save(Staff $staff);
 	protected abstract function create_staff() : Staff;
 	
-	private function get_image_save_dir():string
-	{
-		return './image/staff';
-	}
-	
 	public function save()
 	{
 		$staff = new Staff();

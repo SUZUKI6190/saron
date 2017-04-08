@@ -14,7 +14,7 @@ class ImageDonwloader
 
 	private function create_url():string
 	{
-		return get_bloginfo('url').'image'."/$this->_id/$this->_sub_id";
+		return get_bloginfo('url')."/".get_query_var( 'pagename' ).'/image'."/$this->_id/$this->_sub_id";
 	}
 	
 	public function view()
@@ -34,8 +34,7 @@ class ImageDonwloader
 		$img = create_image($id, $sub_id);
 		//header('Content-Type: application/octet-stream');
 		//header('Content-Disposition: attachment; filename=data.csv');
-		header("Content-Type: ".$img->mine);
-		print_r($img);
+		header("Content-Type: ".$img->mime);
 		echo $img->imgdat;
 	}
 }
