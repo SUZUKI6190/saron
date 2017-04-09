@@ -51,6 +51,8 @@ function create_iplementer($category_name)
 			$context = SalesContext::get_instance();
 			return new sales\SalesFrameImplementor();
 			break;
+		case "schedule":
+			break;
 		default:
 			echo "invalid url error : $category_name";
 			break;
