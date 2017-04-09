@@ -7,8 +7,29 @@ table.staff_view_table a, table.staff_view_table input[type="submit"].manage_but
     padding: 0px 5px;
 }
 
-table.staff_view_table td,
+div.staff_wrap
+{
+    margin-top:10px;
+}
+
+table.staff_view_table
+{
+    width:100%;
+    margin-top:10px;
+}
+
 table.staff_view_table th
 {
+width:100px;
+}
+
+table.staff_view_table td
+
+{
      /*display: list-item;*/
+}
+
+div.edit_area
+{
+    text-align:right;
 }

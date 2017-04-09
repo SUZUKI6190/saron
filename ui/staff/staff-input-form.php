@@ -7,10 +7,11 @@ use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
 use \ui\util\InputBase;
+use ui\image\ImageDonwloader;
 
 abstract class StaffInputFormBase
 {
-	private $_staff;
+	protected $_staff;
 	private $_name_first, $_name_last, $_tell, $_email, $_url;
 	const upload_name = 'face_image';
 	protected $_save_button;
@@ -116,6 +117,7 @@ abstract class StaffInputFormBase
 			</div>		
 			<div class="line">
 			  <h2>写真</h2>
+			  <?php $this->add_image(); ?>
 			  <input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>
 			</div>
 		</form>
@@ -141,11 +143,13 @@ class StaffInputFormNew extends StaffInputFormBase
 class StaffInputFormEdit extends StaffInputFormBase
 {
 	private $_delete_button;
-	
+	private $_img;
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->_delete_button = new ConfirmSubmitButton("delete_button", "削除する", $this->_form_id, "削除します。よろしいですか？");
+		$this->_img = new ImageDonwloader('staff', $this->_staff->id);
 	}
 	
 	public function is_save() : bool
@@ -181,6 +185,11 @@ class StaffInputFormEdit extends StaffInputFormBase
 			\business\facade\delete_staff($staff->id);
 		}
 			
+	}
+	
+	protected function add_image()
+	{
+		$this->_img->view();
 	}
 	
 	protected function create_staff() : Staff

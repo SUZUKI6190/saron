@@ -19,7 +19,7 @@ class ImageDonwloader
 	
 	public function view()
 	{
-		$css;
+		$css = '';
 		if(!empty($this->css_class))
 		{
 			$css = "class = '$this->css_class'";

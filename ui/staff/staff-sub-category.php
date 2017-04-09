@@ -78,53 +78,50 @@ class StaffViewSub extends \ui\frame\SubCategory
 		$url = $mc->get_url()."/staff/edit/";
 		?>
 		<form method="post" id='<?php echo $this->_form_id; ?>' >
-		
-		<?php
-		
-	?>
-		<div class="setting_width centering">
-
-		<table class="staff_view_table">
-		<thead><tr>
-		<th>氏名</th>
-		<th>電話番号</th>
-		<th>email</th>
-		<th></th>
 	
-		</thead>
-
-		<?php
-		foreach($this->_staff_list as $staff)
-		{
-			?>
-			<tr>
-				<td class="menu_name">
-					<?php
-					echo $staff->name_last.$staff->name_first;
+		<div class="centering">
+			
+			<div class='staff_wrap'>			
+		
+				<?php
+				foreach($this->_staff_list as $staff)
+				{
 					?>
-				</td>
-                <td class="menu_edit">
-				<?php
-					echo $staff->tell;
+					<table class="staff_view_table">
+					<tr>
+						<th>氏名</th>
+						<td class="menu_name">
+							<?php
+							echo $staff->name_last.' '.$staff->name_first;
+							?>
+						</td>
+					</tr>
+					<tr>
+						<th>電話番号</th>
+						<td class="menu_edit">
+						<?php
+							echo $staff->tell;
+						?>
+						</td>
+					</tr>
+					<tr>
+						<th>email</th>
+						<td class="menu_edit">
+						<?php
+							echo $staff->email;
+						?>
+						</td>
+					</table>
+					<div class='edit_area'>
+					<?php
+					\ui\util\link_button("編集", $url."/".$staff->id);
+					?>
+					<div>
+					<?php
+				}
 				?>
-                </td>
-                <td class="menu_edit">
-				<?php
-					echo $staff->email;
-				?>
-                </td>
-				<td>
-					<?php \ui\util\link_button("編集", $url."/".$staff->id); ?>
-				</td>
-			</tr>
-			<?php
-		}
-		?>
-		</table>
-		
-		<?php
-		
-		?>
+
+			</div>
 		</div>
 		</form>
 		<?php
