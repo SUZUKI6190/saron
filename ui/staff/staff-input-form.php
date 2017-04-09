@@ -150,6 +150,7 @@ class StaffInputFormEdit extends StaffInputFormBase
 		parent::__construct();
 		$this->_delete_button = new ConfirmSubmitButton("delete_button", "削除する", $this->_form_id, "削除します。よろしいですか？");
 		$this->_img = new ImageDonwloader('staff', $this->_staff->id);
+		$this->_img->css_class = 'staff_image';
 	}
 	
 	public function is_save() : bool

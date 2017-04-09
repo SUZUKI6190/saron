@@ -111,6 +111,7 @@ class StaffViewSub extends \ui\frame\SubCategory
 							echo $staff->email;
 						?>
 						</td>
+					</tr>
 					</table>
 					<div class='edit_area'>
 					<?php

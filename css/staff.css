@@ -24,7 +24,6 @@ width:100px;
 }
 
 table.staff_view_table td
-
 {
      /*display: list-item;*/
 }
@@ -32,4 +31,10 @@ table.staff_view_table td
 div.edit_area
 {
     text-align:right;
+}
+
+.staff_image
+{
+    max-width:140px;
+    height:auto;
 }
