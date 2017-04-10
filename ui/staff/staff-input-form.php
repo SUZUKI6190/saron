@@ -82,7 +82,11 @@ abstract class StaffInputFormBase
 	protected function add_button()
 	{
 	}
-	
+
+	protected function add_image()
+	{
+	}
+
 	public function view()
 	{
 		$image_name = StaffInputFormBase::upload_name;
