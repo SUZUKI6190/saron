@@ -38,3 +38,8 @@ div.edit_area
     max-width:140px;
     height:auto;
 }
+
+.staff_input
+{
+    width:90%;
+}

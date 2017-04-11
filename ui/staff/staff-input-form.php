@@ -23,11 +23,11 @@ abstract class StaffInputFormBase
 		$required_attr = [];
 		$required_attr["required"] = "";
 		$this->_save_button = new SubmitButton("save_button", "保存する", $this->_form_id);
-		$this->_name_first = new InputBase("text", "name_first", $this->_staff->name_first, "" ,$required_attr);
-		$this->_name_last = new InputBase("text", "name_last", $this->_staff->name_last, "", $required_attr);
-		$this->_tell = new InputBase("number", "tell", $this->_staff->tell);
-		$this->_email = new InputBase("email", "email", $this->_staff->email);
-		$this->_url = new InputBase("url", "url", $this->_staff->introduce_page_url);
+		$this->_name_first = new InputBase("text", "name_first", $this->_staff->name_first, 'staff_input' ,$required_attr);
+		$this->_name_last = new InputBase("text", "name_last", $this->_staff->name_last, 'staff_input', $required_attr);
+		$this->_tell = new InputBase("number", "tell", $this->_staff->tell, 'staff_input');
+		$this->_email = new InputBase("email", "email", $this->_staff->email, 'staff_input');
+		$this->_url = new InputBase("url", "url", $this->_staff->introduce_page_url, 'staff_input');
 	}
 
 	protected abstract function innser_save(Staff $staff);
