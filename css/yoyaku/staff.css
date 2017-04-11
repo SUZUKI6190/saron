@@ -9,6 +9,14 @@ div.staff_select_area
     flex-direction:row;
 }
 
+div.staff_info
+{
+    margin-right:10px;
+    border:solid 1px #d3d3d3;
+    width:188px;
+    
+}
+
 
 @media only screen and (max-width:400px) {
 
@@ -17,14 +25,13 @@ div.staff_select_area
         flex-direction: column;
     }
 
+    div.staff_info
+    {
+        margin:auto;
+        margin-bottom:10px;
+    }
 }
 
-div.staff_info
-{
-    margin-right:10px;
-    border:solid 1px #d3d3d3;
-    
-}
 
 div.staff_name
 {
@@ -45,7 +52,7 @@ img.staff_image
 {
     max-width:140px;
     height:auto;
-    margin:0 20px 10px 20px;
+    margin:auto;
 }
 
 a.staff_name_link
