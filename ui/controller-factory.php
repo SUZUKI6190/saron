@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once(dirname(__FILE__).'/frame/result.php');
 require_once('manage-frame-implementer-factory.php');
 require_once(dirname(__FILE__).'/yoyaku/yoyaku-controller.php');
-require_once(dirname(__FILE__).'../image/download-image.php');
+require_once(dirname(__FILE__).'/image/download-image.php');
 
 function create_controller() : IController
 {
