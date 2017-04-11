@@ -25,8 +25,6 @@ abstract class StaffInputFormBase
 		$this->_save_button = new SubmitButton("save_button", "保存する", $this->_form_id);
 		$this->_name_first = new InputBase("text", "name_first", $this->_staff->name_first, 'staff_input' ,$required_attr);
 		$this->_name_last = new InputBase("text", "name_last", $this->_staff->name_last, 'staff_input', $required_attr);
-		$this->_tell = new InputBase("number", "tell", $this->_staff->tell, 'staff_input');
-		$this->_email = new InputBase("email", "email", $this->_staff->email, 'staff_input');
 		$this->_url = new InputBase("url", "url", $this->_staff->introduce_page_url, 'staff_input');
 	}
 
@@ -39,8 +37,7 @@ abstract class StaffInputFormBase
 		$staff->id = StaffContext::get_instance()->staff_id;
 		$staff->name_first = $this->_name_first->get_value();
 		$staff->name_last = $this->_name_last->get_value();
-		$staff->tell = $this->_tell->get_value();
-		$staff->email = $this->_email->get_value();
+
 		$staff->introduce_page_url = $this->_url->get_value();
 		$this->innser_save($staff);
 		
@@ -107,14 +104,7 @@ abstract class StaffInputFormBase
 				<h2>名前(名)</h2>
 				<?php echo $this->_name_first->view(); ?>
 			</div>
-			<div class="line">
-				<h2>電話番号</h2>
-				<?php echo $this->_tell->view(); ?>
-			</div>
-			<div class="line">
-				<h2>email</h2>
-				<?php echo $this->_email->view(); ?>
-			</div>
+			
 			<div class="line">
 				<h2>紹介ページURL</h2>
 				<?php echo $this->_url->view(); ?>

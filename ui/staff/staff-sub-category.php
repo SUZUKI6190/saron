@@ -9,6 +9,7 @@ use \ui\util\SubmitButton;
 use \ui\util\InputBase;
 use \ui\frame\Result;
 use ui\frame\ManageFrameContext;
+use ui\image\ImageDonwloader;
 
 class StaffAddNewSub extends \ui\frame\SubCategory
 {
@@ -86,43 +87,30 @@ class StaffViewSub extends \ui\frame\SubCategory
 				<?php
 				foreach($this->_staff_list as $staff)
 				{
+					$img = new ImageDonwloader('staff', $staff->id);
+					$img->css_class= 'staff_image_view';
 					?>
-					<table class="staff_view_table">
-					<tr>
-						<th>氏名</th>
-						<td class="menu_name">
+					<div class='staff_info'>
+						<div class='image_area'>
+							<?php $img->view(); ?>
+						</div>
+						<div class='name_area'>
 							<?php
 							echo $staff->name_last.' '.$staff->name_first;
 							?>
-						</td>
-					</tr>
-					<tr>
-						<th>電話番号</th>
-						<td class="menu_edit">
-						<?php
-							echo $staff->tell;
-						?>
-						</td>
-					</tr>
-					<tr>
-						<th>email</th>
-						<td class="menu_edit">
-						<?php
-							echo $staff->email;
-						?>
-						</td>
-					</tr>
-					</table>
-					<div class='edit_area'>
-					<?php
-					\ui\util\link_button("編集", $url."/".$staff->id);
-					?>
-					<div>
+						</div>
+						<div class='edit_area'>
+							<?php
+							\ui\util\link_button("編集", $url."/".$staff->id);
+							?>
+						</div>
+
+					</div>
 					<?php
 				}
 				?>
 
-			</div>
+			</
 		</div>
 		</form>
 		<?php

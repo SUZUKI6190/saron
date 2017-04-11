@@ -7,30 +7,39 @@ table.staff_view_table a, table.staff_view_table input[type="submit"].manage_but
     padding: 0px 5px;
 }
 
-div.staff_wrap
-{
-    margin-top:10px;
+div.staff_wrap {
+    margin-top: 10px;
+
 }
 
-table.staff_view_table
-{
-    width:100%;
-    margin-top:10px;
+div.staff_info {
+    border: solid 1px #d3d3d3;
+    width: 175px;
+    margin: auto;
+    margin-bottom: 10px;
 }
 
-table.staff_view_table th
+div.name_area
 {
-width:100px;
-}
-
-table.staff_view_table td
-{
-     /*display: list-item;*/
+    text-align:center;
 }
 
 div.edit_area
 {
-    text-align:right;
+    text-align:center;
+}
+
+div.image_area
+{
+   text-align:center;
+   height:200px;
+}
+
+.staff_image_view
+{
+    max-width: 140px;
+    height: auto;
+    margin:10px;
 }
 
 .staff_image

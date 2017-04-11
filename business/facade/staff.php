@@ -10,8 +10,6 @@ function get_staff_byid($id) : Staff
 			id,
 			name_first,
 			name_last,
-			tell,
-			email,
 			introduce_page_url
 		from
 			staff
@@ -48,8 +46,6 @@ function get_staff_all()
 			id,
 			name_first,
 			name_last,
-			tell,
-			email,
 			introduce_page_url
 		from
 			staff
@@ -86,15 +82,11 @@ function insert_staff($staff)
 			id,
 			name_first,
 			name_last,
-			tell,
-			email,
 			introduce_page_url
 		)values(
 			'$staff->id',
 			'$staff->name_first',
 			'$staff->name_last',
-			'$staff->tell',
-			'$staff->email',
 			'$staff->introduce_page_url'
 		)
 SQL
