@@ -28,7 +28,7 @@ abstract class StaffInputFormBase
 		$this->_url = new InputBase("url", "url", $this->_staff->introduce_page_url, 'staff_input');
 	}
 
-	protected abstract function innser_save(Staff $staff);
+	protected abstract function innser_save(Staff $staff, bool $is_image_upload);
 	protected abstract function create_staff() : Staff;
 	
 	public function save()
@@ -39,10 +39,11 @@ abstract class StaffInputFormBase
 		$staff->name_last = $this->_name_last->get_value();
 
 		$staff->introduce_page_url = $this->_url->get_value();
-		$this->innser_save($staff);
 		
 		$files = $_FILES[StaffInputFormBase::upload_name];
 		$name = $files['name'];
+		
+		$is_image_upload = false;
 		
 		 //一字ファイルができているか（アップロードされているか）チェック
 		if(is_uploaded_file($files['tmp_name'])){
@@ -67,8 +68,12 @@ abstract class StaffInputFormBase
 				$mime = "image/png";
 			}
 
-			\business\facade\update_staff_image($staff->id, $mime, $imgdat);
+			$staff->mime = $mime;
+			$staff->imgdat = $imgdat;
+			$is_image_upload = true;
 		}
+		
+		$this->innser_save($staff, $is_image_upload);
 	}
 	
 	public function is_save() : bool
@@ -122,9 +127,13 @@ abstract class StaffInputFormBase
 
 class StaffInputFormNew extends StaffInputFormBase
 {
-	protected function innser_save(Staff $staff)
+	protected function innser_save(Staff $staff, bool $is_image_upload)
 	{
-		\business\facade\insert_staff($staff);
+		if($is_image_upload){
+			\business\facade\insert_staff_with_image($staff);
+		}else{
+			\business\facade\insert_staff($staff);
+		}
 	}
 	
 	protected function create_staff() : Staff
@@ -168,12 +177,16 @@ class StaffInputFormEdit extends StaffInputFormBase
 		$this->_delete_button->view();
 	}
 	
-	protected function innser_save(Staff $staff)
+	protected function innser_save(Staff $staff, bool $is_image_upload)
 	{
 
 		if($this->_save_button->is_submit()){
 			\business\facade\delete_staff($staff->id);
 			\business\facade\insert_staff($staff);
+			
+			if($is_image_upload){
+				\business\facade\update_staff_image($staff->id, $staff->mime, $staff->imgdat);
+			}
 		}
 		
 		if($this->_delete_button->is_submit()){

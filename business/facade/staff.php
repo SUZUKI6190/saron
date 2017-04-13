@@ -93,6 +93,32 @@ SQL
 );
 }
 
+
+function insert_staff_with_image($staff)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		insert into staff (
+			id,
+			name_first,
+			name_last,
+			introduce_page_url,
+			mime,
+			imgdat
+		)values(
+			'$staff->id',
+			'$staff->name_first',
+			'$staff->name_last',
+			'$staff->introduce_page_url',
+			'$staff->mime',
+			'$staff->imgdat'
+		)
+SQL
+);
+}
+
+
 function update_staff_image($id, $mime, $imgdat)
 {
 	global $wpdb;
