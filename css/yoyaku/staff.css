@@ -4,10 +4,11 @@ div.staff_wrap
    margin:auto;
 }
 
-div.staff_select_area
-{
-    display:flex;
-    flex-direction:row;
+div.staff_select_area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; /* 3 */
 }
 
 div.staff_info
@@ -15,7 +16,7 @@ div.staff_info
     margin-right:10px;
     border:solid 1px #d3d3d3;
     width:188px;
-    
+    margin-top:10px;
 }
 
 
