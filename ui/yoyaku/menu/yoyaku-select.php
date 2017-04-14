@@ -17,6 +17,7 @@ class YoyakuSelect extends YoyakuMenu
 	private $_next_button, $_back_button;
 	private $_checkbox_id_list = [];
 	const ChkBoxIdListId = 'chk_list_id';
+	const CheckCourseMsg = 'コースを選択してください';
 	public function __construct()
 	{
 
@@ -60,7 +61,7 @@ class YoyakuSelect extends YoyakuMenu
 	private function view_next_button()
 	{
 		?>
-		<input type='submit' value="この内容で次へ" name="next_button" class="manage_button next_button" onclick='return select_check("<?php echo self::ChkBoxIdListId; ?>");' />
+		<input type='submit' value="この内容で次へ" name="next_button" class="manage_button next_button" onclick='return select_check("<?php echo self::ChkBoxIdListId; ?>", "<?php echo self::CheckCourseMsg; ?>");' />
 		<?php
 	}
 	

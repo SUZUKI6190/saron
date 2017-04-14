@@ -8,7 +8,7 @@ function on_check_menu( row_id, chk_id ) {
 	}
 }
 
-function select_check(hidden_id)
+function select_check(hidden_id, msg)
 {
 	var id_list = document.getElementById(hidden_id).value.split(",");
 
@@ -21,6 +21,6 @@ function select_check(hidden_id)
 		}
 	}
 
-	alert('コースへチェックを入れてください');
+	alert(msg);
 	return false;
 }
