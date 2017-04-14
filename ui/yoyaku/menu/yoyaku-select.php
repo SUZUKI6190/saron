@@ -15,6 +15,8 @@ class YoyakuSelect extends YoyakuMenu
 	private $_selected_list = [];
 	private $_form_id = 'rest_form';
 	private $_next_button, $_back_button;
+	private $_checkbox_id_list = [];
+	const ChkBoxIdListId = 'chk_list_id';
 	public function __construct()
 	{
 
@@ -22,7 +24,8 @@ class YoyakuSelect extends YoyakuMenu
 		$this->_menu_list = \business\facade\get_menu_list();
 		$selected = [];
 		$rest = [];
-		$this->_next_button = new SubmitButton('next_button', "この内容で次へ" , '', 'next_button');	
+	
+		$this->_next_button = new SubmitButton('next_button', "この内容で次へ" , 'te', 'next_button');	
 		if(!empty($yc->menu_id)){
 			foreach($this->_menu_list as $menu)
 			{
@@ -36,6 +39,8 @@ class YoyakuSelect extends YoyakuMenu
 			}
 			$this->_selected_menu_table = new MenuTable($selected, "selected", 'メニューを選択してください', $this->_form_id);
 			$this->_rest_menu_table = new MenuTable($rest, "rest", '追加メニューご希望の方はメニューを選択してください', $this->_form_id);
+			$this->_checkbox_id_list = array_merge($this->_checkbox_id_list, $this->_selected_menu_table->get_checkbox_id_list());
+			$this->_checkbox_id_list = array_merge($this->_checkbox_id_list, $this->_rest_menu_table->get_checkbox_id_list());		
 		}else{
 			foreach($this->_menu_list as $menu)
 			{
@@ -43,7 +48,8 @@ class YoyakuSelect extends YoyakuMenu
 				$rest[] = $menu;
 			}
 			$this->_rest_menu_table = new MenuTable($rest, "rest", 'メニューを選択してください', $this->_form_id);
-		}		
+			$this->_checkbox_id_list = $this->_rest_menu_table->get_checkbox_id_list();
+		}
 	}
 	
 	public function get_title() : string
@@ -51,11 +57,19 @@ class YoyakuSelect extends YoyakuMenu
 		return "メニュー選択";
 	}
 	
+	private function view_next_button()
+	{
+		?>
+		<input type='submit' value="この内容で次へ" name="next_button" class="manage_button next_button" onclick='return select_check("<?php echo self::ChkBoxIdListId; ?>");' />
+		<?php
+	}
+	
 	public function view()
 	{
 		$yc = YoyakuContext::get_instance();
 		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/";
 		?>
+		<input type='hidden' value=<?php echo implode(',', $this->_checkbox_id_list); ?> id='<?php echo self::ChkBoxIdListId; ?>' />
 		<form method='post' action='<?php echo $url; ?>' >
 			<?php 
 			if(!empty($yc->menu_id)){
@@ -65,11 +79,7 @@ class YoyakuSelect extends YoyakuMenu
 				</div>
 								
 				<div class='next_button_area'>
-			
-				<?php
-				$this->_next_button->view();
-				?>
-				
+					<?php $this->view_next_button(); ?>
 				</div>
 			
 			<?php
@@ -80,11 +90,8 @@ class YoyakuSelect extends YoyakuMenu
 			</div>
 			
 			<div class='next_button_area'>
-			<a href='' class="back_button" >戻る</a>	
-			<?php
-				$this->_next_button->view();
-			?>
-
+				<a href='' class="back_button" >戻る</a>	
+				<?php $this->view_next_button(); ?>
 			</div>
 		</form>	
 	<?php

@@ -8,10 +8,12 @@ class MenuTable
 	private $_menu_list = [];
 	private $_chk_list = [];
 	private $_midasi = '';
+	private $_id_list = [];
 	public function __construct($menu_list, $name, $midasi)
 	{
 		$this->_menu_list = $menu_list;
 		$this->_midasi = $midasi;
+		
 		foreach($menu_list as $menu)
 		{
 			foreach($menu->course_list as $c)
@@ -21,11 +23,17 @@ class MenuTable
 				$onclick = sprintf ( 'on_check_menu("%s", "%d")', $row_id, $c->id);
 				$add_atribute['onclick'] = $onclick;
 				$add_atribute['id'] = $c->id;
+				$this->_id_list[] = $c->id;
 				$this->_chk_list[$c->id] =  new InputBase('checkbox', 'course_id[]', $c->id, '', $add_atribute);
 			}
 		}
 	}
 
+	public function get_checkbox_id_list()
+	{
+		return $this->_id_list;
+	}
+	
 	public function is_click_next_button():bool
 	{
 		return $this->_next_button->is_submit();

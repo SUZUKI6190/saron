@@ -7,3 +7,20 @@ function on_check_menu( row_id, chk_id ) {
 		row.className = "course_row";
 	}
 }
+
+function select_check(hidden_id)
+{
+	var id_list = document.getElementById(hidden_id).value.split(",");
+
+	for(var i = 0 ; i < id_list.length ; i++)
+	{
+		var chkbox = document.getElementById(id_list[i]);
+		if(chkbox.checked)
+		{
+			return true;
+		}
+	}
+
+	alert('コースへチェックを入れてください');
+	return false;
+}
