@@ -116,7 +116,9 @@ abstract class StaffInputFormBase
 			</div>		
 			<div class="line">
 			  <h2>写真</h2>
-			  <?php $this->add_image(); ?>
+			  <div class='staff_image_area'>
+				<?php $this->add_image(); ?>
+			  </div>
 			  <input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>
 			</div>
 		</form>

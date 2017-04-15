@@ -42,6 +42,10 @@ div.image_area
     margin:10px;
 }
 
+div.staff_image_area {
+    text-align:center;
+}
+
 .staff_image
 {
     max-width:140px;
