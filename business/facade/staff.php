@@ -118,6 +118,19 @@ SQL
 );
 }
 
+function update_staff($staff)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		UPDATE staff SET 
+			name_first = '$staff->name_first',
+			name_last= '$staff->name_last',
+			introduce_page_url = '$staff->introduce_page_url'
+		where id = '$staff->id'
+SQL
+);
+}
 
 function update_staff_image($id, $mime, $imgdat)
 {

@@ -190,9 +190,7 @@ class StaffInputFormEdit extends StaffInputFormBase
 	{
 
 		if($this->_save_button->is_submit()){
-			\business\facade\delete_staff($staff->id);
-			\business\facade\insert_staff($staff);
-			
+			\business\facade\update_staff($staff);
 			if($is_image_upload){
 				\business\facade\update_staff_image($staff->id, $staff->mime, $staff->imgdat);
 			}
