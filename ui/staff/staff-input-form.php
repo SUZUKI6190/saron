@@ -120,8 +120,8 @@ abstract class StaffInputFormBase
 					<?php $this->add_image(); ?>
 				</div>
 				<div class="upload_button_area">
-					<button class='manage_button upload_button' type="button" onclick='onclick_upload("image_upload_area")'>
-						<span>画像をアップロードする</span>
+					<button class='manage_button upload_button' type="button" onclick='onclick_upload("image_upload_area", "text_area")'>
+						<span id='text_area'>画像をアップロードする</span>
 					</button>
 				</div>
 				<div class="image_upload_area close" id='image_upload_area'>
