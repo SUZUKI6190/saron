@@ -35,6 +35,7 @@ class YoyakuFrame
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
 		$js_dir =  plugins_url()."/saron/js/";
 		$css_ver = '0.04';
+		$js_ver = '0.06';
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
@@ -51,7 +52,7 @@ class YoyakuFrame
 		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=$css_ver"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."course-table.css?ver=$css_ver"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."staff.css?ver=$css_ver"; ?>"  type="text/css" />
-		<script type="text/javascript" charset="utf-8" src="<?php echo $js_dir ?>/menu-select.js?ver=0.05" ></script>
+		<script type="text/javascript" charset="utf-8" src="<?php echo "$js_dir/menu-select.js?ver=$js_ver" ?>" ></script>
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>
 		</head>

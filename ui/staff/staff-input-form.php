@@ -115,11 +115,18 @@ abstract class StaffInputFormBase
 				<?php echo $this->_url->view(); ?>
 			</div>		
 			<div class="line">
-			  <h2>写真</h2>
-			  <div class='staff_image_area'>
-				<?php $this->add_image(); ?>
-			  </div>
-			  <input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>
+				<h2>写真</h2>
+				<div class='staff_image_area'>
+					<?php $this->add_image(); ?>
+				</div>
+				<div class="upload_button_area">
+					<button class='manage_button upload_button' type="button" onclick='onclick_upload("image_upload_area")'>
+						<span>画像をアップロードする</span>
+					</button>
+				</div>
+				<div class="image_upload_area close" id='image_upload_area'>
+					<input type="file" name='<?php echo $image_name ; ?>' accept='image'　/>
+				</div>
 			</div>
 		</form>
 		<?php

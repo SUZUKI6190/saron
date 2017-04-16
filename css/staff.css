@@ -46,6 +46,19 @@ div.staff_image_area {
     text-align:center;
 }
 
+div.image_upload_area
+{
+    margin:20px;
+}
+
+div.upload_button_area {
+    margin-top: 20px;
+}
+
+div.image_upload_area.close {
+    display:none;
+}
+
 .staff_image
 {
     max-width:140px;
