@@ -2,11 +2,13 @@
 namespace ui\yoyaku;
 require_once('menu/yoyaku-select.php');
 require_once('menu/staff-select.php');
+require_once('menu/day-select.php');
 require_once('frame/yoyaku-frame.php');
 
 use ui\yoyaku\YoyakuContext;
 use ui\yoyaku\menu\YoyakuSelect;
 use ui\yoyaku\menu\StaffSelect;
+use ui\yoyaku\menu\DaySelect;
 
 function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 {
@@ -20,6 +22,9 @@ function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 			break;
 		case 'staff':
 			$menu = new StaffSelect();
+			break;
+		case 'day':
+			$menu = new DaySelect();
 			break;
 	}
 	return $menu;
