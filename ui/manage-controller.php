@@ -35,7 +35,7 @@ class ManageController implements IController
 			$set_array("customer", "お客様管理", "search");
 			$set_array("publish", "掲載管理", "menu");
 			$set_array("send_message", "メッセージ配信管理", "view");
-			$set_array("schedule", "予約管理" , "menu");
+			$set_array("schedule", "予約管理" , "view");
 			$set_array("staff", "スタッフ管理", "view");
 			$set_array("sales", "売り上げ管理", "price");
 

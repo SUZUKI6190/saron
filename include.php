@@ -48,6 +48,7 @@ function inno_add_rule() {
 	add_rewrite_rule( '([^/]+)/sales/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]', 'top' );
 	add_rewrite_rule( '([^/]+)/sales/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]&edit=$matches[3]', 'top' );
 	add_rewrite_rule( '([^/]+)/image/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=image&id=$matches[2]&sub_id=$matches[3]', 'top');
+	add_rewrite_rule( '([^/]+)/schedule/([^/]+)?$', 'index.php?pagename=$matches[1]&category=schedule&sub_category=$matches[2]', 'top' );
 	add_rewrite_rule( '([^/]+)/?$', 'index.php?pagename=$matches[1]', 'top');
 	flush_rewrite_rules();
 }
