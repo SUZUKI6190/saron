@@ -9,14 +9,11 @@ Author URI:
 */
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 require_once('business/facade/init.php');
-require_once('init.php');
 
 function InitTable()
 {
 	business\facade\init_db();
 }
-
-init();
 
 //プラグイン有効化時にテーブルを作成
 register_activation_hook (__FILE__, 'InitTable');
