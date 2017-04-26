@@ -52,7 +52,7 @@ function create_iplementer($category_name)
 			return new sales\SalesFrameImplementor();
 			break;
 		case "schedule":
-		require_once('schedule/schedule-frame-implementor.php');
+			require_once('schedule/schedule-frame-implementor.php');
 			return new schedule\ScheduleFrameImplementor();
 			break;
 		default:
