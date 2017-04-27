@@ -3,6 +3,7 @@ namespace business\entity;
 
 class WeeklyYoyaku
 {
+	public $id;
 	public $from_time;
 	public $to_time;
 	public $is_regular_holiday;
@@ -49,6 +50,7 @@ class WeeklyYoyaku
 	public static function CreateObjectFromWpdb($db) : WeeklyYoyaku
 	{
 		$ret = new WeeklyYoyaku();
+		$this->id = $wpdb->id;
 		$this->from_time = $wpdb->from_time;
 		$this->to_time = $wpdb->to_time;
 		$this->is_regular_holiday = $wpdb->is_regular_holiday;

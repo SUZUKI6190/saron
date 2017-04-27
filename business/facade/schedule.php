@@ -2,13 +2,14 @@
 namespace business\facade;
 use \business\entity\WeeklyYoyaku;
 
-function get_weel_data() : WeeklyYoyaku
+function get_weekly_data() : WeeklyYoyaku
 {
 	$strSql = <<<SQL
 		select
 			*
 		from
 			WeeklyYoyaku
+		order by week_kbn
 SQL;
 
 	global $wpdb;
@@ -19,35 +20,32 @@ SQL;
 	return $ret;
 }
 
-function delete_sales($from_day, $to_day)
+function delete_weekly_data_by_kbn($kbn)
 {
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
 		delete from sales
-		where day >= '$to_day'
-		  and day <= '$from_day'
+		where week_kbn = '$kbn'
 SQL
 );
 }
 
-function insert_sales($sales)
+function insert_weekly_data($w)
 {
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
 		insert into staff (
-			day,
-			amount_of_sales,
-			per_customer_price,
-			number_of_customers_new,
-			number_of_customers_repeater
+			from_time,
+			to_time,
+			is_regular_holiday,
+			week_kbn
 		)values(
-			'$sales->day',
-			'$sales->amount_of_sales',
-			'$sales->per_customer_price',
-			'$sales->number_of_customers_new',
-			'$sales->number_of_customers_repeater'
+			'$w->from_time',
+			'$w->to_time',
+			'$w->is_regular_holiday',
+			'$w->week_kbn'
 		)
 SQL
 );
