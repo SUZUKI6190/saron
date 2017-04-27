@@ -14,8 +14,11 @@ class WeeklySub extends \ui\frame\SubCategory
 {
 	private $_form_id = "menu_form";
 	
-	private function view_week(WeeklyYoyaku $week)
+	private function view_week(WeeklyYoyaku $w)
 	{
+		?>
+		
+		<?php
 	}
 	
 	public function view()

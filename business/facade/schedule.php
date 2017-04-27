@@ -8,14 +8,14 @@ function get_weekly_data() : WeeklyYoyaku
 		select
 			*
 		from
-			WeeklyYoyaku
+			weekly_yoyaku
 		order by week_kbn
 SQL;
 
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_values(array_map(function($data) {
-		return Sales::CreateFromWpdb($data);
+		return WeeklyYoyaku::CreateFromWpdb($data);
 	}));
 	return $ret;
 }
@@ -25,7 +25,7 @@ function delete_weekly_data_by_kbn($kbn)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from sales
+		delete from weekly_yoyaku
 		where week_kbn = '$kbn'
 SQL
 );
@@ -36,7 +36,7 @@ function insert_weekly_data($w)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into staff (
+		insert into weekly_yoyaku (
 			from_time,
 			to_time,
 			is_regular_holiday,
