@@ -2,7 +2,7 @@
 namespace business\facade;
 use \business\entity\WeeklyYoyaku;
 
-function get_weekly_data() : WeeklyYoyaku
+function get_weekly_data() : array
 {
 	$strSql = <<<SQL
 		select
@@ -15,8 +15,10 @@ SQL;
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_values(array_map(function($data) {
-		return WeeklyYoyaku::CreateFromWpdb($data);
-	}));
+		$value = WeeklyYoyaku::CreateFromWpdb($data);
+		$key = $value->get_week_char();
+		return array($key, $value);
+	}, $result));
 	return $ret;
 }
 
