@@ -114,8 +114,8 @@ SQL
 		
 	dbDelta(<<<SQL
 		CREATE TABLE weekly_yoyaku (
-			from_time DATE NOT NULL,
-			to_time DATE NOT NULL,
+			from_time TIME NOT NULL,
+			to_time TIME NOT NULL,
 			is_regular_holiday tinyint UNSIGNED,
 			week_kbn tinyint UNSIGNED,
 			PRIMARY KEY(week_kbn)
