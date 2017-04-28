@@ -4,7 +4,7 @@ use \business\entity\WeeklyYoyaku;
 
 use ui\frame\ManageFrameContext;
 use \business\facade;
-
+use \ui\util\InputBase;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
@@ -32,11 +32,26 @@ class WeekData
 	{
 		$ret = new WeekData();
 		$ret->week_char = $week_char;
-		$ret->from_time = "9:00";
+		$ret->from_time = "09:00";
 		$ret->to_time = "19:00";
 		$ret->is_regular_holiday = 0;
 
 		return $ret;
+	}
+}
+
+class WeekInputForm
+{
+	public $_week_char;
+	private $_from_time;
+	private $_to_time;
+	private $_is_regular_holiday;
+
+	public function __construct(WeekData $w)
+	{
+		$this->_from_time = new InputBase('time', $w->char.'_from_time', $w->from_time, "");
+		$this->_to_time = new InputBase('time', $w->char.'_to_time', $w->from_time, "");
+		
 	}
 }
 
@@ -45,17 +60,29 @@ class WeeklySub extends \ui\frame\SubCategory
 	private $_form_id = "menu_form";
 	private $_weekly_list;
 	const week_list = ['日','月','火','水','木','金','土'];
+
 	public function __construct()
 	{		
 		$this->_weekly_list = \business\facade\get_weekly_data();
+	
+		
 	}
 	
-	private function view_week(WeeklyYoyaku $w)
+	private function view_week(WeekData $w)
 	{
 		?>
 			<div class='week_area'>
-				<div class=''>
-				
+				<div class='week_char'>
+					<?php echo $w->week_char; ?>
+				</div>
+				</br>
+				<div class='frome_time'>
+					<span>開始</span>
+					<input type='time' name='from_ttime' value="<?php echo $w->from_time; ?>" />
+				</div>
+				<div class='to_time'>
+					<span>終了</span>
+					<input type='time' value="<?php echo $w->to_time; ?>" />
 				</div>
 			</div>
 		<?php
@@ -71,6 +98,8 @@ class WeeklySub extends \ui\frame\SubCategory
 			}else{
 				$d = WeekData::get_default_data($w);
 			}
+
+			$this->view_week($d);
 		}
 	}
 	

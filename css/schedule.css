@@ -1,0 +1,10 @@
+div.week_area
+{
+    display: flex;
+    flex-direction:row;
+}
+
+div.week_char
+{
+
+}
