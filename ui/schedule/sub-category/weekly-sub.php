@@ -49,9 +49,30 @@ class WeekInputForm
 
 	public function __construct(WeekData $w)
 	{
-		$this->_from_time = new InputBase('time', $w->char.'_from_time', $w->from_time, "");
-		$this->_to_time = new InputBase('time', $w->char.'_to_time', $w->from_time, "");
-		
+		$this->_from_time = new InputBase('time', $w->week_char.'_from_time', $w->from_time, "");
+		$this->_to_time = new InputBase('time', $w->week_char.'_to_time', $w->from_time, "");
+		$this->_is_reqular_holiday = new InputBase('checkbox', $w->week_char.'_to_time', $w->from_time, "");
+
+	}
+
+	public function view()
+	{
+		?>
+			<div class='week_area'>
+				<div class='week_char'>
+					<?php echo $this->_week_char; ?>
+				</div>
+				</br>
+				<div class='frome_time'>
+					<span>開始</span>
+					<?php $this->_from_time->view(); ?>
+				</div>
+				<div class='to_time'>
+					<span>終了</span>
+					<?php $this->_to_time->view(); ?>
+				</div>
+			</div>
+		<?php
 	}
 }
 
@@ -60,36 +81,10 @@ class WeeklySub extends \ui\frame\SubCategory
 	private $_form_id = "menu_form";
 	private $_weekly_list;
 	const week_list = ['日','月','火','水','木','金','土'];
-
+	private $_week_form_list = [];
 	public function __construct()
 	{		
 		$this->_weekly_list = \business\facade\get_weekly_data();
-	
-		
-	}
-	
-	private function view_week(WeekData $w)
-	{
-		?>
-			<div class='week_area'>
-				<div class='week_char'>
-					<?php echo $w->week_char; ?>
-				</div>
-				</br>
-				<div class='frome_time'>
-					<span>開始</span>
-					<input type='time' name='from_ttime' value="<?php echo $w->from_time; ?>" />
-				</div>
-				<div class='to_time'>
-					<span>終了</span>
-					<input type='time' value="<?php echo $w->to_time; ?>" />
-				</div>
-			</div>
-		<?php
-	}
-	
-	public function view()
-	{
 		foreach(self::week_list as $w)
 		{
 			$d;
@@ -99,7 +94,15 @@ class WeeklySub extends \ui\frame\SubCategory
 				$d = WeekData::get_default_data($w);
 			}
 
-			$this->view_week($d);
+			$this->_week_form_list[] = new WeekInputForm($d);
+		}
+	}
+	
+	public function view()
+	{
+		foreach($this->_week_form_list as $w)
+		{
+			$w->view();
 		}
 	}
 	
