@@ -38,6 +38,15 @@ class WeekData
 
 		return $ret;
 	}
+
+	public function create_weekly_yoyaku() : WeeklyYoyaku
+	{
+		$ret = new WeeklyYoyau();
+		$ret->from_time = $this->frome_time;
+		$ret->to_time = $this->to_time;
+		$ret->is_regular_holiday = $this->is_regular_holiday;
+		return $ret;
+	}
 }
 
 class WeekInputForm
@@ -49,9 +58,10 @@ class WeekInputForm
 
 	public function __construct(WeekData $w)
 	{
+		$this->_week_char = $w->week_char;
 		$this->_from_time = new InputBase('time', $w->week_char.'_from_time', $w->from_time, "");
 		$this->_to_time = new InputBase('time', $w->week_char.'_to_time', $w->from_time, "");
-		$this->_is_reqular_holiday = new InputBase('checkbox', $w->week_char.'_to_time', $w->from_time, "");
+		$this->_is_regular_holiday = new InputBase('checkbox', $w->week_char.'_to_time', $w->from_time, "");
 
 	}
 
@@ -61,6 +71,10 @@ class WeekInputForm
 			<div class='week_area'>
 				<div class='week_char'>
 					<?php echo $this->_week_char; ?>
+				</div>
+				<div class='regular_holiday_area'>
+					<span>定休日</span>
+					<?php $this->_is_regular_holiday->view(); ?>
 				</div>
 				</br>
 				<div class='frome_time'>
@@ -100,6 +114,15 @@ class WeeklySub extends \ui\frame\SubCategory
 	
 	public function view()
 	{
+		?>
+		<form method='post' action=''>
+		<div class='save_btn_area'>
+			<button type='submit' name='save' class='manage_button'>
+				保存する
+			</button>
+		</div>
+		</form>
+		<?php
 		foreach($this->_week_form_list as $w)
 		{
 			$w->view();
