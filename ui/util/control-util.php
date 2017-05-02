@@ -192,6 +192,57 @@ class ConfirmSubmitButton extends SubmitBase
 	}
 }
 
+class InputControll
+{
+	protected $_name;
+	protected $_value;
+	protected $_style;
+	protected $_type;
+	protected $_atribute = [];
+	public function __construct($type, $name)
+	{
+		$this->_type = $type;
+		$this->_name = $name;
+	}
+
+	public function set_value(string $v)
+	{
+		$this->_value = $v;
+	}
+
+	public function set_style(string $s)
+	{
+		$this->_style = $s;
+	}
+
+	public function set_attribute(array $a)
+	{
+		$this->_atribute = $a;
+	}
+
+	public function get_value() :string
+	{
+		return $_POST[$this->_name];
+	}
+
+	public function view()
+	{
+		$attr = "";
+		foreach($this->_atribute as $key => $value)
+		{
+			if(empty($value)){
+				$attr = $attr." ".$key; 
+			}else{
+				$attr = $attr." ".$key." = '".$value."'"; 
+			}
+		}
+		?>
+		<input type='<?php echo $this->_type; ?>' value="<?php echo $this->_value; ?>" name="<?php echo $this->_name; ?>" class="<?php echo $this->_style; ?>" <?php echo $attr; ?>/>
+		<?php
+	}
+	
+}
+
 class InputBase
 {
 	protected $_name;

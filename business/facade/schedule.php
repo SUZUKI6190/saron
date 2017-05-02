@@ -14,11 +14,13 @@ SQL;
 
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
-	$ret = array_values(array_map(function($data) {
-		$value = WeeklyYoyaku::CreateFromWpdb($data);
-		$key = $value->get_week_char();
-		return array($key, $value);
-	}, $result));
+	$ret = [];
+	foreach($result as $r)
+	{
+		$value = WeeklyYoyaku::CreateObjectFromWpdb($r);
+		$key = $value->week_kbn;
+		$ret[$key] = $value;
+	}
 	return $ret;
 }
 
