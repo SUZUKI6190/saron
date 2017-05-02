@@ -96,9 +96,11 @@ class WeeklySub extends \ui\frame\SubCategory
 	private $_weekly_list;
 	const week_list = ['日','月','火','水','木','金','土'];
 	private $_week_form_list = [];
+	private $_save_button;
 	public function __construct()
 	{		
 		$this->_weekly_list = \business\facade\get_weekly_data();
+		$this->_save_button = new InputBase('submit', 'save', '保存する', "manage_button");
 		foreach(self::week_list as $w)
 		{
 			$d;
@@ -117,9 +119,7 @@ class WeeklySub extends \ui\frame\SubCategory
 		?>
 		<form method='post' action=''>
 		<div class='save_btn_area'>
-			<button type='submit' name='save' class='manage_button'>
-				保存する
-			</button>
+			<?php $this->_save_button->view(); ?>
 		</div>
 		</form>
 		<?php
