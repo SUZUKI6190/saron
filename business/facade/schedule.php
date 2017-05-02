@@ -22,13 +22,12 @@ SQL;
 	return $ret;
 }
 
-function delete_weekly_data_by_kbn($kbn)
+function delete_weekly_data_all()
 {
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
 		delete from weekly_yoyaku
-		where week_kbn = '$kbn'
 SQL
 );
 }

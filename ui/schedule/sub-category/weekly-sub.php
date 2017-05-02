@@ -61,7 +61,7 @@ class WeekInputForm
 		$this->_week_char = $w->week_char;
 		$this->_from_time = new InputBase('time', $w->week_char.'_from_time', $w->from_time, "");
 		$this->_to_time = new InputBase('time', $w->week_char.'_to_time', $w->from_time, "");
-		$this->_is_regular_holiday = new InputBase('checkbox', $w->week_char.'_to_time', $w->from_time, "");
+		$this->_is_regular_holiday = new InputBase('checkbox', $w->week_char.'_is_regular_holiday', $w->is_regular_holiday, "");
 
 	}
 
@@ -99,8 +99,17 @@ class WeeklySub extends \ui\frame\SubCategory
 	private $_save_button;
 	public function __construct()
 	{		
+		$this->_save_button = new SubmitButton('save', '保存する', $this->_form_id);
+		
+		if($this->_save_button->is_submit())
+		{
+			\business\facade\delete_weekly_data_all();
+			foreach($this->_week_form_list as $w)
+			{
+				
+			}
+		}
 		$this->_weekly_list = \business\facade\get_weekly_data();
-		$this->_save_button = new InputBase('submit', 'save', '保存する', "manage_button");
 		foreach(self::week_list as $w)
 		{
 			$d;
@@ -116,8 +125,9 @@ class WeeklySub extends \ui\frame\SubCategory
 	
 	public function view()
 	{
+
 		?>
-		<form method='post' action=''>
+		<form method='post' id='<?php echo $this->_form_id; ?>' action=''>
 		<div class='save_btn_area'>
 			<?php $this->_save_button->view(); ?>
 		</div>
