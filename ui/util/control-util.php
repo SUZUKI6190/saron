@@ -225,6 +225,12 @@ class InputControll
 		return $_POST[$this->_name];
 	}
 
+
+	public function exist_value():bool
+	{
+		return isset($_POST[$this->_name]);
+	}
+
 	public function view()
 	{
 		$attr = "";

@@ -56,13 +56,13 @@ class WeekInputForm
 	private $_from_time;
 	private $_to_time;
 	private $_is_regular_holiday;
-
+	const holiday_check_name = 'regular_holiday';
 	public function __construct(string $week_char)
 	{
 		$this->_week_char = $week_char;
 		$this->_from_time = new InputControll('time', $week_char.'_from_time');
 		$this->_to_time = new InputControll('time', $week_char.'_to_time');
-		$this->_is_regular_holiday = new InputControll('checkbox', $week_char.'_is_regular_holiday');
+		$this->_is_regular_holiday = new InputControll('checkbox', $week_char."_".self::holiday_check_name);
 
 	}
 
@@ -71,7 +71,11 @@ class WeekInputForm
 		$this->_from_time->set_value($w->from_time);
 		$this->_to_time->set_value($w->to_time);
 		$this->_is_regular_holiday->set_value('holiday');
-		$attr['checked'] = "";
+		$attr = [];
+		
+		if($w->is_regular_holiday == 1){
+			$attr['checked'] = "";
+		}
 		$this->_is_regular_holiday->set_attribute($attr);
 	}
 
@@ -96,7 +100,12 @@ class WeekInputForm
 		$ret->week_kbn = $this->_week_char;
 		$ret->from_time = $this->_from_time->get_value();
 		$ret->to_time = $this->_to_time->get_value();
-		$ret->is_regular_holiday = $this->_is_regular_holiday->get_value();
+		if($this->_is_regular_holiday->exist_value())
+		{
+			$ret->is_regular_holiday = 1;
+		}else{
+			$ret->is_regular_holiday = 0;
+		}
 		return $ret;
 	}
 
