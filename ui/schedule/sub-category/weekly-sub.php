@@ -57,13 +57,13 @@ class WeekInputForm
 	private $_to_time;
 	private $_is_regular_holiday;
 	const holiday_check_name = 'regular_holiday';
+	const week_char_list = ['月','火','水','木','金','土','日'];
 	public function __construct(string $week_char)
 	{
-		$this->_week_char = $week_char;
+		$this->_week_char = self::week_char_list[$week_char];
 		$this->_from_time = new InputControll('time', $week_char.'_from_time');
 		$this->_to_time = new InputControll('time', $week_char.'_to_time');
 		$this->_is_regular_holiday = new InputControll('checkbox', $week_char."_".self::holiday_check_name);
-
 	}
 
 	public function set_data(WeekData $w)
@@ -139,7 +139,7 @@ class WeeklySub extends \ui\frame\SubCategory
 	private $_form_id = "menu_form";
 	private $_weekly_list;
 	const week_list = ['0','1','2','3','4','5','6'];
-	const week_char = ['月','火','水','木','金','土','日'];
+	
 	private $_week_form_list = [];
 	private $_save_button;
 	public function __construct()
