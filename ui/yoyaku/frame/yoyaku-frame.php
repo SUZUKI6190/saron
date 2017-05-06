@@ -46,7 +46,8 @@ class YoyakuFrame
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Cache-Control" content="no-store" />
+		<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT"> 
 		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=$css_ver"; ?>"  type="text/css"; />
 		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=$css_ver"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=$css_ver"; ?>"  type="text/css" />
@@ -71,6 +72,9 @@ class YoyakuFrame
 			</div>
 			</div>
 		</div>
+		<iframe style="height:0px;width:0px;visibility:hidden" src="about:blank">
+			this frame prevents back forward cache
+		</iframe>
 		<body>
 		<?php
 		

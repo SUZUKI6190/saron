@@ -62,7 +62,10 @@ class ManageController implements IController
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Cache-Control" content="no-store" />
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT"> 
 		<script type="text/javascript" charset="utf-8" src="<?php echo plugins_url("../js/ui-util.js", __FILE__)?>?ver=0.04" ></script>
 		<link rel="stylesheet" href="<?php echo $css_url."/manage_common.css?ver=$cssvar"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_url."/manage_header.css?ver=$cssvar"; ?>"  type="text/css" />
@@ -81,6 +84,9 @@ class ManageController implements IController
 
 		?>
 		</div>
+		<iframe style="height:0px;width:0px;visibility:hidden" src="about:blank">
+			this frame prevents back forward cache
+		</iframe>
 		<body>
 		<?php
 	}	
