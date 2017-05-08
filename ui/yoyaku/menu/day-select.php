@@ -32,7 +32,7 @@ class DaySelect extends YoyakuMenu
 			$new_day = new Day();
 			$new_day->year = date("Y",strtotime("+$i day"));
 			$new_day->month = date("M",strtotime("+$i day"));
-			$new_day->day = date("d",strtotime("+$i day"));
+			$new_day->day = (int)date("d",strtotime("+$i day"));
 			$new_day->week = self::week[date("w",strtotime("+$i day"))];
 			$year_month = date("Y年m月",strtotime("+$i day"));
 			$this->_week_list[] = $new_day;
@@ -81,11 +81,7 @@ class DaySelect extends YoyakuMenu
 			<?php
 			foreach($this->_week_list as $w)
 			{
-			?>
-			<th>
-			<?php echo $w->day; ?>
-			</th>
-			<?php	
+				echo "<th>$w->day</th>";
 			}
 			?>
 		</tr>
