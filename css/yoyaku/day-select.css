@@ -1,0 +1,18 @@
+div.schedule_select_area
+{
+    margin-top:10px;
+}
+
+table.schedule_select
+{
+    width:100%;
+    margin:auto;
+}
+
+table.schedule_select,
+table.schedule_select td,
+table.schedule_select th
+{
+    border:solid 1px #d3d3d3;
+    border-collapse:collapse;
+}

@@ -53,6 +53,7 @@ class YoyakuFrame
 		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=$css_ver"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."course-table.css?ver=$css_ver"; ?>"  type="text/css" />
 		<link rel="stylesheet" href="<?php echo $css_dir."staff.css?ver=$css_ver"; ?>"  type="text/css" />
+		<link rel="stylesheet" href="<?php echo $css_dir."day-select.css?ver=$css_ver"; ?>"  type="text/css" />
 		<script type="text/javascript" charset="utf-8" src="<?php echo "$js_dir/menu-select.js?ver=$js_ver" ?>" ></script>
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>

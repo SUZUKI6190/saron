@@ -96,6 +96,7 @@ class StaffSelect extends YoyakuMenu
 				<a href='<?php echo $before_url; ?>' class="back_button" >戻る</a>	
 			</div>
 		</div>
+		<input type="hidden" name="course_id" value='<?php echo implode(',' , $this->_course_id_list); ?>'>
 		</form>
 		<?php
 	}
