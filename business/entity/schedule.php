@@ -16,6 +16,7 @@ class WeeklyYoyaku
 	const ThuKbn = 4;
 	const FriKbn = 5;
 	const SatKbn = 6;
+	const HolidayKbn = 7;
 	
 	public function get_week_char():string
 	{
@@ -41,6 +42,9 @@ class WeeklyYoyaku
 				break;
 			case self::SatKbn:
 				return '土';
+				break;
+			case self::HolidayKbn:
+				return '祝日';
 				break;
 			default:
 				break;
