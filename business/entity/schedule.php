@@ -17,38 +17,17 @@ class WeeklyYoyaku
 	const FriKbn = 5;
 	const SatKbn = 6;
 	const HolidayKbn = 7;
-	
+	const week_kbn_list = ['月' => 0, '火' => 1, '水' => 2, '木' => 3, '金'=> 4, '土'=> 5, '日' => 6, '祝日'=> 7];
+	const week_char_list = ['月', '火', '水', '木', '金', '土', '日', '祝日'];
+
+	public function set_week_kbn_from_char(string $v)
+	{
+		$this->week_kbn = self::week_kbn_list[$v];
+	}
+
 	public function get_week_char():string
 	{
-		switch($this->week_kbn)
-		{
-			case self::SunKbn:
-				return '日';
-				break;
-			case self::MonKbn:
-				return '月';
-				break;
-			case self::TueKbn:
-				return '火';
-				break;
-			case self::WedKbn:
-				return '水';
-				break;
-			case self::ThuKbn:
-				return '木';
-				break;
-			case self::FriKbn:
-				return '金';
-				break;
-			case self::SatKbn:
-				return '土';
-				break;
-			case self::HolidayKbn:
-				return '祝日';
-				break;
-			default:
-				break;
-		}
+		return self:: week_char_list[$this->week_kbn];
 	}
 
 	public static function CreateObjectFromWpdb($wpdb) : WeeklyYoyaku
@@ -58,7 +37,7 @@ class WeeklyYoyaku
 		$ret->from_time = $wpdb->from_time;
 		$ret->to_time = $wpdb->to_time;
 		$ret->is_regular_holiday = $wpdb->is_regular_holiday;
-		$ret->week_kbn = $wpdb->week_kbn;	
+		$ret->week_kbn = $wpdb->week_kbn;
 		return $ret;
 	}
 }

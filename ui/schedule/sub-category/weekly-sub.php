@@ -42,7 +42,7 @@ class WeekData
 	public function create_weekly_yoyaku() : WeeklyYoyaku
 	{
 		$ret = new WeeklyYoyau();
-		$ret->week_kbn = $this->week_char;
+		$ret->set_week_kbn_from_char($this->week_char);
 		$ret->from_time = $this->frome_time;
 		$ret->to_time = $this->to_time;
 		$ret->is_regular_holiday = $this->is_regular_holiday;
@@ -97,7 +97,7 @@ class WeekInputForm
 	public function get_weeklyyoyaku_by_post()
 	{
 		$ret = new WeeklyYoyaku();
-		$ret->week_kbn = $this->_week_char;
+		$ret->set_week_kbn_from_char($this->_week_char);
 		$ret->from_time = $this->_from_time->get_value();
 		$ret->to_time = $this->_to_time->get_value();
 		if($this->_is_regular_holiday->exist_value())
