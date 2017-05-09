@@ -24,6 +24,7 @@ function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 			$menu = new StaffSelect();
 			break;
 		case 'day':
+			require_once(dirname(__FILE__)."/../../business/facade/schedule.php");
 			$menu = new DaySelect();
 			break;
 	}

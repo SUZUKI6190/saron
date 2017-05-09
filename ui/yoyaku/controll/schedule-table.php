@@ -1,16 +1,32 @@
 <?php
 namespace ui\yoyaku\controll;
+use business\entity\WeeklyYoyaku;
+
 class Day
 {
 	public $month,$day,$year,$week;
 }
+
+class TimeCell
+{
+    public $enable_yoyaku,$day,$time;
+}
+
+class TimeCol
+{
+    public $time;
+    public $cells = [];
+}
+
 class ScheduleTable
 {
     private $_week_list = [];
 	private $_week_list_each_month = [];
+    private $_weekly_data;
     const week = array("日", "月", "火", "水", "木", "金", "土");
     public function __construct()
 	{
+        $this->_weekly_data = \business\facade\get_weekly_data();
         for($i = 0 ; $i < 7 ; $i++)
 		{
 			$new_day = new Day();
