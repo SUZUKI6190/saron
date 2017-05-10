@@ -7,15 +7,44 @@ class Day
 	public $month,$day,$year,$week;
 }
 
+function time_repeat($f)
+{
+	$date = new \DateTime('9:00');
+	$max_time = new \DateTime('20:00');
+	$interval = new \DateInterval('P0DT30M');
+	while($date < $max_time)
+	{
+		$f($date);
+		$date->add($interval);
+	}
+};
+
 class TimeCell
 {
-    public $enable_yoyaku,$day,$time;
+    public $enable_yoyaku = false;
+	public $day,$time;
 }
 
-class TimeCol
+class TableCol
 {
     public $time;
     public $cells = [];
+
+	private function setup($date)
+	{
+		$new_cell = new TimeCell();
+		$time = $date->format('H:i');
+		$new_cell->time = $time;
+		$this->cells[$time] = $new_cell;
+	}
+
+	public function __construct()
+	{
+		$c = $this->cells;
+		time_repeat(function($d){
+			$this->setup($d);
+		});
+	}
 }
 
 class ScheduleTable
@@ -23,6 +52,7 @@ class ScheduleTable
     private $_week_list = [];
 	private $_week_list_each_month = [];
     private $_weekly_data;
+	private $_col_list = [];
     const week = array("日", "月", "火", "水", "木", "金", "土");
     public function __construct()
 	{
@@ -37,6 +67,7 @@ class ScheduleTable
 			$year_month = date("Y年m月",strtotime("+$i day"));
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
+			$this->_col_list[$new_day->month] = new TableCol();
 		}
     }
     
@@ -96,20 +127,33 @@ class ScheduleTable
 		</thead>
 		<tbody>
 			<?php
-			$date = new \DateTime('9:00');
-			$max_time = new \DateTime('20:00');
-			$interval = new \DateInterval('P0DT30M');
-			while($date < $max_time)
-			{
+			time_repeat(function($date){
+				$str_time = $date->format('H:i');
 			?>
 			<tr>
 				<td class='td_time'>
-				<?php echo $date->format('H:i'); ?>
+				<?php echo $str_time; ?>
 				</td>
+				<?php
+				print_r(count($this->_col_list));
+				print_r("<br>");
+				foreach($this->_col_list as $col)
+				{
+					
+					$cell = $col->cells[$str_time];
+					echo "<td>$cell->enable_yoyaku</td>";
+					?>
+						<td>
+						</td>
+					<?php
+				}
+
+				?>
 			</tr>
 			<?php
-				$date->add($interval);
 			}
+			);
+
 			?>
 		</tbody>
 		</table>
