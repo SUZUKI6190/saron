@@ -1,6 +1,8 @@
 <?php
 namespace ui\yoyaku\controll;
 use business\entity\WeeklyYoyaku;
+require_once(dirname(__FILE__).'/yoyaku-button.php');
+use ui\yoyaku\controll\YoyakuToggle;
 
 class Day
 {
@@ -23,6 +25,15 @@ class TimeCell
 {
     public $enable_yoyaku = false;
 	public $day,$time;
+	public $_button;
+	public function __construct(\DateTime $d)
+	{
+		$this->_button = new YoyakuToggle($d);
+	}
+	public function view()
+	{
+		$this->_button->view();
+	}
 }
 
 class TableCol
@@ -32,7 +43,7 @@ class TableCol
 
 	private function setup($date)
 	{
-		$new_cell = new TimeCell();
+		$new_cell = new TimeCell($date);
 		$time = $date->format('H:i');
 		$new_cell->time = $time;
 		$this->cells[$time] = $new_cell;
@@ -60,17 +71,23 @@ class ScheduleTable
         for($i = 0 ; $i < 7 ; $i++)
 		{
 			$new_day = new Day();
-			$new_day->year = date("Y",strtotime("+$i day"));
-			$new_day->month = date("M",strtotime("+$i day"));
-			$new_day->day = (int)date("d",strtotime("+$i day"));
-			$new_day->week = self::week[date("w",strtotime("+$i day"))];
-			$year_month = date("Y年m月",strtotime("+$i day"));
+			$date = $this->get_start_day($i);
+			$new_day->year = date("Y", $date);
+			$new_day->month = date("M", $date);
+			$new_day->day = (int)date("d", $date);
+			$new_day->week = self::week[date("w", $date)];
+			$year_month = date("Y年m月", $date);
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
 			$this->_col_list[$new_day->week] = new TableCol();
 		}
     }
     
+	private function get_start_day(int $add_day) : int
+	{
+		return strtotime("+$add_day day");
+	}
+
 	private function view_header()
 	{
 ?>
@@ -151,7 +168,9 @@ class ScheduleTable
 							$value = '×';
 							$add_cls = 'empty';
 						}
-						echo "<td><input class='yoyaku_btn $add_cls' type='submit' name='' value='$value'></td>";
+						echo "<td>";
+						$cell->view();
+						echo "</td>";
 					}
 
 					?>

@@ -1,6 +1,7 @@
 <?php
 namespace ui\yoyaku\controll;
 use \ui\util\InputControll;
+
 class YoyakuToggle
 {
     private $_state = false;
