@@ -67,7 +67,7 @@ class ScheduleTable
 			$year_month = date("Y年m月",strtotime("+$i day"));
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
-			$this->_col_list[$new_day->month] = new TableCol();
+			$this->_col_list[$new_day->week] = new TableCol();
 		}
     }
     
@@ -79,12 +79,12 @@ class ScheduleTable
 			日時
 			</th>
 			<?php
-			foreach(array_keys($this->_week_list_each_month) as $w)
+			foreach(array_keys($this->_week_list_each_month) as $key)
 			{
-				$count = count($this->_week_list_each_month[$w]);
+				$count = count($this->_week_list_each_month[$key]);
 				?>
 				<th colspan='<?php echo $count; ?>'>
-				<?php echo $w; ?>
+				<?php echo $key; ?>
 				</th>
 				<?php
 			}
@@ -129,28 +129,34 @@ class ScheduleTable
 			<?php
 			time_repeat(function($date){
 				$str_time = $date->format('H:i');
-			?>
-			<tr>
-				<td class='td_time'>
-				<?php echo $str_time; ?>
-				</td>
-				<?php
-				print_r(count($this->_col_list));
-				print_r("<br>");
-				foreach($this->_col_list as $col)
-				{
-					
-					$cell = $col->cells[$str_time];
-					echo "<td>$cell->enable_yoyaku</td>";
-					?>
-						<td>
-						</td>
-					<?php
-				}
-
 				?>
-			</tr>
-			<?php
+				<tr>
+					<td class='td_time'>
+					<?php echo $str_time; ?>
+					</td>
+					<?php
+			
+					foreach($this->_col_list as $key => $col)
+					{
+						
+						$cell = $col->cells[$str_time];
+						$value = '';
+						$add_cls = '';
+						if($cell->enable_yoyaku)
+						{
+							$value = '◎';
+							$add_cls = 'fillup';
+						}
+						else{
+							$value = '×';
+							$add_cls = 'empty';
+						}
+						echo "<td><input class='yoyaku_btn $add_cls' type='submit' name='' value='$value'></td>";
+					}
+
+					?>
+				</tr>
+				<?php
 			}
 			);
 
