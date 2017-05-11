@@ -44,7 +44,7 @@ class TableCol
 	private function setup($date)
 	{
 		$new_cell = new TimeCell($date);
-		$time = $date->format('H:i');
+		$time = $date->format('H:i:s');
 		$new_cell->time = $time;
 		$this->cells[$time] = $new_cell;
 	}
@@ -67,7 +67,6 @@ class ScheduleTable
     const week = array("日", "月", "火", "水", "木", "金", "土");
     public function __construct()
 	{
-        $this->_weekly_data = \business\facade\get_weekly_data();
         for($i = 0 ; $i < 7 ; $i++)
 		{
 			$new_day = new Day();
@@ -80,6 +79,21 @@ class ScheduleTable
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
 			$this->_col_list[$new_day->week] = new TableCol();
+		}
+
+		//曜日ごとの設定の繁栄
+		$this->_weekly_data = \business\facade\get_weekly_data();
+		foreach($this->_weekly_data as $wd)
+		{
+			$week = $wd->get_week_char();
+			if($week != "祝日")
+			{
+				$col = $this->_col_list[$week];
+
+			}else{
+
+			}
+			
 		}
     }
     
@@ -145,11 +159,11 @@ class ScheduleTable
 		<tbody>
 			<?php
 			time_repeat(function($date){
-				$str_time = $date->format('H:i');
+				$str_time = $date->format('H:i:s');
 				?>
 				<tr>
 					<td class='td_time'>
-					<?php echo $str_time; ?>
+					<?php echo $date->format('H:i'); ?>
 					</td>
 					<?php
 			
