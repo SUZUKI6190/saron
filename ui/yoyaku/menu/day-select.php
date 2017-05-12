@@ -17,10 +17,11 @@ class DaySelect extends YoyakuMenu
 	private $_shcedule_table;
 	private $_week_list = [];
 	private $_week_list_each_month = [];
+	private $_course_id_list;
 	public function __construct()
 	{
-		$course_id_list = explode(',', $_POST["course_id"]);
-		$course_list = \business\facade\get_menu_course_by_idlist($course_id_list);
+		$this->_course_id_list = explode(',', $_POST["course_id"]);
+		$course_list = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
 		$this->course_table = new CourseTable($course_list);
 		$this->_shcedule_table = new ScheduleTable();
 	}
@@ -32,10 +33,16 @@ class DaySelect extends YoyakuMenu
 	
 	public function view()
 	{
+		?>
+		<form method='post' action=''>
+		<input type="hidden" name="course_id" value='<?php echo implode(',' , $this->_course_id_list); ?>'>
+		<?php
 		$this->course_table->view();
 		$yc = YoyakuContext::get_instance();
 		$this->_shcedule_table->view();
-		
+		?>
+		</form>
+		<?php
 	}
 
 }

@@ -25,14 +25,15 @@ class TimeCell
 {
     public $enable_yoyaku = false;
 	public $day,$time;
-	public $_button;
+	public $button;
+
 	public function __construct(\DateTime $d)
 	{
-		$this->_button = new YoyakuToggle($d);
+		$this->button = new YoyakuToggle($d);
 	}
 	public function view()
 	{
-		$this->_button->view();
+		$this->button->view();
 	}
 }
 
@@ -81,15 +82,26 @@ class ScheduleTable
 			$this->_col_list[$new_day->week] = new TableCol();
 		}
 
-		//曜日ごとの設定の繁栄
+		//曜日ごとの設定の反映
 		$this->_weekly_data = \business\facade\get_weekly_data();
 		foreach($this->_weekly_data as $wd)
 		{
 			$week = $wd->get_week_char();
-			if($week != "祝日")
-			{
-				$col = $this->_col_list[$week];
 
+			if($week != "祝日"){
+				$col = $this->_col_list[$week];
+				foreach($col->cells as $key => $value)
+				{
+					$key_time = strtotime($key);
+					if(strtotime($wd->from_time) <= $key_time)
+					{
+						if(strtotime($wd->to_time) >= $key_time)
+						{
+							$col->cells[$key]->button->enable_yoyaku = true;
+						}
+					}
+				}
+				
 			}else{
 
 			}
