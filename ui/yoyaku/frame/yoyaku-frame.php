@@ -8,14 +8,33 @@ abstract class YoyakuMenu
 	public function pre_render()
 	{
 	}
-	protected function get_css_name()
+
+	protected function get_css_list() : array
 	{
 		return [];
 	}
 	
-	protected function get_js_name()
+	protected function get_js_list() : array
 	{
 		return [];
+	}
+
+	public final function output_header(string $css_url, string $js_url, string $css_var, string $js_var)
+	{
+		foreach($this->get_css_list() as $css)
+		{
+		
+			?>
+			<link rel="stylesheet" href="<?php echo $css_url.'/'.$css; ?>?ver=<?php echo $css_var; ?>"  type="text/css" />
+			<?php
+		}
+		
+		foreach($this->get_js_list() as $js)
+		{
+			?>
+			<script type="text/javascript" charset="utf-8" src="<?php echo $js_url.'/'.$js; ?>?ver=<?php echo $js_var; ?>" ></script>
+			<?php
+		}
 	}
 }
 
@@ -50,11 +69,7 @@ class YoyakuFrame
 		<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT"> 
 		<link rel="stylesheet" href="<?php echo $css_dir."common.css?ver=$css_ver"; ?>"  type="text/css"; />
 		<link rel="stylesheet" href="<?php echo $css_dir."yoyaku-footer-form.css?ver=$css_ver"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."menu-table.css?ver=$css_ver"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."course-table.css?ver=$css_ver"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."staff.css?ver=$css_ver"; ?>"  type="text/css" />
-		<link rel="stylesheet" href="<?php echo $css_dir."day-select.css?ver=$css_ver"; ?>"  type="text/css" />
-		<script type="text/javascript" charset="utf-8" src="<?php echo "$js_dir/menu-select.js?ver=$js_ver" ?>" ></script>
+		<?php $this->_main_yoyaku->output_header($css_dir, $js_dir, $css_ver, $js_ver); ?>
 		<meta name="format-detection" content="telephone=no"/>
 		<meta name="msapplication-config" content="none"/>
 		</head>

@@ -20,7 +20,12 @@ class StaffSelect extends YoyakuMenu
 	{
 		return 'http://redear.jp/therapist/';
 	}
-	
+
+	protected function get_css_list() : array
+	{
+		return ["staff.css","course-table.css"];
+	}
+
 	public function __construct()
 	{
 		$yc = YoyakuContext::get_instance();

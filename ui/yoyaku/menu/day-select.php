@@ -25,6 +25,13 @@ class DaySelect extends YoyakuMenu
 		$this->course_table = new CourseTable($course_list);
 		$this->_shcedule_table = new ScheduleTable();
 	}
+
+	protected function get_css_list() : array
+	{
+		return [
+		"day-select.css",
+		"course-table.css"];
+	}
 	
 	public function get_title() : string
 	{

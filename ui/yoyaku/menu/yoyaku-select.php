@@ -18,6 +18,17 @@ class YoyakuSelect extends YoyakuMenu
 	private $_checkbox_id_list = [];
 	const ChkBoxIdListId = 'chk_list_id';
 	const CheckCourseMsg = 'コースを選択してください';
+	
+	protected function get_css_list() : array
+	{
+		return ["menu-table.css"];
+	}
+
+	protected function get_js_list() : array
+	{
+		return ["menu-select.js"];
+	}
+
 	public function __construct()
 	{
 

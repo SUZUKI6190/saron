@@ -29,6 +29,11 @@ class MenuTable
 		}
 	}
 
+	protected function get_css_list() : array
+	{
+		return ["menu-table.css"];
+	}
+	
 	public function get_checkbox_id_list()
 	{
 		return $this->_id_list;
