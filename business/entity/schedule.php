@@ -42,4 +42,19 @@ class WeeklyYoyaku
 	}
 }
 
+/*
+class YoyakuTable
+{
+	public $staff_id;
+	public $yoyaku_date;
+
+	public static function CreateObjectFromWpdb($wpdb) : YoyakuTable
+	{
+		$ret = new YoyakuTable();
+		$ret->staff_id = $wpdb->staff_id;
+		$ret->yoyaku_date = $wpdb->yoyaku_date;
+		return $ret;
+	}
+}
+*/
 ?>

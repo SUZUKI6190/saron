@@ -54,4 +54,44 @@ SQL
 );
 }
 
+/*
+function get_yoyaku_table_by_staffid(string $id) : array
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		select * from yoyaku_table
+		where staff_id = '$id'
+SQL
+);
+}
+
+function delete_yoyaku_table_by_staffid(string $id) : array
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		delete from yoyaku_table
+		where staff_id = '$id'
+SQL
+);
+}
+
+function insert_yoyaku_table($t)
+{
+	global $wpdb;
+	$wpdb->query(
+		<<<SQL
+		insert into yoyaku_table (
+			staff_id,
+			yoyaku_date
+		)values(
+			'$w->staff_id',
+			'$w->yoyaku_date'
+		)
+SQL
+);
+}
+*/
+
 ?>

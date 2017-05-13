@@ -9,8 +9,6 @@ class YoyakuToggle
     private $_date_time;
     private $_input;
 
-    
-
     public function __construct(\DateTime $d)
     {
         $name= $d->format('YMdHi');
@@ -21,7 +19,7 @@ class YoyakuToggle
     {
         if($this->_input->is_submit())
         {
-
+            
         }
     }
 

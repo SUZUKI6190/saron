@@ -122,5 +122,19 @@ SQL
 		)
 SQL
 		);
+
+/*
+	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_table (
+			staff_id bigint(20) UNSIGNED,
+			yoyaku_date DATETIME NOT NULL,
+			PRIMARY KEY(staff_id, yoyaku_date)
+		)
+SQL
+		);
+*/
+
 }
+
+
 ?>
