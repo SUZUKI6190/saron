@@ -13,7 +13,8 @@ use ui\yoyaku\menu\DaySelect;
 function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 {
 	$yc = YoyakuContext::get_instance();
-	
+	$yc->template_page_name = get_query_var( 'pagename' );
+
 	$menu;
 	switch($yc->sub_category)
 	{

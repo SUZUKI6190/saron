@@ -9,6 +9,18 @@ abstract class YoyakuMenu
 	{
 	}
 
+	protected function get_course_id_list() : array
+	{
+		return $_POST['course_id'];
+	}
+
+	protected function view_course_id_hidden()
+	{
+		foreach($this->get_course_id_list() as $course_id){
+			echo "<input type='hidden' name='course_id[]' value='$course_id'>";
+		}
+	}
+
 	protected function get_css_list() : array
 	{
 		return [];

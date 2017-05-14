@@ -8,6 +8,14 @@ class YoyakuContext
 	{
 	}
 
+	public $template_page_name;
+
+	public function get_base_url()
+	{
+		$template_page_name = get_query_var( 'pagename' );
+		return get_bloginfo('url')."/".$this->template_page_name."/yoyaku";
+	}
+	
 	public $yoyaku_id;
 	public $sub_category;
 	

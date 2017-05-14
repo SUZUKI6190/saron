@@ -30,7 +30,7 @@ class StaffSelect extends YoyakuMenu
 	{
 		$yc = YoyakuContext::get_instance();
 		$this->_staff_list = \business\facade\get_staff_all();
-		$this->_course_id_list = $_POST['course_id'];
+		$this->_course_id_list = $this->get_course_id_list();
 
 		$course_list = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
 		$this->course_table = new CourseTable($course_list);
@@ -101,7 +101,7 @@ class StaffSelect extends YoyakuMenu
 				<a href='<?php echo $before_url; ?>' class="back_button" >戻る</a>	
 			</div>
 		</div>
-		<input type="hidden" name="course_id" value='<?php echo implode(',' , $this->_course_id_list); ?>'>
+		<?php $this->view_course_id_hidden(); ?>
 		</form>
 		<?php
 	}

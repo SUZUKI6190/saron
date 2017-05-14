@@ -1,6 +1,7 @@
 <?php
 namespace business\facade;
 use \business\entity\WeeklyYoyaku;
+//use \business\entity\YoyakuTable;
 
 function get_weekly_data() : array
 {

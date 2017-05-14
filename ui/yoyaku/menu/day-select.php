@@ -20,7 +20,7 @@ class DaySelect extends YoyakuMenu
 	private $_course_id_list;
 	public function __construct()
 	{
-		$this->_course_id_list = explode(',', $_POST["course_id"]);
+		$this->_course_id_list = $this->get_course_id_list();
 		$course_list = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
 		$this->course_table = new CourseTable($course_list);
 		$this->_shcedule_table = new ScheduleTable();
@@ -38,18 +38,29 @@ class DaySelect extends YoyakuMenu
 		return "日時選択";
 	}
 	
+
 	public function view()
 	{
+		$yc = YoyakuContext::get_instance();
+		$before_url = $yc->get_base_url()."/"."staff";
+		$this->view_course_id_hidden();
 		?>
 		<form method='post' action=''>
-		<input type="hidden" name="course_id" value='<?php echo implode(',' , $this->_course_id_list); ?>'>
+		<input type="hidden" name="course_id" value='<?php echo $course_id; ?>'>
 		<?php
 		$this->course_table->view();
 		$yc = YoyakuContext::get_instance();
 		$this->_shcedule_table->view();
 		?>
 		</form>
-		<?php
+
+		<form method='post' action='<?php echo $before_url; ?>'>
+			<?php $this->view_course_id_hidden(); ?>
+			<div class='back_button_area'>
+				<input type ='submit' value="戻る" class="back_button">
+			</div>
+		</form>
+	<?php
 	}
 
 }
