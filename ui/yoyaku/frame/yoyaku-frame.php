@@ -9,16 +9,51 @@ abstract class YoyakuMenu
 	{
 	}
 
-	protected function get_course_id_list() : array
+	private $_menu_id;
+	private $_course_id_list;
+
+	protected function get_menu_id()
 	{
-		return $_POST['course_id'];
+		if(isset($_POST['menu_id'])){
+			return $_POST['menu_id'];
+		}else{
+			return "";
+		}
 	}
 
-	protected function view_course_id_hidden()
+	protected function set_menu_id(int $value)
+	{
+		$this->_menu_id = $value;
+	}
+
+	protected function set_course_id_list(array $v)
+	{
+		$this->_course_id_list = $v;
+	}
+
+	protected function get_course_id_list() : array
+	{
+		if(isset($_POST['course_id'])){
+			return $_POST['course_id'];
+		}else{
+			return [];
+		}
+	}
+
+	protected function view_yoyaku_frame_hidden()
 	{
 		foreach($this->get_course_id_list() as $course_id){
 			echo "<input type='hidden' name='course_id[]' value='$course_id'>";
 		}
+
+		$m;
+		if(empty($this->_menu_id)){
+			$m = $this->get_menu_id();
+		}else{
+			$m = $this->_menu_id;
+		}
+
+		echo "<input type='hidden' name='menu_id' value='$m'>";
 	}
 
 	protected function get_css_list() : array
@@ -65,7 +100,7 @@ class YoyakuFrame
 
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
 		$js_dir =  plugins_url()."/saron/js/";
-		$css_ver = '0.04';
+		$css_ver = '0.05';
 		$js_ver = '0.06';
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

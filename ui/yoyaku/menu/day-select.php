@@ -43,7 +43,7 @@ class DaySelect extends YoyakuMenu
 	{
 		$yc = YoyakuContext::get_instance();
 		$before_url = $yc->get_base_url()."/"."staff";
-		$this->view_course_id_hidden();
+		$this->view_yoyaku_frame_hidden();
 		?>
 		<form method='post' action=''>
 		<input type="hidden" name="course_id" value='<?php echo $course_id; ?>'>
@@ -55,7 +55,7 @@ class DaySelect extends YoyakuMenu
 		</form>
 
 		<form method='post' action='<?php echo $before_url; ?>'>
-			<?php $this->view_course_id_hidden(); ?>
+			<?php $this->view_yoyaku_frame_hidden(); ?>
 			<div class='back_button_area'>
 				<input type ='submit' value="戻る" class="back_button">
 			</div>

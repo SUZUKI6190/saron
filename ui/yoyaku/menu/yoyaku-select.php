@@ -52,7 +52,8 @@ class YoyakuSelect extends YoyakuMenu
 			$this->_selected_menu_table = new MenuTable($selected, "selected", 'メニューを選択してください', $this->_form_id);
 			$this->_rest_menu_table = new MenuTable($rest, "rest", '追加メニューご希望の方はメニューを選択してください', $this->_form_id);
 			$this->_checkbox_id_list = array_merge($this->_checkbox_id_list, $this->_selected_menu_table->get_checkbox_id_list());
-			$this->_checkbox_id_list = array_merge($this->_checkbox_id_list, $this->_rest_menu_table->get_checkbox_id_list());		
+			$this->_checkbox_id_list = array_merge($this->_checkbox_id_list, $this->_rest_menu_table->get_checkbox_id_list());
+			$this->set_menu_id((int)$yc->menu_id);	
 		}else{
 			foreach($this->_menu_list as $menu)
 			{
@@ -105,6 +106,7 @@ class YoyakuSelect extends YoyakuMenu
 				<a href='' class="back_button" >戻る</a>	
 				<?php $this->view_next_button(); ?>
 			</div>
+			<?php $this->view_yoyaku_frame_hidden(); ?>
 		</form>	
 	<?php
 	}

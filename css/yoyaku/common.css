@@ -34,7 +34,8 @@ button.next_button
     font-weight:bold;
 }
 
-a.back_button
+a.back_button,
+input.back_button
 {
     color:#2F75B5;
     background-color:#FFF;

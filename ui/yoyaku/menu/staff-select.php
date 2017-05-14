@@ -74,10 +74,12 @@ class StaffSelect extends YoyakuMenu
 	public function view()
 	{
 		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/";
-		$before_url = $_SERVER['HTTP_REFERER'];
+		$yc = YoyakuContext::get_instance();
+		$before_url = $yc->get_base_url()."/menu/".$this->get_menu_id();
 		?>
-		<form id='send_staff' method='post' action='<?php echo $url; ?>'>
 		<div class='staff_wrap'>
+			<form id='send_staff' method='post' action='<?php echo $url; ?>'>
+			<?php $this->view_yoyaku_frame_hidden(); ?>
 			<div class = 'yoyaku_midashi'>
 				<span>セラピストを選択してください</span>
 			</div>
@@ -97,12 +99,18 @@ class StaffSelect extends YoyakuMenu
 			}
 			?>
 			</div>
+			</form>
 			<div class='back_button_area'>
-				<a href='<?php echo $before_url; ?>' class="back_button" >戻る</a>	
+				<form method='post' action='<?php echo $before_url; ?>'>
+					<?php $this->view_yoyaku_frame_hidden(); ?>
+					<div class='back_button_area'>
+						<input type ='submit' value="戻る" class="back_button">
+					</div>
+				</form>
 			</div>
 		</div>
-		<?php $this->view_course_id_hidden(); ?>
-		</form>
+
+
 		<?php
 	}
 }
