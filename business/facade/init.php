@@ -36,7 +36,7 @@ SQL
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			name_last varchar(100) character set utf8,
 			name_first varchar(100) character set utf8,
-			`imgdat` blob,
+			`imgdat` MEDIUMBLOB,
 			`mime` VARCHAR(64),
 			introduce_page_url text character set utf8,
 			PRIMARY KEY(id)
