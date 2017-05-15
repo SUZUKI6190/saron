@@ -80,7 +80,8 @@ class YoyakuSelect extends YoyakuMenu
 	public function view()
 	{
 		$yc = YoyakuContext::get_instance();
-		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/";
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/".$d;
 		?>
 		<input type='hidden' value=<?php echo implode(',', $this->_checkbox_id_list); ?> id='<?php echo self::ChkBoxIdListId; ?>' />
 		<form method='post' action='<?php echo $url; ?>' >

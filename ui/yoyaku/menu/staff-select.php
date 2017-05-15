@@ -73,9 +73,10 @@ class StaffSelect extends YoyakuMenu
 
 	public function view()
 	{
-		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/";
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/".$d;
 		$yc = YoyakuContext::get_instance();
-		$before_url = $yc->get_base_url()."/menu/".$this->get_menu_id();
+		$before_url = $yc->get_base_url()."/menu/".$this->get_menu_id().$d;
 		?>
 		<div class='staff_wrap'>
 			<form id='send_staff' method='post' action='<?php echo $url; ?>'>

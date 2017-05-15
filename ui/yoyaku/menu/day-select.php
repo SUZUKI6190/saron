@@ -42,7 +42,8 @@ class DaySelect extends YoyakuMenu
 	public function view()
 	{
 		$yc = YoyakuContext::get_instance();
-		$before_url = $yc->get_base_url()."/"."staff";
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+		$before_url = $yc->get_base_url()."/"."staff".$d;
 		$this->view_yoyaku_frame_hidden();
 		?>
 		<form method='post' action=''>
