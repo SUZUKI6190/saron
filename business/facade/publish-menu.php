@@ -12,7 +12,8 @@ function get_menu_list($id = "")
 		id,
 		name,
 		description,
-		enable_reservation
+		enable_reservation,
+		updated_at
 		from menu
 SQL;
 
@@ -29,6 +30,7 @@ SQL;
 		$temp->name = $data->name;
 		$temp->description = $data->description;
 		$temp->enable_reservation = $data->enable_reservation;
+		$temp->updated_at = $data->updated_at;
 		return $temp;
 	}, $result);
 

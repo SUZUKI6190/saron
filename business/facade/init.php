@@ -60,6 +60,7 @@ SQL
 			name varchar(100)  character set utf8,
 			description text character set utf8,
 			enable_reservation tinyint UNSIGNED,
+			updated_at timestamp not null default current_timestamp on update current_timestamp,
 			PRIMARY KEY(id)
 		)
 SQL
