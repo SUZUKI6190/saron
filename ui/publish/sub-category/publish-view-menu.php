@@ -53,7 +53,7 @@ class MenuSub extends \ui\frame\SubCategory
 	{
 		$pc = PublishContext::get_instance();
 		$mc = ManageFrameContext::get_instance();
-
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
 		?>
 	
 		<table class="menu_table">
@@ -67,7 +67,7 @@ class MenuSub extends \ui\frame\SubCategory
 				</td>
                 <td class="menu_edit">
 				<?php
-					$url = $mc->get_url()."/publish/menu_regist/".$menu->menu_id;
+					$url = $mc->get_url()."/publish/menu_regist/".$menu->menu_id.$d;
 					?>
 					<a href='<?php echo $url; ?>'>
 					<input type='button' class='manage_button' value='編集' />
