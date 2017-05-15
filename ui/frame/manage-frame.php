@@ -74,7 +74,7 @@
 			$mc = ManageFrameContext::get_instance();
 
 			$main_cate_list = $this->_main_catgory_list;
-
+			$d = "?d=".(new \DateTime())->format("Ymdhis");
 			$main_cate = $mc->get_selected_main_category();
 			?>
 			<div class = "main_header_wrap">
@@ -84,7 +84,7 @@
 				{
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
-					$hb->url = $mc->get_url()."/".$main_category->name."/".$main_category->default_name;
+					$hb->url = $mc->get_url()."/".$main_category->name."/".$main_category->default_name.$d;
 					if($main_category->name == $main_cate->name)
 					{
 						\ui\util\main_header_button($hb->name, $hb->url, 'selected');
@@ -103,7 +103,7 @@
 				
 				foreach($sub_list as $key => $sub_cate)
 				{
-					$url = $mc->get_url()."/".$main_cate->name."/".$sub_cate->get_name();
+					$url = $mc->get_url()."/".$main_cate->name."/".$sub_cate->get_name().$d;
 					\ui\util\link_button($sub_cate->get_title_name(),  $url, "sub_header_button");
 				}
 				?>
