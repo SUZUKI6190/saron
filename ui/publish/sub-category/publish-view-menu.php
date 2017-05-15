@@ -85,7 +85,7 @@ class MenuSub extends \ui\frame\SubCategory
 			<tr>
 				<td class='menu_url_row' colspan="3">
 				<?php
-					$menu_url = $mc->get_url()."/yoyaku/menu/".$menu->menu_id."?updated=".strtotime($menu->updated_at);
+					$menu_url = $mc->get_url()."/yoyaku/menu/".$menu->menu_id.$d;
 				?>
 				<a href = '<?php echo $menu_url; ?>'>
 				<?php echo $menu_url; ?>
