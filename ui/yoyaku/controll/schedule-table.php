@@ -1,6 +1,9 @@
 <?php
 namespace ui\yoyaku\controll;
 use business\entity\WeeklyYoyaku;
+use ui\util\InputControll;
+use ui\util\SubmitButton;
+
 require_once(dirname(__FILE__).'/yoyaku-button.php');
 use ui\yoyaku\controll\YoyakuToggle;
 
@@ -12,7 +15,7 @@ class Day
 function time_repeat($f)
 {
 	$date = new \DateTime('9:00');
-	$max_time = new \DateTime('20:00');
+	$max_time = new \DateTime('21:00');
 	$interval = new \DateInterval('P0DT30M');
 	while($date < $max_time)
 	{
@@ -65,9 +68,17 @@ class ScheduleTable
 	private $_week_list_each_month = [];
     private $_weekly_data;
 	private $_col_list = [];
+	private $_start_day_add = 0;
+	private $_add_day_hidden;
+	private $_next_week_button, $_before_week_button;
+
     const week = array("日", "月", "火", "水", "木", "金", "土");
     public function __construct()
 	{
+		$this->_add_day_hidden = new InputControll("hidden", "add_day_value");
+		$this->_before_week_button = new SubmitButton('before_week', "< 前週", "", "week_change");
+		$this->_next_week_button = new SubmitButton('next_week', "翌週 >", "", "week_change");
+
         for($i = 0 ; $i < 7 ; $i++)
 		{
 			$new_day = new Day();
@@ -111,7 +122,24 @@ class ScheduleTable
     
 	private function get_start_day(int $add_day) : int
 	{
-		return strtotime("+$add_day day");
+		$next_add_value = 0;
+		if($this->_add_day_hidden->exist_value()){
+			$hidden_add_value = (int)($this->_add_day_hidden->get_value());
+		}else{
+			$hidden_add_value = 0;
+		}
+		if($this->_before_week_button->is_submit())
+		{
+			$v = $hidden_add_value - 7;
+			$next_add_value = ($v < 0) ? 0 : $v;
+		}
+		if($this->_next_week_button->is_submit())
+		{
+			$next_add_value = $hidden_add_value + 7;
+		}
+		$this->_start_day_add = $next_add_value;
+		$add = $this->_start_day_add + $add_day;
+		return strtotime("+$add day");
 	}
 
 	private function view_header()
@@ -160,8 +188,24 @@ class ScheduleTable
 <?php
 	}
 
+	public function view_week_button()
+	{
+		?>
+		<div class='week_button_area'>
+			<?php
+			$this->_before_week_button->view();
+			$this->_next_week_button->view();
+			?>
+		</div>
+		<?php
+		$this->_add_day_hidden->set_value($this->_start_day_add);
+		$this->_add_day_hidden->view();
+	}
+
 	public function view()
 	{
+		$this->_add_day_hidden->set_value($this->_start_day_add);
+		$this->_add_day_hidden->view();
 		?>
 		<div class='schedule_select_area'>
 		<table class='schedule_select'>
@@ -178,27 +222,13 @@ class ScheduleTable
 					<?php echo $date->format('H:i'); ?>
 					</td>
 					<?php
-			
 					foreach($this->_col_list as $key => $col)
 					{
-						
 						$cell = $col->cells[$str_time];
-						$value = '';
-						$add_cls = '';
-						if($cell->enable_yoyaku)
-						{
-							$value = '◎';
-							$add_cls = 'fillup';
-						}
-						else{
-							$value = '×';
-							$add_cls = 'empty';
-						}
 						echo "<td>";
 						$cell->view();
-						echo "</td>";
+						echo "</td>";				
 					}
-
 					?>
 				</tr>
 				<?php

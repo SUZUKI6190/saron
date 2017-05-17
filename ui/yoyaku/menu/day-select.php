@@ -30,29 +30,40 @@ class DaySelect extends YoyakuMenu
 	{
 		return [
 		"day-select.css",
-		"course-table.css"];
+		"course-table.css"
+		];
 	}
-	
+
 	public function get_title() : string
 	{
 		return "日時選択";
 	}
-	
 
 	public function view()
 	{
 		$yc = YoyakuContext::get_instance();
 		$d = "?date=".(new \DateTime())->format("Ymdhis");
-		$before_url = $yc->get_base_url()."/"."staff".$d;
-		$this->view_yoyaku_frame_hidden();
+		$before_url = $yc->get_base_url()."/staff".$d;
+		$this->course_table->view();
+	
 		?>
 		<form method='post' action=''>
-		<input type="hidden" name="course_id" value='<?php echo $course_id; ?>'>
+			<?php
+			$this->_shcedule_table->view_week_button();
+			$this->view_yoyaku_frame_hidden();
+			?>
+		</form>
+
 		<?php
-		$this->course_table->view();
-		$yc = YoyakuContext::get_instance();
-		$this->_shcedule_table->view();
+		$next_url =  $yc->get_base_url()."/mailform";
 		?>
+
+		<form method='post' action="<?php echo $next_url; ?>">
+			<?php
+			$this->view_yoyaku_frame_hidden();
+			$yc = YoyakuContext::get_instance();
+			$this->_shcedule_table->view();
+			?>
 		</form>
 
 		<form method='post' action='<?php echo $before_url; ?>'>

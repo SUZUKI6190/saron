@@ -30,17 +30,14 @@ class YoyakuToggle
         if($this->enable_yoyaku){
             $this->_input->set_value("◎");
             $add_css = "enable";
+            $css = "yoyaku_button $add_css";
+            $this->_input->set_style($css);
+            $this->_input->set_attribute($atr);
+            $this->_input->view();
         }else{
-            $this->_input->set_value("×");
-            $add_css = "disable";
-            $atr["disable"] = "disabled";
+            echo "<span>×</span>";
         }
 
-        $css = "yoyaku_button $add_css";
-
-        $this->_input->set_style($css);
-        $this->_input->set_attribute($atr);
-        $this->_input->view();
     }
 }
 
