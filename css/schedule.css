@@ -1,10 +1,60 @@
+div.save_btn_area
+{
+    margin-top:10px;
+    margin-right:10px;
+    text-align: right;
+}
+
+div.input_wrap
+{
+    width:320px;
+    margin: auto;
+    margin-top:10px;
+    border-bottom: solid 1px;
+}
+
 div.week_area
 {
-    display: flex;
-    flex-direction:row;
+    width:98%;
+    margin: auto;
+    display:flex;
+    flex-direction: row;
+    border-top: solid 1px;
+}
+
+span.土
+{
+    color:#2F75B5;
+}
+
+span.日,
+span.祝日
+{
+    color:#eb635e;
 }
 
 div.week_char
 {
+	width: 100px;	
+    height: 100px;    
+    line-height: 100px;
+    font-weight: bold;
+}
 
+div.input_area
+{
+
+}
+
+div.regular_holiday_area,
+div.frome_time,
+div.to_time
+{
+    margin-top: 5px;
+}
+
+span.midasi
+{
+    display: inline-block;
+    width:70px;
 }

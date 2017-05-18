@@ -114,20 +114,21 @@ class WeekInputForm
 		?>
 			<div class='week_area'>
 				<div class='week_char'>
-					<?php echo $this->_week_char; ?>
+					<?php echo "<span class='$this->_week_char'>$this->_week_char</span>"; ?>
 				</div>
-				<div class='regular_holiday_area'>
-					<span>定休日</span>
-					<?php $this->_is_regular_holiday->view(); ?>
-				</div>
-				</br>
-				<div class='frome_time'>
-					<span>開始</span>
-					<?php $this->_from_time->view(); ?>
-				</div>
-				<div class='to_time'>
-					<span>終了</span>
-					<?php $this->_to_time->view(); ?>
+				<div class="input_area">
+					<div class='regular_holiday_area'>
+						<span class='midasi'>定休日:</span>
+						<?php $this->_is_regular_holiday->view(); ?>
+					</div>
+					<div class='frome_time'>
+						<span class='midasi'>開始時刻:</span>
+						<?php $this->_from_time->view(); ?>
+					</div>
+					<div class='to_time'>
+						<span class='midasi'>終了時刻:</span>
+						<?php $this->_to_time->view(); ?>
+					</div>
 				</div>
 			</div>
 		<?php
@@ -184,12 +185,14 @@ class WeeklySub extends \ui\frame\SubCategory
 		<div class='save_btn_area'>
 			<?php $this->_save_button->view(); ?>
 		</div>
+		<div class="input_wrap">
 		<?php
 		foreach($this->_week_form_list as $w)
 		{
 			$w->view();
 		}
 		?>
+		</div>
 		</form>
 		<?php
 	}
