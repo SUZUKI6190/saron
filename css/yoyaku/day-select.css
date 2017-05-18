@@ -81,7 +81,7 @@ table.schedule_select td.cell
     font-size:large;
 }
 
-table.schedule_select td.cell input
+table.schedule_select td.cell button
 {
     display:block;
     font-size:large;
@@ -93,7 +93,7 @@ table.schedule_select td.cell input
     margin:0;
 }
 
-table.schedule_select td.cell input:hover
+table.schedule_select td.cell button:hover
 {
     border:none 0px;
     background-color: #FCE4D6;
