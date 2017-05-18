@@ -15,14 +15,6 @@ class YoyakuToggle
         $this->_input = new InputControll('submit', $name);
     }
 
-    public function save()
-    {
-        if($this->_input->is_submit())
-        {
-            
-        }
-    }
-
     public function view()
     {
         $add_css = "";

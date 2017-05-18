@@ -1,3 +1,22 @@
+div.week_button_area
+{
+    margin-top:60px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+input.week_change
+{
+    color:#fff;
+    background-color: #9BC2E6;
+    border: none;
+    height: 35px;
+    width:80px;
+    font-size: large;
+}
+
 div.schedule_select_area
 {
     margin-top:10px;

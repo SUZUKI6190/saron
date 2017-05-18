@@ -192,10 +192,16 @@ class ScheduleTable
 	{
 		?>
 		<div class='week_button_area'>
+			<div class='before_area'>
 			<?php
 			$this->_before_week_button->view();
+			?>
+			</div>
+			<div class='next_area'>
+			<?php
 			$this->_next_week_button->view();
 			?>
+			</div>
 		</div>
 		<?php
 		$this->_add_day_hidden->set_value($this->_start_day_add);
