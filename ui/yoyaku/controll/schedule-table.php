@@ -146,7 +146,7 @@ class ScheduleTable
 	{
 ?>
 		<tr>
-			<th rowspan="3">
+			<th class="datetime" rowspan="3">
 			日時
 			</th>
 			<?php
@@ -165,7 +165,7 @@ class ScheduleTable
 			<?php
 			foreach($this->_week_list as $w)
 			{
-				echo "<th>$w->day</th>";
+				echo "<th class='$w->week'>$w->day</th>";
 			}
 			?>
 		</tr>
@@ -173,11 +173,7 @@ class ScheduleTable
 			<?php
 			foreach($this->_week_list as $w)
 			{
-			?>
-			<th>
-			(<?php echo $w->week; ?>)
-			</th>
-			<?php	
+			echo "<th class='$w->week'>$w->week</th>";			
 			}
 			?>
 		</tr>
@@ -231,7 +227,7 @@ class ScheduleTable
 					foreach($this->_col_list as $key => $col)
 					{
 						$cell = $col->cells[$str_time];
-						echo "<td>";
+						echo "<td class='cell'>";
 						$cell->view();
 						echo "</td>";				
 					}

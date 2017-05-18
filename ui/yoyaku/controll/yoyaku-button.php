@@ -27,7 +27,7 @@ class YoyakuToggle
             $this->_input->set_attribute($atr);
             $this->_input->view();
         }else{
-            echo "<span>×</span>";
+            echo "<span class='disable_cell'>✕</span>";
         }
 
     }

@@ -34,4 +34,82 @@ table.schedule_select th
 {
     border:solid 1px #d3d3d3;
     border-collapse:collapse;
+
+}
+
+table.schedule_select td
+{
+    padding:0px;
+}
+
+table.schedule_select th
+{
+    color:#806445;
+    width:80px;
+}
+
+th.datetime
+{
+    
+}
+
+td.td_time
+{
+    text-align:right;
+    background-color:#ede4cd;
+    color:#000;
+    font-weight: bold;
+}
+
+table.schedule_select th.日,
+table.schedule_select th.holiday
+{
+    background-color: #FCE4D6;
+    color:#eb635e;
+}
+
+table.schedule_select th.土
+{
+    background-color: #DDEBF7;
+    color:#2F75B5;
+}
+
+table.schedule_select td.cell
+{
+    text-align:center;
+    font-weight: bold;
+    font-size:large;
+}
+
+table.schedule_select td.cell input
+{
+    display:block;
+    font-size:large;
+    width:100%;
+    height: 100%;
+    border:none 0px;
+    background-color: #fff;
+    color:#eb635e;
+    margin:0;
+}
+
+table.schedule_select td.cell input:hover
+{
+    border:none 0px;
+    background-color: #FCE4D6;
+    cursor:pointer;
+     
+}
+
+.disable_cell
+{
+    width:100%;
+    display: inline-block;
+    background-color: #F2F2F2;
+    color:#806445;
+}
+
+div.back_button_area
+{
+    margin-top: 10px;
 }

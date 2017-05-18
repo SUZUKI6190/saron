@@ -69,7 +69,7 @@ class DaySelect extends YoyakuMenu
 		<form method='post' action='<?php echo $before_url; ?>'>
 			<?php $this->view_yoyaku_frame_hidden(); ?>
 			<div class='back_button_area'>
-				<input type ='submit' value="戻る" class="back_button">
+				<input type ='submit' value="< 戻る" class="back_button">
 			</div>
 		</form>
 	<?php
