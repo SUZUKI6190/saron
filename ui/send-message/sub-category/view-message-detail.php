@@ -9,6 +9,7 @@ use ui\util\view_date_input;
 use ui\util\InputBase;
 use \ui\util\SubmitButton;
 use ui\util\InputTextarea;
+use ui\util\RouteSelect;
 use ui\ViewStaff;
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
@@ -67,7 +68,10 @@ abstract class ViewMessageDetail
 		$this->_message = new InputTextarea("msg", $this->_default_msg->message_text);
 		$this->_occupation = new InputBase("text", "occupation", $this->_default_msg->occupation);
 		$this->_vist_num = new InputBase("number", "visit_num", $this->_default_msg->visit_num);
-		$this->_reservation_route = new InputBase("text", "reservation_route", $this->_default_msg->reservation_route);
+		//$this->_reservation_route = new InputBase("text", "reservation_route", $this->_default_msg->reservation_route);
+		$this->_reservation_route = new RouteSelect();
+		$this->_reservation_route->set_name("reservation_route");
+		$this->_reservation_route->set_selected_id($this->_default_msg->reservation_route);
 		$this->_staff = new ViewStaff("staff");
 	}
 	

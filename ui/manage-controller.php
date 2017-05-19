@@ -7,6 +7,8 @@ require_once(dirname(__FILE__).'/frame/manage-frame-context.php');
 require_once(dirname(__FILE__).'/frame/manage-frame.php');
 require_once(dirname(__FILE__).'/frame/result.php');
 require_once('manage-frame-implementer-factory.php');
+require_once(dirname(__FILE__)."/util/control-util.php");
+require_once(dirname(__FILE__)."/util/customer-reservation-route.php");
 use \ui\frame;
 
 class ManageController implements IController

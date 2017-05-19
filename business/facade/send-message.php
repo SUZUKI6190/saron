@@ -65,7 +65,9 @@ function insert_message_setting($msg)
 			message_text,
 			sex,
 			visit_num,
-			staff_id
+			staff_id,
+			occupation,
+			reservation_route
 			)values(
 			'$msg->title',
 			'$msg->birth',
@@ -77,7 +79,9 @@ function insert_message_setting($msg)
 			'$msg->message_text',
 			'$msg->sex',
 			'$msg->visit_num',
-			'$msg->staff_id'
+			'$msg->staff_id',
+			'$msg->occupation',
+			'$msg->reservation_route'
 		)
 SQL
 );
