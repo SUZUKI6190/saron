@@ -6,6 +6,7 @@ require_once(dirname(__FILE__).'/../../business/entity/staff.php');
 require_once('staff-input-form.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
+use \ui\util\ConfirmSubmitButton;
 use \ui\util\InputBase;
 use \ui\frame\Result;
 use ui\frame\ManageFrameContext;
@@ -58,19 +59,36 @@ class StaffViewSub extends \ui\frame\SubCategory
 {
 	private $_staff_list = [];
 	private $_form_id = "staff_form";
-
+	private $_delete_button_list = [];
 	private $_new_staff_button;
 	public function __construct()
 	{
 		$this->_staff_list = \business\facade\get_staff_all();
+		foreach($this->_staff_list as $staff)
+		{
+			$this->_delete_button_list[$staff->id] = new ConfirmSubmitButton($staff->id, "削除", $this->_form_id);
+		}
+
+		$this->deleate_staff();
+
 		$context = StaffContext::get_instance();
-		
 		if(empty($context->staff_id)){
 			$this->_selected_staff = Staff::get_empty_object();
 		}else{
 			$this->_selected_staff = \business\facade\get_staff_byid($context->staff_id);
 		}
 
+	}
+
+	private function deleate_staff()
+	{
+		foreach($this->_delete_button_list as $id => $db)
+		{
+			if($db->is_submit())
+			{
+				\business\facade\delete_staff($id);
+			}
+		}
 	}
 
 	public function view()
@@ -89,6 +107,8 @@ class StaffViewSub extends \ui\frame\SubCategory
 				{
 					$img = new ImageDonwloader('staff', $staff->id);
 					$img->css_class= 'staff_image_view';
+					$name = $staff->name_last.' '.$staff->name_first;
+					$msg = $name."を削除します。よろしいですか？";
 					?>
 					<div class='staff_info'>
 						<div class='image_area'>
@@ -96,12 +116,15 @@ class StaffViewSub extends \ui\frame\SubCategory
 						</div>
 						<div class='name_area'>
 							<?php
-							echo $staff->name_last.' '.$staff->name_first;
+							echo $name;
 							?>
 						</div>
 						<div class='edit_area'>
 							<?php
 							\ui\util\link_button("編集", $url."/".$staff->id);
+							$db = $this->_delete_button_list[$staff->id];
+							$db->set_message($msg);
+							$db->view();
 							?>
 						</div>
 

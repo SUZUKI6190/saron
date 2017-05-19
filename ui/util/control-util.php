@@ -176,10 +176,14 @@ class SubmitButton extends SubmitBase
 class ConfirmSubmitButton extends SubmitBase
 {
 	private $_confirm_msg;
-	public function __construct($name, $text , $form_id, $confirm_msg, $style="")
+	public function __construct($name, $text , $form_id, $confirm_msg = "", $style="")
 	{
 		parent::__construct($name, $text , $form_id, $style);
 		$this->_confirm_msg = $confirm_msg;
+	}
+	public function set_message(string $msg)
+	{
+		$this->_confirm_msg = $msg;
 	}
 	protected function add_view()
 	{
@@ -224,7 +228,6 @@ class InputControll
 	{
 		return $_POST[$this->_name];
 	}
-
 
 	public function exist_value():bool
 	{
