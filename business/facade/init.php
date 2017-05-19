@@ -24,7 +24,7 @@ function init_db()
 			email varbinary(200),
 			enable_dm TINYINT UNSIGNED,
 			next_visit_reservation_date varbinary(200),
-			reservation_route varbinary(500),
+			reservation_route varbinary(50),
 			remarks varbinary(500),
 			PRIMARY KEY(id)
 		)
@@ -95,7 +95,7 @@ SQL
 			visit_num int UNSIGNED NOT NULL,
 			staff_id int UNSIGNED NOT NULL,
 			occupation varbinary(50),
-			reservation_route varbinary(250),
+			reservation_route tinyint UNSIGNED NOT NULL,
 			PRIMARY KEY(id)
 		)
 SQL
