@@ -177,7 +177,7 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->remarks', $passWord)
   )
 SQL;
-	
+
 	dbDelta($strSql);
 }
 

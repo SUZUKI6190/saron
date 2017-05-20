@@ -299,11 +299,19 @@ class NextVisitReservationDateDetailItem extends DetailItem
 
 class ReservationRouteDetailItem extends DetailItem
 {
+	private $_reservation_route;
+	public function __construct(Customer $cd)
+	{
+		parent::__construct($cd);
+		echo $cd->reservation_route;
+		$this->_reservation_route = new \ui\util\RouteSelect();
+		$this->_reservation_route->set_name("reservation_route");
+		$this->_reservation_route->set_selected_id($cd->reservation_route);
+	}
+
 	public function view()
 	{
-		?>
-		<input name='reservation_route' type="text" value='<?php echo $this->_customer_data->reservation_route; ?>' />
-		<?php
+		$this->_reservation_route->view();
 	}
 	public function get_name() : string
 	{
@@ -312,7 +320,7 @@ class ReservationRouteDetailItem extends DetailItem
 	
 	public function save()
 	{
-		$this->_customer_data->reservation_route = $_POST["reservation_route"];
+		$this->_customer_data->reservation_route = $this->_reservation_route->get_value();
 	}
 }
 
