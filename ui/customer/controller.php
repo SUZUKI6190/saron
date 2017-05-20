@@ -3,7 +3,6 @@ namespace ui\customer;
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
 require_once('customerDetailEdit.php');
-require_once('customer-search.php');
 
 class ControlContext
 {

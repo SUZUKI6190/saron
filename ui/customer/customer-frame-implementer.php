@@ -5,7 +5,6 @@ require_once(dirname(__FILE__).'/../../business/entity/customer.php');
 require_once('customerdetail.php');
 require_once('customerDetailNew.php');
 require_once('customerDetailEdit.php');
-require_once('customer-search.php');
 require_once('customer-sub-cotegory.php');
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
 
