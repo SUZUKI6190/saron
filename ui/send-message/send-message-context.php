@@ -44,7 +44,26 @@ class SendMessageContext
 
 	public function set_mail_content ()
 	{
-		$this->_param_set->message->set_value("");
+		$this->_param_set->message->set_value();
+        $this->_param_set->sending_mail->set_value();
+		$this->_param_set->confirm_mail->set_value();
+        $this->_param_set->title->set_value();
+	}
+
+	public function set_customer_criteria()
+	{
+		$this->_param_set->occupation->set_value();
+		$this->_param_set->vist_num ->set_value();
+		$this->_param_set->reservation_route->set_value();
+		$this->_param_set->staff->set_value();
+	}
+
+	public function set_send_criteria()
+	{
+		
+        $this->_param_set->last_visit->set_value();
+        $this->_param_set->next_visit->set_value();
+        $this->_param_set->birth->set_value();
 	}
 
 }
@@ -58,6 +77,7 @@ class SendMessageParamSet
 	public $vist_num;
 	public $reservation_route;
 	public $staff;
+	public $enable_dm;
 
 	public function __construct()
 	{
@@ -72,6 +92,7 @@ class SendMessageParamSet
 		$this->vist_num = new Param("vist_num");
 		$this->reservation_route = new Param("reservation_route");
 		$this->staff = new Param("staff");
+		$this->enable_dm = new Param("enable_dm");
 	}
 }
 

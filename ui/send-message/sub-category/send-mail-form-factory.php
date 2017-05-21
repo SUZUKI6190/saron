@@ -10,9 +10,11 @@ function SendingFormFactory() :SettingForm
 
         switch($param)
         {
-            case SettingForm::TimingKey:
+            case TimingCriteriaSetting::Key:
+                $sf = new TimingCriteriaSetting();
                 break;
-            case SettingForm::CustomerKey:
+            case CustomerCriteriaSetting::Key:
+                $sf = new CustomerCriteriaSetting();
                 break;
         }
     }
