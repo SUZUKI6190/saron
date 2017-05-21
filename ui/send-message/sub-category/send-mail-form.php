@@ -36,6 +36,7 @@ abstract class SettingForm
     protected abstract function view_inner();
     protected abstract function get_title() : string;
     protected abstract function save_post_param();
+    protected abstract function get_page_id() : string;
 }
 
 class ContentSetting extends SettingForm
