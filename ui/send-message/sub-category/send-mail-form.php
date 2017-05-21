@@ -2,6 +2,11 @@
 namespace ui\send_message\sub_category;
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
+use ui\util\InputBase;
+use \ui\util\SubmitButton;
+use ui\util\InputTextarea;
+use ui\util\RouteSelect;
+use ui\ViewStaff;
 
 abstract class SettingForm
 {
@@ -9,7 +14,7 @@ abstract class SettingForm
     protected $_default_msg;
 
     const SendMailSettingKey = "SenddingMailState";
-    
+
     public function set_msg(SendMessage $msg)
     {
         $this->_default_msg = $msg;
@@ -17,12 +22,21 @@ abstract class SettingForm
 
     public function init()
     {
+        $this->init_inner();
+    }
+
+    public function save_param()
+    {
         $this->save_post_param();
     }
 
     public function view()
-    {?>
+    {
+    ?>
     <form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
+        <input type ='hidden' name='<?php echo self::SendMailSettingKey; ?>' value='<?php echo $this->get_page_id(); ?>'>
+        <div class='next_button_area'>
+        </div>
         <div class='page_title_area'>
         <?php $this->get_title(); ?>
         </div>
@@ -34,6 +48,7 @@ abstract class SettingForm
     }
 
     protected abstract function view_inner();
+    protected abstract function init_inner();
     protected abstract function get_title() : string;
     protected abstract function save_post_param();
     protected abstract function get_page_id() : string;
@@ -44,7 +59,7 @@ class ContentSetting extends SettingForm
     private $_message;
     private $_sending_mail, $_confirm_mail;
     private $_title;
-    public function __construct()
+    protected function init_inner()
     {
         $required_attr = [];
 		$required_attr["required"] = "";
@@ -112,7 +127,7 @@ class TimingCriteriaSetting extends SettingForm
 {
     private $_birth, $_last_visit, $_next_visit;
     const Key = "TimingKey";
-    public function __construct()
+    protected function init_inner()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
         $this->_last_visit = new DayCriteriaForm($param->last_visit->get_key(), $this->_default_msg->last_visit);
@@ -171,7 +186,7 @@ class CustomerCriteriaSetting extends SettingForm
 	private $_staff;
     const Key = "CustomerKey";
 
-    public function __construct()
+    protected function init_inner()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
 		$this->_occupation = new InputBase("text", $param->occupation->get_key(), $this->_default_msg->occupation);

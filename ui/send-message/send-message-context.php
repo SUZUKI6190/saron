@@ -5,6 +5,7 @@ use business\entity\SendMessage;
 class SendMessageContext
 {
 	private static $_instance;
+	public $page_no = 0;
 	private $_param_set;
 	private function __construct()
 	{
@@ -13,11 +14,6 @@ class SendMessageContext
 
 	public $message_id;
 	
-	public function get_param_set():SendMessageParamSet
-	{
-		return $this->_param_set;
-	}
-
 	public static function get_instance() : SendMessageContext
 	{
 		if(is_null(self::$_instance))
@@ -25,6 +21,16 @@ class SendMessageContext
 			self::$_instance = new SendMessageContext();
 		}
 		return self::$_instance;
+	}
+
+	public function get_page_no()
+	{
+		return $_POST[];
+	}
+
+	public function get_param_set():SendMessageParamSet
+	{
+		return $this->_param_set;
 	}
 
 	public function get_sendmessage() : SendMessage

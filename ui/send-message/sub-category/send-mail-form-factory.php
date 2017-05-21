@@ -1,4 +1,5 @@
 <?php
+namespace ui\send_message\sub_category;
 
 function SendingFormFactory() :SettingForm
 {

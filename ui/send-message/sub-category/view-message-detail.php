@@ -55,6 +55,8 @@ abstract class ViewMessageDetail
 	private $_default_msg;
 	protected $_save_button;
 	protected $_form_id = "msg_setting_input_form";
+	protected $_input_form;
+
 	public function __construct()
 	{
 		$required_attr = [];
@@ -74,6 +76,10 @@ abstract class ViewMessageDetail
 		$this->_reservation_route->set_name("reservation_route");
 		$this->_reservation_route->set_selected_id($this->_default_msg->reservation_route);
 		$this->_staff = new ViewStaff("staff");
+
+		$this->_input_form = SendingFormFactory();
+		$this->_input_form->set_msg($this->_default_msg);
+		$this->_input_form->init();
 	}
 	
 	public function save()
@@ -105,6 +111,11 @@ abstract class ViewMessageDetail
 	}
 	
 	public function view()
+	{
+		$this->_input_form->view();
+	}
+
+	public function _view()
 	{
 ?>
 		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
