@@ -7,9 +7,16 @@ class SendMessageContext
 	private static $_instance;
 	public $page_no = 0;
 	private $_param_set;
+	const PageNoKey = "PageNO";
+	const ProceedPageKey = "proceed";
+	const PreviousNoKey = "previous";
 	private function __construct()
 	{
 		$this->_param_set = new SendMessageParamSet();
+		if(isset($_POST[self::PageNoKey]))
+		{
+			$this->_page_no = $_POST[self::PageNoKey];
+		}
 	}
 
 	public $message_id;
@@ -25,7 +32,7 @@ class SendMessageContext
 
 	public function get_page_no()
 	{
-		return $_POST[];
+		return $_POST[""];
 	}
 
 	public function get_param_set():SendMessageParamSet

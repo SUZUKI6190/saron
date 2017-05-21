@@ -1,5 +1,6 @@
 <?php
 namespace ui\send_message\sub_category;
+require_once(dirname(__FILE__).'/page-move-button.php');
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
 use ui\util\InputBase;
@@ -12,6 +13,7 @@ abstract class SettingForm
 {
     protected $_form_id = "msg_setting_input_form";
     protected $_default_msg;
+    protected $_nextBtn, $_backBtn;
 
     const SendMailSettingKey = "SenddingMailState";
 
@@ -22,6 +24,10 @@ abstract class SettingForm
 
     public function init()
     {
+        $this->_nextBtn = new PageMoveButton("next", "次へ", 1);
+        $this->_backBtn = new PageMoveButton("back", "前へ", -1);
+        $this->_nextBtn->page_move();
+        $this->_backBtn->page_move();
         $this->init_inner();
     }
 
@@ -34,8 +40,12 @@ abstract class SettingForm
     {
     ?>
     <form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
-        <input type ='hidden' name='<?php echo self::SendMailSettingKey; ?>' value='<?php echo $this->get_page_id(); ?>'>
+        <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $this->get_page_id(); ?>'>
         <div class='next_button_area'>
+        <?php
+        $this->_backBtn->view();
+        $this->_nextBtn->view();
+        ?>
         </div>
         <div class='page_title_area'>
         <?php $this->get_title(); ?>

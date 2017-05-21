@@ -67,7 +67,7 @@ abstract class SubmitBase
 		return $this->_name;
 	}
 	public abstract function view();
-	public function __construct($name, $text , $form_id, $style="")
+	public function __construct($name, $text , $form_id="", $style="")
 	{
 		$this->_name = $name;
 		$this->_text = $text;
