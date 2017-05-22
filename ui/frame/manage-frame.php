@@ -21,14 +21,7 @@
 		{
 			return new Result();
 		}
-		public function get_selected_sub_category()
-		{
-			$mc = ManageFrameContext::get_instance();
-			$sub_list = $this->get_sub_category_list();
-			
-			return $sub_list[$mc->selected_sub_category_name];
-		}
-		
+
 		protected function get_css_list()
 		{
 			return [];
@@ -112,8 +105,8 @@
 
 			<div class ="main_content centering">
 			<?php
-
-			$selected_sub = $this->_frame_implementor->get_selected_sub_category();
+	
+			$selected_sub = $sub_list[$mc->selected_sub_category_name];
 			$result = $selected_sub->get_result();
 			if($result->is_regist_finished()){
 				$selected_sub->regist();

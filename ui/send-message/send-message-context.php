@@ -10,13 +10,35 @@ class SendMessageContext
 	const PageNoKey = "PageNO";
 	const ProceedPageKey = "proceed";
 	const PreviousNoKey = "previous";
+	const BackBtnKey = "back_btn";
+	const NextBtnKey = "next_btn";
+
 	private function __construct()
 	{
 		$this->_param_set = new SendMessageParamSet();
 		if(isset($_POST[self::PageNoKey]))
 		{
-			$this->_page_no = $_POST[self::PageNoKey];
+			$this->page_no = $_POST[self::PageNoKey];
 		}
+
+		if(isset($_POST[self::BackBtnKey]))
+		{
+			$this->page_no -= 1;
+            if($this->page_no < 0)
+            {
+                $this->page_no = 0;
+            }			
+		}
+		if(isset($_POST[self::NextBtnKey]))
+        {
+			$this->page_no += 1;
+            
+            if($this->page_no > 2)
+            {
+                $this->page_no= 2;
+            }
+        }
+
 	}
 
 	public $message_id;
@@ -30,9 +52,9 @@ class SendMessageContext
 		return self::$_instance;
 	}
 
-	public function get_page_no()
+	public function page_update()
 	{
-		return $_POST[""];
+	
 	}
 
 	public function get_param_set():SendMessageParamSet
@@ -51,7 +73,7 @@ class SendMessageContext
 		$msg->confirm_mail = $this->_param_set->confirm_mail->get_value();
 		$msg->message_text = $this->_param_set->message->get_value();
 		$msg->occupation = $this->_param_set->occupation->get_value();
-		$msg->visit_num = $this->_param_set->vist_num->get_value();
+		$msg->visit_num = $this->_param_set->visit_num->get_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
 	}
 
@@ -66,14 +88,13 @@ class SendMessageContext
 	public function set_customer_criteria()
 	{
 		$this->_param_set->occupation->set_value();
-		$this->_param_set->vist_num ->set_value();
+		$this->_param_set->visit_num ->set_value();
 		$this->_param_set->reservation_route->set_value();
 		$this->_param_set->staff->set_value();
 	}
 
 	public function set_send_criteria()
 	{
-		
         $this->_param_set->last_visit->set_value();
         $this->_param_set->next_visit->set_value();
         $this->_param_set->birth->set_value();
@@ -83,11 +104,11 @@ class SendMessageContext
 
 class SendMessageParamSet
 {
-	public $title, $birth, $lase_visit, $next_visit;
+	public $title, $birth, $last_visit, $next_visit;
 	public $sending_mail, $confirm_mail;
 	public $message;
 	public $occupation;
-	public $vist_num;
+	public $visit_num;
 	public $reservation_route;
 	public $staff;
 	public $enable_dm;
@@ -96,13 +117,13 @@ class SendMessageParamSet
 	{
 		$this->title = new Param("title");
 		$this->birth = new Param("birth");
-		$this->lase_visit = new Param("last_visit");
+		$this->last_visit = new Param("last_visit");
 		$this->next_visit = new Param("next_visit");
 		$this->sending_mail = new Param("sending_mail");
 		$this->confirm_mail = new Param("confirm_mail");
 		$this->message = new Param("message");
 		$this->occupation = new Param("occupation");
-		$this->vist_num = new Param("vist_num");
+		$this->visit_num = new Param("vist_num");
 		$this->reservation_route = new Param("reservation_route");
 		$this->staff = new Param("staff");
 		$this->enable_dm = new Param("enable_dm");

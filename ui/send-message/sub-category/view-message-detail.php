@@ -76,7 +76,6 @@ abstract class ViewMessageDetail
 		$this->_reservation_route->set_name("reservation_route");
 		$this->_reservation_route->set_selected_id($this->_default_msg->reservation_route);
 		$this->_staff = new ViewStaff("staff");
-
 		$this->_input_form = SendingFormFactory();
 		$this->_input_form->set_msg($this->_default_msg);
 		$this->_input_form->init();

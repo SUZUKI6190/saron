@@ -20,15 +20,7 @@ class PageMoveButton
 
     public function page_move()
     {
-        if($this->_btn->is_submit())
-        {
-            $sc = SendMessageContext::get_instance();
-            $sc->page_no += $this->_add_value;
-            if($sc->page_no < 0)
-            {
-                $sc->page_no = 0;
-            }
-        }
+
     }
     
     public function view()

@@ -24,8 +24,10 @@ abstract class SettingForm
 
     public function init()
     {
-        $this->_nextBtn = new PageMoveButton("next", "次へ", 1);
-        $this->_backBtn = new PageMoveButton("back", "前へ", -1);
+        $this->_nextBtn = new PageMoveButton(SendMessageContext::NextBtnKey, "次へ", 1);
+        $this->_backBtn = new PageMoveButton(SendMessageContext::BackBtnKey, "前へ", -1);
+        $sc = SendMessageContext::get_instance();
+        $sc->page_update();
         $this->_nextBtn->page_move();
         $this->_backBtn->page_move();
         $this->init_inner();
@@ -38,9 +40,10 @@ abstract class SettingForm
 
     public function view()
     {
+        $sc = SendMessageContext::get_instance();
     ?>
     <form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
-        <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $this->get_page_id(); ?>'>
+        <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $sc->page_no; ?>'>
         <div class='next_button_area'>
         <?php
         $this->_backBtn->view();
