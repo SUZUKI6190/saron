@@ -27,6 +27,10 @@ abstract class SubCategory
 	public function regist()
 	{
 	}
+	public function pre_render()
+	{
+		
+	}
 }
 
 abstract class GamenBase

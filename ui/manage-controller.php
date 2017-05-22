@@ -55,6 +55,8 @@ class ManageController implements IController
 		$js_url = plugins_url("../js" , __FILE__);
 		
 		$cssvar = '0.12';
+		$frame = new \ui\frame\ManageFrame($mc->main_category_list, $inplementer);
+		$frame->pre_render();
 	?>
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
@@ -81,7 +83,7 @@ class ManageController implements IController
 		<div class="main_wrap">
 	<?php
 
-		$frame = new \ui\frame\ManageFrame($mc->main_category_list, $inplementer);
+		
 		$frame->view();
 
 		?>

@@ -56,29 +56,40 @@
 	{
 		private $_frame_implementor;
 		private $_main_catgory_list;
+		private $_selected_sub;
+		private $_main_category;
+		private $_sub_list;
 		public function __construct($main_list, $frame_implementor)
 		{
+			$mc = ManageFrameContext::get_instance();
+
 			$this->_frame_implementor = $frame_implementor;
 			$this->_main_catgory_list = $main_list;
+			$this->_selected_main_category = $mc->get_selected_main_category();
+			$this->_sub_list = $this->_frame_implementor->get_sub_category_list();
+			$this->_selected_sub = $this->_sub_list[$mc->selected_sub_category_name];
+		}
+
+		public function pre_render()
+		{
+			$this->_selected_sub->pre_render();
 		}
 
 		public function view()
 		{
 			$mc = ManageFrameContext::get_instance();
-
-			$main_cate_list = $this->_main_catgory_list;
 			$d = "?d=".(new \DateTime())->format("Ymdhis");
-			$main_cate = $mc->get_selected_main_category();
+
 			?>
 			<div class = "main_header_wrap">
 			<div class="centering">
 				<?php
-				foreach($main_cate_list as $key => $main_category)
+				foreach($this->_main_catgory_list as $key => $main_category)
 				{
 					$hb = new MainHeaderItem();
 					$hb->name = $main_category->text;
 					$hb->url = $mc->get_url()."/".$main_category->name."/".$main_category->default_name.$d;
-					if($main_category->name == $main_cate->name)
+					if($main_category->name ==  $this->_selected_main_category->name)
 					{
 						\ui\util\main_header_button($hb->name, $hb->url, 'selected');
 					}else{
@@ -92,11 +103,10 @@
 			<div class = "sub_header_area">
 				<div class="centering">
 				<?php
-				$sub_list = $this->_frame_implementor->get_sub_category_list();
 				
-				foreach($sub_list as $key => $sub_cate)
+				foreach($this->_sub_list as $key => $sub_cate)
 				{
-					$url = $mc->get_url()."/".$main_cate->name."/".$sub_cate->get_name().$d;
+					$url = $mc->get_url()."/".$this->_selected_main_category->name."/".$sub_cate->get_name().$d;
 					\ui\util\link_button($sub_cate->get_title_name(),  $url, "sub_header_button");
 				}
 				?>
@@ -106,13 +116,12 @@
 			<div class ="main_content centering">
 			<?php
 	
-			$selected_sub = $sub_list[$mc->selected_sub_category_name];
-			$result = $selected_sub->get_result();
+			$result = $this->_selected_sub->get_result();
 			if($result->is_regist_finished()){
-				$selected_sub->regist();
+				$this->_selected_sub->regist();
 				view_result($result);
 			}else{
-				$selected_sub->view();
+				$this->_selected_sub->view();
 				$this->_frame_implementor->view_main();
 			}
 
