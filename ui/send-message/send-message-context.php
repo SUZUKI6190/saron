@@ -147,6 +147,22 @@ class SendMessageParamSet
 		$this->staff = new Param("staff");
 		$this->enable_dm = new Param("enable_dm");
 	}
+
+	public function clear()
+	{
+		$this->title->clear();
+		$this->birth->clear();
+		$this->last_visit->clear();
+		$this->next_visit->clear();
+		$this->sending_mail->clear();
+		$this->confirm_mail->clear();
+		$this->message->clear();
+		$this->occupation->clear();
+		$this->visit_num->clear();
+		$this->reservation_route->clear();
+		$this->staff->clear();
+		$this->enable_dm->clear();
+	}
 }
 
 class Param
@@ -176,6 +192,11 @@ class Param
 	private function get_value() : string
 	{
 		return $_SESSION[$this->key];
+	}
+
+	private function clear()
+	{
+		unset($_SESSION[$this->key]);
 	}
 }
 
