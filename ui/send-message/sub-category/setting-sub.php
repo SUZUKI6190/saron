@@ -18,6 +18,7 @@ class SettingSub extends \ui\frame\SubCategory
 		}else{
 			$this->_view_detail = new ViewMessageDetailEdit();
 		}
+		
 	}
 
 	public function view()

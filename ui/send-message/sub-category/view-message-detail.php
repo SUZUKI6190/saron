@@ -4,7 +4,6 @@ require_once(dirname(__FILE__).'/../../frame/manage-frame.php');
 require_once(dirname(__FILE__)."/../../staff.php");
 require_once(dirname(__FILE__).'/../../../business/entity/send-message.php');
 require_once(dirname(__FILE__).'/../../../business/facade/send-message.php');
-require_once(dirname(__FILE__).'/send-mail-form.php');
 require_once(dirname(__FILE__).'/send-mail-form-factory.php');
 use ui\frame\ManageFrameContext;
 use ui\util\view_date_input;

@@ -33,6 +33,7 @@ class SendMessageContext
                 $this->page_no = 0;
             }			
 		}
+
 		if(isset($_POST[self::NextBtnKey]))
         {
 			$this->page_no += 1;
@@ -55,9 +56,21 @@ class SendMessageContext
 		return self::$_instance;
 	}
 
-	public function page_update()
+	public function set_session(SendMessage $sm)
 	{
-	
+		$this->_param_set->message->set_from_param($sm->message);
+        $this->_param_set->sending_mail->set_from_param($sm->sending_mail);
+		$this->_param_set->confirm_mail->set_from_param($sm->confirm_mail);
+        $this->_param_set->title->set_from_param($sm-title);
+
+		$this->_param_set->occupation->set_from_param($sm->occupation);
+		$this->_param_set->visit_num ->set_from_param($sm->visit_num);
+		$this->_param_set->reservation_route->set_from_param($sm->reservation_route);
+		$this->_param_set->staff->set_from_param($sm->staff);
+
+		$this->_param_set->last_visit->set_from_param($sm->last_visit);
+        $this->_param_set->next_visit->set_from_param($sm->next_visit);
+        $this->_param_set->birth->set_from_param($sm->birth);
 	}
 
 	public function get_param_set():SendMessageParamSet
@@ -67,6 +80,7 @@ class SendMessageContext
 
 	public function get_sendmessage() : SendMessage
 	{
+		$msg = new SendMessage();
 		$msg->id = $this->message_id;
 		$msg->title = $this->_param_set->title->get_value();
 		$msg->birth = $this->_param_set->birth->get_day_num();
@@ -78,29 +92,31 @@ class SendMessageContext
 		$msg->occupation = $this->_param_set->occupation->get_value();
 		$msg->visit_num = $this->_param_set->visit_num->get_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
+
+		return $msg;
 	}
 
 	public function set_mail_content ()
 	{
-		$this->_param_set->message->set_value();
-        $this->_param_set->sending_mail->set_value();
-		$this->_param_set->confirm_mail->set_value();
-        $this->_param_set->title->set_value();
+		$this->_param_set->message->set_session();
+        $this->_param_set->sending_mail->set_session();
+		$this->_param_set->confirm_mail->set_session();
+        $this->_param_set->title->set_session();
 	}
 
 	public function set_customer_criteria()
 	{
-		$this->_param_set->occupation->set_value();
-		$this->_param_set->visit_num ->set_value();
-		$this->_param_set->reservation_route->set_value();
-		$this->_param_set->staff->set_value();
+		$this->_param_set->occupation->set_session();
+		$this->_param_set->visit_num ->set_session();
+		$this->_param_set->reservation_route->set_session();
+		$this->_param_set->staff->set_session();
 	}
 
 	public function set_send_criteria()
 	{
-        $this->_param_set->last_visit->set_value();
-        $this->_param_set->next_visit->set_value();
-        $this->_param_set->birth->set_value();
+        $this->_param_set->last_visit->set_session();
+        $this->_param_set->next_visit->set_session();
+        $this->_param_set->birth->set_session();
 	}
 
 }
@@ -147,7 +163,12 @@ class Param
 		$this->_key = $key;
 	}
 
-	private function set_value()
+	private function set_from_param($v)
+	{
+		$_SESSION[$this->key] = $v;
+	}
+
+	private function set_session()
 	{
 		$_SESSION[$this->key] = $_POST[$this->key];
 	}
