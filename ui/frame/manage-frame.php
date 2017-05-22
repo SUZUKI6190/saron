@@ -70,9 +70,9 @@
 			$this->_selected_sub = $this->_sub_list[$mc->selected_sub_category_name];
 		}
 
-		public function pre_render()
+		public function pre_view()
 		{
-			$this->_selected_sub->pre_render();
+			$this->_selected_sub->pre_view();
 		}
 
 		public function view()

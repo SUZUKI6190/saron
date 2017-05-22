@@ -27,9 +27,9 @@ abstract class SubCategory
 	public function regist()
 	{
 	}
-	public function pre_render()
+	public function pre_view()
 	{
-		
+
 	}
 }
 

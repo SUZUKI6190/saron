@@ -13,6 +13,7 @@ class ViewMessageSub extends \ui\frame\SubCategory
 	{
 		$this->_msg_list = \business\facade\get_message_setting_all();
 	}
+
 	public function view()
 	{
 		$mc = ManageFrameContext::get_instance();
