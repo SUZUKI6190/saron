@@ -15,6 +15,10 @@ class SendMessageContext
 
 	private function __construct()
 	{
+	}
+
+	public function init()
+	{
 		$this->_param_set = new SendMessageParamSet();
 		if(isset($_POST[self::PageNoKey]))
 		{
@@ -38,7 +42,6 @@ class SendMessageContext
                 $this->page_no= 2;
             }
         }
-
 	}
 
 	public $message_id;

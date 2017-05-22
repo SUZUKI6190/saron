@@ -18,11 +18,6 @@ class PageMoveButton
         $this->_btn = new SubmitButton($this->_name, $this->_text);
     }
 
-    public function page_move()
-    {
-
-    }
-    
     public function view()
     {
         $this->_btn->view();

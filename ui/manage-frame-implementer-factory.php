@@ -36,6 +36,7 @@ function create_iplementer($category_name)
 			require_once("send-message/send-message-frame-implementor.php");
 			require_once("send-message/send-message-context.php");
 			$context = SendMessageContext::get_instance();
+			$context->init();
 			$context->message_id = get_query_var( 'id' );
 			return new  send_message\SendMessageImplementor();
 			break;
