@@ -179,22 +179,22 @@ class Param
 		$this->_key = $key;
 	}
 
-	private function set_from_param($v)
+	public function set_from_param($v)
 	{
 		$_SESSION[$this->key] = $v;
 	}
 
-	private function set_session()
+	public function set_session()
 	{
 		$_SESSION[$this->key] = $_POST[$this->key];
 	}
 
-	private function get_value() : string
+	public function get_value() : string
 	{
 		return $_SESSION[$this->key];
 	}
 
-	private function clear()
+	public function clear()
 	{
 		unset($_SESSION[$this->key]);
 	}

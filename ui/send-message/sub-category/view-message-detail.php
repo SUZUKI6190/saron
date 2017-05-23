@@ -60,8 +60,10 @@ abstract class ViewMessageDetail
 	{
 		$required_attr = [];
 		$required_attr["required"] = "";
+		$sc = SendMessageContext::get_instance();
 		$this->_save_button = new SubmitButton("save_button", "保存する", $this->_form_id);
 		$this->_default_msg = $this->create_default_msg();
+		//$this->_default_msg = $sc->get_sendmessage();
 		$this->_title =  new InputBase("text", "mail_title", $this->_default_msg->title, "", $required_attr);
 		$this->_birth= new DayCriteriaForm("birth", $this->_default_msg->birth);
 		$this->_last_visit = new DayCriteriaForm("last_visi", $this->_default_msg->last_visit);
