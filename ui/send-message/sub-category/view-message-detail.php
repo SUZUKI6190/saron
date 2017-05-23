@@ -24,7 +24,7 @@ class DayCriteriaForm
 	public function __construct($name, $day_value)
 	{
 		$this->_name = $name;
-		$this->_day_count = new InputBase("number", $name."_days", $day_value);
+		$this->_day_count = new InputBase("number", $name, $day_value);
 	}
 	
 	public function view()

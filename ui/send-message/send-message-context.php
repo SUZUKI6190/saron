@@ -146,9 +146,9 @@ class SendMessageParamSet
 	public function __construct()
 	{
 		$this->title = new Param("title");
-		$this->birth = new Param("birth");
-		$this->last_visit = new Param("last_visit");
-		$this->next_visit = new Param("next_visit");
+		$this->birth = new Param("birth_days");
+		$this->last_visit = new Param("last_visit_days");
+		$this->next_visit = new Param("next_visit_days");
 		$this->sending_mail = new Param("sending_mail");
 		$this->confirm_mail = new Param("confirm_mail");
 		$this->message = new Param("message");
