@@ -12,11 +12,7 @@ use ui\sales\salesContext;
 class SalesPriceSub extends SalesSubBase
 {
 	private $_form_id = "menu_form";
-	public function __construct()
-	{
-		parent::__construct();
-	}
-	
+
 	protected function create_graph_param(Sales $sales)
 	{
 	}

@@ -10,7 +10,7 @@ use \ui\frame\Result;
 class SettingSub extends \ui\frame\SubCategory
 {
 	private $_view_detail;
-	public function __construct()
+	public function init()
 	{
 		$context = SendMessageContext::get_instance();
 		if(empty($context->message_id)){

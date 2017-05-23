@@ -18,7 +18,7 @@ class MenuNewAddSub extends \ui\frame\SubCategory
 	private $_view_menu_new;
 	private $_regist_menu_button;
 	private $_form_id = "menu_form";
-	public function __construct()
+	public function init()
 	{
 		$this->_view_menu_new = create_publish_edit($this->_form_id);
 	}

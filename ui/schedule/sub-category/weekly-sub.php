@@ -143,7 +143,7 @@ class WeeklySub extends \ui\frame\SubCategory
 	
 	private $_week_form_list = [];
 	private $_save_button;
-	public function __construct()
+	public function init()
 	{		
 		$this->_save_button = new SubmitButton('save', '保存する', $this->_form_id);
 		

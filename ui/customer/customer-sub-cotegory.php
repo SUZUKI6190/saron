@@ -16,6 +16,11 @@ abstract class CustomerSubBase extends \ui\frame\SubCategory
 	{
 		$this->_context = $context;
 	}
+
+	public function init()
+	{
+		
+	}
 }
 
 class SearchSub extends CustomerSubBase

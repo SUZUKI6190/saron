@@ -13,7 +13,10 @@ class ScheduleViewSub extends \ui\frame\SubCategory
 {
 	private $_form_id = "menu_form";
 	
-	
+	public function init()
+	{
+		
+	}
 	public function view()
 	{
 	}

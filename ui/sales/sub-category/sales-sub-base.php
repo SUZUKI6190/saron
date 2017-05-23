@@ -80,7 +80,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 		return get_sales_byday($from, $to);
 	}
 	
-	public function __construct()
+	public function init()
 	{
 		$attribute = [];
 		$attribute['onclick'] = 'SubmitOnClick("month_or_day")';

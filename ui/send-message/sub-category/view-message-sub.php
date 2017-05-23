@@ -10,7 +10,7 @@ class ViewMessageSub extends \ui\frame\SubCategory
 	private $_msg_list = [];
 	private $_form_id = "msg_form";
 	const EditKey = "edit";
-	public function __construct()
+	public function init()
 	{
 		$this->_msg_list = \business\facade\get_message_setting_all();
 	}

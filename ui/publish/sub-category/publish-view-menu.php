@@ -28,7 +28,7 @@ class MenuSub extends \ui\frame\SubCategory
 	private $_view_menu;
 	private $_delete_button_list = [];
 
-	public function __construct()
+	public function init()
 	{
 		foreach(\business\facade\get_menu_list() as $menu)
 		{

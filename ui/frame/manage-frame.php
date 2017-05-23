@@ -115,7 +115,7 @@
 
 			<div class ="main_content centering">
 			<?php
-	
+			$this->_selected_sub->init();
 			$result = $this->_selected_sub->get_result();
 			if($result->is_regist_finished()){
 				$this->_selected_sub->regist();

@@ -15,7 +15,7 @@ use ui\image\ImageDonwloader;
 class StaffAddNewSub extends \ui\frame\SubCategory
 {
 	private $_input_form;
-	public function __construct()
+	public function init()
 	{
 		$context = StaffContext::get_instance();
 		if(empty($context->staff_id)){
@@ -61,7 +61,7 @@ class StaffViewSub extends \ui\frame\SubCategory
 	private $_form_id = "staff_form";
 	private $_delete_button_list = [];
 	private $_new_staff_button;
-	public function __construct()
+	public function init()
 	{
 		$this->_staff_list = \business\facade\get_staff_all();
 		foreach($this->_staff_list as $staff)
