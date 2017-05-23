@@ -73,7 +73,7 @@ class ContentSetting extends SettingForm
 
     protected function save_post_param()
     {
-        $SendMessageContext::get_instance()->get_param_set()->set_mail_content();
+        SendMessageContext::get_instance()->set_mail_content();
 
     }
 }

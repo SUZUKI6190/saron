@@ -49,10 +49,5 @@ class ViewMessageDetailEdit extends ViewMessageDetail
 		return false;
 	}
 
-	protected function create_default_msg() : SendMessage
-	{
-		$context = SendMessageContext::get_instance();
-		return \business\facade\get_message_setting_byid($context->message_id);
-	}
 }
 ?>

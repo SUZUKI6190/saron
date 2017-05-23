@@ -6,6 +6,7 @@ require_once('view-message-detail-edit.php');
 use ui\frame\ManageFrameContext;
 use ui\send_message\SendMessageContext;
 use \ui\frame\Result;
+use business\entity\SendMessage;
 
 class SettingSub extends \ui\frame\SubCategory
 {
@@ -14,6 +15,7 @@ class SettingSub extends \ui\frame\SubCategory
 	{
 		$context = SendMessageContext::get_instance();
 		if(empty($context->message_id)){
+			$context->set_session(SendMessage::get_empty_object());
 			$this->_view_detail = new ViewMessageDetailNew();
 		}else{
 			$this->_view_detail = new ViewMessageDetailEdit();

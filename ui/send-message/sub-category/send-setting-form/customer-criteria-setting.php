@@ -107,7 +107,7 @@ class CustomerCriteriaSetting extends SettingForm
 
     protected function save_post_param()
     {
-        SendMessageContext::get_instance()->get_param_set()->set_customer_criteria();
+        SendMessageContext::get_instance()->set_customer_criteria();
     }
 
 }

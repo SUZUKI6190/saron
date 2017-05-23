@@ -19,7 +19,10 @@ class SendMessageContext
 
 	public function init()
 	{
+		session_start();
+	
 		$this->_param_set = new SendMessageParamSet();
+
 		if(isset($_POST[self::PageNoKey]))
 		{
 			$this->page_no = $_POST[self::PageNoKey];
@@ -58,15 +61,15 @@ class SendMessageContext
 
 	public function set_session(SendMessage $sm)
 	{
-		$this->_param_set->message->set_from_param($sm->message);
+		$this->_param_set->message->set_from_param($sm->message_text);
         $this->_param_set->sending_mail->set_from_param($sm->sending_mail);
 		$this->_param_set->confirm_mail->set_from_param($sm->confirm_mail);
-        $this->_param_set->title->set_from_param($sm-title);
+        $this->_param_set->title->set_from_param($sm->title);
 
 		$this->_param_set->occupation->set_from_param($sm->occupation);
 		$this->_param_set->visit_num ->set_from_param($sm->visit_num);
 		$this->_param_set->reservation_route->set_from_param($sm->reservation_route);
-		$this->_param_set->staff->set_from_param($sm->staff);
+		$this->_param_set->staff->set_from_param($sm->staff_id);
 
 		$this->_param_set->last_visit->set_from_param($sm->last_visit);
         $this->_param_set->next_visit->set_from_param($sm->next_visit);
@@ -83,9 +86,9 @@ class SendMessageContext
 		$msg = new SendMessage();
 		$msg->id = $this->message_id;
 		$msg->title = $this->_param_set->title->get_value();
-		$msg->birth = $this->_param_set->birth->get_day_num();
-		$msg->last_visit = $this->_param_set->last_visit->get_day_num();
-		$msg->next_visit =$this->_param_set->next_visit->get_day_num();
+		$msg->birth = $this->_param_set->birth->get_value();
+		$msg->last_visit = $this->_param_set->last_visit->get_value();
+		$msg->next_visit =$this->_param_set->next_visit->get_value();
 		$msg->sending_mail = $this->_param_set->sending_mail->get_value();
 		$msg->confirm_mail = $this->_param_set->confirm_mail->get_value();
 		$msg->message_text = $this->_param_set->message->get_value();
@@ -96,7 +99,15 @@ class SendMessageContext
 		return $msg;
 	}
 
-	public function set_mail_content ()
+	public function update_session()
+	{
+		foreach($this->_param_set->param_list as $p)
+		{
+			$p->set_session();
+		}
+	}
+
+	public function set_mail_content()
 	{
 		$this->_param_set->message->set_session();
         $this->_param_set->sending_mail->set_session();
@@ -131,7 +142,7 @@ class SendMessageParamSet
 	public $reservation_route;
 	public $staff;
 	public $enable_dm;
-
+	public $param_list = [];
 	public function __construct()
 	{
 		$this->title = new Param("title");
@@ -146,22 +157,29 @@ class SendMessageParamSet
 		$this->reservation_route = new Param("reservation_route");
 		$this->staff = new Param("staff");
 		$this->enable_dm = new Param("enable_dm");
+
+		$this->param_list = [
+			$this->title ,
+			$this->birth ,
+			$this->last_visit,
+			$this->next_visit,
+			$this->sending_mail,
+			$this->confirm_mail,
+			$this->message,
+			$this->occupation,
+			$this->visit_num,
+			$this->reservation_route,
+			$this->staff,
+			$this->enable_dm 
+		];
 	}
 
 	public function clear()
 	{
-		$this->title->clear();
-		$this->birth->clear();
-		$this->last_visit->clear();
-		$this->next_visit->clear();
-		$this->sending_mail->clear();
-		$this->confirm_mail->clear();
-		$this->message->clear();
-		$this->occupation->clear();
-		$this->visit_num->clear();
-		$this->reservation_route->clear();
-		$this->staff->clear();
-		$this->enable_dm->clear();
+		foreach($this->_param_list as $p)
+		{
+			$p->clear();
+		}
 	}
 }
 
@@ -181,22 +199,28 @@ class Param
 
 	public function set_from_param($v)
 	{
-		$_SESSION[$this->key] = $v;
+		$_SESSION[$this->_key] = $v;
 	}
 
 	public function set_session()
 	{
-		$_SESSION[$this->key] = $_POST[$this->key];
+		if(isset($_POST[$this->_key])){
+			$_SESSION[$this->_key] = $_POST[$this->_key];
+		}
 	}
 
 	public function get_value() : string
 	{
-		return $_SESSION[$this->key];
+		if(isset($_SESSION[$this->_key])){
+			return $_SESSION[$this->_key];
+		}else{
+			return "";
+		}
 	}
 
 	public function clear()
 	{
-		unset($_SESSION[$this->key]);
+		unset($_SESSION[$this->_key]);
 	}
 }
 

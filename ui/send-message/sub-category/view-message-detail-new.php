@@ -13,10 +13,5 @@ class ViewMessageDetailNew extends ViewMessageDetail
 	protected function add_button()
 	{
 	}
-	
-	protected function create_default_msg() : SendMessage
-	{
-		return SendMessage::get_empty_object();
-	}
 }
 ?>
