@@ -15,7 +15,9 @@ class SettingSub extends \ui\frame\SubCategory
 	{
 		$context = SendMessageContext::get_instance();
 		if(empty($context->message_id)){
-			$context->set_session(SendMessage::get_empty_object());
+			if(!isset($_POST[ViewMessageDetail::PageFlgKey])){
+				$context->set_session(SendMessage::get_empty_object());
+			}
 			$this->_view_detail = new ViewMessageDetailNew();
 		}else{
 			$this->_view_detail = new ViewMessageDetailEdit();

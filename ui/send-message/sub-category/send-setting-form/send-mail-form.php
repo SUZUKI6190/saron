@@ -11,7 +11,6 @@ use ui\ViewStaff;
 
 abstract class SettingForm
 {
-    protected $_form_id = "msg_setting_input_form";
     protected $_default_msg;
     protected $_nextBtn, $_backBtn;
 
@@ -29,7 +28,6 @@ abstract class SettingForm
         $sc = SendMessageContext::get_instance();
         $this->init_inner();
         $sc->update_session();
-     
     }
 
     public function save_param()
@@ -41,7 +39,6 @@ abstract class SettingForm
     {
         $sc = SendMessageContext::get_instance();
     ?>
-    <form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
         <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $sc->page_no; ?>'>
         <div class='next_button_area'>
         <?php
@@ -55,7 +52,6 @@ abstract class SettingForm
         <div class='input_area'>
         <?php $this->view_inner(); ?>
         </div>
-    </form>
     <?php
     }
 
