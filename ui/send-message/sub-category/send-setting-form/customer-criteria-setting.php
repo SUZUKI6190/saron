@@ -97,7 +97,14 @@ class CustomerCriteriaSetting extends SettingForm
                 <?php
                 $param = SendMessageContext::get_instance()->get_param_set();
                 $name = $param->enable_dm->get_key();
-                echo "<input type='checkbox' name='$name' value='$name'>"
+                $v = $param->enable_dm->get_value();
+                if($v == '1'){
+                    echo "<input type='radio' name='$name' value='1' checked>含む";
+                    echo "<input type='radio' name='$name' value='0' >含まない";
+                }else{
+                    echo "<input type='radio' name='$name' value='1'>含む";
+                    echo "<input type='radio' name='$name' value='0' checked>含まない";
+                }
                 ?>
             </div>
         </div>
@@ -107,7 +114,7 @@ class CustomerCriteriaSetting extends SettingForm
 
     protected function save_post_param()
     {
-        SendMessageContext::get_instance()->set_customer_criteria();
+        SendMessageContext::get_instance()->get_param_set()->set_customer_criteria();
     }
 
 }

@@ -156,7 +156,7 @@ class SendMessageParamSet
 		$this->visit_num = new Param("vist_num");
 		$this->reservation_route = new Param("reservation_route");
 		$this->staff = new Param("staff");
-		$this->enable_dm = new Param("enable_dm");
+		$this->enable_dm = new RadioParam("enable_dm");
 
 		$this->param_list = [
 			$this->title ,
@@ -185,7 +185,7 @@ class SendMessageParamSet
 
 class Param
 {
-	private $_key;
+	protected $_key;
 
 	public function get_key():string
 	{
@@ -221,6 +221,22 @@ class Param
 	public function clear()
 	{
 		unset($_SESSION[$this->_key]);
+	}
+}
+
+class RadioParam extends Param
+{
+	
+	public function get_key():string
+	{
+		return $this->_key."[]";
+	}
+
+	public function set_session()
+	{
+		if(isset($_POST[$this->_key])){
+			$_SESSION[$this->_key] = $_POST[$this->_key][0];
+		}
 	}
 }
 
