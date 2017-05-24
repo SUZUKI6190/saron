@@ -39,21 +39,43 @@ class CustomerCriteriaSetting extends SettingForm
         return self::Key;
     }
 
+    const sex_list = [
+    'None' => "指定なし",
+    'M' => "男性",
+    'F' => "女性"
+    ];
+
+    const dm_list = [
+    '0' => "指定なし",
+    '1' => "可",
+    '2' => "不可"
+    ];
+    
+    protected function view_radio($name, $selected_name, $d)
+    {
+        foreach($d as $key => $text)
+        {
+            
+            if($key  == $selected_name){
+                echo "<input type='radio' name='$name' value='$key' checked>$text";
+            }else{
+                echo "<input type='radio' name='$name' value='$key'>$text";
+            }
+        }
+    }
     protected function view_inner()
     {
+        $param = SendMessageContext::get_instance()->get_param_set();
     ?>
         <div class="line">
             <h2>
             性別
             </h2>
             <div class=""：>
-
-            <select name="sex" id="sex">
-                <option value='None'></option>
-                <option value='M'>男性</option>
-                <option value='F'>女性</option>
-            </select>
-    
+            <?php
+            $this->view_radio($param->sex->get_key(), $param->sex->get_value(), self::sex_list);
+            ?>
+          
             </div>
         </div>
         
@@ -86,35 +108,23 @@ class CustomerCriteriaSetting extends SettingForm
             担当スタッフ
             </h2>
             <div class="">
-                <?php $this->_staff->view_staff_select(); ?>
+                <?php $this->_staff->view_staff_select($param->staff->get_value()); ?>
             </div>
         </div>
         <div class="line">
             <h2>
-            DM不可を除く
+            DM
             </h2>
             <div class="">
                 <?php
-                $param = SendMessageContext::get_instance()->get_param_set();
                 $name = $param->enable_dm->get_key();
                 $v = $param->enable_dm->get_value();
-                if($v == '1'){
-                    echo "<input type='radio' name='$name' value='1' checked>含む";
-                    echo "<input type='radio' name='$name' value='0' >含まない";
-                }else{
-                    echo "<input type='radio' name='$name' value='1'>含む";
-                    echo "<input type='radio' name='$name' value='0' checked>含まない";
-                }
+                $this->view_radio( $name ,  $v , self::dm_list);
                 ?>
             </div>
         </div>
 
     <?php
-    }
-
-    protected function save_post_param()
-    {
-        SendMessageContext::get_instance()->get_param_set()->set_customer_criteria();
     }
 
 }

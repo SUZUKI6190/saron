@@ -54,11 +54,6 @@ class TimingCriteriaSetting extends SettingForm
     <?php
     }
 
-    protected function save_post_param()
-    {
-        SendMessageContext::get_instance()->set_send_criteria();
-    }
-
 }
 
 ?>

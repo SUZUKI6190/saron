@@ -30,11 +30,6 @@ abstract class SettingForm
         $sc->update_session();
     }
 
-    public function save_param()
-    {
-        $this->save_post_param();
-    }
-
     public function view()
     {
         $sc = SendMessageContext::get_instance();
@@ -58,7 +53,6 @@ abstract class SettingForm
     protected abstract function view_inner();
     protected abstract function init_inner();
     protected abstract function get_title() : string;
-    protected abstract function save_post_param();
     protected abstract function get_page_id() : string;
 }
 ?>

@@ -66,6 +66,8 @@ class SendMessageContext
 		$this->_param_set->confirm_mail->set_from_param($sm->confirm_mail);
         $this->_param_set->title->set_from_param($sm->title);
 
+		$this->_param_set->sex->set_from_param($sm->sex);
+		$this->_param_set->enable_dm->set_from_param($sm->enable_dm);
 		$this->_param_set->occupation->set_from_param($sm->occupation);
 		$this->_param_set->visit_num ->set_from_param($sm->visit_num);
 		$this->_param_set->reservation_route->set_from_param($sm->reservation_route);
@@ -92,6 +94,8 @@ class SendMessageContext
 		$msg->sending_mail = $this->_param_set->sending_mail->get_value();
 		$msg->confirm_mail = $this->_param_set->confirm_mail->get_value();
 		$msg->message_text = $this->_param_set->message->get_value();
+		$msg->sex = $this->_param_set->sex->get_value();
+		$msg->enable_dm = $this->_param_set->enable_dm->get_value();
 		$msg->occupation = $this->_param_set->occupation->get_value();
 		$msg->visit_num = $this->_param_set->visit_num->get_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
@@ -107,28 +111,6 @@ class SendMessageContext
 		}
 	}
 
-	public function set_mail_content()
-	{
-		$this->_param_set->message->set_session();
-        $this->_param_set->sending_mail->set_session();
-		$this->_param_set->confirm_mail->set_session();
-        $this->_param_set->title->set_session();
-	}
-
-	public function set_customer_criteria()
-	{
-		$this->_param_set->occupation->set_session();
-		$this->_param_set->visit_num ->set_session();
-		$this->_param_set->reservation_route->set_session();
-		$this->_param_set->staff->set_session();
-	}
-
-	public function set_send_criteria()
-	{
-        $this->_param_set->last_visit->set_session();
-        $this->_param_set->next_visit->set_session();
-        $this->_param_set->birth->set_session();
-	}
 
 }
 
@@ -142,6 +124,7 @@ class SendMessageParamSet
 	public $reservation_route;
 	public $staff;
 	public $enable_dm;
+	public $sex;
 	public $param_list = [];
 	public function __construct()
 	{
@@ -155,6 +138,7 @@ class SendMessageParamSet
 		$this->occupation = new Param("occupation");
 		$this->visit_num = new Param("vist_num");
 		$this->reservation_route = new Param("reservation_route");
+		$this->sex = new RadioParam("sex");
 		$this->staff = new Param("staff");
 		$this->enable_dm = new RadioParam("enable_dm");
 
@@ -169,6 +153,7 @@ class SendMessageParamSet
 			$this->occupation,
 			$this->visit_num,
 			$this->reservation_route,
+			$this->sex,
 			$this->staff,
 			$this->enable_dm 
 		];
