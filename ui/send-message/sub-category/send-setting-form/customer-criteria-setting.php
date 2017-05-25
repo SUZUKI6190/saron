@@ -16,8 +16,7 @@ class CustomerCriteriaSetting extends SettingForm
 	private $_vist_num;
 	private $_reservation_route;
 	private $_staff;
-    const Key = "CustomerKey";
-
+ 
     protected function init_inner()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
@@ -27,18 +26,16 @@ class CustomerCriteriaSetting extends SettingForm
 		$this->_reservation_route->set_name($param->reservation_route->get_key());
 		$this->_reservation_route->set_selected_id($this->_default_msg->reservation_route);
 		$this->_staff = new ViewStaff($param->staff->get_key());
+
+        $sc = SendMessageContext::get_instance();       
+        $sc->enable_save_btn();
     }
 
     protected function get_title() : string
     {
         return "お客様の絞り込み";
     }
-
-    protected  function get_page_id() : string
-    {
-        return self::Key;
-    }
-
+ 
     const sex_list = [
     'None' => "指定なし",
     'M' => "男性",

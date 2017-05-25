@@ -33,8 +33,12 @@ abstract class SettingForm
     public function view()
     {
         $sc = SendMessageContext::get_instance();
+        $sc = SendMessageContext::get_instance();
+		$state = $sc->save_btn_state;
+        
     ?>
         <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $sc->page_no; ?>'>
+        <input type ='hidden' name='<?php echo $state->get_key(); ?>' value='<?php echo $state->get_value();?>'>
         <div class='next_button_area'>
         <?php
         $this->_backBtn->view();
@@ -53,6 +57,5 @@ abstract class SettingForm
     protected abstract function view_inner();
     protected abstract function init_inner();
     protected abstract function get_title() : string;
-    protected abstract function get_page_id() : string;
 }
 ?>

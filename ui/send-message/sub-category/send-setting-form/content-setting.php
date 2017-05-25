@@ -30,11 +30,6 @@ class ContentSetting extends SettingForm
         return "メール内容設定";
     }
 
-    protected  function get_page_id() : string
-    {
-        return "";
-    }
-
     protected function view_inner()
     {
     ?>

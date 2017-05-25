@@ -15,7 +15,7 @@ class SettingSub extends \ui\frame\SubCategory
 	{
 		$context = SendMessageContext::get_instance();
 		if(empty($context->message_id)){
-			if(!isset($_POST[ViewMessageDetail::PageFlgKey])){
+			if(!$context->save_btn_state->isset()){
 				$empty = SendMessage::get_empty_object();
 				$empty->sex = "None";
 				$empty->enable_dm = "0";
@@ -24,6 +24,7 @@ class SettingSub extends \ui\frame\SubCategory
 			$this->_view_detail = new ViewMessageDetailNew();
 		}else{
 			$this->_view_detail = new ViewMessageDetailEdit();
+			$context->enable_save_btn();			
 		}
 		
 	}

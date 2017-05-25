@@ -5,8 +5,12 @@ use business\entity\SendMessage;
 class SendMessageContext
 {
 	private static $_instance;
-	public $page_no = 0;
+	public  $page_no = 0;
+	public $message_id;
+	const MaxPageNo = 2;
+	private $_page_state = 0;
 	private $_param_set;
+	public $save_btn_state;
 	const PageNoKey = "PageNO";
 	const ProceedPageKey = "proceed";
 	const PreviousNoKey = "previous";
@@ -15,6 +19,16 @@ class SendMessageContext
 
 	private function __construct()
 	{
+		$this->save_btn_state = new ManagePost("SaveBtn");
+	}
+	
+	public static function get_instance() : SendMessageContext
+	{
+		if(is_null(self::$_instance))
+		{
+			self::$_instance = new SendMessageContext();
+		}
+		return self::$_instance;
 	}
 
 	public function init()
@@ -23,11 +37,49 @@ class SendMessageContext
 	
 		$this->_param_set = new SendMessageParamSet();
 
+		$this->save_btn_state->get_post_value();
+
 		if(isset($_POST[self::PageNoKey]))
 		{
 			$this->page_no = $_POST[self::PageNoKey];
 		}
 
+		$this->manage_page();
+
+	}
+
+	public function get_page_no()
+	{
+		return $this->page_no;
+	}
+
+	public function enable_save_btn()
+	{
+		 $this->save_btn_state->set_value("1");
+	}
+
+	public function is_enable_save_btn():bool
+	{
+		return $this->save_btn_state->get_value() == 1;
+	}
+
+	public function is_max_page() : bool
+	{
+		return $this->page_no == self::MaxPageNo;
+	}
+
+	public function is_min_page() : bool
+	{
+		return $this->page_no == 0;
+	}
+
+	public function get_page_state()
+	{
+		return $this->_page_state;
+	}
+
+	private function manage_page()
+	{
 		if(isset($_POST[self::BackBtnKey]))
 		{
 			$this->page_no -= 1;
@@ -41,22 +93,11 @@ class SendMessageContext
         {
 			$this->page_no += 1;
             
-            if($this->page_no > 2)
+            if($this->page_no > self::MaxPageNo)
             {
-                $this->page_no= 2;
+                $this->page_no= self::MaxPageNo;
             }
         }
-	}
-
-	public $message_id;
-	
-	public static function get_instance() : SendMessageContext
-	{
-		if(is_null(self::$_instance))
-		{
-			self::$_instance = new SendMessageContext();
-		}
-		return self::$_instance;
 	}
 
 	public function set_session(SendMessage $sm)
@@ -87,18 +128,21 @@ class SendMessageContext
 	{
 		$msg = new SendMessage();
 		$msg->id = $this->message_id;
-		$msg->title = $this->_param_set->title->get_value();
-		$msg->birth = $this->_param_set->birth->get_value();
-		$msg->last_visit = $this->_param_set->last_visit->get_value();
-		$msg->next_visit =$this->_param_set->next_visit->get_value();
+
 		$msg->sending_mail = $this->_param_set->sending_mail->get_value();
 		$msg->confirm_mail = $this->_param_set->confirm_mail->get_value();
 		$msg->message_text = $this->_param_set->message->get_value();
+		$msg->title = $this->_param_set->title->get_value();
+
 		$msg->sex = $this->_param_set->sex->get_value();
 		$msg->enable_dm = $this->_param_set->enable_dm->get_value();
 		$msg->occupation = $this->_param_set->occupation->get_value();
 		$msg->visit_num = $this->_param_set->visit_num->get_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
+
+		$msg->birth = $this->_param_set->birth->get_value();
+		$msg->last_visit = $this->_param_set->last_visit->get_value();
+		$msg->next_visit =$this->_param_set->next_visit->get_value();
 
 		return $msg;
 	}
@@ -111,6 +155,46 @@ class SendMessageContext
 		}
 	}
 
+
+}
+
+class ManagePost
+{
+	private $_key;
+	private $_value;
+	public function __construct(string $key)
+	{
+		$this->_key = $key;
+	}
+
+	public function get_post_value()
+	{
+		if(isset($_POST[$this->_key])){
+			$this->_value = $_POST[$this->_key];
+		}else{
+			$this->_value = "";
+		}
+	}
+
+	public function isset()
+	{
+		return isset($_POST[$this->_key]);
+	}
+
+	public function set_value($v)
+	{
+		$this->_value = $v;
+	}
+
+	public function get_value(): string
+	{
+		return $this->_value;
+	}
+
+	public function get_key():string
+	{
+		return $this->_key;
+	}
 
 }
 

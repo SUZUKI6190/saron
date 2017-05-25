@@ -11,7 +11,6 @@ use ui\ViewStaff;
 class TimingCriteriaSetting extends SettingForm
 {
     private $_birth, $_last_visit, $_next_visit;
-    const Key = "TimingKey";
     protected function init_inner()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
@@ -23,11 +22,6 @@ class TimingCriteriaSetting extends SettingForm
     protected function get_title() : string
     {
         return "メッセージ配信のタイミング";
-    }
-
-    protected  function get_page_id() : string
-    {
-        return self::Key;
     }
 
     protected function view_inner()

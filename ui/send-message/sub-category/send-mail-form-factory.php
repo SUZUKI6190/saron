@@ -10,7 +10,7 @@ use ui\send_message\SendMessageContext;
 function SendingFormFactory() :SettingForm
 {
     $sc = SendMessageContext::get_instance();
-    $page_no = (int)$sc->page_no;
+    $page_no = (int)$sc->get_page_no();
 
     $form_list = [
         function () { return new ContentSetting();},

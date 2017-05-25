@@ -49,7 +49,6 @@ abstract class ViewMessageDetail
 	protected $_save_button;
 	protected $_form_id = "msg_setting_input_form";
 	protected $_input_form;
-	const PageFlgKey = "MoveSettingForm";
 
 	public function __construct()
 	{
@@ -80,15 +79,17 @@ abstract class ViewMessageDetail
 	
 	public function view()
 	{
+		$sc = SendMessageContext::get_instance()
 		?>
 		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
-		<input type ='hidden' name='<?php echo self::PageFlgKey; ?>' value='0'>
 		<?php
 		$this->_input_form->view();
 		?>
 		<div class="msg_form_button">
 			<?php
-			$this->_save_button->view();
+			if($sc->is_enable_save_btn()){
+				$this->_save_button->view();
+			}
 			$this->add_button();
 			?>
 		</div>
