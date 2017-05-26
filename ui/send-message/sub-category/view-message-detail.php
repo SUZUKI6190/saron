@@ -54,7 +54,7 @@ abstract class ViewMessageDetail
 		$sc = SendMessageContext::get_instance();
 		$d = "?d=".(new \DateTime())->format("Ymdhis");
 		?>
-		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post" action='<?php echo "./$d" ?>'>
+		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post" action='<?php echo "$d" ?>'>
 		<?php
 		$this->_input_form->view();
 		?>
