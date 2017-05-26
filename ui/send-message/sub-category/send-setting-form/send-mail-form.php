@@ -33,17 +33,26 @@ abstract class SettingForm
     public function view()
     {
         $sc = SendMessageContext::get_instance();
-        $sc = SendMessageContext::get_instance();
 		$state = $sc->save_btn_state;
         
     ?>
         <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $sc->page_no; ?>'>
         <input type ='hidden' name='<?php echo $state->get_key(); ?>' value='<?php echo $state->get_value();?>'>
-        <div class='next_button_area'>
-        <?php
-        $this->_backBtn->view();
-        $this->_nextBtn->view();
-        ?>
+        <div class='move_btn_area'>
+            <div class='next_btn_area'>
+                <?php
+                if(!$sc->is_min_page()){
+                    $this->_backBtn->view();
+                }
+                ?>
+            </div>
+            <div class='back_btn_area'>
+                <?php
+                if(!$sc->is_max_page()){
+                    $this->_nextBtn->view();
+                }
+                ?>
+            </div>
         </div>
         <div class='page_title_area'>
         <?php $this->get_title(); ?>

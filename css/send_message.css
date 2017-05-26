@@ -26,8 +26,26 @@
     width: 50px;
 }
 
+.line input[type='email']
+{
+    width: 100%;
+    max-width: 200px;
+}
+
+.line.title input
+{
+    max-width: 300px;
+}
+
 .line textarea
 {
     width:95%;
     height:100px;
+}
+
+.move_btn_area
+{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
 }

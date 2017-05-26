@@ -33,13 +33,13 @@ class ContentSetting extends SettingForm
     protected function view_inner()
     {
     ?>
-        <div class="line">
+        <div class="line title">
             <h2>
             メールタイトル
             </h2>
             <?php $this->_title->view(); ?>
         </div>
-        <div class="line">
+        <div class="line message">
             <h2>
             メッセージ内容
             </h2>
@@ -47,7 +47,7 @@ class ContentSetting extends SettingForm
                 <?php $this->_message->view(); ?>
             </div>
         </div>
-        <div class="line">
+        <div class="line send_mail">
             <h2>
             送信元のメールアドレス
             </h2>
@@ -55,7 +55,7 @@ class ContentSetting extends SettingForm
                 <?php $this->_sending_mail->view(); ?>
             </div>
         </div>
-        <div class="line">
+        <div class="line confirm_mail">
             <h2>
             送信後の確認メールアドレス
             </h2>
