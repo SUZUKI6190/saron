@@ -139,6 +139,7 @@ class SendMessageContext
 		$msg->occupation = $this->_param_set->occupation->get_value();
 		$msg->visit_num = $this->_param_set->visit_num->get_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
+		$msg->staff_id = $this->_param_set->staff->get_value();
 
 		$msg->birth = $this->_param_set->birth->get_value();
 		$msg->last_visit = $this->_param_set->last_visit->get_value();
