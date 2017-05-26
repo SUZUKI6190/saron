@@ -32,6 +32,8 @@ class SettingSub extends \ui\frame\SubCategory
 	public function view()
 	{
 		$this->_view_detail->view();
+		//print_r($_POST);
+		//print_r($_SESSION);
 	}
 
 	public function get_result() : Result

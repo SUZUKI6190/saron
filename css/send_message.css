@@ -13,3 +13,15 @@
 {
     text-align:right;
 }
+
+.day_num_area
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.day_num_area input[type='number']
+{
+    height: 1em;
+    width: 50px;
+}

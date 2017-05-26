@@ -213,9 +213,9 @@ class SendMessageParamSet
 	public function __construct()
 	{
 		$this->title = new Param("title");
-		$this->birth = new Param("birth_days");
-		$this->last_visit = new Param("last_visit_days");
-		$this->next_visit = new Param("next_visit_days");
+		$this->birth = new DaySelectParam("birth_days");
+		$this->last_visit = new DaySelectParam("last_visit_days");
+		$this->next_visit = new DaySelectParam("next_visit_days");
 		$this->sending_mail = new Param("sending_mail");
 		$this->confirm_mail = new Param("confirm_mail");
 		$this->message = new Param("message");
@@ -307,6 +307,48 @@ class RadioParam extends Param
 			$_SESSION[$this->_key] = $_POST[$this->_key][0];
 		}
 	}
+}
+
+class DaySelectParam extends Param
+{
+	public function get_radio_key(): string
+	{
+		return $this->_key."_select[]";
+	}
+
+	public function get_value() : string
+	{
+		if(isset($_SESSION[$this->_key])){
+			return $_SESSION[$this->_key];
+		}else{
+			return "";
+		}
+	}
+
+	public function set_session()
+	{
+		$rk =  $this->_key."_select";
+		if(!isset($_POST[$rk]))
+		{
+			return;
+		}
+		$selected_value = $_POST[$rk][0];
+		if(isset($_POST[$this->_key])){
+			switch($selected_value)
+			{
+				case "日前":
+					$_SESSION[$this->_key] = -(int)$_POST[$this->_key];
+					break;
+				case "日後":
+					$_SESSION[$this->_key] = (int)$_POST[$this->_key];
+					break;
+				default:
+					$_SESSION[$this->_key] = 0;
+					break;
+			}
+		}
+	}
+	
 }
 
 ?>

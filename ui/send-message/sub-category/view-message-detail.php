@@ -14,34 +14,6 @@ use ui\util\RouteSelect;
 use ui\ViewStaff;
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
-const setting_input_div_name = "setting_input";
-
-class DayCriteriaForm
-{
-	private $_name;
-	private $_from;
-	private $_day_count;
-	public function __construct($name, $day_value)
-	{
-		$this->_name = $name;
-		$this->_day_count = new InputBase("number", $name, $day_value);
-	}
-	
-	public function view()
-	{?>
-		<div class='<?php echo $setting_input_div_name ?>'>
-			<?php $this->_day_count->view(); ?>
-			日前に自動配信
-		</div>
-	<?php
-	}
-
-	public function get_day_num() : string
-	{
-		return $this->_day_count->get_value();
-	}
-	
-}
 
 abstract class ViewMessageDetail
 {
@@ -79,9 +51,10 @@ abstract class ViewMessageDetail
 	
 	public function view()
 	{
-		$sc = SendMessageContext::get_instance()
+		$sc = SendMessageContext::get_instance();
+		$d = "?d=".(new \DateTime())->format("Ymdhis");
 		?>
-		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post">
+		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post" action='<?php echo "./$d" ?>'>
 		<?php
 		$this->_input_form->view();
 		?>
