@@ -83,7 +83,7 @@ SQL
 	dbDelta(<<<SQL
 		CREATE TABLE sending_message (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
-			title varchar(100),
+			title text character set utf8,
 			birth  int NOT NULL,
 			last_visit int NOT NULL,
 			next_visit int NOT NULL,
@@ -94,7 +94,7 @@ SQL
 			sex varchar(10),
 			visit_num int UNSIGNED NOT NULL,
 			staff_id int UNSIGNED NOT NULL,
-			occupation text,
+			occupation text character set utf8,
 			reservation_route tinyint UNSIGNED NOT NULL,
 			PRIMARY KEY(id)
 		)
