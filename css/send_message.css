@@ -25,3 +25,9 @@
     height: 1em;
     width: 50px;
 }
+
+.line textarea
+{
+    width:95%;
+    height:100px;
+}
