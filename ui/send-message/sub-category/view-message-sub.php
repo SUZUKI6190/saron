@@ -43,8 +43,8 @@ class ViewMessageSub extends \ui\frame\SubCategory
 
 		<table class="staff_view_table">
 		<thead><tr>
-		<th>メールタイトル</th>
-		<th></th>
+		<th class='mail_title_head'>メールタイトル</th>
+		<th class='cmd_head'></th>
 		</thead>
 
 		<?php
@@ -57,7 +57,7 @@ class ViewMessageSub extends \ui\frame\SubCategory
 					echo $msg->title;
 					?>
 				</td>
-				<td>
+				<td class='cmd_td'>
 					<?php echo "<button class='manage_button' type='submit' name='$edit_key' value='$msg->id'>編集</button>"; ?>
 				</td>
 			</tr>
