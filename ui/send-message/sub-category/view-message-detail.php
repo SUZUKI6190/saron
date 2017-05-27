@@ -55,16 +55,18 @@ abstract class ViewMessageDetail
 		$d = "?d=".(new \DateTime())->format("Ymdhis");
 		?>
 		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post" action='<?php echo "$d" ?>'>
-		<?php
-		$this->_input_form->view();
-		?>
-		<div class="msg_form_button">
+		<div class='input_form'>
 			<?php
-			if($sc->is_enable_save_btn()){
-				$this->_save_button->view();
-			}
-			$this->add_button();
+			$this->_input_form->view();
 			?>
+			<div class="msg_form_button_area">
+				<?php
+				if($sc->is_enable_save_btn()){
+					$this->_save_button->view();
+				}
+				$this->add_button();
+				?>
+			</div>
 		</div>
     	</form>
 		<?php

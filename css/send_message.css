@@ -24,14 +24,19 @@
 
 }
 
+.input_area{
+    margin:auto;
+}
+
 .message_setting textarea
 {
     width:90%;
     height : 150px;
 }
 
-.msg_form_button
+.msg_form_button_area
 {
+    margin-top: 30px;
     text-align:right;
 }
 
@@ -45,6 +50,13 @@
 {
     height: 1em;
     width: 50px;
+}
+
+.line
+{
+    margin-top:10px;
+    margin-left: 5px;
+    margin-right:5px;    
 }
 
 .line input[type='email']
