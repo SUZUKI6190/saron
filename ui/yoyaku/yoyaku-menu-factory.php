@@ -28,6 +28,7 @@ function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 			require_once('menu/day-select.php');
 			require_once(dirname(__FILE__)."/../../business/entity/schedule.php");
 			require_once(dirname(__FILE__)."/../../business/facade/schedule.php");
+			require_once(dirname(__FILE__).'/../util/holyday-datetime.php');
 			$menu = new DaySelect();
 			break;
 		case 'mailform':

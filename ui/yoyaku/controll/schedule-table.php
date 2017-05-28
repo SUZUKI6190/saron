@@ -3,7 +3,7 @@ namespace ui\yoyaku\controll;
 use business\entity\WeeklyYoyaku;
 use ui\util\InputControll;
 use ui\util\SubmitButton;
-
+use ui\util\HolidayDateTime;
 require_once(dirname(__FILE__).'/yoyaku-button.php');
 use ui\yoyaku\controll\YoyakuToggle;
 
@@ -44,7 +44,7 @@ class TableCol
 {
     public $time;
     public $cells = [];
-
+	public $date;
 	private function setup($date)
 	{
 		$new_cell = new TimeCell($date);
@@ -87,14 +87,18 @@ class ScheduleTable
 			$new_day->month = date("M", $date);
 			$new_day->day = (int)date("d", $date);
 			$new_day->week = self::week[date("w", $date)];
+			$d = new HolidayDateTime();
+
 			$year_month = date("Y年m月", $date);
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
 			$this->_col_list[$new_day->week] = new TableCol();
+			$this->_col_list[$new_day->week]->date = $d->setTimestamp($date);
 		}
 
 		//曜日ごとの設定の反映
 		$this->_weekly_data = \business\facade\get_weekly_data();
+		$holyday_weekly_data;
 		foreach($this->_weekly_data as $wd)
 		{
 			$week = $wd->get_week_char();
@@ -106,17 +110,29 @@ class ScheduleTable
 					$key_time = strtotime($key);
 					if(strtotime($wd->from_time) <= $key_time)
 					{
-						if(strtotime($wd->to_time) >= $key_time)
-						{
-							$col->cells[$key]->button->enable_yoyaku = true;
-						}
+						$col->cells[$key]->button->enable_yoyaku = strtotime($wd->to_time) >= $key_time;
 					}
 				}
 				
 			}else{
-
+				$holyday_weekly_data = $wd;
 			}
-			
+		}
+
+		//祝日の反映
+		foreach($this->_col_list as $col)
+		{
+			if($col->date->holiday())
+			{
+				foreach($col->cells as $key => $value)
+				{
+					$key_time = strtotime($key);
+					if(strtotime($holyday_weekly_data->from_time) <= $key_time)
+					{
+						$col->cells[$key]->button->enable_yoyaku = strtotime($holyday_weekly_data->to_time) >= $key_time;
+					}
+				}
+			}
 		}
     }
     
