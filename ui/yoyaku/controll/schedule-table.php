@@ -9,7 +9,7 @@ use ui\yoyaku\controll\YoyakuToggle;
 
 class Day
 {
-	public $month,$day,$year,$week;
+	public $month,$day,$year,$week,$date;
 }
 
 function time_repeat($f)
@@ -88,6 +88,7 @@ class ScheduleTable
 			$new_day->day = (int)date("d", $date);
 			$new_day->week = self::week[date("w", $date)];
 			$d = new HolidayDateTime();
+			$new_day->date = $d->setTimestamp($date);
 
 			$year_month = date("Y年m月", $date);
 			$this->_week_list[] = $new_day;
@@ -181,7 +182,11 @@ class ScheduleTable
 			<?php
 			foreach($this->_week_list as $w)
 			{
-				echo "<th class='$w->week'>$w->day</th>";
+				if($w->date->holiday()){
+					echo "<th class='$w->week 祝日'>$w->day</th>";
+				}else{
+					echo "<th class='$w->week'>$w->day</th>";
+				}
 			}
 			?>
 		</tr>
@@ -189,7 +194,11 @@ class ScheduleTable
 			<?php
 			foreach($this->_week_list as $w)
 			{
-			echo "<th class='$w->week'>$w->week</th>";			
+				if($w->date->holiday()){
+					echo "<th class='$w->week 祝日'>$w->week</th>";			
+				}else{
+					echo "<th class='$w->week'>$w->week</th>";
+				}
 			}
 			?>
 		</tr>

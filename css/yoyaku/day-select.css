@@ -62,7 +62,7 @@ td.td_time
 }
 
 table.schedule_select th.日,
-table.schedule_select th.holiday
+table.schedule_select th.祝日
 {
     background-color: #FCE4D6;
     color:#eb635e;
