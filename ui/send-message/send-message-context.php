@@ -110,7 +110,8 @@ class SendMessageContext
 		$this->_param_set->sex->set_from_param($sm->sex);
 		$this->_param_set->enable_dm->set_from_param($sm->enable_dm);
 		$this->_param_set->occupation->set_from_param($sm->occupation);
-		$this->_param_set->visit_num ->set_from_param($sm->visit_num);
+		$this->_param_set->visit_num_more->set_from_param($sm->visit_num_more);
+		$this->_param_set->visit_num_less->set_from_param($sm->visit_num_less);
 		$this->_param_set->reservation_route->set_from_param($sm->reservation_route);
 		$this->_param_set->staff->set_from_param($sm->staff_id);
 
@@ -137,7 +138,8 @@ class SendMessageContext
 		$msg->sex = $this->_param_set->sex->get_value();
 		$msg->enable_dm = $this->_param_set->enable_dm->get_value();
 		$msg->occupation = $this->_param_set->occupation->get_value();
-		$msg->visit_num = $this->_param_set->visit_num->get_value();
+		$msg->visit_num_more = $this->_param_set->visit_num_more->get_value();
+		$msg->visit_num_less = $this->_param_set->visit_num_less->get_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
 		$msg->staff_id = $this->_param_set->staff->get_value();
 
@@ -205,7 +207,8 @@ class SendMessageParamSet
 	public $sending_mail, $confirm_mail;
 	public $message;
 	public $occupation;
-	public $visit_num;
+	public $visit_num_more;
+	public $visit_num_less;
 	public $reservation_route;
 	public $staff;
 	public $enable_dm;
@@ -221,7 +224,8 @@ class SendMessageParamSet
 		$this->confirm_mail = new Param("confirm_mail");
 		$this->message = new Param("message");
 		$this->occupation = new Param("occupation");
-		$this->visit_num = new Param("vist_num");
+		$this->visit_num_more = new Param("vist_num_more");
+		$this->visit_num_less = new Param("vist_num_less");
 		$this->reservation_route = new Param("reservation_route");
 		$this->sex = new RadioParam("sex");
 		$this->staff = new Param("staff");
@@ -236,7 +240,8 @@ class SendMessageParamSet
 			$this->confirm_mail,
 			$this->message,
 			$this->occupation,
-			$this->visit_num,
+			$this->visit_num_more,
+			$this->visit_num_less,
 			$this->reservation_route,
 			$this->sex,
 			$this->staff,

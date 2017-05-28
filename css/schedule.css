@@ -58,3 +58,8 @@ span.midasi
     display: inline-block;
     width:70px;
 }
+
+input[type="number"]
+{
+    text-align: right;  
+}

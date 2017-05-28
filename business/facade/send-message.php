@@ -64,7 +64,8 @@ function insert_message_setting($msg)
 			confirm_mail,
 			message_text,
 			sex,
-			visit_num,
+			visit_num_more,
+			visit_num_less,
 			staff_id,
 			occupation,
 			reservation_route
@@ -78,7 +79,8 @@ function insert_message_setting($msg)
 			'$msg->confirm_mail',
 			'$msg->message_text',
 			'$msg->sex',
-			'$msg->visit_num',
+			'$msg->visit_num_more',
+			'$msg->visit_num_less',
 			'$msg->staff_id',
 			'$msg->occupation',
 			'$msg->reservation_route'

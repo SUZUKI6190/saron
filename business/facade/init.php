@@ -84,18 +84,19 @@ SQL
 		CREATE TABLE sending_message (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			title text character set utf8,
-			birth  int NOT NULL,
-			last_visit int NOT NULL,
-			next_visit int NOT NULL,
+			birth  int,
+			last_visit int,
+			next_visit int,
 			enable_dm tinyint UNSIGNED,
 			sending_mail varchar(100),
 			confirm_mail varchar(100),
 			message_text text character set utf8,
 			sex varchar(10),
-			visit_num int UNSIGNED NOT NULL,
-			staff_id int UNSIGNED NOT NULL,
+			visit_num_more int UNSIGNED,
+			visit_num_less int UNSIGNED,
+			staff_id int UNSIGNED,
 			occupation text character set utf8,
-			reservation_route tinyint UNSIGNED NOT NULL,
+			reservation_route tinyint UNSIGNED,
 			PRIMARY KEY(id)
 		)
 SQL

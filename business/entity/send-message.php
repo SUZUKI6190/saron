@@ -13,7 +13,8 @@ class SendMessage
 	public $confirm_mail;
 	public $message_text;
 	public $sex;
-	public $visit_num;
+	public $visit_num_more;
+	public $visit_num_less;
 	public $staff_id;
 	public $occupation;
 	public $reservation_route;
@@ -36,7 +37,8 @@ class SendMessage
 		$data->confirm_mail = $wpdb->confirm_mail;
 		$data->message_text = $wpdb->message_text;
 		$data->sex = $wpdb->sex;
-		$data->visit_num = $wpdb->visit_num;
+		$data->visit_num_more = $wpdb->visit_num_more;
+		$data->visit_num_less = $wpdb->visit_num_less;
 		$data->staff_id = $wpdb->staff_id;
 		$data->occupation = $wpdb->occupation;
 		$data->reservation_route = $wpdb->reservation_route;
