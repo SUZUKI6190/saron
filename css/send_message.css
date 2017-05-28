@@ -46,6 +46,19 @@
     flex-direction: row;
 }
 
+.line input[type='number'],
+.line input[type='text'],
+.line input[type='email'],
+.line select
+{
+    width:90%;
+}
+
+input[type='number']
+{
+    text-align: right;
+}
+
 .day_num_area input[type='number']
 {
     height: 1em;
