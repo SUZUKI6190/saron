@@ -47,7 +47,7 @@ class DaySelect extends YoyakuMenu
 		$this->course_table->view();
 	
 		?>
-		<form method='post' action=''>
+		<form method='post' action='<?php echo "$d" ?>'>
 			<?php
 			$this->_shcedule_table->view_week_button();
 			$this->view_yoyaku_frame_hidden();
@@ -55,7 +55,7 @@ class DaySelect extends YoyakuMenu
 		</form>
 
 		<?php
-		$next_url =  $yc->get_base_url()."/mailform";
+		$next_url =  $yc->get_base_url()."/mailform".$d;
 		?>
 
 		<form method='post' action="<?php echo $next_url; ?>">
