@@ -36,6 +36,16 @@ class SendMessageImplementor extends ManageFrameImplementor
 			new \ui\frame\HeaderFile('send_message.css', 0.04)
 		];
 	}
+
+
+	protected function get_js_list()
+	{
+		return [
+			new \ui\frame\HeaderFile('send-message.js', 0.04)
+		];
+	}
+
+	
 }
 	
 

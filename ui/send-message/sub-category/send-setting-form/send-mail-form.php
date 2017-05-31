@@ -1,6 +1,7 @@
 <?php
 namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/../page-move-button.php');
+require_once(dirname(__FILE__).'/criteria-form.php');
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
 use ui\util\InputBase;
@@ -8,6 +9,7 @@ use \ui\util\SubmitButton;
 use ui\util\InputTextarea;
 use ui\util\RouteSelect;
 use ui\ViewStaff;
+
 
 abstract class SettingForm
 {
@@ -38,6 +40,11 @@ abstract class SettingForm
     ?>
         <input type ='hidden' name='<?php echo SendMessageContext::PageNoKey; ?>' value='<?php echo $sc->page_no; ?>'>
         <input type ='hidden' name='<?php echo $state->get_key(); ?>' value='<?php echo $state->get_value();?>'>
+        <div class='page_title_area'>
+            <h1>
+            <?php echo $this->get_title(); ?>
+            </h1>
+        </div>
         <div class='move_btn_area'>
             <div class='next_btn_area'>
                 <?php
@@ -54,11 +61,8 @@ abstract class SettingForm
                 ?>
             </div>
         </div>
-        <div class='page_title_area'>
-        <?php $this->get_title(); ?>
-        </div>
-        <div class='input_area'>
-        <?php $this->view_inner(); ?>
+        <div class=''>
+            <?php $this->view_inner(); ?>
         </div>
     <?php
     }

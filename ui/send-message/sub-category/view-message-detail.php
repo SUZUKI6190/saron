@@ -55,7 +55,7 @@ abstract class ViewMessageDetail
 		$d = "?d=".(new \DateTime())->format("Ymdhis");
 		?>
 		<form id='<?php echo $this->_form_id; ?>' name="setting" method="post" action='<?php echo "$d" ?>'>
-		<div class='input_form'>
+		<div class='input_criteria'>
 			<?php
 			$this->_input_form->view();
 			?>
