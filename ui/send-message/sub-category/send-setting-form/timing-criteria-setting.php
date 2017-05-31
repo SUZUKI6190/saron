@@ -9,47 +9,60 @@ use ui\util\InputTextarea;
 use ui\util\RouteSelect;
 use ui\ViewStaff;
 
-class TimingCriteriaSetting extends SettingForm
+
+class BirthVisitCriteria extends Criteria
 {
-    private $_birth, $_last_visit, $_next_visit;
-    protected function init_inner()
+    private $_birth;
+
+    public function __construct()
+    {
+        $this->name= "次回来店日";   
+    }
+    
+    public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_last_visit = new DayCriteriaForm($param->last_visit->get_key(), $this->_default_msg->last_visit);
-		$this->_next_visit = new DayCriteriaForm($param->next_visit->get_key(), $this->_default_msg->next_visit);
-        $this->_birth= new DayCriteriaForm($param->birth->get_key(), $this->_default_msg->birth);
+        $this->_birth= new DayCriteriaForm($param->birth->get_key(), $this->default_msg->birth);
     }
 
+    public function view()
+    {
+        $param = SendMessageContext::get_instance()->get_param_set();
+        ?>
+        <div class="line">
+            <h2>
+            誕生日
+            </h2>
+            <?php  $this->_birth->view($param->next_visit); ?>
+        </div>
+       <?php 
+    }
+
+    public function is_hidden():bool
+    {
+        $param = SendMessageContext::get_instance()->get_param_set()->birth;
+        return $param->is_set();
+    }
+}
+
+
+class TimingCriteriaSetting extends CriteriaForm
+{
+    private $_birth, $_last_visit, $_next_visit;
+   
     protected function get_title() : string
     {
         return "メッセージ配信のタイミング";
     }
 
-    protected function view_inner()
+    protected function create_criteria_form()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-    ?>
-        <div class="line">
-            <h2>
-            誕生日
-            </h2>
-            <?php $this->_birth->view($param->birth); ?>
-        </div>
-        <div class="line">
-            <h2>
-            最終来店日
-            </h2>
-            <?php $this->_last_visit->view($param->last_visit); ?>
-        </div>
-        <div class="line">
-            <h2>
-            次回来店予定日
-            </h2>
-            <?php $this->_next_visit->view($param->next_visit); ?>
-        </div>
-    <?php
+        return [
+            new BirthVisitCriteria(),
+            new LastVisitCriteria(),
+            new LastVisitCriteria()
+        ];
     }
-
 }
 
 class DayCriteriaForm

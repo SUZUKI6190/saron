@@ -1,7 +1,8 @@
 <?php
 namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/../page-move-button.php');
-require_once(dirname(__FILE__).'/criteria-form.php');
+require_once(dirname(__FILE__).'/criteria-form/criteria.php');
+require_once(dirname(__FILE__).'/criteria-form/criteria-form.php');
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
 use ui\util\InputBase;
@@ -9,7 +10,6 @@ use \ui\util\SubmitButton;
 use ui\util\InputTextarea;
 use ui\util\RouteSelect;
 use ui\ViewStaff;
-
 
 abstract class SettingForm
 {

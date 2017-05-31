@@ -297,6 +297,11 @@ class Param
 	{
 		unset($_SESSION[$this->_key]);
 	}
+
+	public function is_set() : bool
+	{
+		return isset($_SESSION[$this->_key]);
+	}
 }
 
 class RadioParam extends Param
