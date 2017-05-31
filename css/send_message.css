@@ -6,6 +6,11 @@
     width:315px; 
 }
 
+.criteria_wrap
+{
+    margin-top:10px;
+}
+
 .page_title_area h1
 {
     padding: 5px 10px;

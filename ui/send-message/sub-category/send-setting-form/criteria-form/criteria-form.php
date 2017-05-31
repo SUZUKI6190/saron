@@ -42,15 +42,23 @@ abstract class CriteriaForm extends SettingForm
             }else{
                 $text =  $open_text;
             }
-
             $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\");";
-            $btn = "<button type='button' id='$btn_id' onclick='$script' >$text</button>";
-            echo $btn;
             ?>
-            <div class='' id='<?php echo $area_id; ?>'>
-                <?php                    
-                    $c->view();
-                ?>
+            <div class='criteria_wrap'>
+                <div class="line">
+                    <h2>
+                        <?php echo $c->get_title(); ?>
+                    </h2>
+                    <?php
+                    $btn = "<button class='manage_button' type='button' id='$btn_id' onclick='$script' >$text</button>";
+                    echo $btn;
+                    ?>
+                    <div class='' id='<?php echo $area_id; ?>'>
+                        <?php                    
+                            $c->view();
+                        ?>
+                    </div>
+                </div>
             </div>
             <?php
         }

@@ -7,6 +7,7 @@ abstract class Criteria
     public abstract function init();
     public abstract function view();
     public abstract function is_hidden():bool;
+    public abstract function get_title():string;
 }
 
 

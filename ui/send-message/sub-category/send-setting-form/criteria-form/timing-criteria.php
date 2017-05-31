@@ -15,7 +15,7 @@ class LastVisitCriteria extends Criteria
 
     public function __construct()
     {
-        $this->name= "最終来店日";   
+        $this->name= "last_visit";
     }
     
     public function init()
@@ -24,17 +24,15 @@ class LastVisitCriteria extends Criteria
         $this->_last_visit = new DayCriteriaForm($param->last_visit->get_key(), $this->default_msg->last_visit);
     }
 
+    public function get_title():string
+    {
+        return "最終来店日";
+    }
+
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        ?>
-        <div class="line">
-            <h2>
-            最終来店日
-            </h2>
-            <?php $this->_last_visit->view($param->last_visit); ?>
-        </div>
-       <?php 
+        $this->_last_visit->view($param->last_visit);
     }
 
     public function is_hidden():bool
@@ -51,7 +49,7 @@ class NextVisitCriteria extends Criteria
 
     public function __construct()
     {
-        $this->name= "次回来店日";   
+        $this->name= "next_visit";
     }
     
     public function init()
@@ -60,17 +58,15 @@ class NextVisitCriteria extends Criteria
         $this->_next_visit = new DayCriteriaForm($param->next_visit->get_key(), $this->default_msg->next_visit);
     }
 
+    public function get_title():string
+    {
+        return "次回来店予定日";
+    }
+
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        ?>
-        <div class="line">
-            <h2>
-            次回来店予定日
-            </h2>
-            <?php  $this->_next_visit->view($param->next_visit); ?>
-        </div>
-       <?php 
+        $this->_next_visit->view($param->next_visit);       
     }
 
     public function is_hidden():bool
@@ -80,17 +76,20 @@ class NextVisitCriteria extends Criteria
     }
 }
 
-
-
 class BirthVisitCriteria extends Criteria
 {
     private $_birth;
 
     public function __construct()
     {
-        $this->name= "次回来店日";   
+        $this->name= "birth";
     }
     
+    public function get_title():string
+    {
+        return "誕生日";
+    }
+
     public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
@@ -100,14 +99,7 @@ class BirthVisitCriteria extends Criteria
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        ?>
-        <div class="line">
-            <h2>
-            誕生日
-            </h2>
-            <?php  $this->_birth->view($param->next_visit); ?>
-        </div>
-       <?php 
+        $this->_birth->view($param->next_visit);
     }
 
     public function is_hidden():bool
