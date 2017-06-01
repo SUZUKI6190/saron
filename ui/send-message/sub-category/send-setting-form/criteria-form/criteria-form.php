@@ -34,15 +34,20 @@ abstract class CriteriaForm extends SettingForm
         {
             $area_id = $c->name."_area";
             $btn_id = $c->name."_btn";
+            $hdn_id = $c->name."_hdn";
             $open_text = "指定しない";
             $close_text = "入力する";
+            $hdn_value;
 
             if($c->is_hidden()){
-                $text = $close_text;
+                $text = $open_text;
+                $hdn_value = "false";
             }else{
-                $text =  $open_text;
+                $text =  $close_text;
+                $hdn_value = "true";
             }
-            $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\");";
+
+            $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\", \"$btn_id\" , \"$hdn_id\", \"$c->name\");";
             ?>
             <div class='criteria_wrap'>
                 <div class="line">
@@ -53,10 +58,11 @@ abstract class CriteriaForm extends SettingForm
                     $btn = "<button class='manage_button' type='button' id='$btn_id' onclick='$script' >$text</button>";
                     echo $btn;
                     ?>
-                    <div class='' id='<?php echo $area_id; ?>'>
+                    <div class='critera_input_area' disabled="disabled" id='<?php echo $area_id; ?>' value='<?php echo $hdn_value; ?>'>
                         <?php                    
                             $c->view();
                         ?>
+                        <input type='hidden' id='<?php echo $hdn_id; ?>' value='<?php echo $hdn_value; ?>'>
                     </div>
                 </div>
             </div>

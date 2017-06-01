@@ -15,12 +15,12 @@ class LastVisitCriteria extends Criteria
 
     public function __construct()
     {
-        $this->name= "last_visit";
     }
     
     public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
+        $this->name= $param->last_visit->get_key();
         $this->_last_visit = new DayCriteriaForm($param->last_visit->get_key(), $this->default_msg->last_visit);
     }
 
@@ -49,12 +49,12 @@ class NextVisitCriteria extends Criteria
 
     public function __construct()
     {
-        $this->name= "next_visit";
     }
     
     public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
+        $this->name= $param->next_visit->get_key();
         $this->_next_visit = new DayCriteriaForm($param->next_visit->get_key(), $this->default_msg->next_visit);
     }
 
@@ -82,7 +82,6 @@ class BirthVisitCriteria extends Criteria
 
     public function __construct()
     {
-        $this->name= "birth";
     }
     
     public function get_title():string
@@ -93,6 +92,7 @@ class BirthVisitCriteria extends Criteria
     public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
+        $this->name= $param->birth->get_key();
         $this->_birth= new DayCriteriaForm($param->birth->get_key(), $this->default_msg->birth);
     }
 
@@ -120,6 +120,7 @@ class DayCriteriaForm
 		$this->_name = $name;
         $add = [];
         $add["min"] = "0";
+        $add["id"] = $name;
 		$this->_day_count = new InputBase("number", $name, abs($day_value), "", $add);
 	}
 	
