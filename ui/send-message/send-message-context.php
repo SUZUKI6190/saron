@@ -154,7 +154,7 @@ class SendMessageContext
 	{
 		foreach($this->_param_set->param_list as $p)
 		{
-			$p->set_session();
+			$p->set_session_from_post();
 		}
 	}
 
@@ -277,7 +277,7 @@ class Param
 		$_SESSION[$this->_key] = $v;
 	}
 
-	public function set_session()
+	public function set_session_from_post()
 	{
 		if(isset($_POST[$this->_key])){
 			$_SESSION[$this->_key] = $_POST[$this->_key];
@@ -312,7 +312,7 @@ class RadioParam extends Param
 		return $this->_key."[]";
 	}
 
-	public function set_session()
+	public function set_session_from_post()
 	{
 		if(isset($_POST[$this->_key])){
 			$_SESSION[$this->_key] = $_POST[$this->_key][0];
@@ -336,7 +336,7 @@ class DaySelectParam extends Param
 		}
 	}
 
-	public function set_session()
+	public function set_session_from_post()
 	{
 		$rk =  $this->_key."_select";
 		if(!isset($_POST[$rk]))
