@@ -51,7 +51,6 @@ abstract class ViewMessageDetail
 	
 	public function view()
 	{
-		        print_r($_SESSION);
 		$sc = SendMessageContext::get_instance();
 		$d = "?d=".(new \DateTime())->format("Ymdhis");
 		?>
