@@ -12,11 +12,7 @@ use ui\ViewStaff;
 class LastVisitCriteria extends Criteria
 {
     private $_last_visit;
-
-    public function __construct()
-    {
-    }
-    
+  
     public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
@@ -46,11 +42,7 @@ class LastVisitCriteria extends Criteria
 class NextVisitCriteria extends Criteria
 {
     private $_next_visit;
-
-    public function __construct()
-    {
-    }
-    
+ 
     public function init()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
@@ -80,10 +72,6 @@ class BirthVisitCriteria extends Criteria
 {
     private $_birth;
 
-    public function __construct()
-    {
-    }
-    
     public function get_title():string
     {
         return "誕生日";
@@ -99,7 +87,7 @@ class BirthVisitCriteria extends Criteria
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_birth->view($param->next_visit);
+        $this->_birth->view($param->birth);
     }
 
     public function is_hidden():bool
@@ -136,20 +124,15 @@ class DayCriteriaForm
 
 	public function view(Param $p)
 	{
+        $value = $p->get_value();
+
 	?>
 		<div class='setting_input_div_name'>
-			<div>
-                <?php                            
-                $value = $p->get_value();
-                $checked = (empty($value) || $value == 0);
-                $this->view_radio("指定なし", $checked);
-                ?>
-            </div>
             <div class='day_num_area'>
                 <?php $this->_day_count->view(); ?>
                 <div>
                     <?php
-                    $checked = $value < 0;
+                    $checked = (empty($value) || $value <= 0);
                     $this->view_radio("日前", $checked);
                     ?>
                     <br>
