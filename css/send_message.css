@@ -16,6 +16,12 @@ div.critera_input_area
 
 }
 
+
+div.critera_input_area.hide
+{
+    display: none;
+}
+
 .page_title_area h1
 {
     padding: 5px 10px;

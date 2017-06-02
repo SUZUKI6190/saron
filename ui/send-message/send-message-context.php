@@ -336,11 +336,13 @@ class DaySelectParam extends Param
 		}
 	}
 
+
 	public function set_session_from_post()
 	{
 		$rk =  $this->_key."_select";
 		if(!isset($_POST[$rk]))
 		{
+			$_SESSION[$this->_key] = null;
 			return;
 		}
 		$selected_value = $_POST[$rk][0];

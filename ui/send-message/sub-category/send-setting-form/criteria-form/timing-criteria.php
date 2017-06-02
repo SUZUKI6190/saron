@@ -34,7 +34,7 @@ class LastVisitCriteria extends Criteria
     public function is_hidden():bool
     {
         $param = SendMessageContext::get_instance()->get_param_set()->last_visit;
-        return $param->is_set();
+        return !$param->is_set();
     }
 }
 
@@ -64,7 +64,7 @@ class NextVisitCriteria extends Criteria
     public function is_hidden():bool
     {
         $param = SendMessageContext::get_instance()->get_param_set()->next_visit;
-        return $param->is_set();
+        return !$param->is_set();
     }
 }
 
@@ -93,7 +93,7 @@ class BirthVisitCriteria extends Criteria
     public function is_hidden():bool
     {
         $param = SendMessageContext::get_instance()->get_param_set()->birth;
-        return $param->is_set();
+        return !$param->is_set();
     }
 }
 

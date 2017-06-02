@@ -30,24 +30,29 @@ abstract class CriteriaForm extends SettingForm
 
     protected function view_inner()
     {
+        print_r($_SESSION);
         foreach($this->_criteria_list as $c)
         {
             $area_id = $c->name."_area";
+            $area_css;
             $btn_id = $c->name."_btn";
             $hdn_id = $c->name."_hdn";
             $open_text = "指定しない";
             $close_text = "入力する";
             $hdn_value;
+            $disabled;
 
             if($c->is_hidden()){
                 $text = $open_text;
-                $hdn_value = "false";
+                $area_css = "critera_input_area";
+                $disabled = "disabled";
             }else{
                 $text =  $close_text;
-                $hdn_value = "true";
+                $area_css = "critera_input_area hide";
+                $disabled = "";
             }
 
-            $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\", \"$btn_id\" , \"$hdn_id\", \"$c->name\");";
+            $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\", \"$btn_id\" , \"$c->name\");";
             ?>
             <div class='criteria_wrap'>
                 <div class="line">
@@ -58,11 +63,10 @@ abstract class CriteriaForm extends SettingForm
                     $btn = "<button class='manage_button' type='button' id='$btn_id' onclick='$script' >$text</button>";
                     echo $btn;
                     ?>
-                    <div class='critera_input_area' disabled="disabled" id='<?php echo $area_id; ?>' value='<?php echo $hdn_value; ?>'>
+                    <div class='<?php echo $area_css; ?>' <?php echo $disabled; ?> id='<?php echo $area_id; ?>' value='<?php echo $hdn_value; ?>'>
                         <?php                    
                             $c->view();
                         ?>
-                        <input type='hidden' id='<?php echo $hdn_id; ?>' value='<?php echo $hdn_value; ?>'>
                     </div>
                 </div>
             </div>
