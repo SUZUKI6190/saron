@@ -4,6 +4,7 @@ use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
 use ui\send_message\Param;
 use ui\util\InputBase;
+use ui\util\InputControll;
 use \ui\util\SubmitButton;
 use ui\util\InputTextarea;
 use ui\util\RouteSelect;
@@ -28,7 +29,7 @@ class LastVisitCriteria extends Criteria
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_last_visit->view($param->last_visit);
+        $this->_last_visit->view($param->last_visit, $this->is_hidden());
     }
 
     public function is_hidden():bool
@@ -58,7 +59,7 @@ class NextVisitCriteria extends Criteria
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_next_visit->view($param->next_visit);       
+        $this->_next_visit->view($param->next_visit, $this->is_hidden());       
     }
 
     public function is_hidden():bool
@@ -87,7 +88,7 @@ class BirthVisitCriteria extends Criteria
     public function view()
     {
         $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_birth->view($param->birth);
+        $this->_birth->view($param->birth, $this->is_hidden());
     }
 
     public function is_hidden():bool
@@ -103,13 +104,15 @@ class DayCriteriaForm
 	private $_name;
 	private $_from;
 	private $_day_count;
+    private $_day_value;
 	public function __construct($name, $day_value)
 	{
 		$this->_name = $name;
         $add = [];
         $add["min"] = "0";
         $add["id"] = $name;
-		$this->_day_count = new InputBase("number", $name, abs($day_value), "", $add);
+        $this->_day_value = $day_value;
+		$this->_day_count = new InputControll("number", $name);
 	}
 	
 	private function view_radio(string $text, bool $check)
@@ -122,10 +125,18 @@ class DayCriteriaForm
 		}
 	}
 
-	public function view(Param $p)
+	public function view(Param $p, bool $disabled)
 	{
+        $add = [];
+        $add["min"] = "0";
+        $add["id"] = $this->_name;
+        if($disabled)
+        {
+            $add["disabled"] = "";
+        }
         $value = $p->get_value();
-
+        $this->_day_count->set_value(abs($this->_day_value));
+        $this->_day_count->set_attribute($add);
 	?>
 		<div class='setting_input_div_name'>
             <div class='day_num_area'>

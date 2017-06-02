@@ -342,7 +342,6 @@ class DaySelectParam extends Param
 		$rk =  $this->_key."_select";
 		if(!isset($_POST[$rk]))
 		{
-			$_SESSION[$this->_key] = null;
 			return;
 		}
 		$selected_value = $_POST[$rk][0];
@@ -359,6 +358,8 @@ class DaySelectParam extends Param
 					$_SESSION[$this->_key] = 0;
 					break;
 			}
+		}else{
+			$_SESSION[$this->_key] = null;
 		}
 	}
 	

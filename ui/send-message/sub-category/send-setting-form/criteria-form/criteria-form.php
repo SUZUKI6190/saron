@@ -30,7 +30,6 @@ abstract class CriteriaForm extends SettingForm
 
     protected function view_inner()
     {
-        print_r($_SESSION);
         foreach($this->_criteria_list as $c)
         {
             $area_id = $c->name."_area";
@@ -43,12 +42,12 @@ abstract class CriteriaForm extends SettingForm
             $disabled;
 
             if($c->is_hidden()){
-                $text = $open_text;
-                $area_css = "critera_input_area";
+                $text = $close_text;
+                $area_css = "critera_input_area hide";
                 $disabled = "disabled";
             }else{
-                $text =  $close_text;
-                $area_css = "critera_input_area hide";
+                $text =  $open_text;
+                $area_css = "critera_input_area";
                 $disabled = "";
             }
 
