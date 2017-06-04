@@ -1,9 +1,9 @@
-function toggle_show(op_text, clse_text, area_id, btn_id, input_id)
+function toggle_show(op_text, clse_text, area_id, btn_id, input_id, hdn_id)
 {
     var area = document.getElementById(area_id);
     var btn = document.getElementById(btn_id);
     var input = document.getElementById(input_id);
-    
+    var hdn = document.getElementById(hdn_id);
     if(input.hasAttribute("disabled")){
         area.className = "critera_input_area";
         area.style.display= "";

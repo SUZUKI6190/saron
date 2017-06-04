@@ -15,7 +15,7 @@ abstract class CriteriaForm extends SettingForm
 {
     private $_criteria_list;
     protected abstract function create_criteria_form();
-
+    protected abstract function on_set_criteria(Criteria $c);
     protected function init_inner()
     {
         $this->_criteria_list = $this->create_criteria_form();
@@ -23,6 +23,10 @@ abstract class CriteriaForm extends SettingForm
         {
             $c->default_msg = $this->_default_msg;
             $c->init();
+            if($c->is_set_criteria())
+            {
+                $this->on_set_criteria($c);
+            }
         }
         $sc = SendMessageContext::get_instance();       
         $sc->enable_save_btn();
@@ -35,7 +39,8 @@ abstract class CriteriaForm extends SettingForm
             $area_id = $c->name."_area";
             $area_css;
             $btn_id = $c->name."_btn";
-            $hdn_id = $c->name."_hdn";
+            $hdn_id = $c->get_hidden_id();
+            $hdn_value;
             $open_text = "指定しない";
             $close_text = "入力する";
             $hdn_value;
@@ -45,13 +50,15 @@ abstract class CriteriaForm extends SettingForm
                 $text = $close_text;
                 $area_css = "critera_input_area hide";
                 $disabled = "disabled";
+                $hdn_value = 0;
             }else{
                 $text =  $open_text;
                 $area_css = "critera_input_area";
                 $disabled = "";
+                $hdn_value = 1;
             }
 
-            $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\", \"$btn_id\" , \"$c->name\");";
+            $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\", \"$btn_id\" , \"$c->name\", \"$hdn_id\");";
             ?>
             <div class='criteria_wrap'>
                 <div class="line">
@@ -68,6 +75,7 @@ abstract class CriteriaForm extends SettingForm
                         ?>
                     </div>
                 </div>
+                <?php echo "<input type='hidden' name='$hdn_id' id='$hdn_id' value='$hdn_value />"; ?>
             </div>
             <?php
         }

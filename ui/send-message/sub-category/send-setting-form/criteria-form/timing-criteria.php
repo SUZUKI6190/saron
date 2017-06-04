@@ -14,11 +14,16 @@ class LastVisitCriteria extends Criteria
 {
     private $_last_visit;
   
-    public function init()
+    public function init_inner()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-        $this->name= $param->last_visit->get_key();
-        $this->_last_visit = new DayCriteriaForm($param->last_visit->get_key(), $this->default_msg->last_visit);
+        $param = $this->get_context_param();
+        $this->name= $param->get_key();
+        $this->_last_visit = new DayCriteriaForm($param->get_key(), $this->default_msg->last_visit);
+    }
+
+    public function get_context_param():param
+    {
+        return SendMessageContext::get_instance()->get_param_set()->last_visit;
     }
 
     public function get_title():string
@@ -28,27 +33,21 @@ class LastVisitCriteria extends Criteria
 
     public function view()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_last_visit->view($param->last_visit, $this->is_hidden());
+        $param = $this->get_context_param();
+        $this->_last_visit->view($param, $this->is_hidden());
     }
 
-    public function is_hidden():bool
-    {
-        $param = SendMessageContext::get_instance()->get_param_set()->last_visit;
-        return !$param->is_set();
-    }
 }
-
 
 class NextVisitCriteria extends Criteria
 {
     private $_next_visit;
  
-    public function init()
+    public function init_inner()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-        $this->name= $param->next_visit->get_key();
-        $this->_next_visit = new DayCriteriaForm($param->next_visit->get_key(), $this->default_msg->next_visit);
+        $param = $this->get_context_param();
+        $this->name= $param->get_key();
+        $this->_next_visit = new DayCriteriaForm($param->get_key(), $this->default_msg->next_visit);
     }
 
     public function get_title():string
@@ -58,15 +57,14 @@ class NextVisitCriteria extends Criteria
 
     public function view()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_next_visit->view($param->next_visit, $this->is_hidden());       
+        $this->_next_visit->view($this->get_context_param(), $this->is_hidden());       
     }
 
-    public function is_hidden():bool
+    public function get_context_param():param
     {
-        $param = SendMessageContext::get_instance()->get_param_set()->next_visit;
-        return !$param->is_set();
+        return SendMessageContext::get_instance()->get_param_set()->next_visit;
     }
+
 }
 
 class BirthVisitCriteria extends Criteria
@@ -78,24 +76,24 @@ class BirthVisitCriteria extends Criteria
         return "誕生日";
     }
 
-    public function init()
+    public function init_inner()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-        $this->name= $param->birth->get_key();
-        $this->_birth= new DayCriteriaForm($param->birth->get_key(), $this->default_msg->birth);
+        $param = $this->get_context_param();
+        $this->name= $param->get_key();
+        $this->_birth= new DayCriteriaForm($param->get_key(), $this->default_msg->birth);
+    }
+
+    public function get_context_param():param
+    {
+        return SendMessageContext::get_instance()->get_param_set()->birth;
     }
 
     public function view()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
-        $this->_birth->view($param->birth, $this->is_hidden());
+        $param = $this->get_context_param();
+        $this->_birth->view($param, $this->is_hidden());
     }
 
-    public function is_hidden():bool
-    {
-        $param = SendMessageContext::get_instance()->get_param_set()->birth;
-        return !$param->is_set();
-    }
 }
 
 

@@ -28,8 +28,8 @@ abstract class SettingForm
         $this->_nextBtn = new PageMoveButton(SendMessageContext::NextBtnKey, "次へ", 1);
         $this->_backBtn = new PageMoveButton(SendMessageContext::BackBtnKey, "前へ", -1);
         $sc = SendMessageContext::get_instance();
-        $this->init_inner();
         $sc->update_session();
+        $this->init_inner();
     }
 
     public function view()
