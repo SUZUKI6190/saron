@@ -3,6 +3,8 @@ namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/../page-move-button.php');
 require_once(dirname(__FILE__).'/criteria-form/criteria.php');
 require_once(dirname(__FILE__).'/criteria-form/criteria-form.php');
+require_once(dirname(__FILE__).'/after-post/after-post.php');
+require_once(dirname(__FILE__).'/after-post/after-post-factory.php');
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
 use ui\util\InputBase;
@@ -30,6 +32,14 @@ abstract class SettingForm
         $sc = SendMessageContext::get_instance();
         $sc->update_session();
         $this->init_inner();
+        $this->pre_page_dealing();
+    }
+
+    protected function pre_page_dealing()
+    {
+        $sc = SendMessageContext::get_instance();
+        $ap = create_after_post($sc->get_pre_page_no());
+        $ap->pre_page_post_dealing();
     }
 
     public function view()

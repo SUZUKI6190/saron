@@ -28,7 +28,7 @@ abstract class CriteriaForm extends SettingForm
                 $this->on_set_criteria($c);
                 $c->clear_criteria();
             }
-        }
+        }   
         $sc = SendMessageContext::get_instance();       
         $sc->enable_save_btn();
     }
