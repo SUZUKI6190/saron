@@ -74,7 +74,6 @@ class NextVisitCriteria extends Criteria
     {
         $this->get_context_param()->clear();
     }
-
 }
 
 class BirthVisitCriteria extends Criteria

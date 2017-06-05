@@ -39,8 +39,7 @@ abstract class Criteria
     {
         foreach($d as $key => $text)
         {
-            
-            if($key  == $selected_name){
+            if($key == $selected_name){
                 echo "<input type='radio' name='$name' value='$key' checked>$text";
             }else{
                 echo "<input type='radio' name='$name' value='$key'>$text";
