@@ -37,6 +37,11 @@ class LastVisitCriteria extends Criteria
         $this->_last_visit->view($param, $this->is_hidden());
     }
 
+    public function clear_criteria()
+    {
+        $this->get_context_param()->clear();
+    }
+
 }
 
 class NextVisitCriteria extends Criteria
@@ -63,6 +68,11 @@ class NextVisitCriteria extends Criteria
     public function get_context_param():param
     {
         return SendMessageContext::get_instance()->get_param_set()->next_visit;
+    }
+
+    public function clear_criteria()
+    {
+        $this->get_context_param()->clear();
     }
 
 }
@@ -92,6 +102,11 @@ class BirthVisitCriteria extends Criteria
     {
         $param = $this->get_context_param();
         $this->_birth->view($param, $this->is_hidden());
+    }
+
+    public function clear_criteria()
+    {
+        $this->get_context_param()->clear();
     }
 
 }
@@ -128,10 +143,6 @@ class DayCriteriaForm
         $add = [];
         $add["min"] = "0";
         $add["id"] = $this->_name;
-        if($disabled)
-        {
-            $add["disabled"] = "";
-        }
         $value = $p->get_value();
         $this->_day_count->set_value(abs($this->_day_value));
         $this->_day_count->set_attribute($add);

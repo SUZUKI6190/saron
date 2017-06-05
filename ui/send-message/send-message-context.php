@@ -5,13 +5,15 @@ use business\entity\SendMessage;
 class SendMessageContext
 {
 	private static $_instance;
-	public  $page_no = 0;
+	public $page_no = 0;
+	public $pre_page_no;
 	public $message_id;
 	const MaxPageNo = 2;
 	private $_page_state = 0;
 	private $_param_set;
 	public $save_btn_state;
 	const PageNoKey = "PageNO";
+	const PrePageNoKey = "PrePageNo";
 	const ProceedPageKey = "proceed";
 	const PreviousNoKey = "previous";
 	const BackBtnKey = "back_btn";
@@ -41,6 +43,7 @@ class SendMessageContext
 
 		if(isset($_POST[self::PageNoKey]))
 		{
+			$this->pre_page_no = $this->page_no;
 			$this->page_no = $_POST[self::PageNoKey];
 		}
 
@@ -51,6 +54,11 @@ class SendMessageContext
 	public function get_page_no()
 	{
 		return $this->page_no;
+	}
+
+	public function get_pre_page_no()
+	{
+		return $this->pre_page_no;
 	}
 
 	public function enable_save_btn()
@@ -80,6 +88,8 @@ class SendMessageContext
 
 	private function manage_page()
 	{
+		$this->pre_page_no = $this->page_no;
+
 		if(isset($_POST[self::BackBtnKey]))
 		{
 			$this->page_no -= 1;

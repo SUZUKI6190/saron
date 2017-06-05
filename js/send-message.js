@@ -4,17 +4,13 @@ function toggle_show(op_text, clse_text, area_id, btn_id, input_id, hdn_id)
     var btn = document.getElementById(btn_id);
     var input = document.getElementById(input_id);
     var hdn = document.getElementById(hdn_id);
-    if(input.hasAttribute("disabled")){
+    if(hdn.value == 1){
         area.className = "critera_input_area";
-        area.style.display= "";
         btn.innerText = op_text;
-        input.value = input.tempValue;
-        input.removeAttribute("disabled");
+        hdn.value=0;
     }else{
         area.className = "critera_input_area hide";
         btn.innerText = clse_text;
-        input.tempValue = input.value;
-        input.value = "";
-        input.setAttribute("disabled", "disabled");
+        hdn.value=1;
     }
 }

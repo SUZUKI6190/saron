@@ -18,6 +18,7 @@ class TimingCriteriaSetting extends CriteriaForm
     {
 
     }
+
     protected function get_title() : string
     {
         return "メッセージ配信のタイミング";

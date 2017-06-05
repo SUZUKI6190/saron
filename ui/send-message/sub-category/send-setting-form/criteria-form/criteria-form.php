@@ -26,6 +26,7 @@ abstract class CriteriaForm extends SettingForm
             if($c->is_set_criteria())
             {
                 $this->on_set_criteria($c);
+                $c->clear_criteria();
             }
         }
         $sc = SendMessageContext::get_instance();       
@@ -49,12 +50,10 @@ abstract class CriteriaForm extends SettingForm
             if($c->is_hidden()){
                 $text = $close_text;
                 $area_css = "critera_input_area hide";
-                $disabled = "disabled";
                 $hdn_value = 0;
             }else{
                 $text =  $open_text;
                 $area_css = "critera_input_area";
-                $disabled = "";
                 $hdn_value = 1;
             }
 
@@ -69,7 +68,7 @@ abstract class CriteriaForm extends SettingForm
                     $btn = "<button class='manage_button' type='button' id='$btn_id' onclick='$script' >$text</button>";
                     echo $btn;
                     ?>
-                    <div class='<?php echo $area_css; ?>' <?php echo $disabled; ?> id='<?php echo $area_id; ?>' value='<?php echo $hdn_value; ?>'>
+                    <div class='<?php echo $area_css; ?>' id='<?php echo $area_id; ?>' value='<?php echo $hdn_value; ?>'>
                         <?php                    
                             $c->view();
                         ?>

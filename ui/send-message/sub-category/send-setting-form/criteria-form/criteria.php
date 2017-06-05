@@ -12,6 +12,7 @@ abstract class Criteria
     
     public abstract function get_title():string;
     public abstract function get_context_param():param;
+    public abstract function clear_criteria();
     
     public function init()
     {
