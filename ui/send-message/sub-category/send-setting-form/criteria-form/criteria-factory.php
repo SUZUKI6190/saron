@@ -2,6 +2,7 @@
 namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/criteria.php');
 require_once(dirname(__FILE__).'/timing-criteria.php');
+require_once(dirname(__FILE__).'/customer-criteria.php');
 
 function criteria_factory(int $page_no) 
 {
@@ -19,7 +20,11 @@ function criteria_factory(int $page_no)
             ];
             break;
         case 2:
-            return [];
+            return [
+                new SexCriteria(),
+                new OccupatioCriterie(),
+                new VisitNumCriterie()
+            ];
             break;
     }
 }

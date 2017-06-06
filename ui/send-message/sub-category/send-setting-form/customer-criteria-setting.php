@@ -21,8 +21,8 @@ class CustomerCriteriaSetting extends SettingForm
     {
         $param = SendMessageContext::get_instance()->get_param_set();
 		$this->_occupation = new InputBase("text", $param->occupation->get_key(), $this->_default_msg->occupation);
-		$this->_vist_num_more = new InputBase("number", $param->visit_num_more->get_key(), $this->_default_msg->visit_num_more);
-        $this->_vist_num_less = new InputBase("number", $param->visit_num_less->get_key(), $this->_default_msg->visit_num_less);
+		$this->_vist_num_more = new InputBase("number", $param->visit_num->get_more_key(), $this->_default_msg->visit_num_more);
+        $this->_vist_num_less = new InputBase("number", $param->visit_num->get_less_key(), $this->_default_msg->visit_num_less);
 		$this->_reservation_route = new RouteSelect();
 		$this->_reservation_route->set_name($param->reservation_route->get_key());
 		$this->_reservation_route->set_selected_id($this->_default_msg->reservation_route);

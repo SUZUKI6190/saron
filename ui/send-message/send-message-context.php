@@ -1,6 +1,7 @@
 <?php
 namespace ui\send_message;
 use business\entity\SendMessage;
+require_once(dirname(__FILE__).'/param.php');
 
 class SendMessageContext
 {
@@ -120,8 +121,7 @@ class SendMessageContext
 		$this->_param_set->sex->set_from_param($sm->sex);
 		$this->_param_set->enable_dm->set_from_param($sm->enable_dm);
 		$this->_param_set->occupation->set_from_param($sm->occupation);
-		$this->_param_set->visit_num_more->set_from_param($sm->visit_num_more);
-		$this->_param_set->visit_num_less->set_from_param($sm->visit_num_less);
+		$this->_param_set->visit_num->set_from_range_param($sm->visit_num_less, $sm->visit_num_more);
 		$this->_param_set->reservation_route->set_from_param($sm->reservation_route);
 		$this->_param_set->staff->set_from_param($sm->staff_id);
 
@@ -148,8 +148,8 @@ class SendMessageContext
 		$msg->sex = $this->_param_set->sex->get_value();
 		$msg->enable_dm = $this->_param_set->enable_dm->get_value();
 		$msg->occupation = $this->_param_set->occupation->get_value();
-		$msg->visit_num_more = $this->_param_set->visit_num_more->get_value();
-		$msg->visit_num_less = $this->_param_set->visit_num_less->get_value();
+		$msg->visit_num_more = $this->_param_set->visit_num->get_more_value();
+		$msg->visit_num_less = $this->_param_set->visit_num->get_less_value();
 		$msg->reservation_route = $this->_param_set->reservation_route->get_value();
 		$msg->staff_id = $this->_param_set->staff->get_value();
 
@@ -217,8 +217,7 @@ class SendMessageParamSet
 	public $sending_mail, $confirm_mail;
 	public $message;
 	public $occupation;
-	public $visit_num_more;
-	public $visit_num_less;
+	public $visit_num;
 	public $reservation_route;
 	public $staff;
 	public $enable_dm;
@@ -234,8 +233,7 @@ class SendMessageParamSet
 		$this->confirm_mail = new Param("confirm_mail");
 		$this->message = new Param("message");
 		$this->occupation = new Param("occupation");
-		$this->visit_num_more = new Param("vist_num_more");
-		$this->visit_num_less = new Param("vist_num_less");
+		$this->visit_num = new RangeParam("vist_num");
 		$this->reservation_route = new Param("reservation_route");
 		$this->sex = new RadioParam("sex");
 		$this->staff = new Param("staff");
@@ -250,8 +248,7 @@ class SendMessageParamSet
 			$this->confirm_mail,
 			$this->message,
 			$this->occupation,
-			$this->visit_num_more,
-			$this->visit_num_less,
+			$this->visit_num,
 			$this->reservation_route,
 			$this->sex,
 			$this->staff,
@@ -266,113 +263,6 @@ class SendMessageParamSet
 			$p->clear();
 		}
 	}
-}
-
-class Param
-{
-	protected $_key;
-
-	public function get_key():string
-	{
-		return $this->_key;
-	}
-
-	public function __construct(string $key)
-	{
-		$this->_key = $key;
-	}
-
-	public function set_from_param($v)
-	{
-		$_SESSION[$this->_key] = $v;
-	}
-
-	public function set_session_from_post()
-	{
-		if(isset($_POST[$this->_key])){
-			$_SESSION[$this->_key] = $_POST[$this->_key];
-		}
-	}
-
-	public function get_value() : string
-	{
-		if(isset($_SESSION[$this->_key])){
-			return $_SESSION[$this->_key];
-		}else{
-			return "";
-		}
-	}
-
-	public function clear()
-	{
-		unset($_SESSION[$this->_key]);
-	}
-
-	public function is_set() : bool
-	{
-		return isset($_SESSION[$this->_key]);
-	}
-}
-
-class RadioParam extends Param
-{
-	
-	public function get_key():string
-	{
-		return $this->_key."[]";
-	}
-
-	public function set_session_from_post()
-	{
-		if(isset($_POST[$this->_key])){
-			$_SESSION[$this->_key] = $_POST[$this->_key][0];
-		}
-	}
-}
-
-class DaySelectParam extends Param
-{
-	public function get_radio_key(): string
-	{
-		return $this->_key."_select[]";
-	}
-
-	public function get_value() : string
-	{
-		if(isset($_SESSION[$this->_key])){
-			return $_SESSION[$this->_key];
-		}else{
-			return "";
-		}
-	}
-
-
-	public function set_session_from_post()
-	{
-		$rk =  $this->_key."_select";
-		if(!isset($_POST[$rk]))
-		{
-			return;
-		}
-		$selected_value = $_POST[$rk][0];
-		if(isset($_POST[$this->_key])){
-			switch($selected_value)
-			{
-				case "日前":
-					$_SESSION[$this->_key] = -(int)$_POST[$this->_key];
-					break;
-				case "日後":
-					$_SESSION[$this->_key] = (int)$_POST[$this->_key];
-					break;
-				default:
-					$_SESSION[$this->_key] = 0;
-					break;
-			}
-		}else{
-			$_SESSION[$this->_key] = null;
-		}
-	}
-	
 }
 
 ?>

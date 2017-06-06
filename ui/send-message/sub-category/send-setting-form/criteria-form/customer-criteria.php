@@ -18,14 +18,18 @@ class SexCriteria extends Criteria
     'F' => "女性"
     ];
   
-    public function init()
+    protected function init_inner()
     {
-
     }
 
     public function get_title():string
     {
         return "性別";
+    }
+
+    public function get_context_param():param
+    {
+        return SendMessageContext::get_instance()->get_param_set()->sex;
     }
 
     public function view()
@@ -34,10 +38,9 @@ class SexCriteria extends Criteria
         $this->view_radio($param->sex->get_key(), $param->sex->get_value(), self::sex_list);
     }
 
-    public function is_hidden():bool
+    public function clear_criteria()
     {
-        $param = SendMessageContext::get_instance()->get_param_set()->sex;
-        return !$param->is_set();
+        $this->get_context_param()->clear();
     }
 }
 
@@ -46,9 +49,10 @@ class OccupatioCriterie extends Criteria
 {
     private $_occupation;
 
-    public function init()
+    protected function init_inner()
     {
-        $this->_occupation =new InputControll("text", $param->occupation->get_key());
+        $param = $this->get_context_param();
+        $this->_occupation =new InputControll("text", $param->get_key());
     }
 
     public function get_title():string
@@ -58,19 +62,19 @@ class OccupatioCriterie extends Criteria
 
     public function view()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
+        $param = $this->get_context_param();
         $add = [];
-        $add["id"] = $param->occupation->get_key();
+        $add["id"] = $param->get_key();
         $this->_occupation->set_value($this->_default_msg->occupation);
         $this->_occupation->set_attribute($add);
         $this->_occupation->view();
     }
 
-    public function is_hidden():bool
+    public function get_context_param():param
     {
-        $param = SendMessageContext::get_instance()->get_param_set()->occupation;
-        return !$param->is_set();
+        return SendMessageContext::get_instance()->get_param_set()->occupation;
     }
+
 }
 
 
@@ -78,10 +82,11 @@ class VisitNumCriterie extends Criteria
 {
     private $_vist_num_more, $_vist_num_less;
 
-    public function init()
+    protected function init_inner()
     {
-        $this->_vist_num_more = new InputControll("number", $param->visit_num_more->get_key());
-        $this->_vist_num_less = new InputControll("number", $param->visit_num_less->get_key());
+        $param = $this->get_context_param();
+        $this->_vist_num_more = new InputControll("number", $param->get_more_key());
+        $this->_vist_num_less = new InputControll("number", $param->get_less_key());
     }
 
     public function get_title():string
@@ -117,10 +122,9 @@ class VisitNumCriterie extends Criteria
         <?php
     }
 
-    public function is_hidden():bool
+    public function get_context_param():param
     {
-        $param = SendMessageContext::get_instance()->get_param_set()->sex;
-        return !$param->is_set();
+        return SendMessageContext::get_instance()->get_param_set()->visit_num;
     }
 }
 

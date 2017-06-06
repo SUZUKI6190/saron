@@ -12,8 +12,7 @@ abstract class Criteria
     
     public abstract function get_title():string;
     public abstract function get_context_param():param;
-    public abstract function clear_criteria();
-    
+  
     public function init()
     {
         $this->_param = $this->get_context_param();
@@ -44,6 +43,23 @@ abstract class Criteria
     public function is_hidden():bool
     {
         return !$this->get_context_param()->is_set();
+    }
+
+     public function clear_criteria()
+    {
+        $this->get_context_param()->clear();
+    }
+
+    protected function view_radio($name, $selected_name, $d)
+    {
+        foreach($d as $key => $text)
+        {        
+            if($key  == $selected_name){
+                echo "<input type='radio' name='$name' value='$key' checked>$text";
+            }else{
+                echo "<input type='radio' name='$name' value='$key'>$text";
+            }
+        }
     }
 }
 
