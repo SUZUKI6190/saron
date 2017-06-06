@@ -24,14 +24,6 @@ class TimingCriteriaSetting extends CriteriaForm
         return "メッセージ配信のタイミング";
     }
 
-    protected function create_criteria_form()
-    {
-        return [
-            new BirthVisitCriteria(),
-            new LastVisitCriteria(),
-            new NextVisitCriteria()
-        ];
-    }
 }
 
 ?>

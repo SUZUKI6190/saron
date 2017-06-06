@@ -19,7 +19,7 @@ abstract class SettingForm
     protected $_nextBtn, $_backBtn;
 
     const SendMailSettingKey = "SenddingMailState";
-
+    
     public function set_msg(SendMessage $msg)
     {
         $this->_default_msg = $msg;
@@ -39,7 +39,13 @@ abstract class SettingForm
     {
         $sc = SendMessageContext::get_instance();
         $ap = create_after_post($sc->get_pre_page_no());
-        $ap->pre_page_post_dealing();
+
+        foreach(criteria_factory($sc->get_pre_page_no()) as $c)
+        {
+            $c->default_msg = $this->_default_msg;
+            $c->init();
+            $ap->pre_page_post_dealing($c);
+        }   
     }
 
     public function view()

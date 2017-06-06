@@ -3,6 +3,7 @@ namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/../../page-move-button.php');
 require_once(dirname(__FILE__).'/../send-mail-form.php');
 require_once(dirname(__FILE__).'/criteria.php');
+require_once(dirname(__FILE__).'/criteria-factory.php');
 use business\entity\SendMessage;
 use ui\send_message\SendMessageContext;
 use ui\util\InputBase;
@@ -14,17 +15,17 @@ use ui\ViewStaff;
 abstract class CriteriaForm extends SettingForm
 {
     private $_criteria_list;
-    protected abstract function create_criteria_form();
     protected abstract function on_set_criteria(Criteria $c);
     protected function init_inner()
     {
-        $this->_criteria_list = $this->create_criteria_form();
+        $sc = SendMessageContext::get_instance();
+        $this->_criteria_list = criteria_factory($sc->get_page_no());
         foreach($this->_criteria_list as $c)
         {
             $c->default_msg = $this->_default_msg;
             $c->init();
         }   
-        $sc = SendMessageContext::get_instance();       
+
         $sc->enable_save_btn();
     }
 

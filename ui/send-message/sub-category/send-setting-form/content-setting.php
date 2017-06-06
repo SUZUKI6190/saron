@@ -24,7 +24,7 @@ class ContentSetting extends SettingForm
         $this->_sending_mail = new InputBase("email", $param->sending_mail->get_key(), $this->_default_msg->sending_mail);
 		$this->_confirm_mail = new InputBase("email", $param->confirm_mail->get_key(), $this->_default_msg->confirm_mail);
     }
-
+    
     protected function get_title() : string
     {
         return "メール内容設定";

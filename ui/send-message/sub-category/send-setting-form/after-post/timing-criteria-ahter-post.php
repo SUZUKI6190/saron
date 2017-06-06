@@ -6,8 +6,8 @@ class TimingCriteriaAfterPost extends CriteriaAfterPost
 {
     protected  function on_set_criteria(Criteria $c)
     {
-        if($c->is_set_criteria()){
-            $c->clear_criteria();
+        if(!$c->is_set_criteria()){
+           $c->clear_criteria();
         }
     }
 }
