@@ -15,7 +15,7 @@ use ui\ViewStaff;
 abstract class CriteriaForm extends SettingForm
 {
     private $_criteria_list;
-    protected abstract function on_set_criteria(Criteria $c);
+
     protected function init_inner()
     {
         $sc = SendMessageContext::get_instance();
@@ -46,11 +46,11 @@ abstract class CriteriaForm extends SettingForm
             if($c->is_hidden()){
                 $text = $close_text;
                 $area_css = "critera_input_area hide";
-                $hdn_value = 0;
+                $hdn_value = 1;
             }else{
                 $text =  $open_text;
                 $area_css = "critera_input_area";
-                $hdn_value = 1;
+                $hdn_value = 0;
             }
 
             $script = "toggle_show(\"$open_text\", \"$close_text\",\"$area_id\", \"$btn_id\" , \"$c->name\", \"$hdn_id\");";
@@ -70,7 +70,7 @@ abstract class CriteriaForm extends SettingForm
                         ?>
                     </div>
                 </div>
-                <?php echo "<input type='hidden' name='$hdn_id' id='$hdn_id' value='$hdn_value />"; ?>
+                <?php echo "<input type='hidden' name='$hdn_id' id='$hdn_id' value='$hdn_value' />"; ?>
             </div>
             <?php
         }

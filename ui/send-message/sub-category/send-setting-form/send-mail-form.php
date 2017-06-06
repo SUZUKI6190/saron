@@ -39,7 +39,6 @@ abstract class SettingForm
     {
         $sc = SendMessageContext::get_instance();
         $ap = create_after_post($sc->get_pre_page_no());
-
         foreach(criteria_factory($sc->get_pre_page_no()) as $c)
         {
             $c->default_msg = $this->_default_msg;

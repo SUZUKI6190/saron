@@ -12,18 +12,10 @@ use ui\ViewStaff;
 
 class TimingCriteriaSetting extends CriteriaForm
 {
-    private $_birth, $_last_visit, $_next_visit;
-
-    protected function on_set_criteria(Criteria $c)
-    {
-
-    }
-
     protected function get_title() : string
     {
         return "メッセージ配信のタイミング";
     }
-
 }
 
 ?>

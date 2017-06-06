@@ -35,17 +35,11 @@ abstract class Criteria
         return isset($_POST[$this->get_hidden_id()]);
     }
 
-    protected function view_radio($name, $selected_name, $d)
+    public function is_close_criteria() : bool
     {
-        foreach($d as $key => $text)
-        {
-            if($key == $selected_name){
-                echo "<input type='radio' name='$name' value='$key' checked>$text";
-            }else{
-                echo "<input type='radio' name='$name' value='$key'>$text";
-            }
-        }
+        return (int)$_POST[$this->get_hidden_id()] == 1;
     }
+
 
     public function is_hidden():bool
     {

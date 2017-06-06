@@ -1,15 +1,18 @@
 <?php
 namespace ui\send_message\sub_category;
-require_once(dirname(__FILE__).'/criteria-after-post.php');
+require_once(dirname(__FILE__).'/after-post.php');
 
-class TimingCriteriaAfterPost extends CriteriaAfterPost
+class TimingCriteriaAfterPost extends MailSettingAfterPost
 {
-    protected  function on_set_criteria(Criteria $c)
+    protected function pre_page_post_inner(Criteria $c)
     {
-        if(!$c->is_set_criteria()){
-           $c->clear_criteria();
+        if($c->is_set_criteria()){
+             if($c->is_close_criteria()){
+                $c->clear_criteria();
+            }
         }
     }
+    
 }
 
 ?>
