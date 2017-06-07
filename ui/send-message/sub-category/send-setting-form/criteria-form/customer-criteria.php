@@ -13,7 +13,6 @@ use ui\ViewStaff;
 class SexCriteria extends Criteria
 {
     const sex_list = [
-    'None' => "指定なし",
     'M' => "男性",
     'F' => "女性"
     ];
@@ -30,6 +29,11 @@ class SexCriteria extends Criteria
     public function get_context_param():param
     {
         return SendMessageContext::get_instance()->get_param_set()->sex;
+    }
+
+    public function get_hidden_id():string
+    {
+        return str_replace("[]", "", $this->name)."_hdn";
     }
 
     public function view()
@@ -196,11 +200,14 @@ class EnableDMCriterie extends Criteria
 {
 
     const dm_list = [
-    '0' => "指定なし",
     '1' => "可",
     '2' => "不可"
     ];
 
+    public function get_hidden_id():string
+    {
+        return str_replace("[]", "", $this->name)."_hdn";
+    }
     protected function init_inner()
     {
     }
