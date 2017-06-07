@@ -23,7 +23,10 @@ function criteria_factory(int $page_no)
             return [
                 new SexCriteria(),
                 new OccupatioCriterie(),
-                new VisitNumCriterie()
+                new VisitNumCriterie(),
+                new ReservationRouteCriterie(),
+                new StaffCriterie(),
+                new EnableDMCriterie()
             ];
             break;
     }

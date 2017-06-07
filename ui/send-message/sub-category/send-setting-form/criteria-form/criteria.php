@@ -17,6 +17,8 @@ abstract class Criteria
     {
         $this->_param = $this->get_context_param();
         $this->init_inner();
+        $param = $this->get_context_param();
+        $this->name= $param->get_key();
     }
 
     public function get_param():Param

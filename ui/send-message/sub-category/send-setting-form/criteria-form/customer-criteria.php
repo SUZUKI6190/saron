@@ -65,7 +65,7 @@ class OccupatioCriterie extends Criteria
         $param = $this->get_context_param();
         $add = [];
         $add["id"] = $param->get_key();
-        $this->_occupation->set_value($this->_default_msg->occupation);
+        $this->_occupation->set_value($this->default_msg->occupation);
         $this->_occupation->set_attribute($add);
         $this->_occupation->view();
     }
@@ -96,20 +96,20 @@ class VisitNumCriterie extends Criteria
 
     public function view()
     {
-        $param = SendMessageContext::get_instance()->get_param_set();
+        $param = SendMessageContext::get_instance()->get_param_set()->visit_num;;
 
-        $this->_vist_num_more->set_value($this->_default_msg->visit_num_more);
-        $this->_vist_num_less->set_value($this->_default_msg->visit_num_less);
+        $this->_vist_num_more->set_value($this->default_msg->visit_num_more);
+        $this->_vist_num_less->set_value($this->default_msg->visit_num_less);
 
         $add = [];
         $add["min"] = "0";        
-        $add["id"] = $param->vist_num_more->get_key();
+        $add["id"] = $param->get_more_key();
         $this->_vist_num_more->set_attribute($add);
 
 
         $add_less = [];
         $add_less["min"] = "0";        
-        $add_less["id"] = $param->vist_num_less->get_key();
+        $add_less["id"] = $param->get_less_key();
         $this->_vist_num_less->set_attribute($add_less);
 
         ?>
@@ -126,6 +126,103 @@ class VisitNumCriterie extends Criteria
     {
         return SendMessageContext::get_instance()->get_param_set()->visit_num;
     }
+}
+
+
+
+class ReservationRouteCriterie extends Criteria
+{
+    private $_reservation_route;
+
+    protected function init_inner()
+    {
+       
+		$this->_reservation_route = new RouteSelect();
+
+
+    }
+
+    public function get_title():string
+    {
+        return "予約経路";
+    }
+
+    public function view()
+    {
+        $param = $this->get_context_param();
+  		$this->_reservation_route->set_name($param->get_key());
+		$this->_reservation_route->set_selected_id($this->default_msg->reservation_route);
+        $this->_reservation_route->view();
+
+    }
+
+    public function get_context_param():param
+    {
+        return SendMessageContext::get_instance()->get_param_set()->reservation_route;
+    }
+
+}
+
+
+class StaffCriterie extends Criteria
+{
+    private $_reservation_route;
+
+    protected function init_inner()
+    {
+        $param = $this->get_context_param();
+       	$this->_staff = new ViewStaff($param->get_key());
+    }
+
+    public function get_title():string
+    {
+        return "担当スタッフ";
+    }
+
+    public function view()
+    { 
+         $this->_staff->view_staff_select($this->get_context_param()->get_value());
+    }
+
+    public function get_context_param():param
+    {
+        return SendMessageContext::get_instance()->get_param_set()->staff;
+    }
+
+}
+
+
+class EnableDMCriterie extends Criteria
+{
+
+    const dm_list = [
+    '0' => "指定なし",
+    '1' => "可",
+    '2' => "不可"
+    ];
+
+    protected function init_inner()
+    {
+    }
+
+    public function get_title():string
+    {
+        return "DM";
+    }
+
+    public function view()
+    { 
+        $param = $this->get_context_param();
+        $name = $param->get_key();
+        $v = $param->get_value();
+        $this->view_radio( $name ,  $v , self::dm_list);
+    }
+
+    public function get_context_param():param
+    {
+        return SendMessageContext::get_instance()->get_param_set()->enable_dm;
+    }
+
 }
 
 
