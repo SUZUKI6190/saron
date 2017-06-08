@@ -89,4 +89,29 @@ SQL
 );
 }
 
+function update_message_setting(SendMessage $msg)
+{
+	global $wpdb;
+$s = 		<<<SQL
+		update sending_message  set
+			title = '$msg->title',
+			birth = '$msg->birth',
+			last_visit = '$msg->last_visit',
+			next_visit = '$msg->next_visit',
+			enable_dm = '$msg->enable_dm',
+			sending_mail = '$msg->sending_mail',
+			confirm_mail = '$msg->confirm_mail',
+			message_text = '$msg->message_text',
+			sex = '$msg->sex',
+			visit_num_more = '$msg->visit_num_more',
+			visit_num_less = '$msg->visit_num_less',
+			occupation = '$msg->occupation',
+			reservation_route = '$msg->reservation_route'
+		where id = '$msg->id'
+SQL;
+	echo $s;
+	$wpdb->query($s);
+}
+
+
 ?>
