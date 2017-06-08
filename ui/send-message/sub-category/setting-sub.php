@@ -17,8 +17,6 @@ class SettingSub extends \ui\frame\SubCategory
 		if(empty($context->message_id)){
 			if(!$context->save_btn_state->isset()){
 				$empty = SendMessage::get_empty_object();
-				$empty->sex = "None";
-				$empty->enable_dm = "0";
 				$context->set_session($empty);
 			}
 			$this->_view_detail = new ViewMessageDetailNew();

@@ -12,6 +12,7 @@ class TimingCriteriaAfterPost extends MailSettingAfterPost
             }
         }
     }
+
 }
 
 ?>

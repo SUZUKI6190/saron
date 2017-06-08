@@ -2,6 +2,7 @@
 namespace ui\send_message\sub_category;
 use ui\send_message\SendMessageContext;
 use ui\send_message\Param;
+use business\entity\SendMessage;
 
 abstract class Criteria
 {
@@ -21,6 +22,11 @@ abstract class Criteria
         $this->name= $param->get_key();
     }
 
+    public function update_mseeage(SendMessage $s)
+    {
+
+    }
+    
     public function get_param():Param
     {
         return $this->_param;

@@ -21,6 +21,12 @@ class LastVisitCriteria extends Criteria
         $this->_last_visit = new DayCriteriaForm($param->get_key(), $this->default_msg->last_visit);
     }
 
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
+    }
+    
     public function get_context_param():param
     {
         return SendMessageContext::get_instance()->get_param_set()->last_visit;
@@ -50,6 +56,12 @@ class NextVisitCriteria extends Criteria
         $this->_next_visit = new DayCriteriaForm($param->get_key(), $this->default_msg->next_visit);
     }
 
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
+   }
+
     public function get_title():string
     {
         return "次回来店予定日";
@@ -74,6 +86,12 @@ class BirthVisitCriteria extends Criteria
     public function get_title():string
     {
         return "誕生日";
+    }
+
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
     }
 
     public function init_inner()

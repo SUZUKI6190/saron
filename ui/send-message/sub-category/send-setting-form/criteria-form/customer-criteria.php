@@ -21,6 +21,12 @@ class SexCriteria extends Criteria
     {
     }
 
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
+    }
+
     public function get_title():string
     {
         return "性別";
@@ -59,6 +65,12 @@ class OccupatioCriterie extends Criteria
         $this->_occupation =new InputControll("text", $param->get_key());
     }
 
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
+    }
+
     public function get_title():string
     {
         return "職業";
@@ -91,6 +103,12 @@ class VisitNumCriterie extends Criteria
         $param = $this->get_context_param();
         $this->_vist_num_more = new InputControll("number", $param->get_more_key());
         $this->_vist_num_less = new InputControll("number", $param->get_less_key());
+    }
+
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
     }
 
     public function get_title():string
@@ -139,11 +157,14 @@ class ReservationRouteCriterie extends Criteria
     private $_reservation_route;
 
     protected function init_inner()
-    {
-       
+    {      
 		$this->_reservation_route = new RouteSelect();
+    }
 
-
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
     }
 
     public function get_title():string
@@ -178,6 +199,12 @@ class StaffCriterie extends Criteria
        	$this->_staff = new ViewStaff($param->get_key());
     }
 
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
+    }
+
     public function get_title():string
     {
         return "担当スタッフ";
@@ -208,9 +235,16 @@ class EnableDMCriterie extends Criteria
     {
         return str_replace("[]", "", $this->name)."_hdn";
     }
+
     protected function init_inner()
     {
     }
+
+    public  function update_mseeage(SendMessage $s)
+    {
+        $param = $this->get_context_param();
+    	$param->clear();
+	}
 
     public function get_title():string
     {

@@ -29,9 +29,9 @@ abstract class SettingForm
     {
         $this->_nextBtn = new PageMoveButton(SendMessageContext::NextBtnKey, "次へ", 1);
         $this->_backBtn = new PageMoveButton(SendMessageContext::BackBtnKey, "前へ", -1);
-        $sc = SendMessageContext::get_instance();
-        $sc->update_session();
         $this->init_inner();
+        $sc = SendMessageContext::get_instance();
+        $sc->update_session();  
         $this->pre_page_dealing();
     }
 
@@ -44,6 +44,11 @@ abstract class SettingForm
             $c->default_msg = $this->_default_msg;
             $c->init();
             $ap->pre_page_post_dealing($c);
+            if($c->is_set_criteria()){
+                if($c->is_close_criteria()){
+                    $c->update_mseeage($c->default_msg);
+                }
+            }
         }   
     }
 
