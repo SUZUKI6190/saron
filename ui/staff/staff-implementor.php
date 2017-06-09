@@ -1,8 +1,10 @@
 <?php
 namespace ui\staff;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
+require_once(dirname(__FILE__).'/sub-category/staff-sub-category.php');
+require_once(dirname(__FILE__).'/sub-category/staff-schedule.php');
+require_once('staff-input-form.php');
 
-require_once('staff-sub-category.php');
 use \ui\frame\ManageFrameImplementor;
 
 class StaffFrameImplementor extends ManageFrameImplementor
@@ -22,6 +24,7 @@ class StaffFrameImplementor extends ManageFrameImplementor
 		};
 		$set_array(new StaffViewSub());
 		$set_array(new StaffAddNewSub());
+		$set_array(new StaffShceduleSub());
 		return $ret;
 	}
 
@@ -32,7 +35,8 @@ class StaffFrameImplementor extends ManageFrameImplementor
 	protected function get_css_list()
 	{
 		return [
-		new \ui\frame\HeaderFile('staff.css', 0.04)
+		new \ui\frame\HeaderFile('staff.css', 0.04),
+		new \ui\frame\HeaderFile('staff-schedule.css', 0.04)
 		];
 	}
 	

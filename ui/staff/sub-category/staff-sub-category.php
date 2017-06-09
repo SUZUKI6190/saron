@@ -1,9 +1,6 @@
 <?php
 namespace ui\staff;
-require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once(dirname(__FILE__).'/../../business/facade/staff.php');
-require_once(dirname(__FILE__).'/../../business/entity/staff.php');
-require_once('staff-input-form.php');
+
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
