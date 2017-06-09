@@ -92,7 +92,7 @@ SQL
 function update_message_setting(SendMessage $msg)
 {
 	global $wpdb;
-$s = 		<<<SQL
+	$s = <<<SQL
 		update sending_message  set
 			title = '$msg->title',
 			birth = '$msg->birth',
@@ -109,7 +109,7 @@ $s = 		<<<SQL
 			reservation_route = '$msg->reservation_route'
 		where id = '$msg->id'
 SQL;
-	echo $s;
+
 	$wpdb->query($s);
 }
 

@@ -1,0 +1,57 @@
+.table_area
+{
+    margin-top: 50px;
+}
+
+.mail_inpt_table
+{
+    background-color: #F8F8F8;
+    width: 100%;
+    margin: auto;
+}
+
+.mail_inpt_table tr
+{
+    height: 60px;
+}
+
+.mail_inpt_table,
+.mail_inpt_table td
+{
+    border: solid 1px #E6E6E6;
+    border-collapse: collapse;
+}
+
+td.midasi
+{
+    width: 30%;
+    vertical-align: top;
+}
+
+.mail_inpt_table td
+{
+    vertical-align: top;
+}
+
+.mail_inpt_table input[type='text'],
+.mail_inpt_table input[type='tell'],
+.mail_inpt_table input[type='email'],
+.mail_inpt_table textarea
+{
+    width: 90%;
+}
+
+.tag
+{
+    color: white;
+}
+
+.required
+{
+    background-color: #DF93A2;
+}
+
+.option
+{
+    background-color: #66CC66
+}

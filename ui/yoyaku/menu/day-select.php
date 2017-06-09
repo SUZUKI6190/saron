@@ -41,6 +41,11 @@ class DaySelect extends YoyakuMenu
 
 	public function view()
 	{
+		?>
+		<div class='yoyaku_midashi'>
+            <span class='page_midasi'>日時を選択してください</span>
+        </div>
+		<?php
 		$yc = YoyakuContext::get_instance();
 		$d = "?date=".(new \DateTime())->format("Ymdhis");
 		$before_url = $yc->get_base_url()."/staff".$d;
