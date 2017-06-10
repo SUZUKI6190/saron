@@ -16,11 +16,14 @@ class MailInput extends YoyakuMenu
 
 	public function __construct()
 	{
-		$this->_course_id_list = $this->get_course_id_list();
+
+	}
+	protected function init_inner()
+	{
+        $this->_course_id_list = $this->get_course_id_list();
 		$course_list = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
 		$this->course_table = new CourseTable($course_list);
-	}
-
+    }
 	protected function get_css_list() : array
 	{
 		return [

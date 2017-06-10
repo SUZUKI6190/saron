@@ -29,8 +29,9 @@ class YoyakuSelect extends YoyakuMenu
 		return ["menu-select.js"];
 	}
 
-	public function __construct()
+	protected function init_inner()
 	{
+
 
 		$yc = YoyakuContext::get_instance();
 		$this->_menu_list = \business\facade\get_menu_list();
@@ -63,6 +64,9 @@ class YoyakuSelect extends YoyakuMenu
 			$this->_rest_menu_table = new MenuTable($rest, "rest", 'メニューを選択してください', $this->_form_id);
 			$this->_checkbox_id_list = $this->_rest_menu_table->get_checkbox_id_list();
 		}
+	}
+	public function __construct()
+	{
 	}
 	
 	public function get_title() : string

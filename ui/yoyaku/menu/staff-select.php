@@ -28,6 +28,11 @@ class StaffSelect extends YoyakuMenu
 
 	public function __construct()
 	{
+
+	}
+
+	protected function init_inner()
+	{
 		$yc = YoyakuContext::get_instance();
 		$this->_staff_list = \business\facade\get_staff_all();
 		$this->_course_id_list = $this->get_course_id_list();

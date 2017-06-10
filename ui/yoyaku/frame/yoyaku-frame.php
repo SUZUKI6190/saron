@@ -1,10 +1,32 @@
 <?php
 namespace ui\yoyaku\frame;
+use ui\yoyaku\YoyakuContext;
+use ui\yoyaku\YoyakuParam;
 
 abstract class YoyakuMenu
 {
 	public abstract function view();
 	public abstract function get_title() : string;
+	
+	private function setup_session( $yp)
+	{
+		$key = $yp->get_key();
+		if(isset($_POST[$key])){
+			$yp->set_value($_POST[$key]);
+		}
+	}
+
+	public function init()
+	{
+		$yc = YoyakuContext::get_instance();
+		$this->setup_session($yc->course_id_list);
+		$this->setup_session($yc->staff_id);
+		$this->setup_session($yc->yoyaku_date_time);
+		$this->init_inner();
+	}
+
+	protected abstract function init_inner();
+	
 	public function pre_render()
 	{
 	}
@@ -33,11 +55,8 @@ abstract class YoyakuMenu
 
 	protected function get_course_id_list() : array
 	{
-		if(isset($_POST['course_id'])){
-			return $_POST['course_id'];
-		}else{
-			return [];
-		}
+		$yc = YoyakuContext::get_instance();
+		return $yc->course_id_list->get_value();
 	}
 
 	protected function view_yoyaku_frame_hidden()
@@ -96,6 +115,7 @@ class YoyakuFrame
 	
 	public function view()
 	{
+		$this->_main_yoyaku->init();
 		$this->_main_yoyaku->pre_render();
 
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
