@@ -55,3 +55,14 @@ td.midasi
 {
     background-color: #66CC66
 }
+
+tr.consultation_tr
+{
+    
+    height: 180px;
+}
+
+textarea.consultation
+{
+     height: 100%;
+}

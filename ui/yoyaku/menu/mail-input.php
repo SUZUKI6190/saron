@@ -94,7 +94,7 @@ class MailInput extends YoyakuMenu
                         <input type='radio' name='visit[]' >再来店
                     </td>
                 </tr>
-                <tr>
+                <tr class="consultation_tr">
                     <td class='midasi'>
                         <span class='tag option'>
                         任意
@@ -102,11 +102,26 @@ class MailInput extends YoyakuMenu
                         ご相談・お問合わせ等
                     </td>
                     <td>
-                        <textarea name="consultation" rows="4" cols="40">
-                        </textarea>
+                        <textarea class="consultation" name="consultation" rows="4" cols="40"></textarea>
                     </td>
                 </tr>
             </table>
+        </div>
+        <?php
+    		$d = "?date=".(new \DateTime())->format("Ymdhis");
+            $yc = YoyakuContext::get_instance();
+		    $before_url = get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/".$d;
+        ?>
+        <div class='back_button_area'>
+            <form method='post' action='<?php echo $before_url; ?>'>
+                <?php $this->view_yoyaku_frame_hidden(); ?>
+                <div class='back_button_area'>
+                    <input type ='submit' value="< 戻る" class="back_button">
+                </div>
+                <div class='back_button_area'>
+                    <button type='submit' value='none' name='staff_id' class='next_button'>予約内容を確認する</button>
+                </div>
+            </form>
         </div>
         <?php
     }
