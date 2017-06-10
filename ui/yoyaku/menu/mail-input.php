@@ -33,101 +33,104 @@ class MailInput extends YoyakuMenu
 		];
 	}
 
+	public function pre_render()
+	{
+
+	}
+
     public function view()
     {
+        $d = "?date=".(new \DateTime())->format("Ymdhis");
+	
         ?>
-        <div class='yoyaku_midashi'>
-            <span class='page_midasi'>お客様情報を入力してください</span>
-        </div>
-        <?php $this->course_table->view(); ?>
-        <div class='table_area'>
-            <table class='mail_inpt_table'>
-                <tr>
-                    <td class='midasi'>
-                        <span class='tag required'>
-                        必須
-                        </span>
-                        お名前(漢字)
-                    </td>
-                    <td>
-                        <input type='text' name='mail_name' >
-                    </td>
-                </tr>
-                <tr>
-                    <td class='midasi'>
-                        <span class='tag required'>
-                        必須
-                        </span>
-                        お名前(カナ)
-                    </td>
-                    <td>
-                        <input type='text' name='mail_kana' >
-                    </td>
-                </tr>
-                <tr>
-                    <td class='midasi'>
-                        <span class='tag required'>
-                        必須
-                        </span>
-                        メールアドレス
-                    </td>
-                    <td>
-                        <input type='email' name='email' >
-                    </td>
-                </tr>
-                <tr>
-                    <td class='midasi'>
-                        <span class='tag required'>
-                        必須
-                        </span>
-                        お電話番号
-                    </td>
-                    <td>
-                        <input type='tell' name='tell' >
-                    </td>
-                </tr>
-                <tr>
-                    <td class='midasi'>
-                        <span class='tag required'>
-                        必須
-                        </span>
-                        ご来店
-                    </td>
-                    <td>
-                        <input type='radio' name='visit[]' >初めて<br>
-                        <input type='radio' name='visit[]' >再来店
-                    </td>
-                </tr>
-                <tr class="consultation_tr">
-                    <td class='midasi'>
-                        <span class='tag option'>
-                        任意
-                        </span>
-                        ご相談・お問合わせ等
-                    </td>
-                    <td>
-                        <textarea class="consultation" name="consultation" rows="4" cols="40"></textarea>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <?php
-    		$d = "?date=".(new \DateTime())->format("Ymdhis");
+        <form method='post' action='<?php echo "$d" ?>'>
+            <div class='yoyaku_midashi'>
+                <span class='page_midasi'>お客様情報を入力してください</span>
+            </div>
+            <?php $this->course_table->view(); ?>
+            <div class='table_area'>
+                <table class='mail_inpt_table'>
+                    <tr>
+                        <td class='midasi'>
+                            <span class='tag required'>
+                            必須
+                            </span>
+                            お名前(漢字)
+                        </td>
+                        <td>
+                            <input type='text' name='mail_name' >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='midasi'>
+                            <span class='tag required'>
+                            必須
+                            </span>
+                            お名前(カナ)
+                        </td>
+                        <td>
+                            <input type='text' name='mail_kana' >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='midasi'>
+                            <span class='tag required'>
+                            必須
+                            </span>
+                            メールアドレス
+                        </td>
+                        <td>
+                            <input type='email' name='email' >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='midasi'>
+                            <span class='tag required'>
+                            必須
+                            </span>
+                            お電話番号
+                        </td>
+                        <td>
+                            <input type='tell' name='tell' >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='midasi'>
+                            <span class='tag required'>
+                            必須
+                            </span>
+                            ご来店
+                        </td>
+                        <td>
+                            <input type='radio' name='visit[]' >初めて<br>
+                            <input type='radio' name='visit[]' >再来店
+                        </td>
+                    </tr>
+                    <tr class="consultation_tr">
+                        <td class='midasi'>
+                            <span class='tag option'>
+                            任意
+                            </span>
+                            ご相談・お問合わせ等
+                        </td>
+                        <td>
+                            <textarea class="consultation" name="consultation" rows="4" cols="40"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-            $yc = YoyakuContext::get_instance();
-		    $before_url = $yc->get_base_url()."/day/".$this->get_menu_id().$d;
-        ?>
-        <form method='post' action='<?php echo $before_url; ?>'>
             <div class='button_area'>
                 <div class='back_button_area'>
+                    <a>
                     <input type ='submit' value="< 戻る" class="back_button">
                 </div>
                 <div class='back_button_area'>
                     <button type='submit' value='none' name='staff_id' class='next_button'>予約内容を確認する</button>
                 </div>
             </div>
-        </form>
-        <?php
+    </form>
+    <?php
     }
 
 	public function get_title() : string

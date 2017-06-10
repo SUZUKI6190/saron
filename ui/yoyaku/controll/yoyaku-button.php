@@ -16,7 +16,7 @@ class YoyakuToggle
     public function view()
     {
         if($this->enable_yoyaku){
-            echo "<button type='submit' class='yoyaku_button' name='select_time' value='$this->_value'>◎</button>";
+            echo "<button type='submit' class='yoyaku_button' name='yoyaku_date_time' value='$this->_value'>◎</button>";
         }else{
             echo "<span class='disable_cell'>✕</span>";
         }
