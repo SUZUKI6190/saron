@@ -66,3 +66,10 @@ textarea.consultation
 {
      height: 100%;
 }
+
+.button_area
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -16,14 +16,15 @@ class MailInput extends YoyakuMenu
 
 	public function __construct()
 	{
-
 	}
+
 	protected function init_inner()
 	{
-        $this->_course_id_list = $this->get_course_id_list();
+		$this->_course_id_list = $this->get_course_id_list();
 		$course_list = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
 		$this->course_table = new CourseTable($course_list);
-    }
+	}
+
 	protected function get_css_list() : array
 	{
 		return [
@@ -112,20 +113,20 @@ class MailInput extends YoyakuMenu
         </div>
         <?php
     		$d = "?date=".(new \DateTime())->format("Ymdhis");
+
             $yc = YoyakuContext::get_instance();
-		    $before_url = get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/".$d;
+		    $before_url = $yc->get_base_url()."/day/".$this->get_menu_id().$d;
         ?>
-        <div class='back_button_area'>
-            <form method='post' action='<?php echo $before_url; ?>'>
-                <?php $this->view_yoyaku_frame_hidden(); ?>
+        <form method='post' action='<?php echo $before_url; ?>'>
+            <div class='button_area'>
                 <div class='back_button_area'>
                     <input type ='submit' value="< 戻る" class="back_button">
                 </div>
                 <div class='back_button_area'>
                     <button type='submit' value='none' name='staff_id' class='next_button'>予約内容を確認する</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
         <?php
     }
 

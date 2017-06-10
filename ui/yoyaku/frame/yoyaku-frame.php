@@ -61,10 +61,6 @@ abstract class YoyakuMenu
 
 	protected function view_yoyaku_frame_hidden()
 	{
-		foreach($this->get_course_id_list() as $course_id){
-			echo "<input type='hidden' name='course_id[]' value='$course_id'>";
-		}
-
 		$m;
 		if(empty($this->_menu_id)){
 			$m = $this->get_menu_id();
