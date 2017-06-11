@@ -60,7 +60,7 @@ class MailInput extends YoyakuMenu
                             お名前(漢字)
                         </td>
                         <td>
-                            <input type='text' name='<?php echo $mc->name_kanji->get_key(); ?>' required >
+                            <input type='text' name='<?php echo $mc->name_kanji->get_key(); ?>' required value='<?php echo $mc->name_kanji->get_value();?>' >
                         </td>
                     </tr>
                     <tr>
@@ -71,7 +71,7 @@ class MailInput extends YoyakuMenu
                             お名前(カナ)
                         </td>
                         <td>
-                            <input type='text' name='<?php echo $mc->name_kana->get_key(); ?>' pattern="[\u3041-\u3096]*" required >
+                            <input type='text' name='<?php echo $mc->name_kana->get_key(); ?>' pattern="[\u3041-\u3096]*" required value='<?php echo $mc->name_kana->get_value();?>'>
                         </td>
                     </tr>
                     <tr>
@@ -82,7 +82,7 @@ class MailInput extends YoyakuMenu
                             メールアドレス
                         </td>
                         <td>
-                            <input type='email' name='<?php echo $mc->email->get_key(); ?>' required>
+                            <input type='email' name='<?php echo $mc->email->get_key(); ?>' required value='<?php echo $mc->email->get_value();?>'>
                         </td>
                     </tr>
                     <tr>
@@ -93,7 +93,7 @@ class MailInput extends YoyakuMenu
                             お電話番号
                         </td>
                         <td>
-                            <input type='tell' name='<?php echo $mc->tell->get_key(); ?>' required>
+                            <input type='tel' name='<?php echo $mc->tell->get_key(); ?>' required value='<?php echo $mc->tell->get_value();?>'>
                         </td>
                     </tr>
                     <tr>
@@ -106,9 +106,21 @@ class MailInput extends YoyakuMenu
                         <td>
                             <?php
                             $visit_name = $mc->visit->get_key()."[]";
+                            $checked_first = "";
+                            $checked_visited= "";
+                            if($mc->visit->is_set()){
+                                $value = $mc->visit->get_value()[0];
+                                if($value != "1"){
+                                    $checked_first = "checked";
+                                }else{
+                                    $checked_visited= "checked";
+                                }
+                            }else{
+                                $checked_first = "checked";
+                            }
                             ?>
-                            <input type='radio' name='<?php echo $visit_name; ?>'  >初めて<br>
-                            <input type='radio' name='<?php echo $visit_name; ?>' >再来店
+                            <input type='radio' name='<?php echo $visit_name; ?>' <?php echo $checked_first; ?> value='0' required>初めて<br>
+                            <input type='radio' name='<?php echo $visit_name; ?>' <?php echo $checked_visited; ?> value='1'>再来店
                         </td>
                     </tr>
                     <tr class="consultation_tr">
@@ -119,7 +131,7 @@ class MailInput extends YoyakuMenu
                             ご相談・お問合わせ等
                         </td>
                         <td>
-                            <textarea class="consultation" name='<?php echo $mc->consultation->get_key(); ?>' rows="4" cols="40"></textarea>
+                            <textarea class="consultation" name='<?php echo $mc->consultation->get_key(); ?>' rows="4" cols="40"><?php echo $mc->consultation->get_value();?></textarea>
                         </td>
                     </tr>
                 </table>

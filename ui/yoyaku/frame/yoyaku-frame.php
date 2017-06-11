@@ -22,6 +22,13 @@ abstract class YoyakuMenu
 		$this->setup_session($yc->course_id_list);
 		$this->setup_session($yc->staff_id);
 		$this->setup_session($yc->yoyaku_date_time);
+		$mc = $yc->mail_contents;
+		$this->setup_session($mc->name_kanji);
+		$this->setup_session($mc->name_kana);
+		$this->setup_session($mc->email);
+		$this->setup_session($mc->tell);
+		$this->setup_session($mc->visit);
+		$this->setup_session($mc->consultation);
 		$this->init_inner();
 	}
 

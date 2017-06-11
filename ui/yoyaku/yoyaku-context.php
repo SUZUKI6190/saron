@@ -12,6 +12,7 @@ class YoyakuContext
 
 	private function __construct()
 	{
+		session_id ("yoyakumenu");
 		session_start();
 		$this->course_id_list = new YoyakuParam("course_id");
 		$this->staff_id = new YoyakuParam("staff_id");

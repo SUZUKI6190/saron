@@ -35,6 +35,10 @@ function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 			require_once('menu/mail-input.php');
 			$menu = new MailInput();
 			break;
+		case 'confirm':
+			require_once('menu/confirm.php');
+			$menu = new Confirm();
+			break;
 	}
 	return $menu;
 }
