@@ -41,7 +41,9 @@ class MailInput extends YoyakuMenu
     public function view()
     {
         $d = "?date=".(new \DateTime())->format("Ymdhis");
-	
+		$yc = YoyakuContext::get_instance();
+		$before_url = $yc->get_base_url()."/day/".$d;
+        $mc = $yc->mail_contents;
         ?>
         <form method='post' action='<?php echo "$d" ?>'>
             <div class='yoyaku_midashi'>
@@ -58,7 +60,7 @@ class MailInput extends YoyakuMenu
                             お名前(漢字)
                         </td>
                         <td>
-                            <input type='text' name='mail_name' >
+                            <input type='text' name='<?php echo $mc->name_kanji->get_key(); ?>' required >
                         </td>
                     </tr>
                     <tr>
@@ -69,7 +71,7 @@ class MailInput extends YoyakuMenu
                             お名前(カナ)
                         </td>
                         <td>
-                            <input type='text' name='mail_kana' >
+                            <input type='text' name='<?php echo $mc->name_kana->get_key(); ?>' pattern="[\u3041-\u3096]*" required >
                         </td>
                     </tr>
                     <tr>
@@ -80,7 +82,7 @@ class MailInput extends YoyakuMenu
                             メールアドレス
                         </td>
                         <td>
-                            <input type='email' name='email' >
+                            <input type='email' name='<?php echo $mc->email->get_key(); ?>' required>
                         </td>
                     </tr>
                     <tr>
@@ -91,7 +93,7 @@ class MailInput extends YoyakuMenu
                             お電話番号
                         </td>
                         <td>
-                            <input type='tell' name='tell' >
+                            <input type='tell' name='<?php echo $mc->tell->get_key(); ?>' required>
                         </td>
                     </tr>
                     <tr>
@@ -102,8 +104,11 @@ class MailInput extends YoyakuMenu
                             ご来店
                         </td>
                         <td>
-                            <input type='radio' name='visit[]' >初めて<br>
-                            <input type='radio' name='visit[]' >再来店
+                            <?php
+                            $visit_name = $mc->visit->get_key()."[]";
+                            ?>
+                            <input type='radio' name='<?php echo $visit_name; ?>'  >初めて<br>
+                            <input type='radio' name='<?php echo $visit_name; ?>' >再来店
                         </td>
                     </tr>
                     <tr class="consultation_tr">
@@ -114,7 +119,7 @@ class MailInput extends YoyakuMenu
                             ご相談・お問合わせ等
                         </td>
                         <td>
-                            <textarea class="consultation" name="consultation" rows="4" cols="40"></textarea>
+                            <textarea class="consultation" name='<?php echo $mc->consultation->get_key(); ?>' rows="4" cols="40"></textarea>
                         </td>
                     </tr>
                 </table>
@@ -122,8 +127,7 @@ class MailInput extends YoyakuMenu
 
             <div class='button_area'>
                 <div class='back_button_area'>
-                    <a>
-                    <input type ='submit' value="< 戻る" class="back_button">
+                    <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
                 </div>
                 <div class='back_button_area'>
                     <button type='submit' value='none' name='staff_id' class='next_button'>予約内容を確認する</button>

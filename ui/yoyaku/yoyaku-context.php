@@ -8,6 +8,7 @@ class YoyakuContext
 	public $staff_id;
 	public $yoyaku_date_time;
 	public $menu_id;
+	public $mail_contents;
 
 	private function __construct()
 	{
@@ -15,6 +16,7 @@ class YoyakuContext
 		$this->course_id_list = new YoyakuParam("course_id");
 		$this->staff_id = new YoyakuParam("staff_id");
 		$this->yoyaku_date_time = new YoyakuParam("yoyaku_date_time");
+		$this->mail_contents = new MailContents();
 	}
 
 	public $template_page_name;
@@ -36,6 +38,27 @@ class YoyakuContext
 		}
 		return self::$_instance;
 	}
+}
+
+class MailContents
+{
+	public $name_kanji;
+	public $name_kana;
+	public $email;
+	public $tell;
+	public $visit;
+	public $consultation;
+
+	public function __construct()
+	{
+		$this->name_kanji = new YoyakuParam("name_kanji");
+		$this->name_kana = new YoyakuParam("name_kana");
+		$this->email = new YoyakuParam("email");
+		$this->tell= new YoyakuParam("tell");
+		$this->visit = new YoyakuParam("visit");
+		$this->consultation = new YoyakuParam("consultation");
+	}
+
 }
 
 class YoyakuParam
