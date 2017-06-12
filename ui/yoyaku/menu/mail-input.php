@@ -42,10 +42,11 @@ class MailInput extends YoyakuMenu
     {
         $d = "?date=".(new \DateTime())->format("Ymdhis");
 		$yc = YoyakuContext::get_instance();
-		$before_url = $yc->get_base_url()."/day/".$d;
+		$next_url = $yc->get_base_url()."/confirm/".$d;
+        $before_url = $yc->get_base_url()."/day/".$d;
         $mc = $yc->mail_contents;
         ?>
-        <form method='post' action='<?php echo "$d" ?>'>
+        <form method='post' action='<?php echo "$next_url" ?>'>
             <div class='yoyaku_midashi'>
                 <span class='page_midasi'>お客様情報を入力してください</span>
             </div>

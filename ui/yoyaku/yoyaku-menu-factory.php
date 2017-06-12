@@ -7,6 +7,7 @@ use ui\yoyaku\menu\YoyakuSelect;
 use ui\yoyaku\menu\StaffSelect;
 use ui\yoyaku\menu\DaySelect;
 use ui\yoyaku\menu\MailInput;
+use ui\yoyaku\menu\Confirm;
 
 function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 {

@@ -43,12 +43,7 @@ class StaffSelect extends YoyakuMenu
 
 	public function pre_render()
 	{
-		if(!isset($_POST['course_id']))
-		{
-			$url = $_SERVER['HTTP_REFERER'];
-			header("Location:$url");
-			exit;
-		}
+		
 	}
 	
 	public function get_title() : string
