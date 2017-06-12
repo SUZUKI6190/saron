@@ -8,6 +8,7 @@ use ui\yoyaku\menu\StaffSelect;
 use ui\yoyaku\menu\DaySelect;
 use ui\yoyaku\menu\MailInput;
 use ui\yoyaku\menu\Confirm;
+use ui\yoyaku\menu\Finish;
 
 function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 {
@@ -39,6 +40,10 @@ function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 		case 'confirm':
 			require_once('menu/confirm.php');
 			$menu = new Confirm();
+			break;
+		case 'finish':
+			require_once('menu/finish.php');
+			$menu = new Finish();
 			break;
 	}
 	return $menu;

@@ -8,12 +8,21 @@ abstract class YoyakuMenu
 	public abstract function view();
 	public abstract function get_title() : string;
 	
+	private $_menu_id;
+	private $_course_id_list;
+	protected $_is_view_footer = true;
+
 	private function setup_session( $yp)
 	{
 		$key = $yp->get_key();
 		if(isset($_POST[$key])){
 			$yp->set_value($_POST[$key]);
 		}
+	}
+
+	public function is_view_footer() : bool
+	{
+		return $this->_is_view_footer;
 	}
 
 	public function init()
@@ -37,9 +46,6 @@ abstract class YoyakuMenu
 	public function pre_render()
 	{
 	}
-
-	private $_menu_id;
-	private $_course_id_list;
 
 	protected function get_menu_id()
 	{
@@ -153,7 +159,9 @@ class YoyakuFrame
 			</div>
 			<div class="footer">
 			<?php
+			if($this->_main_yoyaku->is_view_footer()){
 				view_footer();
+			}
 			?>	
 			</div>
 			</div>

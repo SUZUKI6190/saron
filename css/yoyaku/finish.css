@@ -1,0 +1,21 @@
+.finish_message
+{
+    background-color: #FCE4D6;
+    font-weight: bold;
+    text-align: center;
+}
+
+.note_area
+{
+    margin-top: 50px;
+}
+
+.note
+{
+    color:#ea5550;
+}
+
+.bold
+{
+    font-weight: bold;
+}

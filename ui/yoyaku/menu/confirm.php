@@ -23,6 +23,17 @@ class Confirm extends YoyakuMenu
         }else{
             $this->_staff = \business\facade\get_staff_byid($yc->staff_id->get_value());
         }
+
+        $this->_is_view_footer = false;
+	}
+
+	public function pre_render()
+	{
+        if(isset($_POST["confirm_btn"])){
+	    	$yc = YoyakuContext::get_instance();
+    		$url = $yc->get_base_url()."/finish/".$d;
+            header("Location:$url");
+        }
 	}
 
 	protected function init_inner()
@@ -51,19 +62,20 @@ class Confirm extends YoyakuMenu
     <?php
         $d = "?date=".(new \DateTime())->format("Ymdhis");
 		$yc = YoyakuContext::get_instance();
-		$next_url = $yc->get_base_url()."/finish/".$d;
         $before_url = $yc->get_base_url()."/mailform/".$d;
         $this->view_yoyaku_content();
         $this->view_customer_info();
         ?>
-        <div class='button_area'>
-            <div class='back_button_area'>
-                <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
+        <form method='post' action='<?php echo "$d" ?>'>
+            <div class='button_area'>
+                <div class='back_button_area'>
+                    <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
+                </div>
+                <div class='back_button_area'>
+                    <button type='submit' value='none' name='confirm_btn' class='next_button'>予約を確定する</button>
+                </div>
             </div>
-            <div class='back_button_area'>
-                <button type='submit' value='none' name='staff_id' class='next_button'>予約を確定する</button>
-            </div>
-        </div>
+        </form>
 	<?php
 	}
 
