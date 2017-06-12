@@ -143,7 +143,7 @@ class MailInput extends YoyakuMenu
                     <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
                 </div>
                 <div class='back_button_area'>
-                    <button type='submit' value='none' name='staff_id' class='next_button'>予約内容を確認する</button>
+                    <button type='submit' value='none' name='confirm_btn' class='next_button'>予約内容を確認する</button>
                 </div>
             </div>
     </form>
