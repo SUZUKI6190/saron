@@ -29,8 +29,11 @@ class Confirm extends YoyakuMenu
 
 	public function pre_render()
 	{
-        if(isset($_POST["confirm_btn"])){
+        if(isset($_POST["finish_btn"])){
 	    	$yc = YoyakuContext::get_instance();
+
+            $yc->session_destroy();
+
     		$url = $yc->get_base_url()."/finish/".$d;
             header("Location:$url");
         }
@@ -72,7 +75,7 @@ class Confirm extends YoyakuMenu
                     <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
                 </div>
                 <div class='back_button_area'>
-                    <button type='submit' value='none' name='confirm_btn' class='next_button'>予約を確定する</button>
+                    <button type='submit' value='none' name='finish_btn' class='next_button'>予約を確定する</button>
                 </div>
             </div>
         </form>

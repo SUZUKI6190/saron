@@ -39,6 +39,12 @@ class YoyakuContext
 		}
 		return self::$_instance;
 	}
+
+	public function session_destroy()
+	{
+		//$_SESSION = array();
+		session_destroy();
+	}
 }
 
 class MailContents
