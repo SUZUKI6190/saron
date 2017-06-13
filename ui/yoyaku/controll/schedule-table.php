@@ -44,8 +44,8 @@ class TableCol
 {
     public $time;
     public $cells = [];
-	public $add_date;
-	private function setup($date)
+
+	private function setup( $date)
 	{
 		$new_cell = new TimeCell($date);
 		$time = $date->format('H:i:s');
@@ -53,17 +53,23 @@ class TableCol
 		$this->cells[$time] = $new_cell;
 	}
 
-	public function __construct(int $add)
+	public function __construct(int $start_datetime_param)
 	{
-		$this->add_date = $add;
+		$start_datetime = (new \DateTime())->setTimestamp($start_datetime_param);
+		$start_datetime->setTime(9,0,0);
+		
+		$max_datetime = (new \DateTime())->setTimestamp($start_datetime_param);
+		$max_datetime->setTime(21,0,0);
+
 		$c = $this->cells;
-		time_repeat(function($d){
-			$ad = "P".$this->add_date."D";
-			$interval = new \DateInterval($ad);
-			$d->add($interval);
-			$this->setup( $d);
-			$d->sub($interval);
-		});
+		$interval = new \DateInterval('P0DT30M');
+
+		while($start_datetime < $max_datetime)
+		{
+			$this->setup($start_datetime);
+			$start_datetime->add($interval);
+		}
+
 	}
 }
 
@@ -98,7 +104,7 @@ class ScheduleTable
 			$year_month = date("Y年m月", $date);
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
-			$this->_col_list[$new_day->week] = new TableCol($i);
+			$this->_col_list[$new_day->week] = new TableCol($date, $i);
 			$this->_col_list[$new_day->week]->date = $d->setTimestamp($date);
 		}
 
