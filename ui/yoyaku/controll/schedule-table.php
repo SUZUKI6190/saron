@@ -44,7 +44,7 @@ class TableCol
 {
     public $time;
     public $cells = [];
-	public $date;
+	public $add_date;
 	private function setup($date)
 	{
 		$new_cell = new TimeCell($date);
@@ -53,11 +53,16 @@ class TableCol
 		$this->cells[$time] = $new_cell;
 	}
 
-	public function __construct()
+	public function __construct(int $add)
 	{
+		$this->add_date = $add;
 		$c = $this->cells;
 		time_repeat(function($d){
-			$this->setup($d);
+			$ad = "P".$this->add_date."D";
+			$interval = new \DateInterval($ad);
+			$d->add($interval);
+			$this->setup( $d);
+			$d->sub($interval);
 		});
 	}
 }
@@ -93,7 +98,7 @@ class ScheduleTable
 			$year_month = date("Y年m月", $date);
 			$this->_week_list[] = $new_day;
 			$this->_week_list_each_month[$year_month][] = $new_day;
-			$this->_col_list[$new_day->week] = new TableCol();
+			$this->_col_list[$new_day->week] = new TableCol($i);
 			$this->_col_list[$new_day->week]->date = $d->setTimestamp($date);
 		}
 
