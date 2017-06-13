@@ -6,6 +6,11 @@ use ui\yoyaku\YoyakuContext;
 USE ui\util\InputBase;
 use ui\util\SubmitButton;
 
+class YoyakuInfo
+{
+    public $menu, $name_kanji, $name_kana, $tell, $email, $staff, $datetime, $youbou, $sum_time, $sum_price, $rireki;
+}
+
 class Confirm extends YoyakuMenu
 {
     private $_course_id_list;
@@ -31,13 +36,88 @@ class Confirm extends YoyakuMenu
 	{
         if(isset($_POST["finish_btn"])){
 	    	$yc = YoyakuContext::get_instance();
-
+           
             $yc->session_destroy();
 
     		$url = $yc->get_base_url()."/finish/".$d;
             header("Location:$url");
         }
 	}
+    
+    const week_table = array("日", "月", "火", "水", "木", "金", "土");
+
+    private function create_yoyaku_info() : YoyakuInfo
+    {
+        $ret = new YoyakuInfo();
+        
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
+        $ret->email = $mc->email->get_value();
+        
+        $menu = "";    
+        $sum_time = 0;
+        $sum_price = 0;
+
+        foreach($this->_course_list as $c)
+        {
+            $menu = $menu."<br>".$c->name;
+            $sum_time = $sum_time + $c->time_required;
+            $sum_price = $sum_price + $c->price;
+        }
+
+        $ret->menu = $menu;
+        $ret->sum_time = $sum_time; 
+        $ret->sum_price = number_format($sum_price);
+
+        if($this->_staff == null){
+            $ret->staff = "-";
+        }else{
+            $ret->staff =  $this->_staff->name_last.' '.$this->_staff->name_first;
+        }       
+
+        $ret->name_kanji = $mc->name_kanji->get_value();
+        $ret->name_kana = $mc->name_kana->get_value();
+        $ret->tell = $mc->tell->get_value();
+        $visit_kbn = $mc->visit->get_value()[0];
+        if($visit_kbn == 0){
+            $ret->visit = "初めて";
+        }else{
+            $ret->visit =  "再来店";
+        }
+
+        $d = new \DateTime($yc->yoyaku_date_time->get_value());
+        $week = self::week_table[$d->format('w')];
+        $ret->date_time = $d->format("Y年m月d日（").$week.$d->format("）　　d時s分");
+        $ret->youbou = $mc->consultation->get_value();
+
+         return $ret;
+    }
+
+    private function send_mail()
+    {
+        $info = $this->create_info();
+        
+    	$strSen = <<<SEN
+予約内容
+メニュー:
+$info->menu
+施術時間（目安）: $info->sum_time 
+料金 : $info->sum_price
+セラピスト : $info->staff
+来店日時
+$info->date_time
+お客様情報
+お名前（漢字）: $info->name_kanji
+お名前（かな）: $info->name_kana
+メールアドレス : $info->mail
+電話番号 : $info->tell
+来店履歴 : $info->visit
+ご要望 :
+$info->youbou
+SEN;
+
+        wp_mail($address,'予約',$strSen);
+    }
 
 	protected function init_inner()
 	{
@@ -58,6 +138,7 @@ class Confirm extends YoyakuMenu
 
 	public function view()
 	{
+         $info = $this->create_yoyaku_info();
     ?>        
         <div class='yoyaku_midashi'>
             <span class='page_midasi'>予約内容を確認してください</span>
@@ -66,9 +147,20 @@ class Confirm extends YoyakuMenu
         $d = "?date=".(new \DateTime())->format("Ymdhis");
 		$yc = YoyakuContext::get_instance();
         $before_url = $yc->get_base_url()."/mailform/".$d;
-        $this->view_yoyaku_content();
-        $this->view_customer_info();
+        $this->view_yoyaku_content($info);
+        $this->view_customer_info($info);
         ?>
+        <div class='privacy_policy_area'>
+            <span class='privacy_policy_red'>
+                迷惑メール防止フィルタを設定している場合、メールが届かないことがありますので「contact@redear.jp」からのメールが受信できるようドメインの設定をお願いします。
+            </span><br>
+            <span class='privacy_policy_blue'>
+                プライバシーポリシー
+            </span>
+            <span class='privacy_policy'>
+                をご確認いただき、予約を確定してください。
+            </span>
+        </div>
         <form method='post' action='<?php echo "$d" ?>'>
             <div class='button_area'>
                 <div class='back_button_area'>
@@ -82,19 +174,8 @@ class Confirm extends YoyakuMenu
 	<?php
 	}
 
-    private function view_yoyaku_content()
+    private function view_yoyaku_content(YoyakuInfo $info)
     {
-        $menu = "";    
-        $sum_time = 0;
-        $sum_price = 0;
-
-        foreach($this->_course_list as $c)
-        {
-            $menu = $menu."<br>".$c->name;
-            $sum_time = $sum_time + $c->time_required;
-            $sum_price = $sum_price + $c->price;
-        }
-
 		?>
         <div class="info_warp">
             <span class='yoyaku_content_midasi'>予約内容</span>
@@ -106,7 +187,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            echo $menu;
+                            echo $info->menu;
                             ?>
                         </td>
                     </tr>
@@ -116,7 +197,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            echo $sum_time;
+                            echo $info->sum_time;
                             echo "分";
                             ?>
                         </td>
@@ -127,7 +208,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                         <?php
-                        echo $sum_price;
+                        echo $info->sum_price;
                         echo "円";
                         ?>
                         </td>
@@ -138,11 +219,17 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            if($this->_staff == null){
-                                echo "-";
-                            }else{
-                                echo $this->_staff->name_last.' '.$this->_staff->name_first;
-                            }
+                            echo $info->staff;
+                            ?>  
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            来店日時
+                        </th>
+                        <td>
+                            <?php
+                            echo $info->date_time;
                             ?>  
                         </td>
                     </tr>
@@ -152,10 +239,8 @@ class Confirm extends YoyakuMenu
     <?php
     }
 
-    private function view_customer_info()
+    private function view_customer_info(YoyakuInfo $info)
     {
-        $yc = YoyakuContext::get_instance();
-        $mc = $yc->mail_contents;
 		?>
         <div class="info_warp">
             <span class='yoyaku_content_midasi'>お客様情報</span>
@@ -167,7 +252,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            echo $mc->name_kanji->get_value();
+                            echo $info->name_kanji;
                             ?>
                         </td>
                     </tr>
@@ -177,7 +262,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                         <?php
-                            echo $mc->name_kana->get_value();
+                            echo $info->name_kana;
                         ?>
                         </td>
                     </tr>
@@ -187,7 +272,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            echo $mc->email->get_value();
+                            echo $info->email;
                             ?>  
                         </td>
                     </tr>
@@ -197,7 +282,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            echo $mc->tell->get_value();
+                            echo $info->tell;
                             ?>  
                         </td>
                     </tr>
@@ -207,12 +292,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            $c = $mc->visit->get_value()[0];
-                            if($c == 0){
-                                echo "初めて";
-                            }else{
-                                echo "再来店";
-                            }
+                            echo $info->visit;
                             ?>  
                         </td>
                     </tr>
@@ -222,7 +302,7 @@ class Confirm extends YoyakuMenu
                         </th>
                         <td>
                             <?php
-                            echo $mc->consultation->get_value();
+                            echo $info->youbou;
                             ?>  
                         </td>
                     </tr>

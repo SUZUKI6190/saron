@@ -57,3 +57,24 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.privacy_policy_area
+{
+    margin-top: 20px;
+    font-size: small;
+}
+
+.privacy_policy
+{
+    color:#000;
+}
+
+.privacy_policy_red
+{
+    color:#ea5550;
+}
+
+.privacy_policy_blue
+{
+    color:#2F75B5;
+}
