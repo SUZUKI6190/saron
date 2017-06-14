@@ -125,16 +125,19 @@ SQL
 SQL
 		);
 
-/*
 	dbDelta(<<<SQL
-		CREATE TABLE yoyaku_table (
-			staff_id bigint(20) UNSIGNED,
-			yoyaku_date DATETIME NOT NULL,
-			PRIMARY KEY(staff_id, yoyaku_date)
+		CREATE TABLE saron_yoyaku (
+			id int UNSIGNED NOT NULL AUTO_INCREMENT,
+			staff_id int UNSIGNED,
+			customer_id int UNSIGNED,
+			start_time DATE not null,
+			coutse_id_list text,
+			schedule_division int UNSIGNED,
+			consultation text,
+			PRIMARY KEY(id)
 		)
 SQL
 		);
-*/
 
 }
 

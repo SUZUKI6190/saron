@@ -35,12 +35,18 @@ class Confirm extends YoyakuMenu
 	public function pre_render()
 	{
         if(isset($_POST["finish_btn"])){
+
+            $this->save_yoyaku();
+
+            $this->send_mail();
+
 	    	$yc = YoyakuContext::get_instance();
-           
             $yc->session_destroy();
 
     		$url = $yc->get_base_url()."/finish/".$d;
+
             header("Location:$url");
+
         }
 	}
     
@@ -91,6 +97,11 @@ class Confirm extends YoyakuMenu
         $ret->youbou = $mc->consultation->get_value();
 
          return $ret;
+    }
+
+    private function save_yoyaku()
+    {
+
     }
 
     private function send_mail()

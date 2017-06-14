@@ -42,29 +42,4 @@ class WeeklyYoyaku
 	}
 }
 
-class StaffSchedule
-{
-	public $id;
-	public $staff_id;
-	public $name;
-	public $customer_id;
-	public $time;
-	public $time_len;
-	public $schedule_division;
-
-	public static function CreateObjectFromWpdb($wpdb) : WeeklyYoyaku
-	{
-		$ret = new StaffSchedule();
-		$ret->time = $wpdb->time;
-		$ret->time_len = $wpdb->time_len;
-		$ret->id = $wpdb->id;
-		$ret->staff_id = $wpdb->staff_id;
-		$ret->name = $wpdb->name;
-		$ret->customer_id = $wpdb->customer_id;
-		$ret->schedule_division = $wpdb->schedule_division;
-		$ret->yoyaku_id = $wpdb->yoyaku_id;
-		return $ret;
-	}
-}
-
 ?>
