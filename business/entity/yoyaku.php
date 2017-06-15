@@ -1,7 +1,7 @@
 <?php
 namespace business\entity;
 
-class Yoyaku
+class YoyakuRegistration
 {
 	public $id;
 	public $staff_id;
@@ -10,9 +10,9 @@ class Yoyaku
 	public $coutse_id_list;
 	public $schedule_division;
 	public $consultation;
-	public static function CreateObjectFromWpdb($wpdb) : Yoyaku
+	public static function CreateObjectFromWpdb($wpdb) : YoyakuRegistration
 	{
-		$ret = new Yoyaku();
+		$ret = new YoyakuRegistration();
 		$ret->start_time = $wpdb->start_time;
 		$ret->id = $wpdb->id;
 		$ret->staff_id = $wpdb->staff_id;

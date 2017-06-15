@@ -126,7 +126,7 @@ SQL
 		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE yoyaku_regist (
+		CREATE TABLE yoyaku_registration (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			staff_id int UNSIGNED,
 			customer_id int UNSIGNED,
