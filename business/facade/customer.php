@@ -239,12 +239,7 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->birthday', $passWord),
 	AES_ENCRYPT('$data->last_visit_date', $passWord),
 	AES_ENCRYPT('$data->phone_number', $passWord),
-	
-	function update_rireki($idm )
-	{
-
-	}
-	('$data->address', $passWord),
+	AES_ENCRYPT('$data->address', $passWord),
 	AES_ENCRYPT('$data->occupation', $passWord),
 	'$data->number_of_visit',
 	AES_ENCRYPT('$data->email', $passWord),
