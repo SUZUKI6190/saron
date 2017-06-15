@@ -5,6 +5,8 @@ use ui\yoyaku\controll\MenuTable;
 use ui\yoyaku\YoyakuContext;
 USE ui\util\InputBase;
 use ui\util\SubmitButton;
+use business\entity\YoyakuRegistration;
+use business\entity\Customer;
 
 class YoyakuInfo
 {
@@ -35,18 +37,17 @@ class Confirm extends YoyakuMenu
 	public function pre_render()
 	{
         if(isset($_POST["finish_btn"])){
+            $yc = YoyakuContext::get_instance();
 
             $this->save_yoyaku();
 
             $this->send_mail();
 
-	    	$yc = YoyakuContext::get_instance();
             $yc->session_destroy();
 
     		$url = $yc->get_base_url()."/finish/".$d;
 
             header("Location:$url");
-
         }
 	}
     
@@ -101,12 +102,45 @@ class Confirm extends YoyakuMenu
 
     private function save_yoyaku()
     {
+        $yr = $this->create_yoyaku_registration();
+        \business\facade\update_nextvisit($yr->customer_id, new \DateTime($yc->yoyaku_date_time->get_value()));
 
+    }
+
+    private function create_yoyaku_registration() : YoyakuRegistration
+    {
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
+
+        $yr = new YoyakuRegistration();
+        if($this->_staff == null){
+            $yr->staff_id = null;
+        }else{
+            $yr->staff_id =  $this->_staff->id;
+        }
+
+        $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
+
+        if(is_null($customer_id)){
+            $new_customer = new Customer();
+            $new_customer->tanto_id = $yr->staff_id;
+            $new_customer->name_kanji_last = $mc->name_kanji->get_value();
+            $new_customer->name_kana_last = $mc->name_kana->get_value();
+            $new_customer->phone_number = $mc->tell->get_value();
+            $new_customer->email = $mc->email->get_value();
+            $new_customer->remarks = $mc->consultation->get_value();
+            \business\facade\InsertCustomer($new_customer);
+            $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
+        }
+
+        $yr->customer_id = $customer_id;
+
+        return $yr;
     }
 
     private function send_mail()
     {
-        $info = $this->create_info();
+        $info = $this->create_yoyaku_info();
         
     	$strSen = <<<SEN
 予約内容
@@ -188,7 +222,7 @@ SEN;
     private function view_yoyaku_content(YoyakuInfo $info)
     {
 		?>
-        <div class="info_warp">
+        <div class="content_wrap">
             <span class='yoyaku_content_midasi'>予約内容</span>
             <div class='table_wrap'>
                 <table class='confirm_table'>
@@ -253,7 +287,7 @@ SEN;
     private function view_customer_info(YoyakuInfo $info)
     {
 		?>
-        <div class="info_warp">
+        <div class="customer_wrap">
             <span class='yoyaku_content_midasi'>お客様情報</span>
             <div class='table_wrap'>
                 <table class='confirm_table'>

@@ -21,7 +21,7 @@ function init_db()
 			address varbinary(500),
 			occupation varbinary(100),
 			number_of_visit bigint(10),
-			email varbinary(200),
+			email varbinary(200) UNIQUE NOT NULL,
 			enable_dm TINYINT UNSIGNED,
 			next_visit_reservation_date varbinary(200),
 			reservation_route varbinary(50),

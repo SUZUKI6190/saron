@@ -46,6 +46,64 @@ SQL;
 	//return array_map('call', $result);
 }
 
+function select_customer_by_email($email)
+{
+	$password = Customer::GetPassword();
+	$strSql = <<<SQL
+	SELECT 
+		`id`,
+		`tanto_id`,
+		convert(AES_DECRYPT(name_kanji_last, '$password') using utf8) as name_kanji_last,
+		convert(AES_DECRYPT(name_kanji_first, '$password') using utf8) as name_kanji_first,
+		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
+		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
+		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
+		convert(AES_DECRYPT(old, '$password') using utf8) as old,
+		convert(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
+		convert(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
+		convert(AES_DECRYPT(phone_number, '$password') using utf8) as phone_number,
+		convert(AES_DECRYPT(address, '$password')  using utf8) as address,
+		convert(AES_DECRYPT(occupation, '$password')  using utf8) as occupation,
+		`number_of_visit`,
+		convert(AES_DECRYPT(email, '$password')  using utf8) as email,
+		`enable_dm`,
+		convert(AES_DECRYPT(next_visit_reservation_date, '$password')  using utf8) as next_visit_reservation_date,
+		convert(AES_DECRYPT(reservation_route, '$password')  using utf8) as reservation_route,
+		convert(AES_DECRYPT(remarks, '$password')  using utf8) as remarks
+	FROM `customer`
+	where convert(AES_DECRYPT(email, '$password')  using utf8) = '$email'
+SQL;
+
+	global $wpdb;
+	$result = $wpdb->get_row($strSql);
+	if(is_null($result)){
+		return null;
+	}else{
+		return Customer::CreateObjectFromWpdb($result);
+	}
+}
+
+
+function select_customer_id_by_email($email)
+{
+	$password = Customer::GetPassword();
+	$strSql = <<<SQL
+	SELECT 
+		`id`
+	FROM `customer`
+	where convert(AES_DECRYPT(email, '$password')  using utf8) = '$email'
+SQL;
+
+	global $wpdb;
+	$result = $wpdb->get_row($strSql);
+	if(is_null($result)){
+		return null;
+	}else{
+		return $result->id;
+	}
+}
+
+
 function SelectCustomerById($id)
 {
 	$password = Customer::GetPassword();
@@ -131,6 +189,20 @@ SQL
 );
 }
 
+function update_nextvisit(int $id,  \DateTime $next_day)
+{
+	$strDate = $next_day->format('Ymd');
+	$passWord = "'".Customer::GetPassword()."'";
+	$strSql = <<<SQL
+	update `customer` set
+		next_visit_reservation_date = AES_ENCRYPT('$strDate', $passWord)
+	where id = '$id'
+SQL;
+	echo $strSql;
+	global $wpdb;
+	$wpdb->query($strSql);	
+}
+
 function InsertCustomer(Customer $data)
 {
 	global $wpdb;
@@ -167,7 +239,12 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->birthday', $passWord),
 	AES_ENCRYPT('$data->last_visit_date', $passWord),
 	AES_ENCRYPT('$data->phone_number', $passWord),
-	AES_ENCRYPT('$data->address', $passWord),
+	
+	function update_rireki($idm )
+	{
+
+	}
+	('$data->address', $passWord),
 	AES_ENCRYPT('$data->occupation', $passWord),
 	'$data->number_of_visit',
 	AES_ENCRYPT('$data->email', $passWord),
