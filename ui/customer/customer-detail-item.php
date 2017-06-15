@@ -303,7 +303,6 @@ class ReservationRouteDetailItem extends DetailItem
 	public function __construct(Customer $cd)
 	{
 		parent::__construct($cd);
-		echo $cd->reservation_route;
 		$this->_reservation_route = new \ui\util\RouteSelect();
 		$this->_reservation_route->set_name("reservation_route");
 		$this->_reservation_route->set_selected_id($cd->reservation_route);
