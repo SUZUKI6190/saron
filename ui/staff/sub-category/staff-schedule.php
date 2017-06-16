@@ -16,6 +16,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private $_param_list;
     const staff_select_btn_name = "staff_select_btn";
     const staff_select_id = "staff_select_id";
+    const date_name = "date_name";
 
 	public function init()
 	{
@@ -57,7 +58,9 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $name = self::staff_select_id;
         ?>
         <div class='staff_select_area'>
-            <span>スタッフの選択：</span>
+            <span>日にち：</span>
+            <input type='date' name='<?php echo self::date_name; ?>' /><br>
+            <span>スタッフ:</span>
             <select name='<?php echo $name; ?>'>
             <?php
             foreach($this->_staff_list as $s)
@@ -70,7 +73,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 }
             }
             ?>
-            </select>
+            </select><br>
             <button class="manage_button" type="submit" name='<?php echo self::staff_select_btn_name; ?>'>表示する</button>
         </div>
         <div class='time_schedule_table_area'>
