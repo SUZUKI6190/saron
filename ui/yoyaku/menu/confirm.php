@@ -67,7 +67,8 @@ class Confirm extends YoyakuMenu
 
         foreach($this->_course_list as $c)
         {
-            $menu = $menu."<br>".$c->name;
+            $menu = $menu.$c->name;
+            $menu = $menu.'<br>';
             $sum_time = $sum_time + $c->time_required;
             $sum_price = $sum_price + $c->price;
         }
