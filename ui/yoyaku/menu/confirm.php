@@ -102,8 +102,12 @@ class Confirm extends YoyakuMenu
 
     private function save_yoyaku()
     {
+        $yc = YoyakuContext::get_instance();
         $yr = $this->create_yoyaku_registration();
         \business\facade\update_nextvisit($yr->customer_id, new \DateTime($yc->yoyaku_date_time->get_value()));
+
+        $regist = $this->create_yoyaku_registration();
+        \business\facade\insert_yoyaku_registration($regist);
 
     }
 
@@ -114,7 +118,7 @@ class Confirm extends YoyakuMenu
 
         $yr = new YoyakuRegistration();
         if($this->_staff == null){
-            $yr->staff_id = null;
+            $yr->staff_id = 'null';
         }else{
             $yr->staff_id =  $this->_staff->id;
         }
@@ -134,6 +138,12 @@ class Confirm extends YoyakuMenu
         }
 
         $yr->customer_id = $customer_id;
+
+        $yr->start_time = $yc->yoyaku_date_time->get_value();
+
+        $yr->coutse_id_list = $this->_course_id_list;
+
+        $yr->consultation = $mc->consultation->get_value();
 
         return $yr;
     }

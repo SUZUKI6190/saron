@@ -198,7 +198,6 @@ function update_nextvisit(int $id,  \DateTime $next_day)
 		next_visit_reservation_date = AES_ENCRYPT('$strDate', $passWord)
 	where id = '$id'
 SQL;
-	echo $strSql;
 	global $wpdb;
 	$wpdb->query($strSql);	
 }

@@ -1,6 +1,7 @@
 <?php
+
 namespace business\facade;
-namespace business\entity\YoyakuRegistration;
+use business\entity\YoyakuRegistration;
 
 function delete_yoyaku_registration_byid($id)
 {
@@ -25,31 +26,11 @@ SQL;
 
 }
 
-function select_yoyaku_registration_by_staffid($id)
+function insert_yoyaku_registration($y)
 {
 	global $wpdb;
-
-    $result = $wpdb->get_results(	<<<SQL
-		select * from yoyaku_registration
-        where staff_id = '$id'
-        order by  id
-SQL);
-
-    $convert = function($data)
-	{
-		return YoyakuRegistration::CreateObjectFromWpdb($data);;
-	};
-
-    return array_map($convert, $result);
-}
-
-
-function insert_yoyaku_registration(YoyakuRegistration $y)
-{
-	global $wpdb;
-    $course_id_list = implode($y->coutse_id_list);
-	$wpdb->query(
-		<<<SQL
+    $course_id_list = implode(',', $y->coutse_id_list);
+    $strSql = <<<SQL
 		insert into yoyaku_registration (
             staff_id,
             customer_id,
@@ -58,15 +39,34 @@ function insert_yoyaku_registration(YoyakuRegistration $y)
             schedule_division,
             consultation
 		)values(
-            staff_id = '$y->staff_id',
-            customer_id = '$y->customer_id',
-            start_time = '$y->start_time',
-            coutse_id_list = '$coutse_id_list',
-            schedule_division = '$y->schedule_division',
-            consultation = '$y->consultation'
+            '$y->staff_id',
+            '$y->customer_id',
+            '$y->start_time',
+            '$course_id_list',
+            '$y->schedule_division',
+            '$y->consultation'
 		)
-SQL
-);
+SQL;
+	$wpdb->query($strSql);
 }
+
+// function select_yoyaku_registration_by_staffid($id)
+// {
+// 	global $wpdb;
+
+//     $result = $wpdb->get_results(<<<SQL
+// 		select * from yoyaku_registration
+//         where staff_id = '$id'
+//         order by  id
+// SQL);
+
+//     $convert = function($data)
+// 	{
+// 		return YoyakuRegistration::CreateObjectFromWpdb($data);;
+// 	};
+
+//     return array_map($convert, $result);
+// }
+
 
 ?>
