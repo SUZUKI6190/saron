@@ -50,23 +50,24 @@ SQL;
 	$wpdb->query($strSql);
 }
 
-// function select_yoyaku_registration_by_staffid($id)
-// {
-// 	global $wpdb;
+function select_yoyaku_registration_by_staffid($id)
+{
+	global $wpdb;
 
-//     $result = $wpdb->get_results(<<<SQL
-// 		select * from yoyaku_registration
-//         where staff_id = '$id'
-//         order by  id
-// SQL);
+    $result = $wpdb->get_results(<<<SQL
+		select * from yoyaku_registration
+        where staff_id = '$id'
+        order by  id
+SQL
+);
 
-//     $convert = function($data)
-// 	{
-// 		return YoyakuRegistration::CreateObjectFromWpdb($data);;
-// 	};
+    $convert = function($data)
+	{
+		return YoyakuRegistration::CreateObjectFromWpdb($data);;
+	};
 
-//     return array_map($convert, $result);
-// }
+    return array_map($convert, $result);
+}
 
 
 ?>

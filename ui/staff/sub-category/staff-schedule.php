@@ -1,18 +1,19 @@
 <?php
 namespace ui\staff;
+require_once(dirname(__FILE__).'/schedule-table-param.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
 use \ui\util\InputBase;
 use \ui\frame\Result;
 use ui\frame\ManageFrameContext;
-use ui\image\ImageDonwloader;
 use \business\entity\StaffSchedule;
 
 class StaffShceduleSub extends \ui\frame\SubCategory
 {
     private $_staff_list;
     private $_selected_staff_id;
+    private $_param_list;
     const staff_select_btn_name = "staff_select_btn";
     const staff_select_id = "staff_select_id";
 
@@ -20,10 +21,10 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 	{
 		$context = StaffContext::get_instance();
         $this->_staff_list = \business\facade\get_staff_all();
-
         if($this->is_select_staff())
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
+            $this->_param_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
         }
 	}
 
@@ -94,6 +95,8 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 <th>
                     <?php echo $time; ?>
                 </th>
+                <td>
+                </td>
             </tr>
             <?php
             $date->add($interval);

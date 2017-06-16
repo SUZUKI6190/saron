@@ -131,7 +131,7 @@ SQL
 			staff_id int UNSIGNED,
 			customer_id int UNSIGNED,
 			start_time DATE not null,
-			coutse_id_list text,
+			course_id_list text,
 			schedule_division int UNSIGNED,
 			consultation text,
 			PRIMARY KEY(id)
