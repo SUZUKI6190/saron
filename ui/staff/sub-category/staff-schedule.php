@@ -17,7 +17,8 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const staff_select_btn_name = "staff_select_btn";
     const staff_select_id = "staff_select_id";
     const date_name = "date_name";
-
+    const minutes_30_px = 30;
+    const minutes_px = 30 / self::minutes_30_px;
 	public function init()
 	{
 		$context = StaffContext::get_instance();
@@ -88,24 +89,26 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $max_time = new \DateTime('21:00');
         $interval = new \DateInterval('P0DT30M');
         ?>
-        <table class='time_schedule_table'>
-        <?php
-        while($date < $max_time)
-        {
-            $time = $date->format('H:i');
-            ?>
-            <tr>
-                <th>
-                    <?php echo $time; ?>
-                </th>
-                <td>
-                </td>
-            </tr>
-            <?php
-            $date->add($interval);
-        }
-        ?>
-        </table>
+        <div class='time_schedule_table'>
+            <div class='time_col'>
+                <?php
+                while($date < $max_time)
+                {
+                    $time = $date->format('H:i');
+                    ?>
+                    <div class='time_area'>
+                        <span><?php echo $time; ?></span>
+                    </div>
+                    <?php
+                    $date->add($interval);
+                }
+                ?>
+            </div>
+            <div class='schedule_col'>
+                <div class='schedule_cell' style='height:90px;top:90px;'>
+                </div>
+            </div>
+        </div>
         <?php
     }
 

@@ -5,6 +5,40 @@
     margin-top: 10px;
 }
 
+div.time_col,
+div.schedule_col
+{
+    border: 1px solid #ccc;  
+}
+
+div.time_col
+{
+    width:30%;
+}
+
+div.schedule_col
+{
+    width:70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div.time_area{
+    
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #ccc;    
+    
+}
+
+div.time_area span{
+    margin: auto;
+    display: block;
+}
+
 .staff_select_area
 {
     
@@ -13,4 +47,17 @@
 .time_schedule_table_area
 {
     margin-top: 10px;
+}
+
+.time_schedule_table
+{
+    display: flex;
+    flex-direction: row;
+}
+
+div.schedule_cell
+{
+    position: relative;
+    width: 200px;
+    border: 1px solid #ccc;  
 }
