@@ -23,11 +23,13 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 	{
 		$context = StaffContext::get_instance();
         $this->_staff_list = \business\facade\get_staff_all();
+
         if($this->is_select_staff())
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
             $this->_param_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
         }
+
 	}
 
     private function is_select_staff():bool
@@ -43,6 +45,8 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
 	public function view()
 	{
+        $name = self::staff_select_id;
+        
         ?>
         <form method="post" action="">
             <div class="wrap">
@@ -50,6 +54,15 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 $this->view_staff_list();
             ?>
             </div>
+            <?php
+            if($this->is_select_staff()){
+            ?>
+            <div class='time_schedule_table_area'>
+                <?php $this->view_time_schedule_table(); ?>
+            </div>
+            <?php
+            }
+            ?>
         </form>
         <?php
 	}
@@ -77,9 +90,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
             </select><br>
             <button class="manage_button" type="submit" name='<?php echo self::staff_select_btn_name; ?>'>表示する</button>
         </div>
-        <div class='time_schedule_table_area'>
-            <?php $this->view_time_schedule_table(); ?>
-        </div>
+
         <?php
     }
 
@@ -105,8 +116,16 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 ?>
             </div>
             <div class='schedule_col'>
-                <div class='schedule_cell' style='height:90px;top:90px;'>
-                </div>
+                <?php
+                foreach($this->_param_list as $p)
+                {
+                    ?>
+                    <div class='schedule_cell' style='height:90px;top:90px;'>
+                    </div>
+                    <?php
+                }
+                
+                ?>
             </div>
         </div>
         <?php

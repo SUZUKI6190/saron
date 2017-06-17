@@ -4,7 +4,7 @@ use business\entity\YoyakuRegistration;
 
 class ScheduleTableParam
 {
-    public $time_len;
+    public $minites_len;
     public $start_time;
     public $staff_name;
     public $schedule_name;
@@ -26,7 +26,7 @@ class ScheduleTableParam
         }
 
         $ret->schedule_name = $name;
-        $ret->time_len = $sum_time;
+        $ret->minites_len = $sum_time;
         
         return $ret;
     }
