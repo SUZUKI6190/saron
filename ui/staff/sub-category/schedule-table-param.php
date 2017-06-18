@@ -8,16 +8,24 @@ class ScheduleTableParam
     public $start_time;
     public $staff_name;
     public $schedule_name;
+    
+    private static function get_minutes(\DateTime $d) : int
+    {
+        $hours = (int)$d->format('h');
+        $minites = (int)$d->format('i');
 
-    public static function create_from_yoyaku(string $saff_name, YoyakuRegistration $y) : self
+        return ($hours * 60) + $minites; 
+    }
+
+    public static function create_from_yoyaku(YoyakuRegistration $y) : self
     {
         $ret = new self();
-        $ret->start_time = $y->start_time;
-        $ret->saff_name = $saff_name;
         $name;
         $sum_time = 0;
 
-        $course_list = get_menu_course_by_idlist($y->course_id_list);
+        $ret->start_time = self::get_minutes(new \DateTime($y->start_time)) - self::get_minutes(new \DateTime('9:00'));
+
+        $course_list = \business\facade\get_menu_course_by_idlist($y->course_id_list);
 
         foreach($course_list as $c)
         {

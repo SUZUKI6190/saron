@@ -130,7 +130,7 @@ SQL
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			staff_id int UNSIGNED,
 			customer_id int UNSIGNED,
-			start_time DATE not null,
+			start_time DATETIME not null,
 			course_id_list text,
 			schedule_division int UNSIGNED,
 			consultation text,

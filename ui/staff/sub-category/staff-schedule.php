@@ -27,7 +27,10 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         if($this->is_select_staff())
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
-            $this->_param_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
+            $regit_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
+            $this->_param_list = array_map(function($d) {
+                return ScheduleTableParam::create_from_yoyaku($d);},
+                $regit_list);
         }
 
 	}
@@ -119,8 +122,10 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 <?php
                 foreach($this->_param_list as $p)
                 {
+                    $px = -$p->start_time * self::minutes_px;
+                    $height = $p->minites_len;
                     ?>
-                    <div class='schedule_cell' style='height:90px;top:90px;'>
+                    <div class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
                     </div>
                     <?php
                 }

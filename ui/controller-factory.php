@@ -12,7 +12,7 @@ require_once(dirname(__FILE__).'/yoyaku/yoyaku-controller.php');
 require_once(dirname(__FILE__).'/image/download-image.php');
 require_once(dirname(__FILE__).'/../business/facade/yoyaku.php');
 require_once(dirname(__FILE__).'/../business/entity/yoyaku.php');
-
+require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");
 function create_controller() : IController
 {
 	$category = get_query_var("category");
@@ -25,7 +25,6 @@ function create_controller() : IController
 		\ui\image\ImageDonwloader::create_page($id, $sub_id);
 		exit;
 	}elseif($category == "yoyaku"){
-		require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");
 		return new \ui\yoyaku\YoyakuController();
 	}else{
 		return new ManageController();	
