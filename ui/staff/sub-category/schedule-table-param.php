@@ -13,8 +13,6 @@ class ScheduleTableParam
     {
         $hours = (int)$d->format('H');
         $minites = (int)$d->format('i');
-        echo $d->format('H');
-        echo "<br>";
         return ($hours * 60) + $minites; 
     }
 
