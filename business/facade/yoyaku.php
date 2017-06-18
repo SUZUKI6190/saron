@@ -35,7 +35,7 @@ function insert_yoyaku_registration($y)
             staff_id,
             customer_id,
             start_time,
-            coutse_id_list,
+            course_id_list,
             schedule_division,
             consultation
 		)values(
