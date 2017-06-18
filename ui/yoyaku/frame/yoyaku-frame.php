@@ -69,7 +69,12 @@ abstract class YoyakuMenu
 	protected function get_course_id_list() : array
 	{
 		$yc = YoyakuContext::get_instance();
-		return $yc->course_id_list->get_value();
+		$v = $yc->course_id_list->get_value();
+		if(gettype($v) == 'array'){
+			return $v;
+		}else{
+			return [$v];
+		}
 	}
 
 	protected function view_yoyaku_frame_hidden()
