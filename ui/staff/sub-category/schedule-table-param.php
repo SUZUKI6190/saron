@@ -11,9 +11,10 @@ class ScheduleTableParam
     
     private static function get_minutes(\DateTime $d) : int
     {
-        $hours = (int)$d->format('h');
+        $hours = (int)$d->format('H');
         $minites = (int)$d->format('i');
-
+        echo $d->format('H');
+        echo "<br>";
         return ($hours * 60) + $minites; 
     }
 
@@ -35,7 +36,7 @@ class ScheduleTableParam
 
         $ret->schedule_name = $name;
         $ret->minites_len = $sum_time;
-        
+
         return $ret;
     }
 }
