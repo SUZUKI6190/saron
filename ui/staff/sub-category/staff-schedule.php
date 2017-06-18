@@ -97,6 +97,38 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         <?php
     }
 
+    private function _view_time_schedule_table()
+    {
+        $date = new \DateTime('9:00');
+        $max_time = new \DateTime('21:00');
+        $interval = new \DateInterval('P0DT30M');
+        ?>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="360px"  height="2000">
+            <?php
+            $count = 0;
+            while($date < $max_time)
+            {
+                $time = $date->format('H:i');
+                $text_top = 60 * $count;
+                
+                $time_text = "";
+                $line = "";
+                ?>
+                <g transform='translate(0, <?php echo $text_top; ?>)'>
+                    <text font-size='20px' x='0' y='30'><?php echo $time; ?></text>
+                    <line x1="0" y1="50" x2="360" y2="50" style="stroke:rgb(0,0,0);stroke-width:1" />
+                </g>
+                <?php
+                $date->add($interval);
+                $count++;
+            }
+            ?>
+            <line x1="100" y1="0" x2="100" y2="2000" style="stroke:rgb(0,0,0);stroke-width:1" />
+            <rect x="0" y="1" width="360" height="2000" style="fill:none;stroke:black;stroke-width:1;">
+        </svg>
+        <?php
+    }
+
     private function view_time_schedule_table()
     {
         $date = new \DateTime('9:00');
