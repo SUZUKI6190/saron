@@ -43,7 +43,6 @@ class Confirm extends YoyakuMenu
 
             $this->send_mail();
 
-            $yc->session_destroy();
 
     		$url = $yc->get_base_url()."/finish/".$d;
 

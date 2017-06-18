@@ -15,6 +15,9 @@ class Finish extends YoyakuMenu
 
 	protected function init_inner()
 	{
+		$yc = YoyakuContext::get_instance();
+
+		$yc->session_destroy();
 	}
 
 	protected function get_css_list() : array
