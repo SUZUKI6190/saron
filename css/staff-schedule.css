@@ -89,3 +89,9 @@ div.schedule_cell
     text-align: left;
     margin: 10px;
 }
+
+.edit_midasi
+{
+    border-bottom:1px solid #000;
+    font-size:unset;
+}

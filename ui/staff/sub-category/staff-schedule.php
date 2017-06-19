@@ -45,7 +45,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     private function is_select_staff() : bool
     {
-        return $this->is_timetable_click() || $this->is_list_click();
+        return $this->is_timetable_click() || $this->is_list_click(); 
     }
 
     private function get_selected_staff_id() : string
@@ -56,6 +56,11 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private function is_edit_click() : bool
     {
         return isset($_POST[self::edit_btn_name]);
+    }
+
+    private function get_edit_value() : string
+    {
+        return $_POST[self::edit_btn_name];
     }
 
     private function get_selected_date()
@@ -69,7 +74,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     public function is_timetable_click():bool
     {
-        return isset($_POST[self::timetable_btn_name]);
+        return isset($_POST[self::timetable_btn_name]) || isset($_POST[self::staff_select_btn_name]);
     }
 
     public function is_list_click():bool
@@ -80,8 +85,9 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 	public function view()
 	{
         $name = self::staff_select_id;
+        $d = "?date=".(new \DateTime())->format("Ymdhis");
         ?>
-        <form method="post" action="">
+        <form method="post" action='<?php echo "$d" ?>'>
             <div class="wrap">
             <?php
                 $this->view_staff_select();
@@ -99,25 +105,38 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 if($this->is_list_click()){
                     $this->view_schedule_list();
                 }
+
+                if($this->is_edit_click()){
+                    $this->view_edit();
+                }
             ?>
             </div>
         </form>
         <?php
 	}
 
+    private function view_edit()
+    {
+?>
+        <h2 class='edit_midasi'>
+        予定名
+        </h2>
+        <h2 class='edit_midasi'>
+        開始日時
+        </h2>
+        <input type="time" />
+        <h2 class='edit_midasi'>
+        所要時間
+        </h2>
+        <input type="number" min="0" />
+<?php
+    }
+
     private function view_staff_select()
     {
         $name = self::staff_select_id;
         ?>
         <div class='staff_select_area'>
-            <span>日にち：</span>
-            <?php
-            $date_value = "";
-            if($this->is_select_staff()){
-                $date_value =  "value = '".$this->get_selected_date()."'";
-            }
-            ?>
-            <input type='date' name='<?php echo self::date_name; ?>' <?php echo  $date_value; ?> /><br>
             <span>スタッフ:</span>
             <select name='<?php echo $name; ?>'>
             <?php
@@ -156,10 +175,10 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                     お客様名
                 </th>
                 <th>
-                    開始時刻
+                    開始日時
                 </th>
                 <th>
-                    終了時刻
+                    所要時間
                 </th>
                 <th>
                 </th>
@@ -186,7 +205,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 ?>
                 </td>
                 <td>
-                    <button type='submit' name="<?php echo self::edit_btn_name; ?>">編集</button>
+                    <button type='submit' name="<?php echo self::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
                 </td>
             </tr>
             <?php
@@ -202,6 +221,16 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $max_time = new \DateTime('21:00');
         $interval = new \DateInterval('P0DT30M');
         ?>
+        <span>日時選択：</span>
+        <?php
+        $date_value = "";
+        if($this->is_select_staff()){
+            $date_value =  "value = '".$this->get_selected_date()."'";
+        }
+        ?>
+        <input type='date' name='<?php echo self::date_name; ?>' <?php echo  $date_value; ?> />
+        <button name='<?php echo self::staff_select_btn_name; ?>'>更新する</button>
+
         <div class='time_schedule_table'>
             <div class='time_col'>
                 <?php
@@ -258,7 +287,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 	{
 		return "スケジュール";
 	}
-
 }
 
 ?>

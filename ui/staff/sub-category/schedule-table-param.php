@@ -4,6 +4,7 @@ use business\entity\YoyakuRegistration;
 
 class ScheduleTableParam
 {
+    public $schedule_id;
     public $minites_len;
     public $start_datetime;
     public $start_minutes;
@@ -24,6 +25,7 @@ class ScheduleTableParam
         $name;
         $sum_time = 0;
 
+        $ret->schedule_id = $y->id;
         $ret->start_datetime = $y->start_time;
         $ret->start_minutes = self::get_minutes(new \DateTime($y->start_time)) - self::get_minutes(new \DateTime('9:00'));
 
