@@ -13,12 +13,12 @@ div.schedule_col
 
 div.time_col
 {
-    width:30%;
+    width:20%;
 }
 
 div.schedule_col
 {
-    width:70%;
+    width:40%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -31,7 +31,15 @@ div.time_area{
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #ccc;    
-    
+    margin: auto;
+}
+
+.time_cell
+{
+    font-weight: bold;
+    height: 100%;
+    vertical-align: middle;
+    margin: auto;
 }
 
 div.time_area span{
@@ -46,6 +54,8 @@ div.time_area span{
 
 .time_schedule_table_area
 {
+    width: 320px;
+    margin: auto;
     margin-top: 10px;
 }
 
@@ -59,5 +69,17 @@ div.schedule_cell
 {
     position: relative;
     width: 200px;
-    border: 1px solid #ccc;  
+    border: none;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    background-color: #ffd800;
+    text-align: left;
+}
+
+.yoyaku_name
+{
+    background-color: #b6ff00;
+    text-align: left;
+    margin: 10px;
 }

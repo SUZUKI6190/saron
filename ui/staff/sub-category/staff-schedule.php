@@ -143,7 +143,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                     $time = $date->format('H:i');
                     ?>
                     <div class='time_area'>
-                        <span><?php echo $time; ?></span>
+                        <div class='time_cell'><?php echo $time; ?></div>
                     </div>
                     <?php
                     $date->add($interval);
@@ -154,10 +154,17 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 <?php
                 foreach($this->_param_list as $p)
                 {
-                    $px = -$p->start_time * self::minutes_px;
+                    $px = $p->start_time * self::minutes_px;
+                    $px = $px + $px / self::minutes_30_px;
                     $height = $p->minites_len;
-                    ?>
+                    ?>                   
                     <div class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
+                        <span class='yoyaku_name'>
+                            <?php echo $p->schedule_name; ?>
+                        </span>
+                        <span class='customer_name'>
+                            <?php echo $p->customer_name; ?> 様
+                        </span>
                     </div>
                     <?php
                 }

@@ -8,6 +8,7 @@ class ScheduleTableParam
     public $start_time;
     public $staff_name;
     public $schedule_name;
+    public $customer_name;
     
     private static function get_minutes(\DateTime $d) : int
     {
@@ -34,6 +35,9 @@ class ScheduleTableParam
 
         $ret->schedule_name = $name;
         $ret->minites_len = $sum_time;
+
+        $customer = \business\facade\SelectCustomerById($y->customer_id);
+        $ret->customer_name = $customer->name_kanji_last;
 
         return $ret;
     }
