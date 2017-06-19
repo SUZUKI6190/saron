@@ -16,6 +16,9 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private $_param_list;
     const staff_select_btn_name = "staff_select_btn";
     const staff_select_id = "staff_select_id";
+    const list_btn_name = "list_btn";
+    const timetable_btn_name = "time_table_btn";
+    const edit_btn_name = "edit_btn";
     const date_name = "date_name";
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
@@ -31,20 +34,28 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
             $regist_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
 
-            $this->_param_list = array_map(function($d) {
-                return ScheduleTableParam::create_from_yoyaku($d);},
-                $regist_list);
+            $this->_param_list = array_map(
+                function($d) {
+                    return ScheduleTableParam::create_from_yoyaku($d);
+                },
+                $regist_list
+            );
         }
 	}
 
-    private function is_select_staff():bool
+    private function is_select_staff() : bool
     {
-        return isset($_POST[self::staff_select_btn_name]);
+        return $this->is_timetable_click() || $this->is_list_click();
     }
 
-    private function get_selected_staff_id():string
+    private function get_selected_staff_id() : string
     {
         return $_POST[self::staff_select_id];
+    }
+
+    private function is_edit_click() : bool
+    {
+        return isset($_POST[self::edit_btn_name]);
     }
 
     private function get_selected_date()
@@ -56,31 +67,45 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }
     }
 
+    public function is_timetable_click():bool
+    {
+        return isset($_POST[self::timetable_btn_name]);
+    }
+
+    public function is_list_click():bool
+    {
+        return isset($_POST[self::list_btn_name]);
+    }
+
 	public function view()
 	{
         $name = self::staff_select_id;
-        
         ?>
         <form method="post" action="">
             <div class="wrap">
             <?php
-                $this->view_staff_list();
+                $this->view_staff_select();
             ?>
+            <div class="btn_area">
+                <button class="manage_button" type="submit" name='<?php echo self::list_btn_name; ?>'>予定一覧</button>
+                <button class="manage_button" type="submit" name='<?php echo self::timetable_btn_name; ?>'>タイムスケジュール表</button>
             </div>
-            <?php
-            if($this->is_select_staff()){
-            ?>
+            </div>
             <div class='time_schedule_table_area'>
-                <?php $this->view_time_schedule_table(); ?>
-            </div>
             <?php
-            }
+                if($this->is_timetable_click()){
+                    $this->view_time_schedule_table();
+                }
+                if($this->is_list_click()){
+                    $this->view_schedule_list();
+                }
             ?>
+            </div>
         </form>
         <?php
 	}
 
-    private function view_staff_list()
+    private function view_staff_select()
     {
         $name = self::staff_select_id;
         ?>
@@ -107,9 +132,67 @@ class StaffShceduleSub extends \ui\frame\SubCategory
             }
             ?>
             </select><br>
-            <button class="manage_button" type="submit" name='<?php echo self::staff_select_btn_name; ?>'>表示する</button>
         </div>
+        <?php
+    }
 
+    private function view_schedule_list()
+    {
+        if(count($this->_param_list )== 0)
+        {
+            return;
+        }
+        ?>
+        <table class='schedule_list'>
+        <?php
+        foreach($this->_param_list as $p)
+        {
+            ?>
+            <thead>
+                <th>
+                    予定名
+                </th>
+                <th>
+                    お客様名
+                </th>
+                <th>
+                    開始時刻
+                </th>
+                <th>
+                    終了時刻
+                </th>
+                <th>
+                </th>
+            </thead>
+            <tr>
+                <td>
+                <?php
+                    echo $p->schedule_name;
+                ?>
+                </td>
+                <td>
+                <?php
+                    echo $p->customer_name;
+                ?>
+                </td>
+                <td>
+                <?php
+                    echo $p->start_datetime;
+                ?>
+                </td>
+                <td>
+                <?php
+                    echo $p->minites_len;
+                ?>
+                </td>
+                <td>
+                    <button type='submit' name="<?php echo self::edit_btn_name; ?>">編集</button>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </table>
         <?php
     }
 
@@ -165,40 +248,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         </div>
         <?php
     }
-
-    /*
-    private function _view_time_schedule_table()
-    {
-        $date = new \DateTime('9:00');
-        $max_time = new \DateTime('21:00');
-        $interval = new \DateInterval('P0DT30M');
-        ?>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="360px"  height="2000">
-            <?php
-            $count = 0;
-            while($date < $max_time)
-            {
-                $time = $date->format('H:i');
-                $text_top = 60 * $count;
-                
-                $time_text = "";
-                $line = "";
-                ?>
-                <g transform='translate(0, <?php echo $text_top; ?>)'>
-                    <text font-size='20px' x='0' y='30'><?php echo $time; ?></text>
-                    <line x1="0" y1="50" x2="360" y2="50" style="stroke:rgb(0,0,0);stroke-width:1" />
-                </g>
-                <?php
-                $date->add($interval);
-                $count++;
-            }
-            ?>
-            <line x1="100" y1="0" x2="100" y2="2000" style="stroke:rgb(0,0,0);stroke-width:1" />
-            <rect x="0" y="1" width="360" height="2000" style="fill:none;stroke:black;stroke-width:1;">
-        </svg>
-        <?php
-    }
-*/
 
 	public function get_name()
 	{
