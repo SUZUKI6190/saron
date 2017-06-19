@@ -5,7 +5,8 @@ use business\entity\YoyakuRegistration;
 class ScheduleTableParam
 {
     public $minites_len;
-    public $start_time;
+    public $start_datetime;
+    public $start_minutes;
     public $staff_name;
     public $schedule_name;
     public $customer_name;
@@ -23,7 +24,8 @@ class ScheduleTableParam
         $name;
         $sum_time = 0;
 
-        $ret->start_time = self::get_minutes(new \DateTime($y->start_time)) - self::get_minutes(new \DateTime('9:00'));
+        $ret->start_datetime = $y->start_time;
+        $ret->start_minutes = self::get_minutes(new \DateTime($y->start_time)) - self::get_minutes(new \DateTime('9:00'));
 
         $course_list = \business\facade\get_menu_course_by_idlist($y->course_id_list);
 

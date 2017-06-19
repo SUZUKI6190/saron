@@ -19,6 +19,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const date_name = "date_name";
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
+
 	public function init()
 	{
 		$context = StaffContext::get_instance();
@@ -28,25 +29,12 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
 
-            $selected_date = (new \DateTime($this->get_selected_date()))->format("Ymd");
-
-            $regit_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
-
-            $date_filer_list = [];
-
-            foreach($regit_list as $r)
-            {
-                if( $selected_date == (new \DateTime($r->start_time))->format("Ymd"))
-                {
-                    $date_filer_list[] = $r;
-                }
-            }
+            $regist_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
 
             $this->_param_list = array_map(function($d) {
                 return ScheduleTableParam::create_from_yoyaku($d);},
-                $date_filer_list);
+                $regist_list);
         }
-
 	}
 
     private function is_select_staff():bool
@@ -66,7 +54,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }else{
             return "";
         }
-        
     }
 
 	public function view()
@@ -149,9 +136,16 @@ class StaffShceduleSub extends \ui\frame\SubCategory
             </div>
             <div class='schedule_col'>
                 <?php
+                
+                $selected_date = (new \DateTime($this->get_selected_date()))->format("Ymd");
+
                 foreach($this->_param_list as $p)
                 {
-                    $px = $p->start_time * self::minutes_px;
+                    if($selected_date != (new \DateTime($p->start_datetime))->format("Ymd"))
+                    {
+                        continue;
+                    }
+                    $px = $p->start_minutes * self::minutes_px;
                     $px = $px + $px / self::minutes_30_px;
                     $height = $p->minites_len;
                     ?>                   
