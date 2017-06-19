@@ -27,10 +27,24 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         if($this->is_select_staff())
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
+
+            $selected_date = (new \DateTime($this->get_selected_date()))->format("Ymd");
+
             $regit_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
+
+            $date_filer_list = [];
+
+            foreach($regit_list as $r)
+            {
+                if( $selected_date == (new \DateTime($r->start_time))->format("Ymd"))
+                {
+                    $date_filer_list[] = $r;
+                }
+            }
+
             $this->_param_list = array_map(function($d) {
                 return ScheduleTableParam::create_from_yoyaku($d);},
-                $regit_list);
+                $date_filer_list);
         }
 
 	}
@@ -47,7 +61,12 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     private function get_selected_date()
     {
-        return $_POST[self::date_name];
+        if(isset($_POST[self::date_name])){
+            return $_POST[self::date_name];
+        }else{
+            return "";
+        }
+        
     }
 
 	public function view()
