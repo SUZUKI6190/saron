@@ -164,7 +164,7 @@ $info->date_time
 お客様情報
 お名前（漢字）: $info->name_kanji
 お名前（かな）: $info->name_kana
-メールアドレス : $info->mail
+メールアドレス : $info->email
 電話番号 : $info->tell
 来店履歴 : $info->visit
 ご要望 :
@@ -173,7 +173,7 @@ SEN;
 
         $address = Config::get_instance()->YoyakuMailAddress->get_value();
 
-        wp_mail($address,'予約',$strSen);
+        wp_mail($address, 'ご予約を受け付けました', $strSen);
     }
 
 	protected function init_inner()

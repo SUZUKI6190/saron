@@ -13,6 +13,11 @@ class Config
         $this->YoyakuMailAddress = new ConfigParam(0, $this->_value_table);
     }
 
+    public function set_value(int $id, string $value)
+    {
+        $this->_value_table[$id] = $value;
+    }
+
     public static function get_instance() : self
 	{
 		if(is_null(self::$_instance))
@@ -35,11 +40,6 @@ class ConfigParam
         $this->_value_table = $table;
     }
 
-    public function set_value(int $value)
-    {
-        $this->_value_table[$this->_id] = $value;
-    }
-
     public function get_value()
     {
         if(isset($this->_value_table[$this->_id])){
@@ -47,6 +47,12 @@ class ConfigParam
         }else{
             return "";
         }  
+    }
+
+    public function save_value($value)
+    {
+        \business\facade\set_config($this->_id, $value);
+        $this->_value_table[$this->_id] = $value;
     }
 
 }
