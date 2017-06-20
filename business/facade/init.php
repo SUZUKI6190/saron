@@ -139,6 +139,15 @@ SQL
 SQL
 		);
 
+	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_config (
+			id int UNSIGNED NOT NULL,
+			value text,
+			PRIMARY KEY(id)
+		)
+SQL
+		);
+
 }
 
 

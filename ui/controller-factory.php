@@ -13,6 +13,8 @@ require_once(dirname(__FILE__).'/image/download-image.php');
 require_once(dirname(__FILE__).'/../business/facade/yoyaku.php');
 require_once(dirname(__FILE__).'/../business/entity/yoyaku.php');
 require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");
+require_once(dirname(__FILE__)."/../business/facade/config.php");
+
 function create_controller() : IController
 {
 	$category = get_query_var("category");
