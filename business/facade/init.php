@@ -139,6 +139,22 @@ SQL
 SQL
 		);
 
+
+	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_schedule (
+			id int UNSIGNED NOT NULL AUTO_INCREMENT,
+			staff_id int UNSIGNED,
+			start_time DATETIME not null,
+			minutes int UNSIGNED not null,
+			schedule_division int  UNSIGNED NOT NULL,
+			name text,
+			data text,
+			PRIMARY KEY(id)
+		)
+SQL
+		);
+
+
 	dbDelta(<<<SQL
 		CREATE TABLE yoyaku_config (
 			id int UNSIGNED NOT NULL,
