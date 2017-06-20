@@ -5,10 +5,12 @@ class Config
 {
     private static $_instance;
     private $_value_table = [];
+    public $YoyakuMailAddress;
 
     private function __construct()
 	{
         \business\facade\get_config($this);
+        $this->YoyakuMailAddress = new ConfigParam(0, $this->_value_table);
     }
 
     public static function get_instance() : self
@@ -20,24 +22,31 @@ class Config
 		return self::$_instance;
 	}
 
-    public function set_value(int $id, int $value)
+}
+
+class ConfigParam
+{
+    private $_id;
+    private $_value_table = [];
+
+    public function __construct($id, $table)
     {
-        $this->_value_table[$id] = $value;
+        $this->_id = $id;
+        $this->_value_table = $table;
     }
 
-    private function get_value(int $id)
+    public function set_value(int $value)
     {
-        if(isset($this->_value_table[$id])){
-            return $this->_value_table[$id];
+        $this->_value_table[$this->_id] = $value;
+    }
+
+    public function get_value()
+    {
+        if(isset($this->_value_table[$this->_id])){
+            return $this->_value_table[$this->_id];
         }else{
             return "";
-        }
-        
-    }
-
-    public function get_yoyaku_mail_url() : string
-    {
-        return $this->get_value(0);
+        }  
     }
 
 }

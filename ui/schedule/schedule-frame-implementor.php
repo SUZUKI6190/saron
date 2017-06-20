@@ -2,6 +2,7 @@
 namespace ui\schedule;
 require_once('schedule-context.php');
 require_once('sub-category/schedule-view-sub.php');
+require_once('sub-category/sending-mail-setting.php');
 require_once('sub-category/weekly-sub.php');
 require_once(dirname(__FILE__).'/../../business/facade/schedule.php');
 require_once(dirname(__FILE__).'/../../business/entity/schedule.php');
@@ -18,6 +19,7 @@ class ScheduleFrameImplementor extends ManageFrameImplementor
 			$ret[$sub->get_name()] = $sub;
 		};
 		$set_array(new WeeklySub());
+		$set_array(new SendingMailSettingSub());
 
 		return $ret;
 	}

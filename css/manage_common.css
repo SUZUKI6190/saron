@@ -161,3 +161,9 @@ input[type="button"].manage_button.active
 {
     text-align:right;
 }
+
+.edit_midasi
+{
+    border-bottom:1px solid #000;
+    font-size:unset;
+}

@@ -63,3 +63,15 @@ input[type="number"]
 {
     text-align: right;  
 }
+
+div.config_input_wrap
+{
+    width:320px;
+    margin: auto;
+    margin-top:10px;
+}
+
+div.config_input_wrap input[type='email']
+{
+    width: 100%;
+}

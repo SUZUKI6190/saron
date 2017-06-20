@@ -171,7 +171,7 @@ $info->date_time
 $info->youbou
 SEN;
 
-        $address = Config::get_instance()->get_yoyaku_mail_url();
+        $address = Config::get_instance()->YoyakuMailAddress->get_value();
 
         wp_mail($address,'予約',$strSen);
     }
