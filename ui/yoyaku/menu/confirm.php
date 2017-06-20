@@ -7,6 +7,7 @@ USE ui\util\InputBase;
 use ui\util\SubmitButton;
 use business\entity\YoyakuRegistration;
 use business\entity\Customer;
+use business\entity\Config;
 
 class YoyakuInfo
 {
@@ -43,8 +44,7 @@ class Confirm extends YoyakuMenu
 
             $this->send_mail();
 
-
-    		$url = $yc->get_base_url()."/finish/".$d;
+    		$url = $yc->get_base_url()."/finish/";
 
             header("Location:$url");
         }
@@ -170,6 +170,8 @@ $info->date_time
 ご要望 :
 $info->youbou
 SEN;
+
+        $address = Config::get_instance()->get_yoyaku_mail_url();
 
         wp_mail($address,'予約',$strSen);
     }

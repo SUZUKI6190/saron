@@ -2,7 +2,7 @@
 namespace business\facade;
 use business\entity\Config;
 
-function get_config()
+function get_config(Config $new_c)
 {
 	$strSql = <<<SQL
 		select
@@ -14,8 +14,6 @@ SQL;
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
        
-    $new_c = Config::get_instance();
-
     foreach($result as $r)
     {
         $new_c->set_value($r->id , $r->value);

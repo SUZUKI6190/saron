@@ -14,6 +14,7 @@ require_once(dirname(__FILE__).'/../business/facade/yoyaku.php');
 require_once(dirname(__FILE__).'/../business/entity/yoyaku.php');
 require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");
 require_once(dirname(__FILE__)."/../business/facade/config.php");
+require_once(dirname(__FILE__)."/../business/entity/config.php");
 
 function create_controller() : IController
 {
