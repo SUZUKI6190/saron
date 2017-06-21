@@ -27,7 +27,7 @@ SQL
 }
 
 
-function get_schedule_by_staffid($id) : Schedule
+function get_schedule_by_staffid($id) : array
 {
 	global $wpdb;
 	$strSql = <<<SQL

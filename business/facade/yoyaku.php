@@ -1,6 +1,7 @@
 <?php
 
 namespace business\facade;
+/*
 use business\entity\YoyakuRegistration;
 
 function delete_yoyaku_registration_byid($id)
@@ -68,6 +69,6 @@ SQL
 
     return array_map($convert, $result);
 }
-
+*/
 
 ?>

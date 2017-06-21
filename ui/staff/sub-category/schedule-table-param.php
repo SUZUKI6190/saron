@@ -1,6 +1,8 @@
 <?php
 namespace ui\staff;
 use business\entity\YoyakuRegistration;
+use business\entity\Schedule;
+use business\entity\YoyakuJson;
 
 class ScheduleTableParam
 {
@@ -19,17 +21,19 @@ class ScheduleTableParam
         return ($hours * 60) + $minites; 
     }
 
-    public static function create_from_yoyaku(YoyakuRegistration $y) : self
+    public static function create_from_yoyaku(Schedule $s) : self
     {
         $ret = new self();
         $name;
         $sum_time = 0;
 
-        $ret->schedule_id = $y->id;
-        $ret->start_datetime = $y->start_time;
-        $ret->start_minutes = self::get_minutes(new \DateTime($y->start_time)) - self::get_minutes(new \DateTime('9:00'));
+        $yoyaku = YoyakuJson::create_from_json($s->data);
 
-        $course_list = \business\facade\get_menu_course_by_idlist($y->course_id_list);
+        $ret->schedule_id = $s->id;
+        $ret->start_datetime = $s->start_time;
+        $ret->start_minutes = self::get_minutes(new \DateTime($s->start_time)) - self::get_minutes(new \DateTime('9:00'));
+
+        $course_list = \business\facade\get_menu_course_by_idlist($yoyaku->course_id_list);
 
         foreach($course_list as $c)
         {
@@ -40,11 +44,12 @@ class ScheduleTableParam
         $ret->schedule_name = $name;
         $ret->minites_len = $sum_time;
 
-        $customer = \business\facade\SelectCustomerById($y->customer_id);
+        $customer = \business\facade\SelectCustomerById($yoyaku->customer_id);
         $ret->customer_name = $customer->name_kanji_last;
 
         return $ret;
     }
+
 }
 
 ?>

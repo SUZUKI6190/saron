@@ -32,7 +32,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
 
-            $regist_list = \business\facade\select_yoyaku_registration_by_staffid($this->_selected_staff_id);
+            $regist_list = \business\facade\get_schedule_by_staffid($this->_selected_staff_id);
 
             $this->_param_list = array_map(
                 function($d) {
