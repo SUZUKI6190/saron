@@ -6,6 +6,8 @@ use ui\yoyaku\YoyakuContext;
 USE ui\util\InputBase;
 use ui\util\SubmitButton;
 use business\entity\YoyakuRegistration;
+use business\entity\YoyakuJson;
+use business\entity\Schedule;
 use business\entity\Customer;
 use business\entity\Config;
 
@@ -97,31 +99,60 @@ class Confirm extends YoyakuMenu
         $ret->date_time = $d->format("Y年m月d日（").$week.$d->format("）　　d時s分");
         $ret->youbou = $mc->consultation->get_value();
 
-         return $ret;
+        return $ret;
     }
 
     private function save_yoyaku()
     {
         $yc = YoyakuContext::get_instance();
-        $yr = $this->create_yoyaku_registration();
-        \business\facade\update_nextvisit($yr->customer_id, new \DateTime($yc->yoyaku_date_time->get_value()));
+        $customr_id = $this->get_customer_id();
+        \business\facade\update_nextvisit($customr_id, new \DateTime($yc->yoyaku_date_time->get_value()));
 
-        $regist = $this->create_yoyaku_registration();
-        \business\facade\insert_yoyaku_registration($regist);
-
+        $schedule = $this->create_schedule($customr_id);
+        \business\facade\insert_schedule($schedule);
     }
 
-    private function create_yoyaku_registration() : YoyakuRegistration
+    private function create_schedule($customr_id) : Schedule
+    {
+        $ret = new Schedule();
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
+      
+        if($this->_staff == null){
+            $ret->staff_id = 'null';
+        }else{
+            $ret->staff_id =  $this->_staff->id;
+        }
+        
+        $ret->start_time = $yc->yoyaku_date_time->get_value();
+        $ret->schedule_division = Schedule::Yoyaku;
+        $ret->data = json_encode($this->create_yoyaku_json($customr_id));
+
+        return $ret;
+    }
+
+    private function create_yoyaku_json($customr_id) : YoyakuJson
     {
         $yc = YoyakuContext::get_instance();
         $mc = $yc->mail_contents;
 
-        $yr = new YoyakuRegistration();
-        if($this->_staff == null){
-            $yr->staff_id = 'null';
-        }else{
-            $yr->staff_id =  $this->_staff->id;
-        }
+        $yj = new YoyakuJson();
+
+        $yj->customer_id = $customr_id;
+
+        $yj->start_time = $yc->yoyaku_date_time->get_value();
+
+        $yj->coutse_id_list = $this->_course_id_list;
+
+        $yj->consultation = $mc->consultation->get_value();
+
+        return $yj;
+    }
+
+    private function get_customer_id() : int
+    {
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
 
         $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
 
@@ -137,16 +168,45 @@ class Confirm extends YoyakuMenu
             $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
         }
 
-        $yr->customer_id = $customer_id;
-
-        $yr->start_time = $yc->yoyaku_date_time->get_value();
-
-        $yr->coutse_id_list = $this->_course_id_list;
-
-        $yr->consultation = $mc->consultation->get_value();
-
-        return $yr;
+        return $customer_id;
     }
+
+    // private function create_yoyaku_registration() : YoyakuRegistration
+    // {
+    //     $yc = YoyakuContext::get_instance();
+    //     $mc = $yc->mail_contents;
+
+    //     $yr = new YoyakuRegistration();
+    //     if($this->_staff == null){
+    //         $yr->staff_id = 'null';
+    //     }else{
+    //         $yr->staff_id =  $this->_staff->id;
+    //     }
+
+    //     $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
+
+    //     if(is_null($customer_id)){
+    //         $new_customer = new Customer();
+    //         $new_customer->tanto_id = $yr->staff_id;
+    //         $new_customer->name_kanji_last = $mc->name_kanji->get_value();
+    //         $new_customer->name_kana_last = $mc->name_kana->get_value();
+    //         $new_customer->phone_number = $mc->tell->get_value();
+    //         $new_customer->email = $mc->email->get_value();
+    //         $new_customer->remarks = $mc->consultation->get_value();
+    //         \business\facade\InsertCustomer($new_customer);
+    //         $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
+    //     }
+
+    //     $yr->customer_id = $customer_id;
+
+    //     $yr->start_time = $yc->yoyaku_date_time->get_value();
+
+    //     $yr->coutse_id_list = $this->_course_id_list;
+
+    //     $yr->consultation = $mc->consultation->get_value();
+
+    //     return $yr;
+    // }
 
     private function send_mail()
     {

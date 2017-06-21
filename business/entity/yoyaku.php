@@ -24,4 +24,13 @@ class YoyakuRegistration
 	}
 }
 
+class YoyakuJson
+{
+	public $customer_id;
+	public $start_time;
+	public $course_id_list;
+	public $schedule_division;
+	public $consultation;
+}
+
 ?>

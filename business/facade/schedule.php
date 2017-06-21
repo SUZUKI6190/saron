@@ -1,5 +1,6 @@
 <?php
 namespace business\facade;
+use business\entity\Schedule;
 
 function insert_schedule(Schedule $s)
 {
