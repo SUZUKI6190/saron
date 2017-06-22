@@ -156,7 +156,7 @@ class Confirm extends YoyakuMenu
 
         $yj->start_time = $yc->yoyaku_date_time->get_value();
 
-        $yj->coutse_id_list = $this->_course_id_list;
+        $yj->course_id_list = implode(",", $this->_course_id_list);
 
         $yj->consultation = $mc->consultation->get_value();
 
