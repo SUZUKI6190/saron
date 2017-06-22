@@ -126,7 +126,21 @@ class Confirm extends YoyakuMenu
         
         $ret->start_time = $yc->yoyaku_date_time->get_value();
         $ret->schedule_division = Schedule::Yoyaku;
-        $ret->data = json_encode($this->create_yoyaku_json($customr_id));
+
+        $yoyaku_data = $this->create_yoyaku_json($customr_id);
+
+        $sum_time = 0;
+
+        $course = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
+
+        foreach($course as $c)
+        {
+           $sum_time = $sum_time + $c->time_required;
+        }
+
+        $ret->minutes = $sum_time;
+
+        $ret->data = json_encode($yoyaku_data);
 
         return $ret;
     }
