@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/schedule-table-param.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
-use \ui\util\InputBase;
+use \ui\util\InputControll;
 use \ui\frame\Result;
 use ui\frame\ManageFrameContext;
 use \business\entity\StaffSchedule;
@@ -14,6 +14,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private $_staff_list;
     private $_selected_staff_id;
     private $_param_list;
+    private $_schedule_list;
     const staff_select_btn_name = "staff_select_btn";
     const staff_select_id = "staff_select_id";
     const list_btn_name = "list_btn";
@@ -23,29 +24,41 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
 
+    const schedule_name = "schedule_name";
+    const schedule_date = "schedule_date";
+    const schedule_minutes = "schedule_minutes";
+    const schedule_time = "schedule_time";
+
+    private $_name_input, $_date_input, $_time_input;
+
 	public function init()
 	{
 		$context = StaffContext::get_instance();
         $this->_staff_list = \business\facade\get_staff_all();
 
+        $this->_name_input = new InputControll("text", self::schedule_name);
+        $this->_date_input = new InputControll("date", self::schedule_date);
+        $this->_time_input = new InputControll("time", self::schedule_time);
+        $this->_minutes_input = new InputControll("number", self::schedule_minutes);
+
         if($this->is_select_staff())
         {
             $this->_selected_staff_id = $this->get_selected_staff_id();
 
-            $regist_list = \business\facade\get_schedule_by_staffid($this->_selected_staff_id);
-
+            $this->_schedule_list = \business\facade\get_schedule_by_staffid($this->_selected_staff_id);
+            
             $this->_param_list = array_map(
                 function($d) {
                     return ScheduleTableParam::create_from_yoyaku($d);
                 },
-                $regist_list
+                $this->_schedule_list
             );
         }
 	}
 
     private function is_select_staff() : bool
     {
-        return $this->is_timetable_click() || $this->is_list_click(); 
+        return $this->is_timetable_click() || $this->is_list_click() || $this->is_edit_click(); 
     }
 
     private function get_selected_staff_id() : string
@@ -80,6 +93,13 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     public function is_list_click():bool
     {
         return isset($_POST[self::list_btn_name]);
+    }
+
+    private function view_update_btn()
+    {
+?>
+        <button name='<?php echo self::staff_select_btn_name; ?>'>更新する</button>
+<?php
     }
 
 	public function view()
@@ -117,18 +137,46 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     private function view_edit()
     {
+        $selected_schedule_id = $this->get_edit_value();
+        $selected_schedule;
+        foreach($this->_schedule_list as $p)
+        {
+            if($selected_schedule_id == $p->id)
+            {
+                $selected_schedule = $p;
+            }
+        }
+        $datetime  = new \DateTime($selected_schedule->start_time);
+        $date = $datetime->format("Y-m-d"); 
+        $time = $datetime->format("h:s"); 
+        $this->view_update_btn();
+        
+        $this->_name_input->set_value($selected_schedule->name);
+        $this->_date_input->set_value($date );
+        $this->_time_input->set_value($time);
+        $this->_minutes_input->set_value($selected_schedule->minutes);
+        
+        $this->_minutes_input->set_attribute( [
+            "min"=>"0"
+        ]);
 ?>
         <h2 class='edit_midasi'>
         予定名
         </h2>
+        <?php $this->_name_input->view() ?>
         <h2 class='edit_midasi'>
-        開始日時
+        開始日
         </h2>
-        <input type="time" />
+        <?php $this->_date_input->view() ?>
         <h2 class='edit_midasi'>
+        開始時刻
+        </h2>
+        <?php $this->_time_input->view() ?>
+        <h2 class='edit_midasi' />
         所要時間
         </h2>
-        <input type="number" min="0" />
+        <?php $this->_minutes_input->view() ?>
+        
 <?php
     }
 
@@ -163,26 +211,26 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }
         ?>
         <table class='schedule_list'>
+         <thead>
+            <th>
+                予定名
+            </th>
+            <th>
+                お客様名
+            </th>
+            <th>
+                開始日時
+            </th>
+            <th>
+                所要時間
+            </th>
+            <th>
+            </th>
+        </thead>
         <?php
         foreach($this->_param_list as $p)
         {
             ?>
-            <thead>
-                <th>
-                    予定名
-                </th>
-                <th>
-                    お客様名
-                </th>
-                <th>
-                    開始日時
-                </th>
-                <th>
-                    所要時間
-                </th>
-                <th>
-                </th>
-            </thead>
             <tr>
                 <td>
                 <?php
@@ -229,8 +277,9 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }
         ?>
         <input type='date' name='<?php echo self::date_name; ?>' <?php echo  $date_value; ?> />
-        <button name='<?php echo self::staff_select_btn_name; ?>'>更新する</button>
-
+        <?php
+        $this->view_update_btn();
+        ?>
         <div class='time_schedule_table'>
             <div class='time_col'>
                 <?php
