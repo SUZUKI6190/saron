@@ -8,6 +8,7 @@ use \ui\util\InputControll;
 use \ui\frame\Result;
 use ui\frame\ManageFrameContext;
 use \business\entity\StaffSchedule;
+use \business\entity\Schedule;
 
 class StaffShceduleSub extends \ui\frame\SubCategory
 {
@@ -16,6 +17,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private $_param_list;
     private $_schedule_list;
     const update_btn_name = "update_btn";
+    const update_schedule_btn_name = "update_schedule_btn";
     const staff_select_id = "staff_select_id";
     const list_btn_name = "list_btn";
     const timetable_btn_name = "time_table_btn";
@@ -45,7 +47,12 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $this->_schedule_id_input = new InputControll("hidden", self::schedule_id);
 
         if($this->is_select_staff())
-        {
+        {            
+            if($this->is_update_schedule_btn_click())
+            {
+                $this->update_schedule();
+            }
+
             $this->_selected_staff_id = $this->get_selected_staff_id();
 
             $this->_schedule_list = \business\facade\get_schedule_by_staffid($this->_selected_staff_id);
@@ -56,12 +63,14 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 },
                 $this->_schedule_list
             );
+
         }
+
 	}
 
     private function is_select_staff() : bool
     {
-        return $this->is_timetable_click() || $this->is_list_click() || $this->is_edit_click(); 
+        return $this->is_timetable_click() || $this->is_list_click() || $this->is_edit_click() || $this->is_update_schedule_btn_click(); 
     }
 
     private function get_selected_staff_id() : string
@@ -72,6 +81,11 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private function is_update_click() : bool
     {
         return isset($_POST[self::update_btn_name]);
+    }
+
+    private function is_update_schedule_btn_click() : bool
+    {
+        return isset($_POST[self::update_schedule_btn_name]);
     }
 
     private function is_edit_click() : bool
@@ -110,12 +124,21 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 <?php
     }
 
+
+    private function view_update_schedule_btn()
+    {
+?>
+        <button name='<?php echo self::update_schedule_btn_name; ?>'>更新する</button>
+<?php
+    }
+
+
     private function update_schedule()
     {
-        $new_schedule = new Schedle();
+        $new_schedule = new Schedule();
         $new_schedule->id = $this->_schedule_id_input->get_value();
         $new_schedule->name = $this->_name_input->get_value();
-        $datetime = $this->_date_input->get_value()." ".$this->_time_input->get_value()
+        $datetime = $this->_date_input->get_value()." ".$this->_time_input->get_value();
         $new_schedule->start_time = $datetime;
         $new_schedule->minutes = $this->_minutes_input->get_value();
         \business\facade\update_schedule($new_schedule);
@@ -168,7 +191,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $datetime  = new \DateTime($selected_schedule->start_time);
         $date = $datetime->format("Y-m-d"); 
         $time = $datetime->format("h:s"); 
-        $this->view_update_btn();
+        $this->view_update_schedule_btn();
         
         $this->_name_input->set_value($selected_schedule->name);
         $this->_date_input->set_value($date );
