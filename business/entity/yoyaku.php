@@ -41,7 +41,7 @@ class YoyakuJson
 		$ret->course_id_list =  explode(',', $d->course_id_list);
 		$ret->schedule_division = $d->schedule_division;
 		$ret->consultation = $d->consultation;
-		return $d;
+		return $ret;
 	}
 }
 

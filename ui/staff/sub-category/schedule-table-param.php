@@ -24,7 +24,7 @@ class ScheduleTableParam
     public static function create_from_yoyaku(Schedule $s) : self
     {
         $ret = new self();
-        $name;
+        $name = "";
         $sum_time = 0;
 
         $yoyaku = YoyakuJson::create_from_json($s->data);
