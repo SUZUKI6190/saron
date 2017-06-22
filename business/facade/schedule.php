@@ -26,6 +26,20 @@ SQL
 );
 }
 
+function update_schedule(Schedule $s)
+{
+	global $wpdb;
+	$s = <<<SQL
+		update yoyaku_schedule  set
+			start_time = '$s->start_time',
+			minutes = '$s->minutes',
+			schedule_division = '$s->schedule_division',
+			name = '$s->name'
+		where id = '$s->id'
+SQL;
+
+	$wpdb->query($s);
+}
 
 function get_schedule_by_staffid($id) : array
 {
