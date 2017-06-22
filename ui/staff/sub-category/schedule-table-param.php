@@ -41,8 +41,8 @@ class ScheduleTableParam
             $name = $c->name."<br>";
         }
 
-        $ret->schedule_name = $name;
-        $ret->minites_len = $sum_time;
+        $ret->schedule_name = $s->name;
+        $ret->minites_len = $s->minutes;
 
         $customer = \business\facade\SelectCustomerById($yoyaku->customer_id);
         $ret->customer_name = $customer->name_kanji_last;

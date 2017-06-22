@@ -130,15 +130,19 @@ class Confirm extends YoyakuMenu
         $yoyaku_data = $this->create_yoyaku_json($customr_id);
 
         $sum_time = 0;
+        $name = "";
 
         $course = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
 
         foreach($course as $c)
         {
-           $sum_time = $sum_time + $c->time_required;
+            $sum_time = $sum_time + $c->time_required;
+            $name = $c->name."<br>";
         }
 
         $ret->minutes = $sum_time;
+
+        $ret->schedule_name = $name;
 
         $ret->data = json_encode($yoyaku_data);
 
