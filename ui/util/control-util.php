@@ -239,7 +239,7 @@ class InputControll
 		$attr = "";
 		foreach($this->_atribute as $key => $value)
 		{
-			if(empty($value)){
+			if($value != 0 && empty($value)){
 				$attr = $attr." ".$key; 
 			}else{
 				$attr = $attr." ".$key." = '".$value."'"; 
