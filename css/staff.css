@@ -69,3 +69,8 @@ div.image_upload_area.close {
 {
     width:90%;
 }
+
+.update_btn_area
+{
+    text-align: right;
+}

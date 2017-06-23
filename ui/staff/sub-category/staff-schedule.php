@@ -120,7 +120,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private function view_update_btn()
     {
 ?>
-        <button name='<?php echo self::update_btn_name; ?>'>更新する</button>
+        <button class="manage_button" name='<?php echo self::update_btn_name; ?>'>更新する</button>
 <?php
     }
 
@@ -128,7 +128,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private function view_update_schedule_btn()
     {
 ?>
-        <button name='<?php echo self::update_schedule_btn_name; ?>'>更新する</button>
+        <button class="manage_button" name='<?php echo self::update_schedule_btn_name; ?>'>更新する</button>
 <?php
     }
 
@@ -190,9 +190,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }
         $datetime  = new \DateTime($selected_schedule->start_time);
         $date = $datetime->format("Y-m-d"); 
-        $time = $datetime->format("h:s"); 
-        $this->view_update_schedule_btn();
-        
+        $time = $datetime->format("h:s");        
         $this->_name_input->set_value($selected_schedule->name);
         $this->_date_input->set_value($date );
         $this->_time_input->set_value($time);
@@ -201,6 +199,14 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $this->_minutes_input->set_attribute( [
             "min"=>"0"
         ]);
+
+        ?>
+        <div class="update_btn_area">
+        <?php
+        $this->view_update_schedule_btn();
+        ?>
+        </div>
+        <?
 ?>
         <h2 class='edit_midasi'>
         予定名
@@ -300,7 +306,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 ?>
                 </td>
                 <td>
-                    <button type='submit' name="<?php echo self::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
+                    <button type='submit' class="manage_button" name="<?php echo self::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
                 </td>
             </tr>
             <?php
