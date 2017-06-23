@@ -136,6 +136,9 @@ class YoyakuFrame
 		$js_dir =  plugins_url()."/saron/js/";
 		$css_ver = '0.08';
 		$js_ver = '0.07';
+        $d = "?date=".(new \DateTime())->format("Ymdhis");
+		$yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
@@ -158,9 +161,11 @@ class YoyakuFrame
 		<div class="yoyaku_wrap">
 			<div class="inner_wrap">
 			<div class="main">
+			<form method='post' action='<?php echo "$d" ?>'>
 			<?php
 				$this->_main_yoyaku->view();
 			?>
+			</form>
 			</div>
 			<div class="footer">
 			<?php

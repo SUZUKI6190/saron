@@ -19,10 +19,8 @@ class DaySelect extends YoyakuMenu
 	private $_week_list_each_month = [];
 	private $_course_id_list;
 
-	public function __construct()
-	{
-
-	}
+	const BackBtnName = "back_btn";
+	const DateTimeBtnName = "yoyaku_date_time";
 
 	protected function init_inner()
 	{
@@ -31,6 +29,7 @@ class DaySelect extends YoyakuMenu
 		$this->course_table = new CourseTable($course_list);
 		$this->_shcedule_table = new ScheduleTable();
 	}
+
 	protected function get_css_list() : array
 	{
 		return [
@@ -44,6 +43,35 @@ class DaySelect extends YoyakuMenu
 		return "日時選択";
 	}
 
+	public function pre_render()
+	{
+		$yc = YoyakuContext::get_instance();
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+	
+        if($this->is_back())
+        {
+			$before_url = $yc->get_base_url()."/staff".$d;
+            header("Location:$before_url");
+        }
+
+        if($this->is_next_move())
+        {
+			$next_url =  $yc->get_base_url()."/mailform".$d;
+			header("Location:$next_url");
+        }
+	}
+
+	private function is_back(): bool
+	{
+		return isset($_POST[self::BackBtnName]);
+	}
+
+	private function is_next_move(): bool
+	{
+		return isset($_POST[self::DateTimeBtnName]);
+	}
+
+
 	public function view()
 	{
 		?>
@@ -52,36 +80,17 @@ class DaySelect extends YoyakuMenu
         </div>
 		<?php
 		$yc = YoyakuContext::get_instance();
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
-		$before_url = $yc->get_base_url()."/staff".$d;
+
 		$this->course_table->view();
-	
+		$this->_shcedule_table->view_week_button();
+
+		$this->_shcedule_table->view();
+ 		$this->view_yoyaku_frame_hidden();
 		?>
-		<form method='post' action='<?php echo "$d" ?>'>
-			<?php
-			$this->_shcedule_table->view_week_button();
-			$this->view_yoyaku_frame_hidden();
-			?>
-		</form>
-
-		<?php
-		$next_url =  $yc->get_base_url()."/mailform".$d;
-		?>
-
-		<form method='post' action="<?php echo $next_url; ?>">
-			<?php
-			$this->view_yoyaku_frame_hidden();
-			$yc = YoyakuContext::get_instance();
-			$this->_shcedule_table->view();
-			?>
-		</form>
-
-		<form method='post' action='<?php echo $before_url; ?>'>
-			<?php $this->view_yoyaku_frame_hidden(); ?>
-			<div class='back_button_area'>
-				<input type ='submit' value="< 戻る" class="back_button">
-			</div>
-		</form>
+		<div class='back_button_area'>
+			<input type ='submit' value="< 戻る" name="<?php echo self::BackBtnName; ?>" class="back_button">
+		</div>
+		
 	<?php
 	}
 

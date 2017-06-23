@@ -103,7 +103,7 @@ class Confirm extends YoyakuMenu
 
         $d = new \DateTime($yc->yoyaku_date_time->get_value());
         $week = self::week_table[$d->format('w')];
-        $ret->date_time = $d->format("Y年m月d日（").$week.$d->format("）　　d時s分");
+        $ret->date_time = $d->format("Y年m月d日（").$week.$d->format("）　　H時s分");
         $ret->youbou = $mc->consultation->get_value();
 
         return $ret;
@@ -249,7 +249,6 @@ SEN;
             <span class='page_midasi'>予約内容を確認してください</span>
         </div>
     <?php
-        $d = "?date=".(new \DateTime())->format("Ymdhis");
         $this->view_yoyaku_content($info);
         $this->view_customer_info($info);
         ?>
@@ -264,16 +263,14 @@ SEN;
                 をご確認いただき、予約を確定してください。
             </span>
         </div>
-        <form method='post' action='<?php echo "$d" ?>'>
-            <div class='button_area'>
-                <div class='back_button_area'>
-                    <button type='submit' value='none' name='back_btn' class='back_button'>< 戻る</button>
-                </div>
-                <div class='back_button_area'>
-                    <button type='submit' value='none' name='finish_btn' class='next_button'>予約を確定する</button>
-                </div>
+        <div class='button_area'>
+            <div class='back_button_area'>
+                <button type='submit' value='none' name='back_btn' class='back_button'>< 戻る</button>
             </div>
-        </form>
+            <div class='back_button_area'>
+                <button type='submit' value='none' name='finish_btn' class='next_button'>予約を確定する</button>
+            </div>
+        </div>
 	<?php
 	}
 

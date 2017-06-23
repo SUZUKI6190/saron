@@ -93,40 +93,36 @@ class StaffSelect extends YoyakuMenu
 
 	public function view()
 	{
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
-		$yc = YoyakuContext::get_instance();
 		?>
-		<form method='post' action='<?php echo "$d" ?>'>
-			<div class='staff_wrap'>				
-				<?php $this->view_yoyaku_frame_hidden(); ?>
-				<div class = 'yoyaku_midashi'>
-					<span>セラピストを選択してください</span>
-				</div>
-				<div class='course_table_area'>
-				<?php
-				$this->course_table->view();
-				?>
-				</div>
-				<div class='reserve_area'>
-					<button type='submit' value='none' name='<?php echo self::next_btn_name; ?>' class='next_button'>指名せず予約する</button>
-				</div>
-				<div class='staff_select_area'>
-				<?php
-				foreach($this->_staff_list as $s)
-				{
-					$this->view_staff_info($s);
-				}
-				?>
-				</div>
-		
-				<div class='back_button_area'>
-					<?php $this->view_yoyaku_frame_hidden(); ?>
-					<div class='back_button_area'>
-						<input type ='submit' name='<?php echo self::back_btn_name; ?>' value="戻る" class="back_button">
-					</div>					
-				</div>
+		<div class='staff_wrap'>				
+			<?php $this->view_yoyaku_frame_hidden(); ?>
+			<div class = 'yoyaku_midashi'>
+				<span>セラピストを選択してください</span>
 			</div>
-		</form>
+			<div class='course_table_area'>
+			<?php
+			$this->course_table->view();
+			?>
+			</div>
+			<div class='reserve_area'>
+				<button type='submit' value='none' name='<?php echo self::next_btn_name; ?>' class='next_button'>指名せず予約する</button>
+			</div>
+			<div class='staff_select_area'>
+			<?php
+			foreach($this->_staff_list as $s)
+			{
+				$this->view_staff_info($s);
+			}
+			?>
+			</div>
+	
+			<div class='back_button_area'>
+				<?php $this->view_yoyaku_frame_hidden(); ?>
+				<div class='back_button_area'>
+					<input type ='submit' name='<?php echo self::back_btn_name; ?>' value="戻る" class="back_button">
+				</div>					
+			</div>
+		</div>
 
 		<?php
 	}

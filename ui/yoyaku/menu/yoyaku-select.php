@@ -98,34 +98,31 @@ class YoyakuSelect extends YoyakuMenu
 	
 	public function view()
 	{
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
 		?>
 		<input type='hidden' value=<?php echo implode(',', $this->_checkbox_id_list); ?> id='<?php echo self::ChkBoxIdListId; ?>' />
-		<form method='post' action='<?php echo "$d" ?>' >
-			<?php 
-			if(!empty($yc->menu_id)){
-				?>
-				<div class='yoyaku_selected_area'>
-				<?php $this->_selected_menu_table->view(); ?>
-				</div>
-								
-				<div class='next_button_area'>
-					<?php $this->view_next_button(); ?>
-				</div>
-			
-			<?php
-			}
+		<?php 
+		if(!empty($yc->menu_id)){
 			?>
-			<div class='yoyaku_all_area'>
-				<?php $this->_rest_menu_table->view(); ?>
+			<div class='yoyaku_selected_area'>
+			<?php $this->_selected_menu_table->view(); ?>
 			</div>
-			
+							
 			<div class='next_button_area'>
-				<a href='' class="back_button" >戻る</a>	
 				<?php $this->view_next_button(); ?>
 			</div>
-			<?php $this->view_yoyaku_frame_hidden(); ?>
-		</form>	
+		
+		<?php
+		}
+		?>
+		<div class='yoyaku_all_area'>
+			<?php $this->_rest_menu_table->view(); ?>
+		</div>
+		
+		<div class='next_button_area'>
+			<a href='' class="back_button" >戻る</a>	
+			<?php $this->view_next_button(); ?>
+		</div>
+		<?php $this->view_yoyaku_frame_hidden(); ?>
 	<?php
 	}
 }
