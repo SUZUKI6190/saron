@@ -15,6 +15,7 @@ class MailInput extends YoyakuMenu
 	private $_course_id_list;
     const BackBtnName = "back_button";
     const ConfirmBtnName = "confirm_btn";
+
 	public function __construct()
 	{
 	}
@@ -47,10 +48,38 @@ class MailInput extends YoyakuMenu
 
         if($this->is_confirm())
         {
-            $next_url = $yc->get_base_url()."/confirm/".$d;
-            header("Location:$next_url");
+            if($this->enable_move_next())
+            {
+                $next_url = $yc->get_base_url()."/confirm/".$d;
+                header("Location:$next_url");
+            }
         }
 	}
+
+    private function enable_move_next():bool
+    {
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
+   
+        if(!$mc->name_kana->is_post())
+        {
+            return false;
+        }
+        if(!$mc->name_kanji->is_post())
+        {
+            return false;
+        }
+        if(!$mc->tell->is_post())
+        {
+            return false;
+        }
+        if(!$mc->email->is_post())
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     private function is_back() : bool
     {
@@ -83,7 +112,7 @@ class MailInput extends YoyakuMenu
                             お名前(漢字)
                         </td>
                         <td>
-                            <input type='text' name='<?php echo $mc->name_kanji->get_key(); ?>' required value='<?php echo $mc->name_kanji->get_value();?>' >
+                            <input type='text' name='<?php echo $mc->name_kanji->get_key(); ?>' value='<?php echo $mc->name_kanji->get_value();?>' >
                         </td>
                     </tr>
                     <tr>
@@ -94,7 +123,7 @@ class MailInput extends YoyakuMenu
                             お名前(カナ)
                         </td>
                         <td>
-                            <input type='text' name='<?php echo $mc->name_kana->get_key(); ?>' pattern="[\u3041-\u3096]*" required value='<?php echo $mc->name_kana->get_value();?>'>
+                            <input type='text' name='<?php echo $mc->name_kana->get_key(); ?>' pattern="[\u3041-\u3096]*" value='<?php echo $mc->name_kana->get_value();?>'>
                         </td>
                     </tr>
                     <tr>
@@ -105,7 +134,7 @@ class MailInput extends YoyakuMenu
                             メールアドレス
                         </td>
                         <td>
-                            <input type='email' name='<?php echo $mc->email->get_key(); ?>' required value='<?php echo $mc->email->get_value();?>'>
+                            <input type='email' name='<?php echo $mc->email->get_key(); ?>' value='<?php echo $mc->email->get_value();?>'>
                         </td>
                     </tr>
                     <tr>
@@ -116,7 +145,7 @@ class MailInput extends YoyakuMenu
                             お電話番号
                         </td>
                         <td>
-                            <input type='tel' name='<?php echo $mc->tell->get_key(); ?>' required value='<?php echo $mc->tell->get_value();?>'>
+                            <input type='tel' name='<?php echo $mc->tell->get_key(); ?>' value='<?php echo $mc->tell->get_value();?>'>
                         </td>
                     </tr>
                     <tr>

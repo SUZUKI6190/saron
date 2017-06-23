@@ -89,9 +89,14 @@ class YoyakuParam
 
 	public function set_session_from_post()
 	{
-		if(isset($_POST[$this->_key])){
+		if($this->is_post()){
 			$_SESSION[$this->_key] = $_POST[$this->_key];
 		}
+	}
+
+	public function is_post() : bool
+	{
+		return isset($_POST[$this->_key]) && $_POST[$this->_key] != "";
 	}
 
 	public function get_value()
