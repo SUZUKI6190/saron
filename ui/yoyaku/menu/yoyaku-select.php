@@ -33,8 +33,6 @@ class YoyakuSelect extends YoyakuMenu
 
 	protected function init_inner()
 	{
-
-
 		$yc = YoyakuContext::get_instance();
 		$this->_menu_list = \business\facade\get_menu_list();
 		$selected = [];
@@ -73,9 +71,8 @@ class YoyakuSelect extends YoyakuMenu
 		if($this->is_move_next())
 		{
 			$yc = YoyakuContext::get_instance();
-			$d = "?date=".(new \DateTime())->format("Ymdhis");
-			$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/".$d;
-            header("Location:$url");
+			$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/";
+            $this->transfer($url);
 		}
 	}
 	

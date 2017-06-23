@@ -40,9 +40,7 @@ class Confirm extends YoyakuMenu
 	public function pre_render()
 	{
         $yc = YoyakuContext::get_instance();
-        $d = "?date=".(new \DateTime())->format("Ymdhis");
-        $before_url = $yc->get_base_url()."/mailform/".$d;
-    
+      
         if(isset($_POST["finish_btn"])){
          
             $this->save_yoyaku();
@@ -51,11 +49,12 @@ class Confirm extends YoyakuMenu
 
     		$url = $yc->get_base_url()."/finish/";
 
-            header("Location:$url");
+            $this->transfer($url);
         }
 
         if(isset($_POST["back_btn"])){
-             header("Location:$before_url");
+            $before_url = $yc->get_base_url()."/mailform/";
+            $this->transfer($before_url);
         }
 	}
     

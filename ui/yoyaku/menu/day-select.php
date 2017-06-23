@@ -46,18 +46,17 @@ class DaySelect extends YoyakuMenu
 	public function pre_render()
 	{
 		$yc = YoyakuContext::get_instance();
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
 	
         if($this->is_back())
         {
-			$before_url = $yc->get_base_url()."/staff".$d;
-            header("Location:$before_url");
+			$before_url = $yc->get_base_url()."/staff";
+            $this->transfer($before_url);
         }
 
         if($this->is_next_move())
         {
-			$next_url =  $yc->get_base_url()."/mailform".$d;
-			header("Location:$next_url");
+			$next_url =  $yc->get_base_url()."/mailform";
+			$this->transfer($next_url);
         }
 	}
 

@@ -37,21 +37,20 @@ class MailInput extends YoyakuMenu
 
 	public function pre_render()
 	{
-        $d = "?date=".(new \DateTime())->format("Ymdhis");
 		$yc = YoyakuContext::get_instance();
 
         if($this->is_back())
         {
-            $before_url = $yc->get_base_url()."/day/".$d;
-            header("Location:$before_url");
+            $before_url = $yc->get_base_url()."/day/";
+            $this->transfer($before_url);
         }
 
         if($this->is_confirm())
         {
             if($this->enable_move_next())
             {
-                $next_url = $yc->get_base_url()."/confirm/".$d;
-                header("Location:$next_url");
+                $next_url = $yc->get_base_url()."/confirm/";
+                $this->transfer($next_url);
             }
         }
 	}

@@ -11,13 +11,20 @@ abstract class YoyakuMenu
 	private $_menu_id;
 	private $_course_id_list;
 	protected $_is_view_footer = true;
-
 	private function setup_session( $yp)
 	{
 		$key = $yp->get_key();
 		if(isset($_POST[$key])){
 			$yp->set_value($_POST[$key]);
 		}
+	}
+
+	protected function transfer($url)
+	{
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+		$new_url = $url.$d;
+		header("Location:$new_url");
+		exit;
 	}
 
 	public function is_view_footer() : bool
@@ -121,14 +128,27 @@ abstract class YoyakuMenu
 class YoyakuFrame
 {
 	private $_main_yoyaku;
-	
+	const TransferHiddenName = "YoyakuPageTransfer";
+
 	public function __construct(YoyakuMenu $m)
 	{
 		$this->_main_yoyaku = $m;
 	}
-	
+
+	private function is_yoyaku_page_transfer() : bool
+	{
+		return isset($_GET["date"]);
+	}
+
 	public function view()
 	{
+		$yc = YoyakuContext::get_instance();
+	
+		if(!$this->is_yoyaku_page_transfer())
+		{
+			$yc->session_destroy();
+		}
+
 		$this->_main_yoyaku->init();
 		$this->_main_yoyaku->pre_render();
 
@@ -137,7 +157,7 @@ class YoyakuFrame
 		$css_ver = '0.08';
 		$js_ver = '0.07';
         $d = "?date=".(new \DateTime())->format("Ymdhis");
-		$yc = YoyakuContext::get_instance();
+		
         $mc = $yc->mail_contents;
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -165,6 +185,7 @@ class YoyakuFrame
 			<?php
 				$this->_main_yoyaku->view();
 			?>
+			<input type="hidden" name="<?php echo self::TransferHiddenName; ?>" value="0" />
 			</form>
 			</div>
 			<div class="footer">

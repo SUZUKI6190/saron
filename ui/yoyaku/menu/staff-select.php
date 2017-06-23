@@ -46,18 +46,17 @@ class StaffSelect extends YoyakuMenu
 
 	public function pre_render()
 	{
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
-		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/".$d;
+		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/";
 		$yc = YoyakuContext::get_instance();
-		$before_url = $yc->get_base_url()."/menu/".$this->get_menu_id().$d;
+		$before_url = $yc->get_base_url()."/menu/".$this->get_menu_id();
   		
 		if(isset($_POST[self::back_btn_name])){
-            header("Location:$before_url");
+            $this->transfer($before_url);
         }
 
 		if($this->is_move_next())
 		{
-			header("Location:$url");
+			$this->transfer($url);
 		}
 	}
 
