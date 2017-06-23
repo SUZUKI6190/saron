@@ -39,9 +39,12 @@ class Confirm extends YoyakuMenu
 
 	public function pre_render()
 	{
+        $yc = YoyakuContext::get_instance();
+        $d = "?date=".(new \DateTime())->format("Ymdhis");
+        $before_url = $yc->get_base_url()."/mailform/".$d;
+    
         if(isset($_POST["finish_btn"])){
-            $yc = YoyakuContext::get_instance();
-
+         
             $this->save_yoyaku();
 
             $this->send_mail();
@@ -49,6 +52,10 @@ class Confirm extends YoyakuMenu
     		$url = $yc->get_base_url()."/finish/";
 
             header("Location:$url");
+        }
+
+        if(isset($_POST["back_btn"])){
+             header("Location:$before_url");
         }
 	}
     
@@ -243,8 +250,6 @@ SEN;
         </div>
     <?php
         $d = "?date=".(new \DateTime())->format("Ymdhis");
-		$yc = YoyakuContext::get_instance();
-        $before_url = $yc->get_base_url()."/mailform/".$d;
         $this->view_yoyaku_content($info);
         $this->view_customer_info($info);
         ?>
@@ -262,7 +267,7 @@ SEN;
         <form method='post' action='<?php echo "$d" ?>'>
             <div class='button_area'>
                 <div class='back_button_area'>
-                    <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
+                    <button type='submit' value='none' name='back_btn' class='back_button'>< 戻る</button>
                 </div>
                 <div class='back_button_area'>
                     <button type='submit' value='none' name='finish_btn' class='next_button'>予約を確定する</button>
