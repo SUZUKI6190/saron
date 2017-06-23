@@ -35,7 +35,8 @@ button.next_button
 }
 
 a.back_button,
-input.back_button
+input.back_button,
+button.back_button
 {
     color:#2F75B5;
     background-color:#FFF;

@@ -13,7 +13,8 @@ class MailInput extends YoyakuMenu
 {
     private $course_table;
 	private $_course_id_list;
-
+    const BackBtnName = "back_button";
+    const ConfirmBtnName = "confirm_btn";
 	public function __construct()
 	{
 	}
@@ -35,18 +36,39 @@ class MailInput extends YoyakuMenu
 
 	public function pre_render()
 	{
+        $d = "?date=".(new \DateTime())->format("Ymdhis");
+		$yc = YoyakuContext::get_instance();
 
+        if($this->is_back())
+        {
+            $before_url = $yc->get_base_url()."/day/".$d;
+            header("Location:$before_url");
+        }
+
+        if($this->is_confirm())
+        {
+            $next_url = $yc->get_base_url()."/confirm/".$d;
+            header("Location:$next_url");
+        }
 	}
+
+    private function is_back() : bool
+    {
+        return isset($_POST[self::BackBtnName]);
+    }
+
+    private function is_confirm() : bool
+    {
+        return isset($_POST[self::ConfirmBtnName]);
+    }
 
     public function view()
     {
         $d = "?date=".(new \DateTime())->format("Ymdhis");
 		$yc = YoyakuContext::get_instance();
-		$next_url = $yc->get_base_url()."/confirm/".$d;
-        $before_url = $yc->get_base_url()."/day/".$d;
         $mc = $yc->mail_contents;
         ?>
-        <form method='post' action='<?php echo "$next_url" ?>'>
+        <form method='post' action='<?php echo "$d" ?>'>
             <div class='yoyaku_midashi'>
                 <span class='page_midasi'>お客様情報を入力してください</span>
             </div>
@@ -140,10 +162,10 @@ class MailInput extends YoyakuMenu
 
             <div class='button_area'>
                 <div class='back_button_area'>
-                    <a class='back_button' href='<?php echo $before_url; ?>'>< 戻る</a>
+                    <button type='submit' value='none' name='<?php echo self::BackBtnName; ?>' class='back_button'>< 戻る</button>
                 </div>
                 <div class='back_button_area'>
-                    <button type='submit' value='none' name='confirm_btn' class='next_button'>予約内容を確認する</button>
+                    <button type='submit' value='none' name='<?php echo self::ConfirmBtnName; ?>' class='next_button'>予約内容を確認する</button>
                 </div>
             </div>
     </form>

@@ -134,7 +134,7 @@ class YoyakuFrame
 
 		$css_dir =  plugins_url()."/saron/css/yoyaku/";
 		$js_dir =  plugins_url()."/saron/js/";
-		$css_ver = '0.07';
+		$css_ver = '0.08';
 		$js_ver = '0.07';
 		?>	
 		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

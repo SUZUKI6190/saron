@@ -19,6 +19,8 @@ class YoyakuSelect extends YoyakuMenu
 	const ChkBoxIdListId = 'chk_list_id';
 	const CheckCourseMsg = 'コースを選択してください';
 	
+	const NextBtnName = "next_button";
+
 	protected function get_css_list() : array
 	{
 		return ["menu-table.css"];
@@ -65,8 +67,16 @@ class YoyakuSelect extends YoyakuMenu
 			$this->_checkbox_id_list = $this->_rest_menu_table->get_checkbox_id_list();
 		}
 	}
-	public function __construct()
+
+	public function pre_render()
 	{
+		if($this->is_move_next())
+		{
+			$yc = YoyakuContext::get_instance();
+			$d = "?date=".(new \DateTime())->format("Ymdhis");
+			$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/".$d;
+            header("Location:$url");
+		}
 	}
 	
 	public function get_title() : string
@@ -74,21 +84,24 @@ class YoyakuSelect extends YoyakuMenu
 		return "メニュー選択";
 	}
 	
+	private function is_move_next():bool
+	{
+		return isset($_POST[self::NextBtnName]);
+	}
+
 	private function view_next_button()
 	{
 		?>
-		<input type='submit' value="この内容で次へ" name="next_button" class="manage_button next_button" onclick='return select_check("<?php echo self::ChkBoxIdListId; ?>", "<?php echo self::CheckCourseMsg; ?>");' />
+		<input type='submit' value="この内容で次へ" name="<?php echo self::NextBtnName; ?>" class="manage_button next_button" onclick='return select_check("<?php echo self::ChkBoxIdListId; ?>", "<?php echo self::CheckCourseMsg; ?>");' />
 		<?php
 	}
 	
 	public function view()
 	{
-		$yc = YoyakuContext::get_instance();
 		$d = "?date=".(new \DateTime())->format("Ymdhis");
-		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/".$d;
 		?>
 		<input type='hidden' value=<?php echo implode(',', $this->_checkbox_id_list); ?> id='<?php echo self::ChkBoxIdListId; ?>' />
-		<form method='post' action='<?php echo $url; ?>' >
+		<form method='post' action='<?php echo "$d" ?>' >
 			<?php 
 			if(!empty($yc->menu_id)){
 				?>
