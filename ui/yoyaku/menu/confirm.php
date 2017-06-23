@@ -189,43 +189,6 @@ class Confirm extends YoyakuMenu
         return $customer_id;
     }
 
-    // private function create_yoyaku_registration() : YoyakuRegistration
-    // {
-    //     $yc = YoyakuContext::get_instance();
-    //     $mc = $yc->mail_contents;
-
-    //     $yr = new YoyakuRegistration();
-    //     if($this->_staff == null){
-    //         $yr->staff_id = 'null';
-    //     }else{
-    //         $yr->staff_id =  $this->_staff->id;
-    //     }
-
-    //     $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
-
-    //     if(is_null($customer_id)){
-    //         $new_customer = new Customer();
-    //         $new_customer->tanto_id = $yr->staff_id;
-    //         $new_customer->name_kanji_last = $mc->name_kanji->get_value();
-    //         $new_customer->name_kana_last = $mc->name_kana->get_value();
-    //         $new_customer->phone_number = $mc->tell->get_value();
-    //         $new_customer->email = $mc->email->get_value();
-    //         $new_customer->remarks = $mc->consultation->get_value();
-    //         \business\facade\InsertCustomer($new_customer);
-    //         $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
-    //     }
-
-    //     $yr->customer_id = $customer_id;
-
-    //     $yr->start_time = $yc->yoyaku_date_time->get_value();
-
-    //     $yr->coutse_id_list = $this->_course_id_list;
-
-    //     $yr->consultation = $mc->consultation->get_value();
-
-    //     return $yr;
-    // }
-
     private function send_mail()
     {
         $info = $this->create_yoyaku_info();
