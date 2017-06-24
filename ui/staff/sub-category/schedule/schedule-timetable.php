@@ -16,6 +16,7 @@ class ScheduleTimeTable extends ScheduleBase
     const date_name = "date_name";
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
+    const selected_id = "selected_id";
 
     protected function update_inner()
     {
@@ -98,8 +99,10 @@ class ScheduleTimeTable extends ScheduleBase
                     $px = $p->start_minutes * self::minutes_px;
                     $px = $px + $px / self::minutes_30_px;
                     $height = $p->minites_len;
+                    $str = 'edit_schedule("%s","%d","%s")';
+                    $script = sprintf($str, self::selected_id, $p->schedule_id, StaffShceduleSub::form_id);
                     ?>                   
-                    <div class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
+                    <div onclick='<?php echo $script;?>' class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
                         <span class='yoyaku_name'>
                             <?php echo $p->schedule_name; ?>
                         </span>
@@ -111,6 +114,7 @@ class ScheduleTimeTable extends ScheduleBase
                 }
                 
                 ?>
+                <input id="<?php echo self::selected_id; ?>" type="hidden" name="<?php echo StaffShceduleSub::edit_btn_name; ?>"  >
             </div>
         </div>
         <?php

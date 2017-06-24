@@ -15,6 +15,7 @@ class ScheduleEdit extends ScheduleBase
     private $_name_input, $_date_input, $_time_input;
     private $_schedule_id_input;
     private $_selected_schedule_id;
+
     private function get_edit_value() : string
     {
         return $_POST[StaffShceduleSub::edit_btn_name];

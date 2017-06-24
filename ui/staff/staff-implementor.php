@@ -44,7 +44,8 @@ class StaffFrameImplementor extends ManageFrameImplementor
 	protected function get_js_list()
 	{
 		return [
-		new \ui\frame\HeaderFile('manage-staff.js', 0.04)
+		new \ui\frame\HeaderFile('manage-staff.js', 0.04),
+		new \ui\frame\HeaderFile('staff-schedule.js', 0.04)
 		];
 	}
 }

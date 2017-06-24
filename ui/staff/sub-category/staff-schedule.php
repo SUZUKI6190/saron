@@ -37,6 +37,8 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const schedule_time = "schedule_time";
     const schedule_id = "schedule_id";
 
+    const form_id = "form";
+
     private $_schedule;
 	public function init()
 	{
@@ -134,7 +136,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $name = self::staff_select_id;
         $d = "?date=".(new \DateTime())->format("Ymdhis");
         ?>
-        <form method="post" action='<?php echo "$d" ?>'>
+        <form method="post" action='<?php echo "$d" ?>' id='<?php echo self::form_id; ?>'>
             <div class="wrap">
             <?php
                 $this->view_staff_select();
