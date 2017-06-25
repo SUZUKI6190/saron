@@ -1,5 +1,11 @@
 .sales_graph_area
 {
-    width:300px;
+    width:320px;
     background-color:white;
+}
+
+.sales_wrap
+{
+    width: 320px;
+    margin:auto;
 }

@@ -118,7 +118,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 	public function view()
 	{?>
 		<form action='' method='post' id='<?php echo $this->_form_id; ?>'>
-			<div class="input_form">
+			<div class="sales_wrap">
 			<?php $this->_view_graph_button->view(); ?>
 			<div class="line">
 				<h2>表示を選択</h2>			
