@@ -68,7 +68,26 @@ SQL
 }
 
 
-function get_laset_insert_id()
+function select_yoyaku_registration_by_id($id)
+{
+	global $wpdb;
+
+    $result = $wpdb->get_results(<<<SQL
+		select * from yoyaku_registration
+        where id = '$id'
+        order by  id
+SQL
+);
+
+    $convert = function($data)
+	{
+		return YoyakuRegistration::CreateObjectFromWpdb($data);;
+	};
+
+    return array_map($convert, $result);
+}
+
+function get_last_insert_id()
 {
 	global $wpdb;
 

@@ -27,7 +27,8 @@ class ScheduleTableParam
         $name = "";
         $sum_time = 0;
 
-        $yoyaku = YoyakuJson::create_from_json($s->data);
+        $yoyaku_registration_id = $s->data;
+        $yoyaku = \business\facade\select_yoyaku_registration_by_id($yoyaku_registration_id)[0];
 
         $ret->schedule_id = $s->id;
         $ret->start_datetime = $s->start_time;

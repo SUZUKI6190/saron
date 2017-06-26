@@ -115,7 +115,7 @@ class Confirm extends YoyakuMenu
         \business\facade\update_nextvisit($customr_id, new \DateTime($yc->yoyaku_date_time->get_value()));
 
         $this->save_yoyaku_registration($customr_id);
-        $regist_id = \business\facade\get_laset_insert_id();
+        $regist_id = \business\facade\get_last_insert_id();
         $this->save_schedule($customr_id, $regist_id);
     }
 
