@@ -132,8 +132,7 @@ SQL
 			customer_id int UNSIGNED,
 			start_time DATETIME not null,
 			course_id_list text,
-			schedule_division int UNSIGNED,
-			consultation text,
+			consultation text character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL
@@ -147,7 +146,7 @@ SQL
 			start_time DATETIME not null,
 			minutes int UNSIGNED not null,
 			schedule_division int  UNSIGNED NOT NULL,
-			name text,
+			name text character set utf8,
 			data text,
 			PRIMARY KEY(id)
 		)

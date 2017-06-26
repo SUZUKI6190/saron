@@ -43,7 +43,7 @@ class Confirm extends YoyakuMenu
       
         if(isset($_POST["finish_btn"])){
          
-            $this->save_yoyaku();
+            $this->save();
 
             $this->send_mail();
 
@@ -108,14 +108,37 @@ class Confirm extends YoyakuMenu
         return $ret;
     }
 
-    private function save_yoyaku()
+    private function save()
     {
         $yc = YoyakuContext::get_instance();
         $customr_id = $this->get_customer_id();
         \business\facade\update_nextvisit($customr_id, new \DateTime($yc->yoyaku_date_time->get_value()));
 
+        $this->save_yoyaku_registration($customr_id);
+        $regist_id = \business\facade\get_laset_insert_id();
+        $this->save_schedule($customr_id, $regist_id);
+    }
+
+    private function get_staff_id()
+    {
+        if($this->_staff == null){
+            return 'null';
+        }else{
+            return $this->_staff->id;
+        }
+    }
+
+    private function save_schedule($customr_id, $regist_id)
+    {
         $schedule = $this->create_schedule($customr_id);
+        $schedule->data = $regist_id;
         \business\facade\insert_schedule($schedule);
+    }
+
+    private function save_yoyaku_registration($customr_id)
+    {
+        $yoyaku_regist = $this->create_yoyaku_registration($customr_id);
+        \business\facade\insert_yoyaku_registration($yoyaku_regist);
     }
 
     private function create_schedule($customr_id) : Schedule
@@ -124,16 +147,10 @@ class Confirm extends YoyakuMenu
         $yc = YoyakuContext::get_instance();
         $mc = $yc->mail_contents;
       
-        if($this->_staff == null){
-            $ret->staff_id = 'null';
-        }else{
-            $ret->staff_id =  $this->_staff->id;
-        }
-        
+        $ret->staff_id = $this->get_staff_id();
+
         $ret->start_time = $yc->yoyaku_date_time->get_value();
         $ret->schedule_division = Schedule::Yoyaku;
-
-        $yoyaku_data = $this->create_yoyaku_json($customr_id);
 
         $sum_time = 0;
         $name = "";
@@ -150,17 +167,17 @@ class Confirm extends YoyakuMenu
 
         $ret->schedule_name = $name;
 
-        $ret->data = json_encode($yoyaku_data);
-
         return $ret;
     }
 
-    private function create_yoyaku_json($customr_id) : YoyakuJson
+    private function create_yoyaku_registration($customr_id) : YoyakuRegistration
     {
         $yc = YoyakuContext::get_instance();
         $mc = $yc->mail_contents;
 
-        $yj = new YoyakuJson();
+        $yj = new YoyakuRegistration();
+
+        $yj->staff_id = $this->get_staff_id();
 
         $yj->customer_id = $customr_id;
 

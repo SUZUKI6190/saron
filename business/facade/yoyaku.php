@@ -1,7 +1,7 @@
 <?php
 
 namespace business\facade;
-/*
+
 use business\entity\YoyakuRegistration;
 
 function delete_yoyaku_registration_byid($id)
@@ -30,21 +30,18 @@ SQL;
 function insert_yoyaku_registration($y)
 {
 	global $wpdb;
-    $course_id_list = implode(',', $y->coutse_id_list);
     $strSql = <<<SQL
 		insert into yoyaku_registration (
             staff_id,
             customer_id,
             start_time,
             course_id_list,
-            schedule_division,
             consultation
 		)values(
             '$y->staff_id',
             '$y->customer_id',
             '$y->start_time',
-            '$course_id_list',
-            '$y->schedule_division',
+            '$y->course_id_list',
             '$y->consultation'
 		)
 SQL;
@@ -69,6 +66,23 @@ SQL
 
     return array_map($convert, $result);
 }
-*/
+
+
+function get_laset_insert_id()
+{
+	global $wpdb;
+
+    $result = $wpdb->get_results(<<<SQL
+		select LAST_INSERT_ID() as id from yoyaku_registration
+SQL
+);
+
+    $convert = function($data)
+	{
+		return YoyakuRegistration::CreateObjectFromWpdb($data);
+	};
+    return $result[0]->id;
+}
+
 
 ?>
