@@ -6,11 +6,16 @@ class Config
     private static $_instance;
     private $_value_table = [];
     public $YoyakuMailAddress;
+    public $YoyakuMailTitle;
+    public $YoyakuMailContent;
+
 
     private function __construct()
 	{
         \business\facade\get_config($this);
-        $this->YoyakuMailAddress = new ConfigParam(0, $this->_value_table);
+        $this->YoyakuMailAddress = new ConfigParam(1, $this->_value_table);
+        $this->YoyakuMailTitle = new ConfigParam(2, $this->_value_table);
+        $this->YoyakuMailContent = new ConfigParam(3, $this->_value_table);
     }
 
     public function set_value(int $id, string $value)

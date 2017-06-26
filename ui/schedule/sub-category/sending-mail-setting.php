@@ -13,6 +13,8 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 {
 	const update_btn_name = 'update_btn';
 	const yoyaku_mail_address_name = 'yoyaku_mail';
+	const yoyaku_mail_title_name = 'yoyaku_titke';
+	const yoyaku_mail_content_name = 'yoyaku_content';
 
 	public function init()
 	{
@@ -20,6 +22,8 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 		{
 			$c = Config::get_instance();
 			$c->YoyakuMailAddress->save_value($this->get_yoyaku_mail_address());
+			$c->YoyakuMailTitke->save_value($this->get_yoyaku_mail_title());
+			$c->YoyakuMailContent->save_value($this->get_yoyaku_mail_content());
 		}
 	}
 
@@ -49,6 +53,14 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 							予約メール送信先
 						</h2>
 						<input type='email' name='<?php echo self::yoyaku_mail_address_name; ?>' value='<?php echo $c->YoyakuMailAddress->get_value(); ?>' >
+						<h2 class='edit_midasi'>
+							予約メール件名
+						</h2>
+						<input type='title' name='<?php echo self::yoyaku_mail_title_name; ?>' value='<?php echo $c->YoyakuMailTitle->get_value(); ?>' >
+						<h2 class='edit_midasi'>
+							予約メール内容
+						</h2>
+						<textarea  name='<?php echo self::yoyaku_mail_content_name; ?>'><?php echo $c->YoyakuMailTitle->get_value(); ?></textarea>
 					</div>
 				</div>
 			</div>
