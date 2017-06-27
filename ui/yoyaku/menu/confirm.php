@@ -231,9 +231,9 @@ $content
 
 【予約確認】
 ・日時 
-   $info->date_time ～
+$info->date_time ～
 ・メニュー
-   $menu
+$menu
 SEN;
         wp_mail($address, $title, $strSen);
     }
