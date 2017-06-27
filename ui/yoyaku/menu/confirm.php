@@ -216,28 +216,26 @@ class Confirm extends YoyakuMenu
     {
         $info = $this->create_yoyaku_info();
         
-    	$strSen = <<<SEN
-予約内容
-メニュー:
-$info->menu
-施術時間（目安）: $info->sum_time 
-料金 : $info->sum_price
-セラピスト : $info->staff
-来店日時
-$info->date_time
-お客様情報
-お名前（漢字）: $info->name_kanji
-お名前（かな）: $info->name_kana
-メールアドレス : $info->email
-電話番号 : $info->tell
-来店履歴 : $info->visit
-ご要望 :
-$info->youbou
-SEN;
-
         $address = Config::get_instance()->YoyakuMailAddress->get_value();
+        $title = Config::get_instance()->YoyakuMailTitle->get_value();
+        $content = Config::get_instance()->YoyakuMailContent->get_value();
+        $menu = "";
+        
+        foreach($this->_course_list as $c)
+        {
+            $menu = $menu.sprintf("%c(%d分)\n", $c->name, $c->time_required);  
+        }
 
-        wp_mail($address, 'ご予約を受け付けました', $strSen);
+    	$strSen = <<<SEN
+$content
+
+【予約確認】
+・日時 
+   $info->date_time ～
+・メニュー
+   $menu
+SEN;
+        wp_mail($address, $title, $strSen);
     }
 
 	protected function init_inner()
