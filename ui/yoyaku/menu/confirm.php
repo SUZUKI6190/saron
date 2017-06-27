@@ -223,7 +223,7 @@ class Confirm extends YoyakuMenu
         
         foreach($this->_course_list as $c)
         {
-            $menu = $menu.sprintf("%c(%d分)\n", $c->name, $c->time_required);  
+            $menu = $menu.sprintf("%s(%d分)\n", $c->name, $c->time_required);  
         }
 
     	$strSen = <<<SEN
