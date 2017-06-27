@@ -33,7 +33,7 @@ function delete_config(int $id)
 	$wpdb->query(
 		<<<SQL
 		delete from yoyaku_config
-		where id = "id"
+		where id = '$id'
 SQL
 );
 }

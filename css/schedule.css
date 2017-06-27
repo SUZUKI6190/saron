@@ -1,7 +1,6 @@
 div.save_btn_area
 {
     margin-top:10px;
-    margin-right:10px;
     text-align: right;
 }
 
@@ -74,4 +73,15 @@ div.config_input_wrap
 div.config_input_wrap input[type='email']
 {
     width: 100%;
+}
+
+.config_input_wrap input,
+.config_input_wrap textarea
+{
+    width: 100%;
+}
+
+.config_input_wrap textarea
+{
+    height: 200px;
 }

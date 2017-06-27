@@ -22,7 +22,7 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 		{
 			$c = Config::get_instance();
 			$c->YoyakuMailAddress->save_value($this->get_yoyaku_mail_address());
-			$c->YoyakuMailTitke->save_value($this->get_yoyaku_mail_title());
+			$c->YoyakuMailTitle->save_value($this->get_yoyaku_mail_title());
 			$c->YoyakuMailContent->save_value($this->get_yoyaku_mail_content());
 		}
 	}
@@ -37,6 +37,17 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 		return $_POST[self::yoyaku_mail_address_name];
 	}
 
+
+	private function get_yoyaku_mail_title()
+	{
+		return $_POST[self::yoyaku_mail_title_name];
+	}
+
+	private function get_yoyaku_mail_content()
+	{
+		return $_POST[self::yoyaku_mail_content_name];
+	}
+
 	public function view()
 	{
 		$c = Config::get_instance();
@@ -44,10 +55,10 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 		?>
 		<form method='post' action='<?php echo "$d" ?>'>
 			<div class='main_content centering'>
-				<div class='save_btn_area'>
-					<button type='submit' class='manage_button' name='<?php echo self::update_btn_name; ?>'>更新する</button>
-				</div>
 				<div class='config_input_wrap'>
+					<div class='save_btn_area'>
+						<button type='submit' class='manage_button' name='<?php echo self::update_btn_name; ?>'>更新する</button>
+					</div>
 					<div class='setting_area'>
 						<h2 class='edit_midasi'>
 							予約メール送信先
@@ -56,11 +67,11 @@ class SendingMailSettingSub extends \ui\frame\SubCategory
 						<h2 class='edit_midasi'>
 							予約メール件名
 						</h2>
-						<input type='title' name='<?php echo self::yoyaku_mail_title_name; ?>' value='<?php echo $c->YoyakuMailTitle->get_value(); ?>' >
+						<input type='text' name='<?php echo self::yoyaku_mail_title_name; ?>' value='<?php echo $c->YoyakuMailTitle->get_value(); ?>' >
 						<h2 class='edit_midasi'>
 							予約メール内容
 						</h2>
-						<textarea  name='<?php echo self::yoyaku_mail_content_name; ?>'><?php echo $c->YoyakuMailTitle->get_value(); ?></textarea>
+						<textarea  name='<?php echo self::yoyaku_mail_content_name; ?>'><?php echo $c->YoyakuMailContent->get_value(); ?></textarea>
 					</div>
 				</div>
 			</div>

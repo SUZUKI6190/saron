@@ -157,7 +157,7 @@ SQL
 	dbDelta(<<<SQL
 		CREATE TABLE yoyaku_config (
 			id int UNSIGNED NOT NULL,
-			value text,
+			value text character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL
