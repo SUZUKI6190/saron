@@ -8,9 +8,7 @@ class KanjiNameDetailItem extends DetailItem
 	public function view()
 	{
 		?>
-		<input name="name_kanji_last" type="text" value='<?php echo $this->_customer_data->name_kanji_last; ?>' required />
-		<br>
-		<input name="name_kanji_first" type="text" value='<?php echo $this->_customer_data->name_kanji_first; ?>' required/>
+		<input name="name_kanji" type="text" value='<?php echo $this->_customer_data->name_kanji; ?>' required />
 		<?php
 	}
 	public function get_name():string
@@ -19,11 +17,11 @@ class KanjiNameDetailItem extends DetailItem
 	}
 	public function input_check() : bool
 	{
-		if(empty($_POST["name_kanji_last"])){
+		if(empty($_POST["name_kanji"])){
 			return false;
 		}
 
-		if(empty($_POST["name_kanji_first"])){
+		if(empty($_POST["name_kanji"])){
 			return false;
 		}
 
@@ -35,8 +33,7 @@ class KanjiNameDetailItem extends DetailItem
 	}
 	public function save()
 	{
-		$this->_customer_data->name_kanji_last = $_POST["name_kanji_last"];
-		$this->_customer_data->name_kanji_first = $_POST["name_kanji_first"];
+		$this->_customer_data->name_kanji = $_POST["name_kanji"];
 	}
 }
 
@@ -45,9 +42,7 @@ class KanaNameDetailItem extends DetailItem
 	public function view()
 	{
 		?>
-		<input name="name_kana_last" type="text" value='<?php echo  $this->_customer_data->name_kana_last; ?>' required/>
-		<br>
-		<input name="name_kana_first" type="text" value='<?php echo $this->_customer_data->name_kana_first; ?>' required/>
+		<input name="name_kana" type="text" value='<?php echo  $this->_customer_data->name_kana; ?>' required/>
 		<?php
 	}
 	public function get_name() : string
@@ -64,8 +59,7 @@ class KanaNameDetailItem extends DetailItem
 	}
 	public function save()
 	{
-		$this->_customer_data->name_kana_last = $_POST["name_kana_last"];
-		$this->_customer_data->name_kana_first = $_POST["name_kana_first"];
+		$this->_customer_data->name_kana = $_POST["name_kana"];
 	}
 }
 

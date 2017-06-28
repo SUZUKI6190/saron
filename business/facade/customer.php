@@ -18,16 +18,14 @@ function GetCustomers( $strWhere)
 		select
 		`id`,
 		`tanto_id`,
-		convert(AES_DECRYPT(name_kanji_last, '$password') using utf8) as name_kanji_last,
-		convert(AES_DECRYPT(name_kanji_first, '$password') using utf8) as name_kanji_first,
-		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
-		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
+		convert(AES_DECRYPT(name_kanji, '$password') using utf8) as name_kanji,
+		convert(AES_DECRYPT(name_kana, '$password') using utf8) as name_kana,
 		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
 		convert(AES_DECRYPT(old, '$password') using utf8) as old,
 		convert(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
 		convert(AES_DECRYPT(last_visit_date, '$password') using utf8) as last_visit_date,
 		convert(AES_DECRYPT(phone_number, '$password') using utf8) as phone_number
-		from customer
+		from yoyaku_customer
 		$strWhere
 SQL;
 
@@ -53,10 +51,8 @@ function select_customer_by_email($email)
 	SELECT 
 		`id`,
 		`tanto_id`,
-		convert(AES_DECRYPT(name_kanji_last, '$password') using utf8) as name_kanji_last,
-		convert(AES_DECRYPT(name_kanji_first, '$password') using utf8) as name_kanji_first,
-		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
-		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
+		convert(AES_DECRYPT(name_kanji, '$password') using utf8) as name_kanji,
+		convert(AES_DECRYPT(name_kana, '$password') using utf8) as name_kana,
 		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
 		convert(AES_DECRYPT(old, '$password') using utf8) as old,
 		convert(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
@@ -70,7 +66,7 @@ function select_customer_by_email($email)
 		convert(AES_DECRYPT(next_visit_reservation_date, '$password')  using utf8) as next_visit_reservation_date,
 		convert(AES_DECRYPT(reservation_route, '$password')  using utf8) as reservation_route,
 		convert(AES_DECRYPT(remarks, '$password')  using utf8) as remarks
-	FROM `customer`
+	FROM `yoyaku_customer`
 	where convert(AES_DECRYPT(email, '$password')  using utf8) = '$email'
 SQL;
 
@@ -90,7 +86,7 @@ function select_customer_id_by_email($email)
 	$strSql = <<<SQL
 	SELECT 
 		`id`
-	FROM `customer`
+	FROM `yoyaku_customer`
 	where convert(AES_DECRYPT(email, '$password')  using utf8) = '$email'
 SQL;
 
@@ -111,10 +107,8 @@ function SelectCustomerById($id)
 	SELECT 
 		`id`,
 		`tanto_id`,
-		convert(AES_DECRYPT(name_kanji_last, '$password') using utf8) as name_kanji_last,
-		convert(AES_DECRYPT(name_kanji_first, '$password') using utf8) as name_kanji_first,
-		convert(AES_DECRYPT(name_kana_last, '$password') using utf8) as name_kana_last,
-		convert(AES_DECRYPT(name_kana_first, '$password') using utf8) as name_kana_first,
+		convert(AES_DECRYPT(name_kanji, '$password') using utf8) as name_kanji,
+		convert(AES_DECRYPT(name_kana, '$password') using utf8) as name_kana,
 		convert(AES_DECRYPT(sex, '$password') using utf8) as sex,
 		convert(AES_DECRYPT(old, '$password') using utf8) as old,
 		convert(AES_DECRYPT(birthday, '$password') using utf8) as birthday,
@@ -128,7 +122,7 @@ function SelectCustomerById($id)
 		convert(AES_DECRYPT(next_visit_reservation_date, '$password')  using utf8) as next_visit_reservation_date,
 		convert(AES_DECRYPT(reservation_route, '$password')  using utf8) as reservation_route,
 		convert(AES_DECRYPT(remarks, '$password')  using utf8) as remarks
-	FROM `customer`
+	FROM `yoyaku_customer`
 	where id = '$id'
 SQL;
 
@@ -141,12 +135,10 @@ function UpdateCustomer(Customer $data)
 {
 	$passWord = "'".Customer::GetPassword()."'";
 	$strSql = <<<SQL
-	update `customer` set
+	update `yoyaku_customer` set
 		tanto_id = '$data->tanto_id',
-		name_kanji_last = AES_ENCRYPT('$data->name_kanji_last', $passWord),
-		name_kanji_first = AES_ENCRYPT('$data->name_kanji_first', $passWord),
-		name_kana_last = AES_ENCRYPT('$data->name_kana_last', $passWord),
-		name_kana_first = AES_ENCRYPT('$data->name_kana_first', $passWord),
+		name_kanji = AES_ENCRYPT('$data->name_kanji', $passWord),
+		name_kana = AES_ENCRYPT('$data->name_kana', $passWord),
 		sex = AES_ENCRYPT('$data->sex',	 $passWord),
 		old = AES_ENCRYPT('$data->old', $passWord),
 		birthday = AES_ENCRYPT('$data->birthday', $passWord),
@@ -172,7 +164,7 @@ function delete_customer_byid($id)
 	global $wpdb;
 	$wpdb->query(
 	<<<SQL
-	DELETE FROM	customer
+	DELETE FROM	yoyaku_customer
 	WHERE id = '$id'
 SQL
 );
@@ -183,7 +175,7 @@ function delete_customer_by_last_visit_date($lapsed_month)
 	global $wpdb;
 	$wpdb->query(
 	<<<SQL
-	DELETE FROM	customer
+	DELETE FROM	yoyaku_customer
 	WHERE now() > (convert(AES_DECRYPT(last_visit_date, 'password') using utf8) + INTERVAL $lapsed_month MONTH)
 SQL
 );
@@ -194,7 +186,7 @@ function update_nextvisit(int $id,  \DateTime $next_day)
 	$strDate = $next_day->format('Ymd');
 	$passWord = "'".Customer::GetPassword()."'";
 	$strSql = <<<SQL
-	update `customer` set
+	update `yoyaku_customer` set
 		next_visit_reservation_date = AES_ENCRYPT('$strDate', $passWord)
 	where id = '$id'
 SQL;
@@ -207,12 +199,10 @@ function InsertCustomer(Customer $data)
 	global $wpdb;
 	$passWord = "'".Customer::GetPassword()."'";
 	$strSql = <<<SQL
-INSERT INTO `customer` (
+INSERT INTO `yoyaku_customer` (
 	tanto_id,
-	name_kanji_last,
-	name_kanji_first,
-	name_kana_last,
-	name_kana_first,
+	name_kanji,
+	name_kana,
 	sex,	
 	old,
 	birthday,
@@ -229,10 +219,8 @@ INSERT INTO `customer` (
 	)
   VALUES (
 	'$data->tanto_id',
-	AES_ENCRYPT('$data->name_kanji_last', $passWord),
-	AES_ENCRYPT('$data->name_kanji_first', $passWord),
-	AES_ENCRYPT('$data->name_kana_last', $passWord),
-	AES_ENCRYPT('$data->name_kana_first', $passWord),
+	AES_ENCRYPT('$data->name_kanji', $passWord),
+	AES_ENCRYPT('$data->name_kana', $passWord),
 	AES_ENCRYPT('$data->sex', $passWord),
 	AES_ENCRYPT('$data->old', $passWord),
 	AES_ENCRYPT('$data->birthday', $passWord),
@@ -248,7 +236,6 @@ INSERT INTO `customer` (
 	AES_ENCRYPT('$data->remarks', $passWord)
   )
 SQL;
-
 	dbDelta($strSql);
 }
 

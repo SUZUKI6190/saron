@@ -6,13 +6,11 @@ function init_db()
 {
 	global $wpdb;
 	dbDelta(<<<SQL
-		CREATE TABLE customer (
+		CREATE TABLE yoyaku_customer (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			tanto_id bigint(20) UNSIGNED,
-			name_kanji_last varbinary(100),
-			name_kanji_first varbinary(100),
-			name_kana_last varbinary(100),
-			name_kana_first varbinary(100),
+			name_kanji varbinary(100),
+			name_kana varbinary(100),
 			sex varbinary(20),	
 			old varbinary(20),
 			birthday varbinary(20),

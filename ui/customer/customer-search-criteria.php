@@ -6,83 +6,65 @@ require_once(dirname(__FILE__)."/../util/control-util.php");
 
 class KanjiNameItem extends SearchItem
 {
-	private static $post_key_last = 'name_kanji_last';
-	private static $post_key_first = 'name_kanji_first';
+	private static $post_key = 'name_kanji';
 	
 	public function view()
 	{
 		?>
 			<h2>名前(漢字):</h2>
 			<div>
-			<input type = 'text' name='name_kanji_last' />
-			<input type = 'text' name='name_kanji_first' />
+			<input type = 'text' name='name_kanji' />
 			</div>
 		<?php
 	}
 
 	public function exist_criteria()
 	{
-		return !$this->is_empty_post(KanjiNameItem::$post_key_last) or !$this->is_empty_post(KanjiNameItem::$post_key_first);
+		return !$this->is_empty_post(self::$post_key);
 	}
 
 	public function get_criteria_query()
 	{
 		$ret = [];
 
-		if(!$this->is_empty_post(KanjiNameItem::$post_key_last))
+		if(!$this->is_empty_post(self::$post_key))
 		{
-			$param = $this->get_post(KanjiNameItem::$post_key_last);
-			$query = $this->create_decparam(KanjiNameItem::$post_key_last);
+			$param = $this->get_post(self::$post_key);
+			$query = $this->create_decparam(self::$post_key);
 			$ret[] = "$query = '$param'";
 		}
 
-		if(!$this->is_empty_post(KanjiNameItem::$post_key_first))
-		{
-			$param = $this->get_post(KanjiNameItem::$post_key_first);
-			$query = $this->create_decparam(KanjiNameItem::$post_key_first);
-			$ret[] = "$query = '$param'";
-		}
-		
 		return $ret;
 	}
 }
 
 class KanaNameItem extends SearchItem
 {
-	private static $post_key_last = 'name_kana_last';
-	private static $post_key_first = 'name_kana_first';
+	private static $post_key = 'name_kana';
 	
 	public function view()
 	{
 		?>
 			<h2>名前(カナ):</h2>
 			<div>
-				<input type = 'text' name='name_kana_last' />
-				<input type = 'text' name='name_kana_first' />
+				<input type = 'text' name='name_kana' />
 			</div>
 		<?php
 	}
 
 	public function exist_criteria()
 	{
-		return !$this->is_empty_post(KanaNameItem::$post_key_last) or !$this->is_empty_post(KanaNameItem::$post_key_first);
+		return !$this->is_empty_post(self::$post_key);
 	}
 
 	public function get_criteria_query()
 	{
 		$ret = [];
 
-		if(!$this->is_empty_post(KanaNameItem::$post_key_last))
+		if(!$this->is_empty_post(self::$post_key))
 		{
-			$param = $this->get_post(KanaNameItem::$post_key_last);
-			$query = $this->create_decparam(KanaNameItem::$post_key_last);
-			$ret[] = "$query = '$param'";
-		}
-
-		if(!$this->is_empty_post(KanaNameItem::$post_key_first))
-		{
-			$param =$this->get_post(KanaNameItem::$post_key_first);
-			$query = $this->create_decparam(KanaNameItem::$post_key_first);
+			$param = $this->get_post(self::$post_key);
+			$query = $this->create_decparam(self::$post_key);
 			$ret[] = "$query = '$param'";
 		}
 		

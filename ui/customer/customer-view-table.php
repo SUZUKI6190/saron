@@ -20,14 +20,14 @@ class CustomerTableData implements ui\ITableData
 		return [
 			new HeaderData("氏名(漢字)", "header_kanji",
 			function($d1, $d2) {
-				$name1 = $d1->_customerData->name_kanji_last.$d1->_customerData->name_kanji_first;
-				$name2 = $d2->_customerData->name_kanji_last.$d2->_customerData->name_kanji_first;
+				$name1 = $d1->_customerData->name_kanji.$d1;
+				$name2 = $d2->_customerData->name_kanji.$d2;
 				return $name1 <=> $name2;
 			}),
 			new HeaderData("氏名(カナ)", "header_kana",
 			function($d1, $d2) {
-				$name1 = $d1->_customerData->name_kana_last.$d1->_customerData->name_kana_first;
-				$name2 = $d2->_customerData->name_kana_last.$d2->_customerData->name_kana_first;
+				$name1 = $d1->_customerData->name_kana;
+				$name2 = $d2->_customerData->name_kana;
 				return $name1 <=> $name2;
 			}),
 			new HeaderData("性別", "header_sex",
@@ -68,8 +68,8 @@ class CustomerTableData implements ui\ITableData
 	
 	public function RowGenerator()
 	{
-		yield $this->_customerData->name_kanji_last.$this->_customerData->name_kanji_first;
-		yield $this->_customerData->name_kana_last.$this->_customerData->name_kana_first;
+		yield $this->_customerData->name_kanji;
+		yield $this->_customerData->name_kana;
 		$sex_name = "";
 		if($this->_customerData->sex == 'M'){
 			$sex_name = "男性";

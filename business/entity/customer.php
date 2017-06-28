@@ -3,10 +3,8 @@ namespace business\entity;
 class Customer{
 	public $id;
 	public $tanto_id;
-	public $name_kanji_last = "";
-	public $name_kanji_first = "";
-	public $name_kana_last = "";
-	public $name_kana_first = "";
+	public $name_kanji = "";
+	public $name_kana = "";
 	public $sex = "";
 	public $old = 0;
 	public $birthday = "";
@@ -41,10 +39,8 @@ class Customer{
 			$strCsv	= $strCsv.$value.",";
 		};
 		
-		$concat($this->name_kanji_last);
-		$concat($this->name_kanji_first);
-		$concat($this->name_kana_last);
-		$concat($this->name_kana_first);
+		$concat($this->name_kanji);
+		$concat($this->name_kana);
 		$concat($this->sex);
 		$concat($this->old);
 		$concat($this->birthday);
@@ -86,30 +82,19 @@ class Customer{
 		
 		$ret = self::CreateEmptyObject();
 		
-		$ret->name_kanji_last = $get_value();
+		$ret->name_kanji = $get_value();
 		
-		if($ret->name_kanji_last == "")
+		if($ret->name_kanji == "")
 		{
 			return null;
 		}
 		
-		$ret->name_kanji_first = $get_value();
-		if($ret->name_kanji_first == "")
+		$ret->name_kana = $get_value();
+		if($ret->name_kana == "")
 		{
 			return null;
 		}
-		
-		$ret->name_kana_last = $get_value();
-		if($ret->name_kana_last == "")
-		{
-			return null;
-		}
-		$ret->name_kana_first = $get_value();
-		
-		if($ret->name_kana_first == "")
-		{
-			return null;
-		}
+
 		$ret->sex = $get_value();
 		$ret->old = $get_value();
 		$ret->birthday = $get_value();
@@ -132,10 +117,8 @@ class Customer{
 		$result = Customer::CreateEmptyObject();
 		$result->id = $db->id;
 		$result->tanto_id = $db->tanto_id;
-		$result->name_kanji_last = $db->name_kanji_last;
-		$result->name_kanji_first = $db->name_kanji_first;
-		$result->name_kana_last = $db->name_kana_last;
-		$result->name_kana_first = $db->name_kana_first;
+		$result->name_kanji = $db->name_kanji;
+		$result->name_kana = $db->name_kana;
 		$result->sex= $db->sex;
 		$result->old = $db->old;
 		$result->birthday = $db->birthday;
