@@ -181,6 +181,24 @@ SQL
 );
 }
 
+function update_from_yoyakumail(int $id, Customer $data)
+{
+	$passWord = "'".Customer::GetPassword()."'";
+	$strSql = <<<SQL
+	update `yoyaku_customer` set
+		tanto_id = '$data->tanto_id',
+		name_kanji = AES_ENCRYPT('$data->name_kanji', $passWord),
+		name_kana = AES_ENCRYPT('$data->name_kana', $passWord),
+		phone_number = AES_ENCRYPT('$data->phone_number ', $passWord),
+		email = AES_ENCRYPT('$data->email', $passWord),
+		remarks = AES_ENCRYPT('$data->remarks', $passWord),
+		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord)
+	where id = '$id'
+SQL;
+	global $wpdb;
+	$wpdb->query($strSql);	
+}
+
 function update_nextvisit(int $id,  \DateTime $next_day)
 {
 	$strDate = $next_day->format('Ymd');

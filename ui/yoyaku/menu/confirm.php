@@ -112,7 +112,7 @@ class Confirm extends YoyakuMenu
     {
         $yc = YoyakuContext::get_instance();
         $customr_id = $this->get_customer_id();
-        \business\facade\update_nextvisit($customr_id, new \DateTime($yc->yoyaku_date_time->get_value()));
+        \business\facade\update_from_yoyakumail($customr_id, $this->get_new_custoemr_data());
 
         $this->save_yoyaku_registration($customr_id);
         $regist_id = \business\facade\get_last_insert_id();
@@ -190,6 +190,22 @@ class Confirm extends YoyakuMenu
         return $yj;
     }
 
+    private function get_new_custoemr_data() : Customer
+    {
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
+        $new_customer = new Customer();
+        $new_customer->next_visit_reservation_date = (new \DateTime($yc->yoyaku_date_time->get_value()))->format('Ymd');
+        $new_customer->tanto_id = $yc->staff_id->get_value();
+        $new_customer->name_kanji = $mc->name_kanji->get_value();
+        $new_customer->name_kana = $mc->name_kana->get_value();
+        $new_customer->phone_number = $mc->tell->get_value();
+        $new_customer->email = $mc->email->get_value();
+        $new_customer->remarks = $mc->consultation->get_value();
+
+        return $new_customer;
+    }
+
     private function get_customer_id() : int
     {
         $yc = YoyakuContext::get_instance();
@@ -198,13 +214,7 @@ class Confirm extends YoyakuMenu
         $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
 
         if(is_null($customer_id)){
-            $new_customer = new Customer();
-            $new_customer->tanto_id = $yr->staff_id;
-            $new_customer->name_kanji_last = $mc->name_kanji->get_value();
-            $new_customer->name_kana_last = $mc->name_kana->get_value();
-            $new_customer->phone_number = $mc->tell->get_value();
-            $new_customer->email = $mc->email->get_value();
-            $new_customer->remarks = $mc->consultation->get_value();
+            $new_customer =$this->get_new_custoemr_data();
             \business\facade\InsertCustomer($new_customer);
             $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
         }
