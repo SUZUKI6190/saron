@@ -29,10 +29,9 @@ div.detail .line
 div.detail .line input,
 div.detail .line select
 {
-    width:auto;
     text-align:left;    
 
-    box-sizing: border-box; /* [borde-box]‚Å‰E‚Ì”ò‚Ño‚µ‚ğ‰ñ”ğ */
+    box-sizing: border-box; /* [borde-box]ï¿½Å‰Eï¿½Ì”ï¿½Ñoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
    -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
 }
