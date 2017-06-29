@@ -135,6 +135,18 @@ SQL
 SQL
 		);
 
+	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_reserved_course (
+			id int UNSIGNED NOT NULL AUTO_INCREMENT,
+			registration_id int UNSIGNED,
+			price int UNSIGNED,
+			time_required tinyint UNSIGNED,
+			name text
+			PRIMARY KEY(id)
+		)
+SQL
+		);
+
 
 	dbDelta(<<<SQL
 		CREATE TABLE yoyaku_schedule (
