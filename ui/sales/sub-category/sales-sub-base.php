@@ -12,8 +12,26 @@ use ui\sales\SalesContext;
 abstract class DateInputForm
 {
 	public abstract function view_form();
-	public abstract function get_from_date();
-	public abstract function get_to_date();
+	const FromDateName = "from_date";
+	const ToDateName = "to_date";
+
+	public function get_from_date() 
+	{
+		if(isset($_POST[self::FromDateName]))
+		{
+			return $_POST[self::FromDateName];
+		}else{
+			return "";
+		}
+	}
+	public function get_to_date() 
+	{
+		if(isset($_POST[self::ToDateName])){
+			return $_POST[self::ToDateName];
+		}else{
+			return "";
+		}
+	}
 }
 
 class MonthlyForm extends DateInputForm
@@ -23,21 +41,13 @@ class MonthlyForm extends DateInputForm
 		$from_day =  date("Y-m", strtotime("-3 year"));
 		$now_day = date('Y-m');
 		?>
-		<input type='month' name='from_date'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>'>
+		<input type='month' name='<?php echo DateInputForm::FromDateName; ?>'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_from_date(); ?>'>
 		から
-		<input type='month' name='to_date'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>'>
+		<input type='month' name='<?php echo DateInputForm::ToDateName ; ?>'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_to_date(); ?>'>
 		<?php
 	}
-	public function get_from_date()
-	{
-		return $_POST['from_date'];
-	}
-	public function get_to_date()
-	{
-		return $_POST['to_date'];
-	}
-}
 
+}
 
 class DaylyForm extends DateInputForm
 {
@@ -46,18 +56,10 @@ class DaylyForm extends DateInputForm
 		$from_day =  date("Y-m-d", strtotime("-3 year"));
 		$now_day = date('Y-m-d');
 		?>
-		<input type='date' name='from_date'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>'>
+		<input type='date' name='<?php echo DateInputForm::FromDateName; ?>' min='<?php echo $from_day;?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_from_date(); ?>'>
 		から
-		<input type='date' name='to_date'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>'>
+		<input type='date' name='<?php echo DateInputForm::ToDateName ; ?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_to_date(); ?>'>
 		<?php
-	}
-	public function get_from_date()
-	{
-		return $_POST['from_date'];
-	}
-	public function get_to_date()
-	{
-		return $_POST['to_date'];
 	}
 }
 
@@ -66,6 +68,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 	private $_form_id = "menu_form";
 	private $_chk_day, $_chk_month;
 	const SepTypeName = 'sep_type';
+	const GraphDateName = 'graph_data';
 	private $_date_form;
 	private $_view_graph_button;
 
@@ -95,7 +98,6 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 				$this->_date_form = new MonthlyForm();
 			}
 		}
-		
 		$this->_view_graph_button = new SubmitButton('btn_graph', 'グラフを表示する', $this->_form_id);
 	}
 
@@ -116,8 +118,10 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 	}
 	
 	public function view()
-	{?>
-		<form action='' method='post' id='<?php echo $this->_form_id; ?>'>
+	{
+		$d = "?d=".(new \DateTime())->format("Ymdhis");	
+?>
+		<form action='<?php echo "$d" ?>' method='post' id='<?php echo $this->_form_id; ?>'>
 			<div class="sales_wrap">
 			<?php $this->_view_graph_button->view(); ?>
 			<div class="line">
@@ -133,17 +137,29 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 			</div>
 
 			<?php
-			if($this->_view_graph_button->is_submit())
-			{?>
+			if($this->_view_graph_button->is_submit()){
+				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
+				$fd = new \DateTime($this->_date_form->get_from_date());
+				$td = new \DateTime($this->_date_form->get_to_date());
+				$yoyaku_list = \business\facade\get_yoyaku_registration_by_date($fd, $td);
+				foreach($yoyaku_list as $y)
+				{
+
+				}
+			?>
 				<div class='sales_graph_area'>
 					<canvas id='<?php echo $this->_canvas_id; ?>' class='sales_graph'></canvas>
 				</div>
+				<input type="hidden" id="<?php echo self::GraphDateName; ?>" value="" >
+				<script>
+					<?php echo $script; ?>
+				</script>
 			<?php
 			}
 			?>
-	
 			</div>
 		</form>
+
 	<?php
 
 	}

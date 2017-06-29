@@ -1,7 +1,8 @@
-  window.onload = function(){
+function view_graph(canvas_id, data_id){
 
 	//折れ線グラフ
-	var ctx = document.getElementById("sales_graph");
+	var ctx = document.getElementById(canvas_id);
+
 	var myLineChart = new Chart(ctx, {
 	  //グラフの種類
 	  type: 'line',

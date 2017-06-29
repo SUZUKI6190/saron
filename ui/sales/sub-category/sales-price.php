@@ -1,6 +1,7 @@
 <?php
 namespace ui\sales;
 require_once('sales-sub-base.php');
+require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \business\entity\sales;

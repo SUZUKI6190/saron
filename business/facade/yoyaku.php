@@ -4,6 +4,27 @@ namespace business\facade;
 
 use business\entity\YoyakuRegistration;
 
+function get_yoyaku_registration_by_date(\DateTime $from_date, \DateTime $to_date) : array
+{
+    global $wpdb;
+    $f = $from_date->format('Ymd');
+    $to = $to_date->format('Ymd');
+    $strSql = <<<SQL
+SELECT * FROM `yoyaku_registration`
+WHERE start_time >= '$f'
+  and start_time <= '$to'
+SQL;
+
+    $result = $wpdb->get_results($strSql);
+
+    $convert = function($data)
+	{
+		return YoyakuRegistration::CreateObjectFromWpdb($data);;
+	};
+
+    return array_map($convert, $result);
+}
+
 function delete_yoyaku_registration_byid($id)
 {
 	global $wpdb;
