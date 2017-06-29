@@ -21,13 +21,8 @@ class CustomerDetailEdit extends CustomerDetail
 	{
 		?>
 			<div style="text-align:right;:">
-				<?php
-				$this->_update_button->view();
-				?>
-			
-	
-		
 			<?php
+			$this->_update_button->view();
 			$this->_delete_button->view();
 			?>
 			</div>		

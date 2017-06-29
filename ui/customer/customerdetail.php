@@ -88,7 +88,6 @@ abstract class CustomerDetail
 		
 		if(count($result) > 0)
 		{
-			print_r(count($result));
 			$this->View();
 			return;
 		}
