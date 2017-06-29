@@ -192,9 +192,12 @@ function update_from_yoyakumail(int $id, Customer $data)
 		phone_number = AES_ENCRYPT('$data->phone_number ', $passWord),
 		email = AES_ENCRYPT('$data->email', $passWord),
 		remarks = AES_ENCRYPT('$data->remarks', $passWord),
+		last_visit_date = next_visit_reservation_date,
+		reservation_route = AES_ENCRYPT('$data->reservation_route', $passWord), 
 		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord)
 	where id = '$id'
 SQL;
+
 	global $wpdb;
 	$wpdb->query($strSql);	
 }

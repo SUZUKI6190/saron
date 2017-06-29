@@ -202,7 +202,7 @@ class Confirm extends YoyakuMenu
         $new_customer->phone_number = $mc->tell->get_value();
         $new_customer->email = $mc->email->get_value();
         $new_customer->remarks = $mc->consultation->get_value();
-
+        $new_customer->reservation_route = 2;
         return $new_customer;
     }
 
