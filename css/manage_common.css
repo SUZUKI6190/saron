@@ -167,3 +167,10 @@ input[type="button"].manage_button.active
     border-bottom:1px solid #000;
     font-size:unset;
 }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"]
+{
+    width: 90%;
+}
