@@ -174,3 +174,9 @@ input[type="tel"]
 {
     width: 90%;
 }
+
+.line textarea
+{
+    width: 90%;
+    height: 200px;
+}

@@ -54,7 +54,7 @@ class ManageController implements IController
 		$css_url = plugins_url("../css" , __FILE__);
 		$js_url = plugins_url("../js" , __FILE__);
 		
-		$cssvar = '0.15';
+		$cssvar = '0.2';
 		$frame = new \ui\frame\ManageFrame($mc->main_category_list, $inplementer);
 		$frame->pre_view();
 	?>

@@ -194,7 +194,8 @@ function update_from_yoyakumail(int $id, Customer $data)
 		remarks = AES_ENCRYPT('$data->remarks', $passWord),
 		last_visit_date = next_visit_reservation_date,
 		reservation_route = AES_ENCRYPT('$data->reservation_route', $passWord), 
-		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord)
+		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord),
+		remarks = AES_ENCRYPT('$data->remarks', $passWord)
 	where id = '$id'
 SQL;
 

@@ -23,7 +23,7 @@ function init_db()
 			enable_dm TINYINT UNSIGNED,
 			next_visit_reservation_date varbinary(200),
 			reservation_route varbinary(50),
-			remarks varbinary(500),
+			remarks varbinary(1000),
 			PRIMARY KEY(id)
 		)
 SQL
@@ -41,7 +41,6 @@ SQL
 		)
 SQL
 		);
-
 
 	dbDelta(<<<SQL
 		CREATE TABLE customer_interval_setting (

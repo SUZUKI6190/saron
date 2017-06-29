@@ -355,7 +355,7 @@ class RemarkDetailItem extends DetailItem
 	public function view()
 	{
 		?>
-		<input name='remarks' type="text" value='<?php echo $this->_customer_data->remarks; ?>' />
+		<textarea name='remarks'><?php echo $this->_customer_data->remarks; ?></textarea>
 		<?php	
 	}
 
