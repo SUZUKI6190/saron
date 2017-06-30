@@ -56,13 +56,11 @@ function insert_yoyaku_registration($y)
             staff_id,
             customer_id,
             start_time,
-            course_id_list,
             consultation
 		)values(
             '$y->staff_id',
             '$y->customer_id',
             '$y->start_time',
-            '$y->course_id_list',
             '$y->consultation'
 		)
 SQL;

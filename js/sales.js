@@ -20,6 +20,16 @@ function view_graph(canvas_id, data_id){
 			  borderColor: "rgba(75,192,192,1)",
 			  //グラフのデータ
 			  data: [12, 19, 3, 5, 2, 3]
+		  },
+			{
+			  //凡例
+			  label: "契約数",
+			  //背景色
+			  backgroundColor: "rgba(75,192,192,0.4)",
+			  //枠線の色
+			  borderColor: "rgba(1,1,1,1)",
+			  //グラフのデータ
+			  data: [1, 1, 3, 5, 1, 1]
 		  }]
 	  },
 	  //オプションの設定

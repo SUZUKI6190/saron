@@ -128,7 +128,6 @@ SQL
 			staff_id int UNSIGNED,
 			customer_id int UNSIGNED,
 			start_time DATETIME not null,
-			course_id_list text,
 			consultation text character set utf8,
 			PRIMARY KEY(id)
 		)
@@ -141,12 +140,11 @@ SQL
 			registration_id int UNSIGNED,
 			price int UNSIGNED,
 			time_required tinyint UNSIGNED,
-			name text
+			name text character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL
 		);
-
 
 	dbDelta(<<<SQL
 		CREATE TABLE yoyaku_schedule (

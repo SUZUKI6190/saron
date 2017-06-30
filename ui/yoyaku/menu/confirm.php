@@ -6,7 +6,6 @@ use ui\yoyaku\YoyakuContext;
 USE ui\util\InputBase;
 use ui\util\SubmitButton;
 use business\entity\YoyakuRegistration;
-use business\entity\YoyakuJson;
 use business\entity\Schedule;
 use business\entity\Customer;
 use business\entity\Config;
@@ -141,6 +140,11 @@ class Confirm extends YoyakuMenu
         \business\facade\insert_yoyaku_registration($yoyaku_regist);
     }
 
+    private function save_reserved_course($regist_id)
+    {
+
+    }
+
     private function create_schedule($customr_id) : Schedule
     {
         $ret = new Schedule();
@@ -182,9 +186,7 @@ class Confirm extends YoyakuMenu
         $yj->customer_id = $customr_id;
 
         $yj->start_time = $yc->yoyaku_date_time->get_value();
-
-        $yj->course_id_list = implode(",", $this->_course_id_list);
-
+       
         $yj->consultation = $mc->consultation->get_value();
 
         return $yj;

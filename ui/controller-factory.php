@@ -12,6 +12,8 @@ require_once(dirname(__FILE__).'/yoyaku/yoyaku-controller.php');
 require_once(dirname(__FILE__).'/image/download-image.php');
 require_once(dirname(__FILE__).'/../business/facade/yoyaku.php');
 require_once(dirname(__FILE__).'/../business/entity/yoyaku.php');
+require_once(dirname(__FILE__).'/../business/facade/reserved-course.php');
+require_once(dirname(__FILE__).'/../business/entity/reserved-course.php');
 require_once(dirname(__FILE__).'/../business/facade/schedule.php');
 require_once(dirname(__FILE__).'/../business/entity/schedule.php');
 require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");

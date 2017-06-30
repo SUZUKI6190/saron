@@ -2,7 +2,6 @@
 namespace ui\staff;
 use business\entity\YoyakuRegistration;
 use business\entity\Schedule;
-use business\entity\YoyakuJson;
 
 class ScheduleTableParam
 {
