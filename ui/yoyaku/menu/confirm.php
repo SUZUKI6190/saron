@@ -9,6 +9,7 @@ use business\entity\YoyakuRegistration;
 use business\entity\Schedule;
 use business\entity\Customer;
 use business\entity\Config;
+use business\entity\ReservedCourse;
 
 class YoyakuInfo
 {
@@ -116,6 +117,8 @@ class Confirm extends YoyakuMenu
         $this->save_yoyaku_registration($customr_id);
         $regist_id = \business\facade\get_last_insert_id();
         $this->save_schedule($customr_id, $regist_id);
+
+        $this->save_reserved_course($regist_id);
     }
 
     private function get_staff_id()
@@ -142,7 +145,28 @@ class Confirm extends YoyakuMenu
 
     private function save_reserved_course($regist_id)
     {
+        $reserved_course_list = $this->create_reserved_course($regist_id);
+        foreach($reserved_course_list as $rc)
+        {
+            \business\facade\insert_reserved_course($rc);
+        }
+    }
 
+    private function create_reserved_course($regist_id) : array
+    {
+        $ret = [];
+
+        foreach($this->_course_list as $c)
+        {
+            $new_data = new ReservedCourse();
+            $new_data->registration_id= $regist_id;
+            $new_data->name = $c->name;
+            $new_data->price = $c->price;
+            $new_data->time_required = $c->time_required;
+            $ret[] = $new_data;
+        }
+
+        return $ret;
     }
 
     private function create_schedule($customr_id) : Schedule
@@ -159,9 +183,7 @@ class Confirm extends YoyakuMenu
         $sum_time = 0;
         $name = "";
 
-        $course = \business\facade\get_menu_course_by_idlist($this->_course_id_list);
-
-        foreach($course as $c)
+        foreach($this->_course_list as $c)
         {
             $sum_time = $sum_time + $c->time_required;
             $name = $c->name."<br>";

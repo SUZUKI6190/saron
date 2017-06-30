@@ -43,7 +43,7 @@ function delete_reserved_course_by_registration_id($id)
         where registration_id = '$id'
 SQL;
 
-	$wpdb->query()$strSql;
+	$wpdb->query($strSql);
 	return $ret;
 }
 
