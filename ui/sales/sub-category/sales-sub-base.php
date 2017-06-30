@@ -15,6 +15,11 @@ abstract class DateInputForm
 	const FromDateName = "from_date";
 	const ToDateName = "to_date";
 
+	protected function view_input($type, $name, $min, $max, $value)
+	{
+		$input = sprintf("<input type='%s' name='%s' min='%s' max='%s' value='%s'>", $type, $name, $min, $max, $value);
+		echo $input;
+	}
 	public function get_from_date() 
 	{
 		if(isset($_POST[self::FromDateName]))
@@ -40,11 +45,11 @@ class MonthlyForm extends DateInputForm
 	{
 		$from_day =  date("Y-m", strtotime("-3 year"));
 		$now_day = date('Y-m');
+		$this->view_input('month', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
 		?>
-		<input type='month' name='<?php echo DateInputForm::FromDateName; ?>'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_from_date(); ?>'>
 		から
-		<input type='month' name='<?php echo DateInputForm::ToDateName ; ?>'  min='<?php echo $from_day;?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_to_date(); ?>'>
 		<?php
+		$this->view_input('month', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
 	}
 
 }
@@ -55,11 +60,11 @@ class DaylyForm extends DateInputForm
 	{
 		$from_day =  date("Y-m-d", strtotime("-3 year"));
 		$now_day = date('Y-m-d');
+		$this->view_input('date', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
 		?>
-		<input type='date' name='<?php echo DateInputForm::FromDateName; ?>' min='<?php echo $from_day;?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_from_date(); ?>'>
-		から
-		<input type='date' name='<?php echo DateInputForm::ToDateName ; ?>' max='<?php echo $now_day ?>' value='<?php echo $this->get_to_date(); ?>'>
+		から	
 		<?php
+		$this->view_input('date', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
 	}
 }
 
@@ -74,7 +79,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 
 	private $_canvas_id = 'sales_graph';
 	
-	protected abstract function create_graph_param(Sales $sales);
+	protected abstract function create_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData;
 
 	public function get_sales_data()
 	{
@@ -141,16 +146,13 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
 				$fd = new \DateTime($this->_date_form->get_from_date());
 				$td = new \DateTime($this->_date_form->get_to_date());
-				$yoyaku_list = \business\facade\get_yoyaku_registration_by_date($fd, $td);
-				foreach($yoyaku_list as $y)
-				{
-
-				}
+				$graph_data = $this->create_graph_param($fd, $td);
+				$graph_data_json = $graph_data->serialize_json();
 			?>
 				<div class='sales_graph_area'>
 					<canvas id='<?php echo $this->_canvas_id; ?>' class='sales_graph'></canvas>
 				</div>
-				<input type="hidden" id="<?php echo self::GraphDateName; ?>" value="" >
+				<input type="hidden" id="<?php echo self::GraphDateName; ?>" value='<?php echo $graph_data_json; ?>'' >
 				<script>
 					<?php echo $script; ?>
 				</script>

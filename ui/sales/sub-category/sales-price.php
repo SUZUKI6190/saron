@@ -14,8 +14,21 @@ class SalesPriceSub extends SalesSubBase
 {
 	private $_form_id = "menu_form";
 
-	protected function create_graph_param(Sales $sales)
+	protected function create_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData
 	{
+		$ret = new GraphData();
+		$yoyaku_list = \business\facade\get_yoyaku_registration_by_date($from_date, $to_date);
+		foreach($yoyaku_list as $y)
+		{
+			$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
+			$new_dataset = new DataSet();
+			foreach($reserved_course as $rc)
+			{
+				$new_dataset->data[] = $rc->price;
+			}
+			$ret->dataset_list[] = $new_dataset;
+		}
+		return $ret;
 	}
 	
 	public function get_name()

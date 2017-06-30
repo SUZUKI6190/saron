@@ -8,7 +8,7 @@ class ReservedCourse
 	public $time_required;
 	public $name;
     public $registration_id;
-	public static function create_from_json($wpdb) : self
+	public static function CreateFromWpdb($wpdb) : self
 	{
 		$ret = new self();
 		$ret->id = $wpdb->id;

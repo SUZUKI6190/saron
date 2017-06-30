@@ -32,7 +32,7 @@ SQL;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_values(array_map(function($data) {
 		return ReservedCourse::CreateFromWpdb($data);
-	}));
+	}, $result));
 	return $ret;
 }
 

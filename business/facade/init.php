@@ -99,17 +99,17 @@ SQL
 SQL
 		);
 		
-	dbDelta(<<<SQL
-		CREATE TABLE sales (
-			day DATE NOT NULL,
-			amount_of_sales BIGINT UNSIGNED,
-			per_customer_price BIGINT UNSIGNED,
-			number_of_customers_new int UNSIGNED,
-			number_of_customers_repeater int UNSIGNED,
-			PRIMARY KEY(day)
-		)
-SQL
-		);
+// 	dbDelta(<<<SQL
+// 		CREATE TABLE sales (
+// 			day DATE NOT NULL,
+// 			amount_of_sales BIGINT UNSIGNED,
+// 			per_customer_price BIGINT UNSIGNED,
+// 			number_of_customers_new int UNSIGNED,
+// 			number_of_customers_repeater int UNSIGNED,
+// 			PRIMARY KEY(day)
+// 		)
+// SQL
+// 		);
 		
 	dbDelta(<<<SQL
 		CREATE TABLE weekly_yoyaku (
