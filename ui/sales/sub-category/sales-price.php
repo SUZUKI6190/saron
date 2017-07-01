@@ -36,24 +36,36 @@ class SalesPriceSub extends SalesGraphSubBase
 			$m++;
 		}
 		$yealy_list = \business\facade\get_yoyaku_registration_last_3_years();
+
 		$year_list = array_keys($yealy_list);
 		$counter = 0;
 		foreach($year_list as $year)
 		{
-			$yr_list = $yealy_list[$year];
+			$monthly_list = $yealy_list[$year];
+			$month_list = array_keys($monthly_list);
+
 			$new_dataset = new DataSet();
 			$new_dataset->label = $year;
 			$new_dataset->backgroundColor = self::ColorTable[$counter];
 			$new_dataset->borderColor = self::ColorTable[$counter];
 
-			foreach($yr_list as $y){
-				$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
-				foreach($reserved_course as $rc)
+			foreach($month_list as $month)
+			{			
+				$yr_list = $monthly_list[$month];
+				$sum_price = 0;
+				foreach($yr_list as $y)
 				{
-					$new_dataset->data[] = $rc->price;
-				}
+					$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
+					foreach($reserved_course as $rc)
+					{
+						$sum_price += $rc->price;
+					}
+				}	
+				$new_dataset->data[] = $sum_price;		
 			}
+
 			$ret->dataset_list[] = $new_dataset;
+
 			$counter++;
 		}
 		return $ret;
