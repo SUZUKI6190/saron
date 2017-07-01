@@ -25,6 +25,26 @@ SQL;
     return array_map($convert, $result);
 }
 
+
+function get_yoyaku_registration_last_3_years() : array
+{
+    global $wpdb;
+    $f = $from_date->format('Ymd');
+    $strSql = <<<SQL
+    SELECT * from yoyaku_registration WHERE  YEAR(start_time) BETWEEN YEAR(NOW()) - 3 AND YEAR(NOW())
+SQL;
+
+    $result = $wpdb->get_results($strSql);
+
+    $convert = function($data)
+	{
+		return YoyakuRegistration::CreateObjectFromWpdb($data);;
+	};
+
+    return array_map($convert, $result);
+}
+
+
 function delete_yoyaku_registration_byid($id)
 {
 	global $wpdb;

@@ -79,7 +79,8 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 
 	private $_canvas_id = 'sales_graph';
 	
-	protected abstract function create_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData;
+	protected abstract function create_monthly_graph_param() : GraphData;
+	protected abstract function create_dayly_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData;
 
 	public function get_sales_data()
 	{
@@ -146,7 +147,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
 				$fd = new \DateTime($this->_date_form->get_from_date());
 				$td = new \DateTime($this->_date_form->get_to_date());
-				$graph_data = $this->create_graph_param($fd, $td);
+				$graph_data = $this->create_monthly_graph_param();
 				$graph_data_json = $graph_data->serialize_json();
 			?>
 				<div class='sales_graph_area'>
