@@ -17,12 +17,12 @@ class SalesPriceSub extends SalesSubBase
 	const OtherColor = "75";
 	const Alpha = "0.5";
 	const YearsColor = "rgba(192, 75 , 75, 0.4)";
-	const LastYearsAgoColor = "rgba(75, 192 , 75, 0.4)";
+	const LastYearsColor = "rgba(75, 192 , 75, 0.4)";
 	const ThreeYearsAgoColor = "rgba(75, 75 , 192, 0.4)";
 	
 	const ColorTable = [
 		self::ThreeYearsAgoColor,
-		self::LastYearsAgoColor,
+		self::LastYearsColor,
 		self::YearsColor
 	];
 
