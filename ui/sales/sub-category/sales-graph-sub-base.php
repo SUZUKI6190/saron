@@ -68,7 +68,7 @@ class DaylyForm extends DateInputForm
 	}
 }
 
-abstract class SalesSubBase extends \ui\frame\SubCategory
+abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 {
 	private $_form_id = "menu_form";
 	private $_chk_day, $_chk_month;
@@ -94,10 +94,10 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 		$attribute = [];
 		$attribute['onclick'] = 'SubmitOnClick("month_or_day")';
 		
-		if(!isset($_POST[SalesSubBase::SepTypeName])){
+		if(!isset($_POST[self::SepTypeName])){
 			$this->_date_form = new MonthlyForm();
 		}else{
-			if($_POST[SalesSubBase::SepTypeName] == 'day')
+			if($_POST[self::SepTypeName] == 'day')
 			{
 				$this->_date_form = new DaylyForm();
 			}else{
@@ -109,7 +109,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 
 	private function set_checked($name, $default=false)
 	{
-		if(!isset($_POST[SalesSubBase::SepTypeName]))
+		if(!isset($_POST[self::SepTypeName]))
 		{
 			if($default)
 			{
@@ -117,7 +117,7 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 			}
 			return;
 		}
-		if($_POST[SalesSubBase::SepTypeName] == $name)
+		if($_POST[self::SepTypeName] == $name)
 		{
 			echo 'checked';
 		}
@@ -132,8 +132,8 @@ abstract class SalesSubBase extends \ui\frame\SubCategory
 			<?php $this->_view_graph_button->view(); ?>
 			<div class="line">
 				<h2>表示を選択</h2>			
-				<input type='radio' name='<?php echo SalesSubBase::SepTypeName ?>' value='month' onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('month', true); ?> >月別
-				<input type='radio' name='<?php echo SalesSubBase::SepTypeName ?>' value='day'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('day'); ?> >日別
+				<input type='radio' name='<?php echo self::SepTypeName ?>' value='month' onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('month', true); ?> >月別
+				<input type='radio' name='<?php echo self::SepTypeName ?>' value='day'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('day'); ?> >日別
 			</div>
 			<div class="line">
 				<h2>月別</h2>

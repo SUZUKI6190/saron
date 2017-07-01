@@ -1,6 +1,6 @@
 <?php
 namespace ui\sales;
-require_once('sales-sub-base.php');
+require_once('sales-graph-sub-base.php');
 require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
@@ -10,7 +10,7 @@ use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\salesContext;
 
-class SalesPriceSub extends SalesSubBase
+class SalesPriceSub extends SalesGraphSubBase
 {
 	private $_form_id = "menu_form";
 	const MainColor = "192";
