@@ -123,6 +123,22 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 		}
 	}
 	
+	private function view_monthly()
+	{
+
+	}
+
+	private function view_dayly()
+	{?>
+		<div class="line">
+			<h2>月別</h2>
+			<?php
+			$this->_date_form->view_form();
+			?>
+		</div>
+<?php
+	}
+
 	public function view()
 	{
 		$d = "?d=".(new \DateTime())->format("Ymdhis");	
@@ -135,15 +151,16 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 				<input type='radio' name='<?php echo self::SepTypeName ?>' value='month' onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('month', true); ?> >月別
 				<input type='radio' name='<?php echo self::SepTypeName ?>' value='day'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('day'); ?> >日別
 			</div>
-			<div class="line">
-				<h2>月別</h2>
-				<?php
-				$this->_date_form->view_form();
-				?>
-			</div>
-
 			<?php
+			if(isset($_POST[self::SepTypeName])){
+				if($_POST[self::SepTypeName] == 'day'){
+					$this->view_dayly();
+				}else{
+					$this->view_monthly();
+				}
+			}
 			if($this->_view_graph_button->is_submit()){
+
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
 				$fd = new \DateTime($this->_date_form->get_from_date());
 				$td = new \DateTime($this->_date_form->get_to_date());
