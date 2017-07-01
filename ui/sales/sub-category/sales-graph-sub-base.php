@@ -43,6 +43,7 @@ class MonthlyForm extends DateInputForm
 {
 	public function view_form()
 	{
+		/*
 		$from_day =  date("Y-m", strtotime("-3 year"));
 		$now_day = date('Y-m');
 		$this->view_input('month', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
@@ -50,6 +51,7 @@ class MonthlyForm extends DateInputForm
 		から
 		<?php
 		$this->view_input('month', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
+		*/
 	}
 
 }
@@ -60,11 +62,18 @@ class DaylyForm extends DateInputForm
 	{
 		$from_day =  date("Y-m-d", strtotime("-3 year"));
 		$now_day = date('Y-m-d');
-		$this->view_input('date', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
 		?>
-		から	
+		<div class="line">
+			<h2>月別</h2>
+			<?php
+				$this->view_input('date', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
+				?>
+				から	
+				<?php
+				$this->view_input('date', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
+				?>			
+		</div>
 		<?php
-		$this->view_input('date', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
 	}
 }
 
@@ -123,21 +132,6 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 		}
 	}
 	
-	private function view_monthly()
-	{
-
-	}
-
-	private function view_dayly()
-	{?>
-		<div class="line">
-			<h2>月別</h2>
-			<?php
-			$this->_date_form->view_form();
-			?>
-		</div>
-<?php
-	}
 
 	public function view()
 	{
@@ -152,15 +146,8 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 				<input type='radio' name='<?php echo self::SepTypeName ?>' value='day'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('day'); ?> >日別
 			</div>
 			<?php
-			if(isset($_POST[self::SepTypeName])){
-				if($_POST[self::SepTypeName] == 'day'){
-					$this->view_dayly();
-				}else{
-					$this->view_monthly();
-				}
-			}
+			$this->_date_form->view_form();
 			if($this->_view_graph_button->is_submit()){
-
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
 				$fd = new \DateTime($this->_date_form->get_from_date());
 				$td = new \DateTime($this->_date_form->get_to_date());
