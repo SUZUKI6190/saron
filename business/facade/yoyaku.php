@@ -29,9 +29,10 @@ SQL;
 function get_yoyaku_registration_last_3_years() : array
 {
     global $wpdb;
-    $f = $from_date->format('Ymd');
     $strSql = <<<SQL
-    SELECT * from yoyaku_registration WHERE  YEAR(start_time) BETWEEN YEAR(NOW()) - 3 AND YEAR(NOW())
+    SELECT * from yoyaku_registration
+    WHERE  YEAR(start_time) BETWEEN YEAR(NOW()) - 2 AND YEAR(NOW())
+    ORDER BY start_time ASC
 SQL;
 
     $result = $wpdb->get_results($strSql);
@@ -41,7 +42,15 @@ SQL;
 		return YoyakuRegistration::CreateObjectFromWpdb($data);;
 	};
 
-    return array_map($convert, $result);
+    $group = [];
+
+    foreach(array_map($convert, $result) as $yr)
+    {
+        $d = (new \DateTime($yr->start_time))->format('Y');
+        $group[$d][] = $yr;
+    }
+
+    return $group;
 }
 
 
