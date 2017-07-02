@@ -1,82 +1,14 @@
 <?php
 namespace ui\sales;
+require_once('date-base.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
-use \business\entity\Sales;
 use \ui\util\SubmitButton;
 use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
 use business\entity\ReservedCourse;
-
-abstract class DateInputForm
-{
-	public abstract function view_form();
-	const FromDateName = "from_date";
-	const ToDateName = "to_date";
-
-	protected function view_input($type, $name, $min, $max, $value)
-	{
-		$input = sprintf("<input type='%s' name='%s' min='%s' max='%s' value='%s'>", $type, $name, $min, $max, $value);
-		echo $input;
-	}
-	public function get_from_date() 
-	{
-		if(isset($_POST[self::FromDateName]))
-		{
-			return $_POST[self::FromDateName];
-		}else{
-			return "";
-		}
-	}
-	public function get_to_date() 
-	{
-		if(isset($_POST[self::ToDateName])){
-			return $_POST[self::ToDateName];
-		}else{
-			return "";
-		}
-	}
-}
-
-class MonthlyForm extends DateInputForm
-{
-	public function view_form()
-	{
-		/*
-		$from_day =  date("Y-m", strtotime("-3 year"));
-		$now_day = date('Y-m');
-		$this->view_input('month', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
-		?>
-		から
-		<?php
-		$this->view_input('month', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
-		*/
-	}
-
-}
-
-class DaylyForm extends DateInputForm
-{
-	public function view_form()
-	{
-		$from_day =  date("Y-m-d", strtotime("-3 year"));
-		$now_day = date('Y-m-d');
-		?>
-		<div class="line">
-			<h2>月別</h2>
-			<?php
-				$this->view_input('date', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
-				?>
-				から	
-				<?php
-				$this->view_input('date', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
-				?>			
-		</div>
-		<?php
-	}
-}
 
 abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 {
@@ -89,10 +21,9 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 
 	private $_canvas_id = 'sales_graph';
 	
-	protected abstract function get_graph_data(ReservedCourse $y) : int;
-	protected abstract function create_monthly_graph_param() : GraphData;
-	protected abstract function create_dayly_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData;
-
+	protected abstract function create_monthly_form() : MonthlyForm;
+	protected abstract function create_dayly_form() : DaylyForm;
+	
 	public function get_sales_data()
 	{
 		$from = $this->get_from_date();
@@ -106,13 +37,13 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 		$attribute['onclick'] = 'SubmitOnClick("month_or_day")';
 		
 		if(!isset($_POST[self::SepTypeName])){
-			$this->_date_form = new MonthlyForm();
+			$this->_date_form = $this->create_monthly_form();
 		}else{
 			if($_POST[self::SepTypeName] == 'day')
 			{
-				$this->_date_form = new DaylyForm();
+				$this->_date_form = $this->create_dayly_form();
 			}else{
-				$this->_date_form = new MonthlyForm();
+				$this->_date_form = $this->create_monthly_form();
 			}
 		}
 		$this->_view_graph_button = new SubmitButton('btn_graph', 'グラフを表示する', $this->_form_id);
@@ -152,8 +83,7 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
 				$fd = new \DateTime($this->_date_form->get_from_date());
 				$td = new \DateTime($this->_date_form->get_to_date());
-				$graph_data = $this->create_monthly_graph_param();
-				//$graph_data = $this->create_dayly_graph_param($fd, $td );
+				$graph_data = $this->_date_form->create_graph_data();
 				$graph_data_json = $graph_data->serialize_json();
 			?>
 				<div class='sales_graph_area'>
