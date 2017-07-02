@@ -81,8 +81,6 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 			$this->_date_form->view_form();
 			if($this->_view_graph_button->is_submit()){
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);
-				$fd = new \DateTime($this->_date_form->get_from_date());
-				$td = new \DateTime($this->_date_form->get_to_date());
 				$graph_data = $this->_date_form->create_graph_data();
 				$graph_data_json = $graph_data->serialize_json();
 			?>

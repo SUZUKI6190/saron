@@ -123,27 +123,60 @@ abstract class DaylyForm extends DateInputForm
 		?>
 		<div class="line">
 			<h2>月別</h2>
+			<select name='<?php echo DateInputForm::FromDateName; ?>'>
 			<?php
-				$this->view_input('date', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
-				?>
-				から	
-				<?php
-				$this->view_input('date', DateInputForm::ToDateName, $from_day, $now_day, $this->get_to_date());
-				?>			
+				$month_count = 1;
+				while($month_count <= 12)
+				{
+					echo sprintf("<option value='%s'>%s月</option>", $month_count, $month_count);
+					$month_count++;
+				}
+				//$this->view_input('month', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
+			?>
+			</select>
 		</div>
 		<?php
 	}
 	
+	private function get_selected_month() : int
+	{
+		return  (int)$_POST[DateInputForm::FromDateName];
+	}
+
 	public function create_graph_data() : GraphData
 	{
+		$selected_data = $this->get_selected_month();
+		$yearly_yr_list = \business\facade\get_yoyaku_registration_last_3_years_by_month($selected_data);
 		$ret = new GraphData();
-		$new_dataset = new DataSet();
-		$m = 1;
-		while($m <= 31)
+		$yearly_list = array_keys($yearly_yr_list);
+		$labels_result = [];
+		foreach($yearly_list as $year)
 		{
-			$ret->labels[] = $m;
-			$m++;
+			$new_dataset = new DataSet();
+			$new_dataset->label = $year;
+			$day_count = 1;
+			$labels_day_temp = [];
+			foreach($yearly_yr_list[$year] as $dayly_list)
+			{
+				$dayly = array_keys($dayly_list);
+				$sum_data = 0;
+				foreach($dayly as $day)
+				{
+					$yr = $dayly_list[$day];
+					$reserved_course = \business\facade\get_reserved_course_by_registration_id($yr->id);
+					foreach($reserved_course as $rc)
+					{			
+						$sum_data += $this->get_graph_data($rc);
+					}
+				}
+				$new_dataset->data[] = $sum_data;
+				$labels_day_temp[] = $day_count;
+				$day_count++;
+			}
+			$ret->dataset_list[] = $new_dataset;
+			$labels_result = count($labels_result) > count($labels_day_temp) ? $labels_result : $labels_day_temp;
 		}
+		$ret->labels = $labels_result;
 		return $ret;
 	}
 }
