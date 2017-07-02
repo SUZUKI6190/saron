@@ -13,6 +13,7 @@ function get_yoyaku_registration_by_date(\DateTime $from_date, \DateTime $to_dat
 SELECT * FROM `yoyaku_registration`
 WHERE start_time >= '$f'
   and start_time <= '$to'
+  ORDER BY start_time ASC
 SQL;
 
     $result = $wpdb->get_results($strSql);

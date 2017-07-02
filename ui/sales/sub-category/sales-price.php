@@ -4,7 +4,7 @@ require_once('sales-graph-sub-base.php');
 require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
-use \business\entity\sales;
+use \business\entity\ReservedCourse;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
@@ -25,6 +25,11 @@ class SalesPriceSub extends SalesGraphSubBase
 		self::LastYearsColor,
 		self::YearsColor
 	];
+
+	protected function get_graph_data(ReservedCourse $y): int
+	{
+		return $y->price;
+	}
 
 	protected function create_monthly_graph_param() : GraphData
 	{
@@ -52,16 +57,16 @@ class SalesPriceSub extends SalesGraphSubBase
 			foreach($month_list as $month)
 			{			
 				$yr_list = $monthly_list[$month];
-				$sum_price = 0;
+				$sum_data = 0;
 				foreach($yr_list as $y)
 				{
 					$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
 					foreach($reserved_course as $rc)
 					{
-						$sum_price += $rc->price;
+						$sum_data += $this->get_graph_data($rc);
 					}
 				}	
-				$new_dataset->data[] = $sum_price;		
+				$new_dataset->data[] = $sum_data;
 			}
 
 			$ret->dataset_list[] = $new_dataset;
@@ -74,6 +79,13 @@ class SalesPriceSub extends SalesGraphSubBase
 	protected function create_dayly_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData
 	{
 		$ret = new GraphData();
+		$new_dataset = new DataSet();
+		$m = 1;
+		while($m <= 31)
+		{
+			$ret->labels[] = $m;
+			$m++;
+		}
 		return $ret;
 	}
 

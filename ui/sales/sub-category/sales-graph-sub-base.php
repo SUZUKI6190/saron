@@ -8,6 +8,7 @@ use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
+use business\entity\ReservedCourse;
 
 abstract class DateInputForm
 {
@@ -88,6 +89,7 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 
 	private $_canvas_id = 'sales_graph';
 	
+	protected abstract function get_graph_data(ReservedCourse $y) : int;
 	protected abstract function create_monthly_graph_param() : GraphData;
 	protected abstract function create_dayly_graph_param(\DateTime $from_date, \DateTime $to_date) : GraphData;
 
@@ -131,7 +133,6 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 			echo 'checked';
 		}
 	}
-	
 
 	public function view()
 	{
@@ -152,6 +153,7 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 				$fd = new \DateTime($this->_date_form->get_from_date());
 				$td = new \DateTime($this->_date_form->get_to_date());
 				$graph_data = $this->create_monthly_graph_param();
+				//$graph_data = $this->create_dayly_graph_param($fd, $td );
 				$graph_data_json = $graph_data->serialize_json();
 			?>
 				<div class='sales_graph_area'>
