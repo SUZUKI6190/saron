@@ -8,10 +8,12 @@ use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
 use business\entity\ReservedCourse;
+use \business\entity\YoyakuRegistration;
 
 abstract class DataCalculator
 {
-	public abstract function culc_data(ReservedCourse $y);
+	public abstract function catch_reservedcourse(ReservedCourse $y);
+	public abstract function catch_registration(YoyakuRegistration $y);
 	public abstract function get_data();
 }
 
@@ -101,10 +103,11 @@ abstract class MonthlyForm extends DateInputForm
 				$culc = $this->create_calculator();
 				foreach($yr_list as $y)
 				{
+					$culc->catch_registration($y);
 					$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
 					foreach($reserved_course as $rc)
 					{
-						$culc->culc_data($rc);
+						$culc->catch_reservedcourse($rc);
 					}
 				}	
 				$new_dataset->data[] = $culc->get_data();
@@ -187,10 +190,11 @@ abstract class DaylyForm extends DateInputForm
 				foreach($dayly as $day)
 				{
 					$yr = $dayly_list[$day];
+					$culc->catch_registration($yr);
 					$reserved_course = \business\facade\get_reserved_course_by_registration_id($yr->id);
 					foreach($reserved_course as $rc)
 					{			
-						$culc->culc_data($rc);
+						$culc->catch_reservedcourse($rc);
 					}
 				}
 				$new_dataset->data[] = $culc->get_data();

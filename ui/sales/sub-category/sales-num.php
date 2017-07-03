@@ -5,6 +5,7 @@ require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \business\entity\ReservedCourse;
+use \business\entity\YoyakuRegistration;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
@@ -13,7 +14,11 @@ use ui\sales\salesContext;
 class SumNumDataCalculator extends DataCalculator
 {
 	private $_sum = 0;
-	public function culc_data(ReservedCourse $y)
+	public function catch_reservedcourse(ReservedCourse $y)
+	{
+		
+	}
+	public function catch_registration(YoyakuRegistration $y)
 	{
 		$this->_sum += 1;
 	}

@@ -5,6 +5,7 @@ require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \business\entity\ReservedCourse;
+use \business\entity\YoyakuRegistration;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
@@ -14,10 +15,13 @@ class PerCustomerDataCalculator extends DataCalculator
 {
 	private $_customer_num = 0;
 	private $_price_num = 0;
-	public function culc_data(ReservedCourse $y)
+	public function catch_reservedcourse(ReservedCourse $y)
+	{
+		$this->_price_num += $y->price;
+	}
+	public function catch_registration(YoyakuRegistration $y)
 	{
 		$this->_customer_num += 1;
-		$this->_price_num += $y->price;
 	}
 	public function get_data()
 	{
