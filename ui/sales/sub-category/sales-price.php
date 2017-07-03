@@ -10,19 +10,32 @@ use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\salesContext;
 
+class SumDataCalculator extends DataCalculator
+{
+	private $_sum = 0;
+	public function culc_data(ReservedCourse $y)
+	{
+		$this->_sum += $y->price;
+	}
+	public function get_data()
+	{
+		return $this->_sum;
+	}
+}
+
 class PriceMonthlyForm extends MonthlyForm
 {
-	protected function get_graph_data(ReservedCourse $y): int
+	protected function create_calculator(): DataCalculator
 	{
-		return $y->price;
+		return new SumDataCalculator();
 	}
 }
 
 class PriceDaylyForm extends DaylyForm
 {
-	protected function get_graph_data(ReservedCourse $y): int
+	protected function create_calculator(): DataCalculator
 	{
-		return $y->price;
+		return new SumDataCalculator();
 	}
 }
 

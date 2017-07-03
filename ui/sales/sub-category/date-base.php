@@ -9,11 +9,16 @@ use \ui\frame\Result;
 use ui\sales\SalesContext;
 use business\entity\ReservedCourse;
 
+abstract class DataCalculator
+{
+	public abstract function culc_data(ReservedCourse $y);
+	public abstract function get_data();
+}
+
 abstract class DateInputForm
 {
 	public abstract function view_form();
-	protected abstract function get_graph_data(ReservedCourse $y) : int;
-	public abstract function create_graph_data() : GraphData;
+	protected abstract function create_calculator(): DataCalculator;
 	const FromDateName = "from_date";
 	const ToDateName = "to_date";
 	const YearsColor = "rgba(192, 75 , 75, 0.4)";
@@ -93,16 +98,16 @@ abstract class MonthlyForm extends DateInputForm
 			foreach($month_list as $month)
 			{			
 				$yr_list = $monthly_list[$month];
-				$sum_data = 0;
+				$culc = $this->create_calculator();
 				foreach($yr_list as $y)
 				{
 					$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
 					foreach($reserved_course as $rc)
 					{
-						$sum_data += $this->get_graph_data($rc);
+						$culc->culc_data($rc);
 					}
 				}	
-				$new_dataset->data[] = $sum_data;
+				$new_dataset->data[] = $culc->get_data();
 			}
 
 			$ret->dataset_list[] = $new_dataset;
@@ -177,18 +182,18 @@ abstract class DaylyForm extends DateInputForm
 			$labels_day_temp = [];
 			foreach($yearly_yr_list[$year] as $dayly_list)
 			{
+				$culc = $this->create_calculator();
 				$dayly = array_keys($dayly_list);
-				$sum_data = 0;
 				foreach($dayly as $day)
 				{
 					$yr = $dayly_list[$day];
 					$reserved_course = \business\facade\get_reserved_course_by_registration_id($yr->id);
 					foreach($reserved_course as $rc)
 					{			
-						$sum_data += $this->get_graph_data($rc);
+						$culc->culc_data($rc);
 					}
 				}
-				$new_dataset->data[] = $sum_data;
+				$new_dataset->data[] = $culc->get_data();
 				$labels_day_temp[] = $day_count;
 				$day_count++;
 			}

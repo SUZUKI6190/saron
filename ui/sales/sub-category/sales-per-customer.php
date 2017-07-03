@@ -10,19 +10,43 @@ use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\salesContext;
 
+class PerCustomerDataCalculator extends DataCalculator
+{
+	private $_customer_num = 0;
+	private $_price_num = 0;
+	public function culc_data(ReservedCourse $y)
+	{
+		$this->_customer_num += 1;
+		$this->_price_num += $y->price;
+	}
+	public function get_data()
+	{
+		if($this->_customer_num == 0)
+		{
+			return 0;
+		}
+		if($this->_price_num == 0)
+		{
+			return 0;
+		}
+		return $this->_price_num / $this->_customer_num;
+	}
+}
+
+
 class PerCustomerMonthlyForm extends MonthlyForm
 {
-	protected function get_graph_data(ReservedCourse $y): int
+	protected function create_calculator(): DataCalculator
 	{
-		return 1;
+		return new PerCustomerDataCalculator();
 	}
 }
 
 class PerCustomerDaylyForm extends DaylyForm
 {
-	protected function get_graph_data(ReservedCourse $y): int
+	protected function create_calculator(): DataCalculator
 	{
-		return 1;
+		return new PerCustomerDataCalculator();
 	}
 }
 
