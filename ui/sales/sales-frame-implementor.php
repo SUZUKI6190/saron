@@ -2,6 +2,8 @@
 namespace ui\sales;
 require_once('sales-context.php');
 require_once('sub-category/sales-price.php');
+require_once('sub-category/sales-num.php');
+require_once('sub-category/sales-per-customer.php');
 require_once(dirname(__FILE__).'/../../business/facade/sales.php');
 require_once(dirname(__FILE__).'/../../business/entity/sales.php');
 use \ui\frame\ManageFrameImplementor;
@@ -17,7 +19,8 @@ class SalesFrameImplementor extends ManageFrameImplementor
 			$ret[$sub->get_name()] = $sub;
 		};
 		$set_array(new SalesPriceSub());
-
+		$set_array(new SalesNumSub());
+		$set_array(new SalesPerCustomerSub());
 		return $ret;
 	}
 
