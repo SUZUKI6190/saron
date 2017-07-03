@@ -16,6 +16,15 @@ abstract class DateInputForm
 	public abstract function create_graph_data() : GraphData;
 	const FromDateName = "from_date";
 	const ToDateName = "to_date";
+	const YearsColor = "rgba(192, 75 , 75, 0.4)";
+	const LastYearsColor = "rgba(75, 192 , 75, 0.4)";
+	const ThreeYearsAgoColor = "rgba(75, 75 , 192, 0.4)";
+	
+	const ColorTable = [
+		self::ThreeYearsAgoColor,
+		self::LastYearsColor,
+		self::YearsColor
+	];
 
 	protected function view_input($type, $name, $min, $max, $value)
 	{
@@ -44,15 +53,6 @@ abstract class DateInputForm
 
 abstract class MonthlyForm extends DateInputForm
 {
-	const YearsColor = "rgba(192, 75 , 75, 0.4)";
-	const LastYearsColor = "rgba(75, 192 , 75, 0.4)";
-	const ThreeYearsAgoColor = "rgba(75, 75 , 192, 0.4)";
-	
-	const ColorTable = [
-		self::ThreeYearsAgoColor,
-		self::LastYearsColor,
-		self::YearsColor
-	];
 
 	public function view_form()
 	{
@@ -87,8 +87,8 @@ abstract class MonthlyForm extends DateInputForm
 
 			$new_dataset = new DataSet();
 			$new_dataset->label = $year;
-			$new_dataset->backgroundColor = self::ColorTable[$counter];
-			$new_dataset->borderColor = self::ColorTable[$counter];
+			$new_dataset->backgroundColor = DateInputForm::ColorTable[$counter];
+			$new_dataset->borderColor = DateInputForm::ColorTable[$counter];
 
 			foreach($month_list as $month)
 			{			
@@ -126,9 +126,19 @@ abstract class DaylyForm extends DateInputForm
 			<select name='<?php echo DateInputForm::FromDateName; ?>'>
 			<?php
 				$month_count = 1;
+				$selected_mont = 0;
+				if($this->is_selected_month())
+				{
+					$selected_mont = $this->get_selected_month();
+				}
 				while($month_count <= 12)
 				{
-					echo sprintf("<option value='%s'>%s月</option>", $month_count, $month_count);
+					if($month_count==$selected_mont){
+						echo sprintf("<option selected value='%s'>%s月</option>", $month_count, $month_count);
+					}else{
+						echo sprintf("<option value='%s'>%s月</option>", $month_count, $month_count);
+					}
+					
 					$month_count++;
 				}
 				//$this->view_input('month', DateInputForm::FromDateName, $from_day, $now_day, $this->get_from_date());
@@ -138,9 +148,14 @@ abstract class DaylyForm extends DateInputForm
 		<?php
 	}
 	
+	private function is_selected_month() : bool
+	{
+		return isset($_POST[DateInputForm::FromDateName]);
+	}
+
 	private function get_selected_month() : int
 	{
-		return  (int)$_POST[DateInputForm::FromDateName];
+		return (int)$_POST[DateInputForm::FromDateName];
 	}
 
 	public function create_graph_data() : GraphData
@@ -150,10 +165,14 @@ abstract class DaylyForm extends DateInputForm
 		$ret = new GraphData();
 		$yearly_list = array_keys($yearly_yr_list);
 		$labels_result = [];
+		$year_counter = 0;
 		foreach($yearly_list as $year)
 		{
 			$new_dataset = new DataSet();
 			$new_dataset->label = $year;
+			$new_dataset->backgroundColor = DateInputForm::ColorTable[$year_counter];
+			$new_dataset->borderColor = DateInputForm::ColorTable[$year_counter];
+
 			$day_count = 1;
 			$labels_day_temp = [];
 			foreach($yearly_yr_list[$year] as $dayly_list)
@@ -175,6 +194,7 @@ abstract class DaylyForm extends DateInputForm
 			}
 			$ret->dataset_list[] = $new_dataset;
 			$labels_result = count($labels_result) > count($labels_day_temp) ? $labels_result : $labels_day_temp;
+			$year_counter++;
 		}
 		$ret->labels = $labels_result;
 		return $ret;
