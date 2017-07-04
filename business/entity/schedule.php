@@ -9,7 +9,7 @@ class Schedule
 	public $minutes;
 	public $schedule_division;
 	public $name;
-	public $data;
+	public $extend_data;
 	const Yoyaku = 0;
 	public static function CreateObjectFromWpdb($wpdb) : self
 	{
@@ -20,7 +20,7 @@ class Schedule
 		$ret->minutes = $wpdb->minutes;
 		$ret->schedule_division = $wpdb->schedule_division;
 		$ret->name = $wpdb->name;
-		$ret->data = $wpdb->data;
+		$ret->extend_data = $wpdb->extend_data;
 		return $ret;
 	}
 }

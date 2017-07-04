@@ -66,9 +66,10 @@ class ScheduleEdit extends ScheduleBase
     protected function view_inner()
     {
         $this->_selected_schedule_id = $this->get_edit_value();
-        $selected_schedule = array_filter($this->_schedule_list,function($d){
+        $f = array_values(array_filter($this->_schedule_list,function($d){
             return $this->_selected_schedule_id == $d->id;
-        })[0];
+        }));
+        $selected_schedule = $f[0];
         $datetime  = new \DateTime($selected_schedule->start_time);
         $date = $datetime->format("Y-m-d"); 
         $time = $datetime->format("h:s");        

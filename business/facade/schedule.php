@@ -13,14 +13,14 @@ function insert_schedule(Schedule $s)
 			minutes,
 			schedule_division,
 			name,
-			data
+			extend_data
 		)values(
 			'$s->staff_id',
 			'$s->start_time',
 			'$s->minutes',
 			'$s->schedule_division',
 			'$s->name',
-			'$s->data'
+			'$s->extend_data'
 		)
 SQL
 );

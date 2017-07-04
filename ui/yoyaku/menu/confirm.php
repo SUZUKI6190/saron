@@ -133,7 +133,7 @@ class Confirm extends YoyakuMenu
     private function save_schedule($customr_id, $regist_id)
     {
         $schedule = $this->create_schedule($customr_id);
-        $schedule->data = $regist_id;
+        $schedule->extend_data = $regist_id;
         \business\facade\insert_schedule($schedule);
     }
 

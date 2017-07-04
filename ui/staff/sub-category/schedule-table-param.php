@@ -26,14 +26,14 @@ class ScheduleTableParam
         $name = "";
         $sum_time = 0;
 
-        $yoyaku_registration_id = $s->data;
+        $yoyaku_registration_id = $s->extend_data;
         $yoyaku = \business\facade\select_yoyaku_registration_by_id($yoyaku_registration_id)[0];
 
         $ret->schedule_id = $s->id;
         $ret->start_datetime = $s->start_time;
         $ret->start_minutes = self::get_minutes(new \DateTime($s->start_time)) - self::get_minutes(new \DateTime('9:00'));
 
-        $course_list = \business\facade\get_menu_course_by_idlist($yoyaku->course_id_list);
+        $course_list = \business\facade\get_reserved_course_by_registration_id($yoyaku->id);
 
         foreach($course_list as $c)
         {
@@ -45,7 +45,7 @@ class ScheduleTableParam
         $ret->minites_len = $s->minutes;
 
         $customer = \business\facade\SelectCustomerById($yoyaku->customer_id);
-        $ret->customer_name = $customer->name_kanji_last;
+        $ret->customer_name = $customer->name_kanji;
 
         return $ret;
     }

@@ -154,7 +154,7 @@ SQL
 			minutes int UNSIGNED not null,
 			schedule_division int  UNSIGNED NOT NULL,
 			name text character set utf8,
-			data text,
+			extend_data text,
 			PRIMARY KEY(id)
 		)
 SQL
