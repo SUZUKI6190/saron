@@ -6,6 +6,7 @@ use ui\util\SubmitButton;
 use ui\util\HolidayDateTime;
 require_once(dirname(__FILE__).'/yoyaku-button.php');
 use ui\yoyaku\controll\YoyakuToggle;
+use ui\yoyaku\YoyakuContext;
 
 class Day
 {
@@ -148,6 +149,30 @@ class ScheduleTable
 						if($holyday_weekly_data->is_regular_holiday){
 							$col->cells[$key]->button->enable_yoyaku = strtotime($holyday_weekly_data->to_time) >= $key_time;
 						}else{
+							$col->cells[$key]->button->enable_yoyaku = false;
+						}
+					}
+				}
+			}
+		}
+
+		//スケジュールの反映
+		$yc = YoyakuContext::get_instance();
+		$schedule_list = \business\facade\get_schedule_by_staffid($yc->staff_id->get_value());
+		foreach($schedule_list as $s)
+		{
+			$start_time = new \DateTime($s->start_time);
+			$end_time = (new \DateTime($s->start_time))->add(new \DateInterval(sprintf("P0DT%sM",  $s->minutes)));
+			foreach($this->_col_list as $col)
+			{
+				foreach($col->cells as $key => $value)
+				{
+					$key_time = clone $col->date;
+					$time = new \DateTime($key);
+					$key_time->setTime($time->format('h'), $time->format('m'), 0);
+					if($start_time <= $key_time)
+					{
+						if($end_time >= $key_time){
 							$col->cells[$key]->button->enable_yoyaku = false;
 						}
 					}
