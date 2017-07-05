@@ -8,7 +8,7 @@ class Config
     public $YoyakuMailAddress;
     public $YoyakuMailTitle;
     public $YoyakuMailContent;
-
+    public $IntervalDeleateCusotomer;
 
     private function __construct()
 	{
@@ -16,6 +16,7 @@ class Config
         $this->YoyakuMailAddress = new ConfigParam(1, $this->_value_table);
         $this->YoyakuMailTitle = new ConfigParam(2, $this->_value_table);
         $this->YoyakuMailContent = new ConfigParam(3, $this->_value_table);
+        $this->IntervalDeleateCustomers = new ConfigParam(4, $this->_value_table);
     }
 
     public function set_value(int $id, string $value)

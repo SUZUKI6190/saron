@@ -1,10 +1,9 @@
 <?php
 namespace ui\customer;
 use \SplFileObject;
-use \business\entity\CustomerIntervalSetting;
+use \business\entity\Config;
 use \business\facade;
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once(dirname(__FILE__).'/../../business/entity/customer_interval_setting.php');
 require_once(dirname(__FILE__).'/../../business/facade/customer.php');
 require_once('customer-search-factory.php');
 require_once('customer-search-item.php');
@@ -190,14 +189,14 @@ class DeleteSub extends CustomerSubBase
 
 	public function view()
 	{
+		$c = Config::get_instance();
+
 		if(!empty($_POST["confirm_cron"]))
 		{
-			$data = new CustomerIntervalSetting();
-			$data->id = CustomerIntervalSetting::DeleteID;
-			$data->value = $_POST["selected_month"];
-			\business\facade\set_customer_interval_setting($data);
+			$value = $_POST["selected_month"];
+			$c->IntervalDeleateCustomers->save_value($value);
 		}
-		$saved_month = \business\facade\get_interval_setting_byid(CustomerIntervalSetting::DeleteID);
+		$saved_month = $c->IntervalDeleateCustomers->get_value();
 		?>
 
 		<form method="post" action=""　>

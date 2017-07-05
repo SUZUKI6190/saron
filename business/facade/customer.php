@@ -1,8 +1,6 @@
 <?php
 namespace business\facade;
-require_once(dirname(__FILE__).'/../entity/customer_interval_setting.php');
 use business\entity\Customer;
-use business\entity\CostomerIntervalSetting;
 
 function CreateDecQuery($value)
 {
@@ -261,50 +259,5 @@ SQL;
 	dbDelta($strSql);
 }
 
-function set_customer_interval_setting(\business\entity\CustomerIntervalSetting $cis)
-{
-	global $wpdb;
-	$id = $cis->id;
-	$value = $cis->value;
-	$wpdb->query(
-	<<<SQL
-	DELETE FROM	customer_interval_setting
-	WHERE id = '$id'
-SQL
-);
-	$wpdb->query(
-	<<<SQL
-	INSERT INTO	customer_interval_setting
-	(
-	id,
-	value
-	)
-	values (
-		'$id',
-		'$value'
-	)
-SQL
-);
-}
-
-function get_interval_setting_byid($id) : string
-{
-	$password = Customer::GetPassword();
-	$strSql = <<<SQL
-		select
-			value
-		from customer_interval_setting
-		where id = '$id'
-SQL;
-
-	global $wpdb;
-	$result = $wpdb->get_results($strSql);
-	if(count($result) > 0){
-		return $result[0]->value;
-	}else{
-		return "";
-	}
-
-}
 
 ?>
