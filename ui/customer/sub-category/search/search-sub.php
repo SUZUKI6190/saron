@@ -5,7 +5,9 @@ use \business\entity\Config;
 use \business\facade;
 require_once('customer-search-factory.php');
 require_once('customer-search-item.php');
-
+require_once('customerdetail.php');
+require_once('customerDetailNew.php');
+require_once('customerDetailEdit.php');
 class SearchSub extends CustomerSubBase
 {	
 

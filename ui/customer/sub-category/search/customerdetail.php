@@ -2,9 +2,8 @@
 namespace ui\customer;
 use business\entity\Customer;
 use ui\util;
-require_once(dirname(__FILE__)."/../../staff.php");
 require_once("customer-detail-item-list.php");
-
+require_once(dirname(__FILE__)."/../../../staff.php");
 abstract class DetailItem
 {
 	protected $_customer_data;
