@@ -2,12 +2,10 @@
 namespace ui\customer;
 require_once(dirname(__FILE__).'/../../business/facade/customer.php');
 require_once(dirname(__FILE__).'/../../business/entity/customer.php');
-require_once('customerdetail.php');
-require_once('customerDetailNew.php');
-require_once('customerDetailEdit.php');
-require_once('customer-sub-cotegory.php');
+require_once(dirname(__FILE__).'/sub-category/customer-sub-cotegory.php');
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-
+require_once(dirname(__FILE__).'/../frame/manage-frame.php');
+require_once(dirname(__FILE__).'/../../business/facade/customer.php');
 
 class CustomerFameImplementor extends \ui\frame\ManageFrameImplementor
 {

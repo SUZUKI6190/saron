@@ -3,8 +3,8 @@ namespace ui\customer;
 use ui;
 use ui\HeaderData;
 use \business\entity\Customer;
-require_once(dirname(__FILE__).'/../itabledata.php');
-require_once("customer-download.php");
+require_once('itabledata.php');
+
 class CustomerTableData implements ui\ITableData
 {
 	private $_customerData;

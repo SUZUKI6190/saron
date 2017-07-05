@@ -1,9 +1,5 @@
 <?php
 namespace ui\customer;
-require_once('customerdetail.php');
-require_once('customerDetailNew.php');
-require_once('customerDetailEdit.php');
-
 class ControlContext
 {
 	public $Page;
