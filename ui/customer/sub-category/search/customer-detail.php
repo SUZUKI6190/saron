@@ -2,8 +2,9 @@
 namespace ui\customer;
 use business\entity\Customer;
 use ui\util;
-require_once("customer-detail-item-list.php");
+require_once('search-sub.php');
 require_once(dirname(__FILE__)."/../../../staff.php");
+
 abstract class DetailItem
 {
 	protected $_customer_data;
@@ -57,6 +58,11 @@ abstract class CustomerDetail
 	private $_birth;
 	private $_last_visit_date;
 	private $_next_visit_reservation_date;
+
+	protected abstract function CreateHeader();
+	public abstract function CreateCustomerData();
+	protected abstract function SaveInner(Customer $data);
+
 	public function __construct()
 	{
 		$this->_view_staff = new \ui\ViewStaff("staff");
@@ -64,7 +70,13 @@ abstract class CustomerDetail
 		$this->_last_visit_date = new \ui\util\view_date_input("last_visit_date");
 		$this->_next_visit_reservation_date= new \ui\util\view_date_input("next_visit_reservation_date");
 	}
-	public function View()
+
+	public function init()
+	{
+
+	}
+
+	public function view()
 	{
 		$data = $this->CreateCustomerData();
 		$this->CreateForm($data);
@@ -116,16 +128,29 @@ abstract class CustomerDetail
 			return true;
 		}
 	}
-	
-	
-	protected abstract function CreateHeader();
-	public abstract function CreateCustomerData();
-	protected function get_item_list(Customer $data)
+
+	protected function get_item_list(Customer $c)
 	{
-		return create_item_list($data);
+		return [
+			new KanjiNameDetailItem($c),
+			new KanaNameDetailItem($c),
+			new TellDetailItem($c),
+			new MailDetailItem($c),
+			new SexDetailItem($c),
+			new OldDetailItem($c),
+			new BirthDetailItem($c),
+			new AddressDetailItem($c),
+			new OccupationDetailItem($c),
+			new NumberOfVisitDetailItem($c),
+			new StaffDetailItem($c),
+			new LastVisitDateDetailItem($c),
+			new NextVisitReservationDateDetailItem($c),
+			new ReservationRouteDetailItem($c),
+			new EnableDMDetailItem($c),
+			new RemarkDetailItem($c)
+		];
 	}
-	protected abstract function SaveInner(Customer $data);
-	
+
 	private function required_text()
 	{
 		?>
@@ -141,8 +166,6 @@ abstract class CustomerDetail
 	{
 		$this->on_pre_view();
 	?>
-
-	<form method="POST">
 		<div class="wrap">
 			<?php
 			$this->CreateHeader();
@@ -197,7 +220,6 @@ abstract class CustomerDetail
 				</div>
 			</div>
 		</div>
-	</form>
 		<?php
 	}
 }

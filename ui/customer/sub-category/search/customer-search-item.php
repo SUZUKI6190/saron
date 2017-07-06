@@ -31,11 +31,9 @@ abstract class SearchItem
 class SearchitemRepeater
 {
 	private $_item_list;
-	private $_controlContext;
-	public function __construct($item_list, $c)
+	public function __construct($item_list)
 	{
 		$this->_item_list = $item_list;
-		$this->_controlContext = $c;
 	}
 	
 	public function create_where_query()
@@ -73,14 +71,15 @@ class SearchitemRepeater
 	
 	public function view_search_result()
 	{
-		$newUrl = $this->_controlContext->GetCustomerUrl()."/detail/new/";
+		$cc = CustomerContext::get_instance();
+		$newUrl = $cc->get_customer_url()."/detail/new/";
 		create_customer_view($this->_controlContext,  $this->create_where_query());
-
 	}
 	
 	public function view_search_form()
 	{
-		$search_result_url = $this->_controlContext->GetCustomerUrl()."/search/result/";
+		$cc = CustomerContext::get_instance();
+		$search_result_url = $cc->get_customer_url()."/search/result/";
 		?>
 		<div class="wrap_search">
 			<form method="post" name='customer_search' value="customer_search" action='<?php echo $search_result_url; ?>' >

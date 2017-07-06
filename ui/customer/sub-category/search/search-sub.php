@@ -5,57 +5,47 @@ use \business\entity\Config;
 use \business\facade;
 require_once('customer-search-factory.php');
 require_once('customer-search-item.php');
-require_once('customerdetail.php');
-require_once('customerDetailNew.php');
-require_once('customerDetailEdit.php');
+require_once('customer-detail.php');
+require_once('customer-detail-edit-viewer.php');
+require_once('search-viewer.php');
+require_once('customer-list-viewer.php');
+
 class SearchSub extends CustomerSubBase
 {	
+	private $_viewer;
 
-	private function view_search(ControlContext $c)
+	public function pre_view()
 	{
-		$item = [
-			CustomerSearchItemFactory::create_kanjiname(),
-			CustomerSearchItemFactory::create_kananame(),
-			CustomerSearchItemFactory::create_phonenum(),
-			CustomerSearchItemFactory::create_email(),
-			CustomerSearchItemFactory::create_old(),
-			CustomerSearchItemFactory::create_sex(),
 
-			CustomerSearchItemFactory::create_birthday(),
-			CustomerSearchItemFactory::create_occupation(),
-			CustomerSearchItemFactory::create_last_visit_item(),
-			CustomerSearchItemFactory::create_next_visit_reservation_item(),
-			CustomerSearchItemFactory::create_enable_dm()
-		];
+	}
 
+	public function init()
+	{
+		$this->_viewer = $this->create_viewer();
+	}
 
-		$repeater = new SearchitemRepeater($item, $c);
-		
-		if($c->SearchResult == "result"){
-			$repeater->view_search_result();
-		}else{
-			$repeater->view_search_form();
+	private function create_viewer() : SearchViewer
+	{
+		$cc = CustomerContext::get_instance();
+		if($cc->RegistMode == 'detail'){
+			return new CustomerDetailEditViewer();
 		}
-		
+		return new CustomerListViwer();
 	}
 
 	public function view()
 	{
-		$newUrl = $this->_context->GetCustomerUrl()."/new/";
-		$searchUrl = $this->_context->GetCustomerUrl()."/search/";
-
-		if($this->_context->RegistMode == 'detail'){
-			$detailView;
-			$detailView = new CustomerDetailEdit($this->_context->Id);
-			if($detailView->IsSavePost()){
-				$detailView->Save();
-			}else{
-				$detailView->View();
-			}
-			exit;
-		}
-		
-		$this->view_search($this->_context);
+		$cc = CustomerContext::get_instance();
+		$newUrl = $cc->get_customer_url()."/new/";
+		$searchUrl = $cc->get_customer_url()."/search/";
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+?>
+	<form method='post' action='<?php echo "$d" ?>'>
+	<?php
+		$this->_viewer->view();
+	?>
+	</form>
+	<?php
 	}
 	
 	public function get_name()

@@ -8,11 +8,9 @@ require_once('itabledata.php');
 class CustomerTableData implements ui\ITableData
 {
 	private $_customerData;
-	private $_controlContext;
-	public function __construct(Customer $custmerData, ControlContext $c)
+	public function __construct(Customer $custmerData)
 	{
 		$this->_customerData = $custmerData;
-		$this->_controlContext = $c;
 	}
 
 	public static function GetHeader()
@@ -81,8 +79,9 @@ class CustomerTableData implements ui\ITableData
 		yield $this->get_date_value($this->_customerData->birthday);
 		yield $this->get_date_value($this->_customerData->last_visit_date);
 		yield $this->_customerData->phone_number;
-
-		$detail_url = $this->_controlContext->GetCustomerUrl()."/search/detail/".$this->_customerData->id;
+		$cc = CustomerContext::get_instance();
+		
+		$detail_url = $cc->get_customer_url()."/search/detail/".$this->_customerData->id;
 
 		yield "<a href='$detail_url' >詳細はこちら</a>";
 	}
@@ -105,7 +104,7 @@ function search_by_hidden($hidden_name)
 	return $ret;
 }
 
-function create_customer_view(ControlContext $c, $strWhere)
+function create_customer_view($strWhere)
 {
 	$name_delete_submit = "delete";
 	$name_export_submit = "csv_export";
@@ -125,7 +124,7 @@ function create_customer_view(ControlContext $c, $strWhere)
 	foreach($customer_data_list as $customerData)
 	{
 		$key_hidden = $key_hidden.$customerData->id.",";
-		array_push($data, new CustomerTableData($customerData, $c));
+		array_push($data, new CustomerTableData($customerData));
 	}
 	
 	$mc = \ui\frame\ManageFrameContext::get_instance();
@@ -141,22 +140,14 @@ function create_customer_view(ControlContext $c, $strWhere)
 		?>
 	</form>
 	</div>
-	<form method="post" action="./" id="mein_form">
 	<?php
 	$tableGenerator->DataSource = $data;
 	if($tableGenerator->is_sort_change()){
 		$tableGenerator->sort_table();
 	}
 	$tableGenerator->GenerateTable("mein_form");
-
-?>
-
-		<?php
-		echo "<input type='hidden' name='$key' value='$key_hidden'/>";
-		
-		?>
-		
-	</form>
+	echo "<input type='hidden' name='$key' value='$key_hidden'/>";
+	?>	
 	<?php
 }
 ?>

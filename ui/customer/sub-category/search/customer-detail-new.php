@@ -2,8 +2,9 @@
 namespace ui\customer;
 use business\entity\Customer;
 use business\facade;
-require_once("customerdetail.php");
-class CustomerDetailNew extends CustomerDetail
+require_once("customer-detail.php");
+
+class CustomerDetailNewViewer extends CustomerDetail
 {
 	public function CreateHeader()
 	{

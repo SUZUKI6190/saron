@@ -4,19 +4,24 @@ use business\entity\Customer;
 use business\facade;
 use ui\util\ConfirmSubmitButton;
 use ui\util\SubmitButton;
-require_once("customerdetail.php");
-class CustomerDetailEdit extends CustomerDetail
+require_once("customer-detail.php");
+require_once('search-viewer.php');
+
+class CustomerDetailEdit extends CustomerDetail implements SearchViewer
 {
 	private $_id;
 	private $_delete_button;
 	private $_update_button;
-	public function __construct($id)
+
+	public function __construct()
 	{
 		parent::__construct();
-		$this->_id = $id;
+		$cc = CustomerContext::get_instance();
+		$this->_id = $cc->Id;
 		$this->_delete_button = new ConfirmSubmitButton("delete_cutomer", "このお客様情報を削除する", "", "削除してもよろしいですか？", "search_delete");
 		$this->_update_button = new SubmitButton( CustomerDetail::$SavePostKey, "お客様情報を更新する", "");
 	}
+
 	public function CreateHeader()
 	{
 		?>
@@ -29,6 +34,7 @@ class CustomerDetailEdit extends CustomerDetail
 		
 		<?php
 	}
+
 	protected function on_pre_view()
 	{
 		if($this->_delete_button->is_submit())
@@ -38,6 +44,7 @@ class CustomerDetailEdit extends CustomerDetail
 			exit;
 		}
 	}
+
 	public function CreateCustomerData()
 	{
 		$data = \business\facade\SelectCustomerById($this->_id);
@@ -50,4 +57,5 @@ class CustomerDetailEdit extends CustomerDetail
 		\business\facade\UpdateCustomer($data);
 	}
 }
+
 ?>

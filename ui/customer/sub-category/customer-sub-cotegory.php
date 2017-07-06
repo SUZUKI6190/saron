@@ -11,10 +11,8 @@ require_once(dirname(__FILE__).'/mass-registration/mass-registration-sub.php');
 
 abstract class CustomerSubBase extends \ui\frame\SubCategory
 {
-	protected $_context;
-	public function __construct(ControlContext $context)
+	public function __construct()
 	{
-		$this->_context = $context;
 	}
 
 	public function init()
