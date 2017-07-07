@@ -7,7 +7,7 @@ use ui\util\SubmitButton;
 require_once("customer-detail.php");
 require_once('search-viewer.php');
 
-class CustomerDetailEdit extends CustomerDetail implements SearchViewer
+class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 {
 	private $_id;
 	private $_delete_button;

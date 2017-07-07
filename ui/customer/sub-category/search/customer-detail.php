@@ -3,6 +3,7 @@ namespace ui\customer;
 use business\entity\Customer;
 use ui\util;
 require_once('search-sub.php');
+require_once('customer-detail-item.php');
 require_once(dirname(__FILE__)."/../../../staff.php");
 
 abstract class DetailItem
@@ -122,11 +123,7 @@ abstract class CustomerDetail
 
 	public function IsSavePost()
 	{
-		if(empty($_POST[CustomerDetail::$SavePostKey])){
-			return false;
-		}else{
-			return true;
-		}
+		return isset($_POST[CustomerDetail::$SavePostKey]);
 	}
 
 	protected function get_item_list(Customer $c)
