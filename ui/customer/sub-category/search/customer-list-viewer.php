@@ -29,7 +29,7 @@ class CustomerListViwer implements SearchViewer
 
 		$repeater = new SearchitemRepeater($item);
 		$c = CustomerContext::get_instance();
-		if($c->SearchResult == "result"){
+		if($repeater->is_search()){
 			$repeater->view_search_result();
 		}else{
 			$repeater->view_search_form();

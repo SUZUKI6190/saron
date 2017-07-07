@@ -1,6 +1,8 @@
 <?php
 namespace ui\customer;
 require_once('customer-view-table.php');
+require_once('itabledata.php');
+
 abstract class SearchItem
 {
 	public abstract function exist_criteria();
@@ -31,11 +33,21 @@ abstract class SearchItem
 class SearchitemRepeater
 {
 	private $_item_list;
+
+	const ExportBtnName = "delete_btn";
+	const DeleteBtnName = "csv_export";
+	const SearchBtnName = "search_btn";
+
 	public function __construct($item_list)
 	{
 		$this->_item_list = $item_list;
 	}
 	
+	public function is_search() : bool
+	{
+		return isset($_POST[self::SearchBtnName]);
+	}
+
 	public function create_where_query()
 	{
 				
@@ -68,27 +80,67 @@ class SearchitemRepeater
 		
 		return $strWhere;
 	}
-	
+
 	public function view_search_result()
 	{
 		$cc = CustomerContext::get_instance();
 		$newUrl = $cc->get_customer_url()."/detail/new/";
-		create_customer_view($this->_controlContext,  $this->create_where_query());
+		$strWhere = $this->create_where_query();
+		
+		$tableGenerator = new \ui\TableGenerator(CustomerTableData::GetHeader());
+		$data = [];
+		$key_hidden ="";
+
+		$customer_data_list;
+
+		if($tableGenerator->is_sort_change()){
+			$csv = str_getcsv($_POST[CustomerDownload::CUSTOMER_ID_NAME]);
+			$customer_data_list = [];
+			foreach($csv as $id)
+			{
+				$customer_data_list[] = \business\facade\SelectCustomerById($id);
+			}
+		}else{
+			$customer_data_list = \business\facade\GetCustomers($strWhere);
+		}
+
+		foreach($customer_data_list as $customerData)
+		{
+			$key_hidden = $key_hidden.$customerData->id.",";
+			array_push($data, new CustomerTableData($customerData));
+		}
+		
+		?>
+		<div class ="search_menu">
+			<?php
+			$key_hidden = rtrim($key_hidden, ',');
+			$key = CustomerDownload::CUSTOMER_ID_NAME;
+			echo "<input type='hidden' name='$key' value='$key_hidden' />";
+			?>
+			<button type='submit' name='<?php echo self::ExportBtnName ?>' class='manage_button'>検索結果をCSVで出力する</button>
+
+		</div>
+		<?php
+		$tableGenerator->DataSource = $data;
+		if($tableGenerator->is_sort_change()){
+			$tableGenerator->sort_table();
+		}
+		$tableGenerator->GenerateTable("mein_form");
+		echo "<input type='hidden' name='$key' value='$key_hidden'/>";
+		?>	
+		<?php
 	}
 	
 	public function view_search_form()
 	{
-		$cc = CustomerContext::get_instance();
-		$search_result_url = $cc->get_customer_url()."/search/result/";
+
 		?>
 		<div class="wrap_search">
-			<form method="post" name='customer_search' value="customer_search" action='<?php echo $search_result_url; ?>' >
 			<div class="search_button">
-				<?php \ui\util\submit_button("検索する"); ?>
+				<button class="manage_button" type='submit' name='<?php echo self::SearchBtnName; ?>'>検索する</button>
 				<input class="manage_button" type="reset" value="検索条件をクリアする" />
 			</div>
 			<?php $this->repeat(); ?>
-			</form>
 		</div>
 		<?php
 	}
