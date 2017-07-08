@@ -4,8 +4,8 @@ use business\entity\Customer;
 use business\facade;
 use ui\util\ConfirmSubmitButton;
 use ui\util\SubmitButton;
-require_once("customer-detail.php");
-require_once('search-viewer.php');
+require_once(dirname(__FILE__).'/../customer-detail.php');
+require_once(dirname(__FILE__).'/search-viewer.php');
 
 class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 {

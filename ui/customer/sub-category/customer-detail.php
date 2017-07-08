@@ -2,9 +2,8 @@
 namespace ui\customer;
 use business\entity\Customer;
 use ui\util;
-require_once('search-sub.php');
 require_once('customer-detail-item.php');
-require_once(dirname(__FILE__)."/../../../staff.php");
+require_once(dirname(__FILE__)."/../../staff.php");
 
 abstract class DetailItem
 {

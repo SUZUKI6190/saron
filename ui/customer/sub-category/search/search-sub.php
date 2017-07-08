@@ -5,7 +5,6 @@ use \business\entity\Config;
 use \business\facade;
 require_once('customer-search-factory.php');
 require_once('customer-search-item.php');
-require_once('customer-detail.php');
 require_once('customer-detail-edit-viewer.php');
 require_once('search-viewer.php');
 require_once('customer-list-viewer.php');
