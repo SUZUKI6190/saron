@@ -22,7 +22,16 @@ class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 		$this->_update_button = new SubmitButton( CustomerDetail::$SavePostKey, "お客様情報を更新する", "");
 	}
 
-	public function CreateHeader()
+	public function init()
+	{
+		if($this->_update_button->is_submit())
+		{
+			$this->save();
+		}
+		
+	}
+
+	protected function create_header()
 	{
 		?>
 			<div style="text-align:right;:">
@@ -45,13 +54,13 @@ class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 		}
 	}
 
-	public function CreateCustomerData()
+	public function create_customer_data()
 	{
 		$data = \business\facade\SelectCustomerById($this->_id);
 		return $data;
 	}
 	
-	public function SaveInner(Customer $data)
+	protected function save_inner(Customer $data)
 	{
 		$data->id = $this->_id;
 		\business\facade\UpdateCustomer($data);

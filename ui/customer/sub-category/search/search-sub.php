@@ -22,6 +22,7 @@ class SearchSub extends CustomerSubBase
 	public function init()
 	{
 		$this->_viewer = $this->create_viewer();
+		$this->_viewer->init();
 	}
 
 	private function create_viewer() : SearchViewer

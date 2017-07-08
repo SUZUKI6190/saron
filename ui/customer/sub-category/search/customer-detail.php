@@ -60,9 +60,9 @@ abstract class CustomerDetail
 	private $_last_visit_date;
 	private $_next_visit_reservation_date;
 
-	protected abstract function CreateHeader();
-	public abstract function CreateCustomerData();
-	protected abstract function SaveInner(Customer $data);
+	protected abstract function create_header();
+	public abstract function create_customer_data();
+	protected abstract function save_inner(Customer $data);
 
 	public function __construct()
 	{
@@ -72,14 +72,9 @@ abstract class CustomerDetail
 		$this->_next_visit_reservation_date= new \ui\util\view_date_input("next_visit_reservation_date");
 	}
 
-	public function init()
-	{
-
-	}
-
 	public function view()
 	{
-		$data = $this->CreateCustomerData();
+		$data = $this->create_customer_data();
 		$this->CreateForm($data);
 	}
 
@@ -88,7 +83,7 @@ abstract class CustomerDetail
 		return date('Y-m-d',strtotime($strDate));
 	}
 
-	public function Save()
+	public function save()
 	{
 		$data = new Customer();
 		$item_list = $this->get_item_list($data);
@@ -108,7 +103,7 @@ abstract class CustomerDetail
 			$item->save();
 		}
 		
-		$this->SaveInner($data);
+		$this->save_inner($data);
 
 		?>
 
@@ -121,7 +116,7 @@ abstract class CustomerDetail
 
 	protected static $SavePostKey = 'save';
 
-	public function IsSavePost()
+	public function is_save_post()
 	{
 		return isset($_POST[CustomerDetail::$SavePostKey]);
 	}
@@ -165,13 +160,13 @@ abstract class CustomerDetail
 	?>
 		<div class="wrap">
 			<?php
-			$this->CreateHeader();
+			$this->create_header();
 			?>
 			<div class="input_form detail">
 				<div class="area">
 					<?php
 					$view_func;
-					if($this->IsSavePost()){
+					if($this->is_save_post()){
 						$view_func = function($item)
 						{
 							?>

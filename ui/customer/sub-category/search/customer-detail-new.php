@@ -6,7 +6,7 @@ require_once("customer-detail.php");
 
 class CustomerDetailNewViewer extends CustomerDetail
 {
-	public function CreateHeader()
+	protected function create_header()
 	{
 		?>
 			<div class="new_regist centering">
@@ -15,12 +15,12 @@ class CustomerDetailNewViewer extends CustomerDetail
 		<?php
 	}
 	
-	public function CreateCustomerData()
+	public function create_customer_data()
 	{
 		return  \business\entity\Customer::CreateEmptyObject();
 	}
 	
-	public function SaveInner(Customer $data)
+	protected function save_inner(Customer $data)
 	{
 		\business\facade\InsertCustomer($data);
 	}
