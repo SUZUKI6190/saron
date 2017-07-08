@@ -62,6 +62,7 @@ abstract class CustomerDetail
 	protected abstract function create_header();
 	public abstract function create_customer_data();
 	protected abstract function save_inner(Customer $data);
+	public abstract function init();
 
 	public function __construct()
 	{

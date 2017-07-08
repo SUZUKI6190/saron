@@ -9,12 +9,17 @@ class RegistNewSub extends CustomerSubBase
 {	
 	public function view()
 	{
+		$cc = CustomerContext::get_instance();
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+?>
+	<form method='post' action='<?php echo "$d" ?>'>
+	<?php
 		$detailView = new CustomerDetailNew();
-		if($detailView->is_save_post()){
-			$detailView->save();
-		}else{
-			$detailView->view();
-		}
+		$detailView->init();
+		$detailView->view();
+	?>
+	</form>
+	<?php	
 	}
 	
 	public function get_name()

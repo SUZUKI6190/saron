@@ -13,16 +13,13 @@ class MassRegistrationSub extends CustomerSubBase
 		if($this->is_upload()){
 			$this->import();
 		}else{
+			$cc = CustomerContext::get_instance();
+			$d = "?date=".(new \DateTime())->format("Ymdhis");
 			?>
 			<div class="input_form centering">
-			<form action="" method="post" enctype="multipart/form-data">
-
+			<form action='<?php echo "$d" ?>' method="post" enctype="multipart/form-data">
 				<input type="file" id="inp" name="<?php echo self::$post_key; ?>"  />
-		
-
-			<?php
-			\ui\util\submit_button("アップロード");
-			?>
+				<button type="submit" class="manage_button">アップロード</button>
 			</form>
 			</div>
 			<?php

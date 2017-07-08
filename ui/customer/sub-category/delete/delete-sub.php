@@ -6,6 +6,8 @@ use \business\facade;
 class DeleteSub extends CustomerSubBase
 {	
 	private static $month_list = [3,6,9,12,15];
+	const ConfirmName = "ConfirmName";
+	const SelectedMonthName = "SelectedMonthName";
 	private function setup_cron()
 	{
 	}
@@ -14,21 +16,24 @@ class DeleteSub extends CustomerSubBase
 	{
 		$c = Config::get_instance();
 
-		if(!empty($_POST["confirm_cron"]))
+		if(!empty($_POST[self::ConfirmName]))
 		{
-			$value = $_POST["selected_month"];
+			$value = $_POST[self::SelectedMonthName];
 			$c->IntervalDeleateCustomers->save_value($value);
 		}
-		$saved_month = $c->IntervalDeleateCustomers->get_value();
-		?>
 
-		<form method="post" action=""　>
+		$saved_month = $c->IntervalDeleateCustomers->get_value();
+		$cc = CustomerContext::get_instance();
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+
+		?>
+		<form method="post" action='<?php echo "$d" ?>'>
 		<div class="input_form centering">
 			<div class = "delete_item">
 				<span>
 					最終来店日から
 				</span><br>
-				<select name='selected_month'>
+				<select name='<?php echo self::SelectedMonthName; ?>'>
 				<?php
 				foreach(DeleteSub::$month_list as $month)
 				{
@@ -47,7 +52,7 @@ class DeleteSub extends CustomerSubBase
 			<div>
 			
 			<div class = "bottom_button_area">
-				<?php \ui\util\submit_button('確定する', "confirm_cron"); ?>
+				<input type="submit" name="<?php echo self::ConfirmName; ?>" class="manage_button" value="確定する" >
 			</div>
 		</div>
 		</form>
