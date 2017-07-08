@@ -28,7 +28,10 @@ class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 		{
 			$this->save();
 		}
-		
+		if($this->_delete_button->is_submit())
+		{
+			\business\facade\delete_customer_byid($this->_id);
+		}
 	}
 
 	protected function create_header()
@@ -42,16 +45,6 @@ class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 			</div>		
 		
 		<?php
-	}
-
-	protected function on_pre_view()
-	{
-		if($this->_delete_button->is_submit())
-		{
-			\business\facade\delete_customer_byid($this->_id);
-			echo "削除完了しました。";
-			exit;
-		}
 	}
 
 	public function create_customer_data()
