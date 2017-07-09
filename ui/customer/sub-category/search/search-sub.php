@@ -3,6 +3,8 @@ namespace ui\customer;
 use \SplFileObject;
 use \business\entity\Config;
 use \business\facade;
+use \business\entity\Customer;
+
 require_once('customer-search-factory.php');
 require_once('customer-search-item.php');
 require_once('customer-detail-edit-viewer.php');
@@ -18,31 +20,27 @@ class SearchSub extends CustomerSubBase
 		$cc = CustomerContext::get_instance();
 		if($cc->is_csv_btn_click())
 		{
-			$this->transfer($cc->get_donwload_url());
+			$this->donwload_csv();
 		}
 	}
 
-	protected function transfer($url)
+	protected function donwload_csv()
 	{
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
-		$new_url = $url.$d;
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename=data.csv');
-		header("Content-type: text/html; charset=utf-8");
+		header("Content-type: text/html; charset=shift_jis");
+		
 		$id_list = str_getcsv( $_POST[CustomerDownload::CUSTOMER_ID_NAME]);
 		
 		$ret = "";
-		
+		$ret = $ret.(Customer::create_csv_header())."\n";
 		foreach($id_list as $id)
 		{
-			$ret = $ret.\business\facade\SelectCustomerById($id)->serialize_csv()."\n";
+			$ret = $ret.(\business\facade\SelectCustomerById($id)->serialize_csv())."\n";
 		}
 
-		$ret = rtrim($ret, '\n');
-		
-		$stream = fopen('php://output', 'w');
+		echo mb_convert_encoding($ret,'SJIS-win','utf8');
 
-		fputcsv($stream, str_getcsv($ret));
 		exit;
 	}
 

@@ -30,13 +30,51 @@ class Customer{
 		return new Customer();
 	}
 	
+	public static function create_csv_header()
+	{
+		$strHeader = "";
+	
+		$concat = function($value) use(&$strHeader)
+		{
+			$strHeader	= $strHeader.$value.",";
+		};
+
+		$name_list = [
+			"名前(漢字)",
+			"名前(かな)",
+			"性別",
+			"年齢",
+			"誕生日",
+			"電話番号",
+			"住所",
+			"職業",
+			"来店数",
+			"email",
+			"DM不可",
+			"最終来店日",
+			"次回来店予定日",
+			"予約経路",
+			"備考"
+		];
+
+		foreach($name_list as $name)
+		{
+			$concat($name);	
+		}
+
+		$strHeader = rtrim($strHeader, ',');
+
+		return $strHeader;
+	}
+
 	public function serialize_csv()
 	{
 		$strCsv = "";
 	
 		$concat = function($value) use(&$strCsv)
 		{
-			$strCsv	= $strCsv.$value.",";
+			$strCsv	= $strCsv.trim($value);
+			$strCsv	= $strCsv.",";
 		};
 		
 		$concat($this->name_kanji);
@@ -44,13 +82,13 @@ class Customer{
 		$concat($this->sex);
 		$concat($this->old);
 		$concat($this->birthday);
-		$concat($this->last_visit_date);
 		$concat($this->phone_number);
 		$concat($this->address);
 		$concat($this->occupation);
 		$concat($this->number_of_visit);
 		$concat($this->email);
 		$concat($this->enable_dm);
+		$concat($this->last_visit_date);
 		$concat($this->next_visit_reservation_date);
 		$concat($this->reservation_route);
 		$concat($this->remarks);
@@ -98,13 +136,13 @@ class Customer{
 		$ret->sex = $get_value();
 		$ret->old = $get_value();
 		$ret->birthday = $get_value();
-		$ret->last_visit_date = $get_value();
 		$ret->phone_number = $get_value();
 		$ret->address = $get_value();
 		$ret->occupation = $get_value();
 		$ret->number_of_visit = $get_value();
 		$ret->email = $get_value();
 		$ret->enable_dm = $get_value();
+		$ret->last_visit_date = $get_value();
 		$ret->next_visit_reservation_date = $get_value();
 		$ret->reservation_route = $get_value();
 		$ret->remarks = $get_value();
