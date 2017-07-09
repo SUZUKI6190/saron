@@ -8,6 +8,7 @@ class YoyakuRegistration
 	public $customer_id;
 	public $start_time;
 	public $consultation;
+	public $number_of_visit;
 	public static function CreateObjectFromWpdb($wpdb) : YoyakuRegistration
 	{
 		$ret = new YoyakuRegistration();
@@ -16,6 +17,7 @@ class YoyakuRegistration
 		$ret->staff_id = $wpdb->staff_id;
 		$ret->customer_id = $wpdb->customer_id;
 		$ret->consultation = $wpdb->consultation;
+		$ret->number_of_visit = $wpdb->number_of_visit;
 		return $ret;
 	}
 }

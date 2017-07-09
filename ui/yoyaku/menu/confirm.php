@@ -116,7 +116,7 @@ class Confirm extends YoyakuMenu
         $new_customer = $this->get_new_custoemr_data($id_and_visitnum->number_of_visit);
         \business\facade\update_from_yoyakumail($customr_id, $new_customer);
 
-        $this->save_yoyaku_registration($customr_id);
+        $this->save_yoyaku_registration($customr_id, $id_and_visitnum->number_of_visit);
         $regist_id = \business\facade\get_last_insert_id();
         $this->save_schedule($customr_id, $regist_id);
 
@@ -139,9 +139,9 @@ class Confirm extends YoyakuMenu
         \business\facade\insert_schedule($schedule);
     }
 
-    private function save_yoyaku_registration($customr_id)
+    private function save_yoyaku_registration($customr_id, $visit_num)
     {
-        $yoyaku_regist = $this->create_yoyaku_registration($customr_id);
+        $yoyaku_regist = $this->create_yoyaku_registration($customr_id, $visit_num);
         \business\facade\insert_yoyaku_registration($yoyaku_regist);
     }
 
@@ -198,7 +198,7 @@ class Confirm extends YoyakuMenu
         return $ret;
     }
 
-    private function create_yoyaku_registration($customr_id) : YoyakuRegistration
+    private function create_yoyaku_registration($customr_id, $visit_num) : YoyakuRegistration
     {
         $yc = YoyakuContext::get_instance();
         $mc = $yc->mail_contents;
@@ -212,6 +212,8 @@ class Confirm extends YoyakuMenu
         $yj->start_time = $yc->yoyaku_date_time->get_value();
        
         $yj->consultation = $mc->consultation->get_value();
+
+        $yj->number_of_visit = $visit_num + 1;
 
         return $yj;
     }

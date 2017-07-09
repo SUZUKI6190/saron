@@ -162,12 +162,14 @@ function insert_yoyaku_registration($y)
             staff_id,
             customer_id,
             start_time,
-            consultation
+            consultation,
+            number_of_visit
 		)values(
             '$y->staff_id',
             '$y->customer_id',
             '$y->start_time',
-            '$y->consultation'
+            '$y->consultation',
+            '$y->number_of_visit'
 		)
 SQL;
 	$wpdb->query($strSql);
