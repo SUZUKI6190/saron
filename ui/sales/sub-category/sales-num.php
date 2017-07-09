@@ -20,7 +20,18 @@ class SumNumDataCalculator extends DataCalculator
 	}
 	public function catch_registration(YoyakuRegistration $y)
 	{
-		$this->_sum += 1;
+		if(isset($_POST[SalesNumSub::CustomerTypeName]))
+		{
+			if($_POST[SalesNumSub::CustomerTypeName] == SalesNumSub::NewCustomeKey){
+				if($y->number_of_visit < 1){
+					$this->_sum += 1;
+				}
+			}else{
+				if($y->number_of_visit > 1){
+					$this->_sum += 1;
+				}
+			}
+		}
 	}
 	public function get_data()
 	{
