@@ -65,6 +65,11 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 		}
 	}
 
+	protected function add_view()
+	{
+		
+	}
+
 	public function view()
 	{
 		$d = "?d=".(new \DateTime())->format("Ymdhis");	
@@ -78,6 +83,7 @@ abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 				<input type='radio' name='<?php echo self::SepTypeName ?>' value='day'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked('day'); ?> >日別
 			</div>
 			<?php
+			$this->add_view();
 			$this->_date_form->view_form();
 			if($this->_view_graph_button->is_submit()){
 				$script = sprintf('view_graph("%s", "%s");', $this->_canvas_id, self::GraphDateName);

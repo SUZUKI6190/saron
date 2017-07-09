@@ -46,8 +46,14 @@ class NumDaylyForm extends DaylyForm
 }
 
 
+
+
 class SalesNumSub extends SalesGraphSubBase
 {
+	const CustomerTypeName = "CustomerType";
+	const NewCustomeKey = "NewCustomer";
+	const RepeaterCustomeKey = "RepeaterCustomer";
+	
 	protected function create_monthly_form() : MonthlyForm
 	{
 		return new NumMonthlyForm();
@@ -57,6 +63,35 @@ class SalesNumSub extends SalesGraphSubBase
 	{
 		return new NumDaylyForm();
 	}
+
+	private function set_checked($name, $default=false)
+	{
+		if(!isset($_POST[self::CustomerTypeName]))
+		{
+			if($default)
+			{
+				echo 'checked';
+			}
+			return;
+		}
+		if($_POST[self::CustomerTypeName] == $name)
+		{
+			echo 'checked';
+		}
+	}
+
+	protected function add_view()
+	{
+		?>
+		<div class="line">
+			<h2>表示を選択</h2>			
+			<input type='radio' name='<?php echo self::CustomerTypeName ?>' value='<?php echo self::NewCustomeKey; ?>' onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked(self::NewCustomeKey, true); ?> >新規
+			<input type='radio' name='<?php echo self::CustomerTypeName ?>' value='<?php echo self::RepeaterCustomeKey; ?>'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked(self::RepeaterCustomeKey); ?> >リピーター
+		</div>
+
+		<?php
+	}
+
 
 	public function get_name()
 	{
