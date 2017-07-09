@@ -84,7 +84,7 @@ class SalesNumSub extends SalesGraphSubBase
 	{
 		?>
 		<div class="line">
-			<h2>表示を選択</h2>			
+			<h2>種類を選択</h2>			
 			<input type='radio' name='<?php echo self::CustomerTypeName ?>' value='<?php echo self::NewCustomeKey; ?>' onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked(self::NewCustomeKey, true); ?> >新規
 			<input type='radio' name='<?php echo self::CustomerTypeName ?>' value='<?php echo self::RepeaterCustomeKey; ?>'  onclick='SubmitOnClick("<?php echo $this->_form_id; ?>")' <?php $this->set_checked(self::RepeaterCustomeKey); ?> >リピーター
 		</div>

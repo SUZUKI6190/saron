@@ -78,23 +78,28 @@ SQL;
 }
 
 
-function select_customer_id_by_email($email)
+function select_customer_id_and_visitnum_by_email($email)
 {
 	$password = Customer::GetPassword();
 	$strSql = <<<SQL
 	SELECT 
-		`id`
+		`id`,
+		`number_of_visit`
 	FROM `yoyaku_customer`
 	where convert(AES_DECRYPT(email, '$password')  using utf8) = '$email'
 SQL;
 
 	global $wpdb;
 	$result = $wpdb->get_row($strSql);
+
+	$ret = new class(){};
 	if(is_null($result)){
 		return null;
 	}else{
-		return $result->id;
-	}
+		$ret->id = $result->id;
+		$ret->number_of_visit = $result->number_of_visit;
+		return $ret;
+	}	
 }
 
 
@@ -193,7 +198,8 @@ function update_from_yoyakumail(int $id, Customer $data)
 		last_visit_date = next_visit_reservation_date,
 		reservation_route = AES_ENCRYPT('$data->reservation_route', $passWord), 
 		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord),
-		remarks = AES_ENCRYPT('$data->remarks', $passWord)
+		remarks = AES_ENCRYPT('$data->remarks', $passWord),
+		number_of_visit = '$data->number_of_visit'
 	where id = '$id'
 SQL;
 

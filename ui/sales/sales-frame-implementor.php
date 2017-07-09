@@ -4,8 +4,6 @@ require_once('sales-context.php');
 require_once('sub-category/sales-price.php');
 require_once('sub-category/sales-num.php');
 require_once('sub-category/sales-per-customer.php');
-require_once(dirname(__FILE__).'/../../business/facade/sales.php');
-require_once(dirname(__FILE__).'/../../business/entity/sales.php');
 use \ui\frame\ManageFrameImplementor;
 use ui\frame\HeaderFile;
 

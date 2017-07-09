@@ -111,8 +111,10 @@ class Confirm extends YoyakuMenu
     private function save()
     {
         $yc = YoyakuContext::get_instance();
-        $customr_id = $this->get_customer_id();
-        \business\facade\update_from_yoyakumail($customr_id, $this->get_new_custoemr_data());
+        $id_and_visitnum = $this->get_customer_id_and_visitnum();
+        $customr_id = $id_and_visitnum->id;
+        $new_customer = $this->get_new_custoemr_data($id_and_visitnum->number_of_visit);
+        \business\facade\update_from_yoyakumail($customr_id, $new_customer);
 
         $this->save_yoyaku_registration($customr_id);
         $regist_id = \business\facade\get_last_insert_id();
@@ -214,7 +216,7 @@ class Confirm extends YoyakuMenu
         return $yj;
     }
 
-    private function get_new_custoemr_data() : Customer
+    private function get_new_custoemr_data($visit_num) : Customer
     {
         $yc = YoyakuContext::get_instance();
         $mc = $yc->mail_contents;
@@ -227,23 +229,24 @@ class Confirm extends YoyakuMenu
         $new_customer->email = $mc->email->get_value();
         $new_customer->remarks = $mc->consultation->get_value();
         $new_customer->reservation_route = 2;
+        $new_customer->number_of_visit = $visit_num  + 1;
         return $new_customer;
     }
 
-    private function get_customer_id() : int
+    private function get_customer_id_and_visitnum()
     {
         $yc = YoyakuContext::get_instance();
         $mc = $yc->mail_contents;
 
-        $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
+        $customer = \business\facade\select_customer_id_and_visitnum_by_email($mc->email->get_value());
 
-        if(is_null($customer_id)){
+        if(is_null($customer)){
             $new_customer =$this->get_new_custoemr_data();
             \business\facade\InsertCustomer($new_customer);
-            $customer_id = \business\facade\select_customer_id_by_email($mc->email->get_value());
+            $customer = \business\facade\select_customer_id_and_visitnum_by_email($mc->email->get_value());
         }
 
-        return $customer_id;
+        return $customer;
     }
 
     private function send_mail()
