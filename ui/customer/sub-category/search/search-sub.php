@@ -15,7 +15,35 @@ class SearchSub extends CustomerSubBase
 
 	public function pre_view()
 	{
+		$cc = CustomerContext::get_instance();
+		if($cc->is_csv_btn_click())
+		{
+			$this->transfer($cc->get_donwload_url());
+		}
+	}
 
+	protected function transfer($url)
+	{
+		$d = "?date=".(new \DateTime())->format("Ymdhis");
+		$new_url = $url.$d;
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename=data.csv');
+		header("Content-type: text/html; charset=utf-8");
+		$id_list = str_getcsv( $_POST[CustomerDownload::CUSTOMER_ID_NAME]);
+		
+		$ret = "";
+		
+		foreach($id_list as $id)
+		{
+			$ret = $ret.\business\facade\SelectCustomerById($id)->serialize_csv()."\n";
+		}
+
+		$ret = rtrim($ret, '\n');
+		
+		$stream = fopen('php://output', 'w');
+
+		fputcsv($stream, str_getcsv($ret));
+		exit;
 	}
 
 	public function init()

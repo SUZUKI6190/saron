@@ -34,8 +34,7 @@ class SearchitemRepeater
 {
 	private $_item_list;
 
-	const ExportBtnName = "delete_btn";
-	const DeleteBtnName = "csv_export";
+	const DeleteBtnName = "delete_btn";
 	const SearchBtnName = "search_btn";
 
 	public function __construct($item_list)
@@ -46,6 +45,11 @@ class SearchitemRepeater
 	public function is_search() : bool
 	{
 		return isset($_POST[self::SearchBtnName]);
+	}
+
+	public function is_donwnload(): bool
+	{
+		return isset($_POST[self::ExportBtnName]);
 	}
 
 	public function create_where_query()
@@ -113,12 +117,13 @@ class SearchitemRepeater
 		?>
 		<div class ="search_menu">
 			<?php
+			
 			$key_hidden = rtrim($key_hidden, ',');
 			$key = CustomerDownload::CUSTOMER_ID_NAME;
 			echo "<input type='hidden' name='$key' value='$key_hidden' />";
+			$url = $cc->get_donwload_url();
 			?>
-			<button type='submit' name='<?php echo self::ExportBtnName ?>' class='manage_button'>検索結果をCSVで出力する</button>
-
+			<button type='submit' name='<?php echo CustomerContext::ExportBtnName ?>' class='manage_button'>検索結果をCSVで出力する</button>
 		</div>
 		<?php
 		$tableGenerator->DataSource = $data;

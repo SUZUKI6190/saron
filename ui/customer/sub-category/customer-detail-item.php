@@ -10,10 +10,12 @@ class KanjiNameDetailItem extends DetailItem
 		<input name="name_kanji" type="text" value='<?php echo $this->_customer_data->name_kanji; ?>' required />
 		<?php
 	}
+
 	public function get_name():string
 	{
 		return "氏名(漢字)".$this->required_text();
 	}
+
 	public function input_check() : bool
 	{
 		if(empty($_POST["name_kanji"])){
@@ -26,10 +28,12 @@ class KanjiNameDetailItem extends DetailItem
 
 		return true;
 	}
+
 	public function get_err_msg() : string
 	{
 		return "氏名(漢字)が未入力です。";
 	}
+
 	public function save()
 	{
 		$this->_customer_data->name_kanji = $_POST["name_kanji"];
