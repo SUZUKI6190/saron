@@ -42,7 +42,6 @@ class Confirm extends YoyakuMenu
         $yc = YoyakuContext::get_instance();
       
         if(isset($_POST["finish_btn"])){
-         
             $this->save();
 
             $this->send_mail();
@@ -93,8 +92,8 @@ class Confirm extends YoyakuMenu
         $ret->name_kanji = $mc->name_kanji->get_value();
         $ret->name_kana = $mc->name_kana->get_value();
         $ret->tell = $mc->tell->get_value();
-        $visit_kbn = $mc->visit->get_value()[0];
-        if($visit_kbn == 0){
+        
+        if($this->is_first_visit()){
             $ret->visit = "初めて";
         }else{
             $ret->visit =  "再来店";
@@ -123,10 +122,18 @@ class Confirm extends YoyakuMenu
         $this->save_reserved_course($regist_id);
     }
 
+    private function is_first_visit() : bool
+    {
+        $yc = YoyakuContext::get_instance();
+        $mc = $yc->mail_contents;
+        $visit_kbn = $mc->visit->get_value()[0];
+        return $visit_kbn == 0;
+    }
+
     private function get_staff_id()
     {
         if($this->_staff == null){
-            return 'null';
+            return 0;
         }else{
             return $this->_staff->id;
         }
@@ -213,7 +220,12 @@ class Confirm extends YoyakuMenu
        
         $yj->consultation = $mc->consultation->get_value();
 
-        $yj->number_of_visit = $visit_num + 1;
+        if($this->is_first_visit()){
+            $yj->number_of_visit = 1;
+        }else{
+            $yj->number_of_visit = $visit_num + 1;
+        }
+        
 
         return $yj;
     }
@@ -243,7 +255,7 @@ class Confirm extends YoyakuMenu
         $customer = \business\facade\select_customer_id_and_visitnum_by_email($mc->email->get_value());
 
         if(is_null($customer)){
-            $new_customer =$this->get_new_custoemr_data();
+            $new_customer =$this->get_new_custoemr_data(1);
             \business\facade\InsertCustomer($new_customer);
             $customer = \business\facade\select_customer_id_and_visitnum_by_email($mc->email->get_value());
         }
