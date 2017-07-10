@@ -21,7 +21,7 @@ SQL;
         return false;
     }
 
-	return $reult[0]->password == $pass;
+	return $result[0]->password == $pass;
 
 }
 

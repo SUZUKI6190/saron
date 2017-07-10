@@ -38,8 +38,7 @@ class ManageFrameContext
 {
 	private static $_current;
 	const LoginKey = 'Login';
-	const LoginPasswordKey = 'LoginPass';
-	const LoginUserKey = 'LoginUser';
+
 	public $main_category_list = [];
 	public $template_page_name;
 
@@ -66,9 +65,19 @@ class ManageFrameContext
 		return self::$_current;
 	}
 
+	public function set_login_flg()
+	{
+		$_SESSION[self::LoginKey] = true;
+	}
+
 	public function is_login() : bool
 	{
 		return isset($_SESSION[self::LoginKey]);
+	}
+
+	public function logout()
+	{
+		unset($_SESSION[self::LoginKey]);
 	}
 }
 
