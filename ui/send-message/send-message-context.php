@@ -44,7 +44,9 @@ class SendMessageContext
 
 	public function init()
 	{
-		session_start();
+		if( !isset($_SESSION) ) {
+		  session_start();
+		}
 	
 		$this->_param_set = new SendMessageParamSet();
 

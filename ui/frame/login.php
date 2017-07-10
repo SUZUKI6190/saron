@@ -11,7 +11,6 @@ class Login{
 
     public static function init()
     {
-        session_id (self::LoginSessionId);
 		session_start();
 		$mc = ManageFrameContext::get_instance();
         
