@@ -140,12 +140,20 @@ SQL
 SQL
 		);
 
-
 	dbDelta(<<<SQL
 		CREATE TABLE yoyaku_config (
 			id int UNSIGNED NOT NULL,
 			value text character set utf8,
 			PRIMARY KEY(id)
+		)
+SQL
+		);
+
+	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_login (
+			user_name varchar(100) character set utf8 NOT NULL,
+			password text character set utf8 NOT NULL,
+			PRIMARY KEY(user_name)
 		)
 SQL
 		);

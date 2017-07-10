@@ -37,7 +37,9 @@ abstract class SubCategory
 class ManageFrameContext
 {
 	private static $_current;
-
+	const LoginKey = 'Login';
+	const LoginPasswordKey = 'LoginPass';
+	const LoginUserKey = 'LoginUser';
 	public $main_category_list = [];
 	public $template_page_name;
 
@@ -58,10 +60,15 @@ class ManageFrameContext
 	{
 		if(is_null(self::$_current))
 		{
-			self::$_current = new ManageFrameContext();
+			self::$_current = new self();
 		}
 		
 		return self::$_current;
+	}
+
+	public function is_login() : bool
+	{
+		return isset($_SESSION[self::LoginKey]);
 	}
 }
 
