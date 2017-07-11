@@ -8,7 +8,7 @@ function get_message_setting_byid($id) : SendMessage
 		select
 			*
 		from
-			sending_message
+			yoyaku_sending_message
 		where
 			id = '$id'
 SQL;
@@ -24,7 +24,7 @@ function get_message_setting_all()
 		select
 			*
 		from
-			sending_message
+			yoyaku_sending_message
 SQL;
 
 	global $wpdb;
@@ -43,7 +43,7 @@ function delete_message_setting($id)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from sending_message
+		delete from yoyaku_sending_message
 		where id = '$id'
 SQL
 );
@@ -54,7 +54,7 @@ function insert_message_setting($msg)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into sending_message (
+		insert into yoyaku_sending_message (
 			title,
 			birth,
 			last_visit,
@@ -93,7 +93,7 @@ function update_message_setting(SendMessage $msg)
 {
 	global $wpdb;
 	$s = <<<SQL
-		update sending_message  set
+		update yoyaku_sending_message  set
 			title = '$msg->title',
 			birth = '$msg->birth',
 			last_visit = '$msg->last_visit',

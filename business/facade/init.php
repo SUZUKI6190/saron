@@ -69,7 +69,7 @@ SQL
 		);
 		
 	dbDelta(<<<SQL
-		CREATE TABLE sending_message (
+		CREATE TABLE yoyaku_sending_message (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			title text character set utf8,
 			birth  int,
