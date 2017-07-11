@@ -23,6 +23,11 @@ class Login{
                 $mc->set_login_flg();
             }
         }
+
+        if($mc->is_logout_click())
+        {
+            $mc->set_logout_flg();
+        }
     }
 
     private static function is_send_click():bool

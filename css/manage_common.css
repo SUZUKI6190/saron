@@ -180,3 +180,8 @@ input[type="tel"]
     width: 90%;
     height: 200px;
 }
+
+.logout_area
+{
+    text-align:right;
+}

@@ -77,10 +77,10 @@
 		}
 
 		public function view()
-		{
+		{			
 			$css_url = plugins_url("../../css" , __FILE__);
 			$js_url = plugins_url("../../js" , __FILE__);
-			$cssvar = '0.2';
+			$cssvar = '0.3';
 		?>
 			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 			<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
@@ -104,6 +104,11 @@
 			<meta name="msapplication-config" content="none"/>
 			</head>
 			<body>
+			<div class='logout_area'>
+				<form action='' method='post'>
+					<button type='submit' name='<?php echo ManageFrameContext::LogoutBtnName; ?>'>ログアウト</button>
+				</form>
+			</div>
 			<div class="main_wrap">
 			<?php
 				

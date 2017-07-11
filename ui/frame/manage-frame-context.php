@@ -38,7 +38,7 @@ class ManageFrameContext
 {
 	private static $_current;
 	const LoginKey = 'Login';
-
+	const LogoutBtnName = 'LogoutBtn';
 	public $main_category_list = [];
 	public $template_page_name;
 
@@ -75,7 +75,12 @@ class ManageFrameContext
 		return isset($_SESSION[self::LoginKey]);
 	}
 
-	public function logout()
+	public function is_logout_click() : bool
+	{
+		return isset($_POST[self::LogoutBtnName]);
+	}
+
+	public function set_logout_flg()
 	{
 		unset($_SESSION[self::LoginKey]);
 	}
