@@ -113,7 +113,7 @@ class VisitNumCriterie extends Criteria
 
     public function get_title():string
     {
-        return "職業";
+        return "来店数";
     }
 
     public function view()
