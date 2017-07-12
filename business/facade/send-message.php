@@ -70,20 +70,20 @@ function insert_message_setting($msg)
 			occupation,
 			reservation_route
 			)values(
-			'$msg->title',
-			'$msg->birth',
-			'$msg->last_visit',
-			'$msg->next_visit',
-			'$msg->enable_dm',
-			'$msg->sending_mail',
-			'$msg->confirm_mail',
-			'$msg->message_text',
-			'$msg->sex',
-			'$msg->visit_num_more',
-			'$msg->visit_num_less',
-			'$msg->staff_id',
-			'$msg->occupation',
-			'$msg->reservation_route'
+			nullif('$msg->title', ''),
+			nullif('$msg->birth', ''),
+			nullif('$msg->last_visit', ''),
+			nullif('$msg->next_visit', ''),
+			nullif('$msg->enable_dm', ''),
+			nullif('$msg->sending_mail', ''),
+			nullif('$msg->confirm_mail', ''),
+			nullif('$msg->message_text', ''),
+			nullif('$msg->sex', ''),
+			nullif('$msg->visit_num_more', ''),
+			nullif('$msg->visit_num_less', ''),
+			nullif('$msg->staff_id', ''),
+			nullif('$msg->occupation', ''),
+			nullif('$msg->reservation_route', '')
 		)
 SQL
 );
@@ -94,19 +94,20 @@ function update_message_setting(SendMessage $msg)
 	global $wpdb;
 	$s = <<<SQL
 		update yoyaku_sending_message  set
-			title = '$msg->title',
-			birth = '$msg->birth',
-			last_visit = '$msg->last_visit',
-			next_visit = '$msg->next_visit',
-			enable_dm = '$msg->enable_dm',
-			sending_mail = '$msg->sending_mail',
-			confirm_mail = '$msg->confirm_mail',
-			message_text = '$msg->message_text',
-			sex = '$msg->sex',
-			visit_num_more = '$msg->visit_num_more',
-			visit_num_less = '$msg->visit_num_less',
-			occupation = '$msg->occupation',
-			reservation_route = '$msg->reservation_route'
+			title = nullif('$msg->title', ''),
+			birth = nullif('$msg->birth', ''),
+			last_visit = nullif('$msg->last_visit', ''),
+			next_visit = nullif('$msg->next_visit', ''),
+			enable_dm = nullif('$msg->enable_dm', ''),
+			sending_mail = nullif('$msg->sending_mail', ''),
+			confirm_mail = nullif('$msg->confirm_mail', ''),
+			message_text = nullif('$msg->message_text', ''),
+			sex = nullif('$msg->sex', ''),
+			staff_id = nullif('$msg->staff_id', ''),
+			visit_num_more = nullif('$msg->visit_num_more', ''),
+			visit_num_less = nullif('$msg->visit_num_less', ''),
+			occupation = nullif('$msg->occupation', ''),
+			reservation_route = nullif('$msg->reservation_route', '')
 		where id = '$msg->id'
 SQL;
 
