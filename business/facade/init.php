@@ -30,7 +30,7 @@ SQL
 		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE staff (
+		CREATE TABLE yoyaku_staff (
 			id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			name_last varchar(100) character set utf8,
 			name_first varchar(100) character set utf8,
@@ -43,7 +43,7 @@ SQL
 		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE menu (
+		CREATE TABLE yoyaku_menu (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			name varchar(100)  character set utf8,
 			description text character set utf8,
@@ -55,7 +55,7 @@ SQL
 		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE menu_course (
+		CREATE TABLE yoyaku_menu_course (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			menu_id int UNSIGNED NOT NULL,
 			name varchar(100) character set utf8,
@@ -91,7 +91,7 @@ SQL
 		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE weekly_yoyaku (
+		CREATE TABLE yoyaku_weekly (
 			from_time TIME NOT NULL,
 			to_time TIME NOT NULL,
 			is_regular_holiday tinyint UNSIGNED,

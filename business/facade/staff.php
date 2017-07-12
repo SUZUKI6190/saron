@@ -12,7 +12,7 @@ function get_staff_byid($id) : Staff
 			name_last,
 			introduce_page_url
 		from
-			staff
+			yoyaku_staff
 		where
 			id = '$id'
 SQL;
@@ -29,7 +29,7 @@ function get_staff_image_by_id($id) : Image
 			`imgdat`,
 			`mime`
 		from
-			staff
+			yoyaku_staff
 		where
 			id = '$id'
 SQL;
@@ -48,7 +48,7 @@ function get_staff_all()
 			name_last,
 			introduce_page_url
 		from
-			staff
+			yoyaku_staff
 SQL;
 
 	global $wpdb;
@@ -67,7 +67,7 @@ function delete_staff($id)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from staff
+		delete from yoyaku_staff
 		where id = '$id'
 SQL
 );
@@ -78,7 +78,7 @@ function insert_staff($staff)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into staff (
+		insert into yoyaku_staff (
 			id,
 			name_first,
 			name_last,
@@ -99,7 +99,7 @@ function insert_staff_with_image($staff)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into staff (
+		insert into yoyaku_staff (
 			id,
 			name_first,
 			name_last,
@@ -123,7 +123,7 @@ function update_staff($staff)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		UPDATE staff SET 
+		UPDATE yoyaku_staff SET 
 			name_first = '$staff->name_first',
 			name_last= '$staff->name_last',
 			introduce_page_url = '$staff->introduce_page_url'
@@ -137,7 +137,7 @@ function update_staff_image($id, $mime, $imgdat)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		UPDATE staff SET 
+		UPDATE yoyaku_staff SET 
 			mime = '$mime',
 			imgdat = '$imgdat'
 		where id = '$id'

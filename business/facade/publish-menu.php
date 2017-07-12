@@ -14,7 +14,7 @@ function get_menu_list($id = "")
 		description,
 		enable_reservation,
 		updated_at
-		from menu
+		from yoyaku_menu
 SQL;
 
 	if(!empty($id))
@@ -49,7 +49,7 @@ function delete_menu($id)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from menu
+		delete from yoyaku_menu
 		where id = '$id'
 SQL
 );
@@ -60,7 +60,7 @@ function insert_menu(Menu $menu)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-insert into menu (
+insert into yoyaku_menu (
 	name,
 	description,
 	enable_reservation
@@ -71,19 +71,6 @@ insert into menu (
 )
 SQL
 );
-}
-
-function update_menu(Menu $menu)
-{
-	$strSql = <<<SQL
-		update `customer` set
-		name = '$menu->name',
-		description = '$menu->description',
-		enable_reservation = '$menu->enable_reservation',
-	where id = '$data->id'
-SQL;
-	global $wpdb;
-	$wpdb->query($strSql);
 }
 
 function get_menu_course_by_menuid($menu_id)
@@ -97,7 +84,7 @@ function get_menu_course_by_menuid($menu_id)
 		sequence_no,
 		first_discount,
 		time_required
-		from menu_course
+		from yoyaku_menu_course
 		where menu_id = '$menu_id'
 SQL;
 
@@ -129,7 +116,7 @@ function get_menu_course($id, $menu_id)
 		sequence_no,
 		first_discount,
 		time_required
-		from menu_course
+		from yoyaku_menu_course
 		where menu_id = '$menu_id'
 		  and id = '$id'
 SQL;
@@ -171,7 +158,7 @@ function get_menu_course_by_idlist($id_list)
 		sequence_no,
 		first_discount,
 		time_required
-		from menu_course
+		from yoyaku_menu_course
 		$strWhere
 SQL;
 
@@ -198,7 +185,7 @@ function delete_menu_course($id)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from menu_course
+		delete from yoyaku_menu_course
 		where id = '$id'
 SQL
 );
@@ -209,7 +196,7 @@ function delete_menu_course_by_menuid($menu_id)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from menu_course
+		delete from yoyaku_menu_course
 		where menu_id = '$menu_id'
 SQL
 );
@@ -220,7 +207,7 @@ function insert_menu_course(MenuCourse $mc)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into menu_course (
+		insert into yoyaku_menu_course (
 			menu_id,
 			name,
 			price,

@@ -8,7 +8,7 @@ function get_weekly_data() : array
 		select
 			*
 		from
-			weekly_yoyaku
+			yoyaku_weekly
 		order by week_kbn
 SQL;
 
@@ -29,7 +29,7 @@ function delete_weekly_data_all()
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		delete from weekly_yoyaku
+		delete from yoyaku_weekly
 SQL
 );
 }
@@ -39,7 +39,7 @@ function insert_weekly_data($w)
 	global $wpdb;
 	$wpdb->query(
 		<<<SQL
-		insert into weekly_yoyaku (
+		insert into yoyaku_weekly (
 			from_time,
 			to_time,
 			is_regular_holiday,
