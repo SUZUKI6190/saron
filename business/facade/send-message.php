@@ -114,5 +114,4 @@ SQL;
 	$wpdb->query($s);
 }
 
-
 ?>
