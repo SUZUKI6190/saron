@@ -8,7 +8,7 @@ class ScheduledMessageFacade
 	{
 	}
 
-    public static function get_message_list($message_id)
+    public static function get_message_list()
     {
         $password = Customer::GetPassword();
         $strSql = <<<SQL
@@ -19,8 +19,7 @@ select
 from
 	yoyaku_customer as c,
 	yoyaku_sending_message as m
-where m.id = '$message_id'
-and (m.staff_id is NULL or m.staff_id = c.tanto_id)
+where (m.staff_id is NULL or m.staff_id = c.tanto_id)
 and (m.sex is NULL or m.sex = convert(AES_DECRYPT(c.sex, '$password') using utf8))
 and (m.birth is NULL or (DATEDIFF(Now(), convert(AES_DECRYPT(c.birthday, '$password') using utf8)) - m.birth) = 0)
 and (m.last_visit is NULL or (DATEDIFF(Now(), convert(AES_DECRYPT(c.last_visit_date, '$password') using utf8)) - m.last_visit) = 0)
@@ -33,7 +32,13 @@ SQL;
 
         global $wpdb;
         $result = $wpdb->get_results($strSql);
-        return ScheduledMessage::CreateFromWpdb($result[0]);
+        
+        $convert = function($data)
+        {
+            return ScheduledMessage::CreateFromWpdb(($data);
+        };
+
+	    return array_map($convert, $result);
     }
 
 }
