@@ -1,6 +1,7 @@
 <?php
 namespace business\facade;
 use \business\entity\ScheduledMessage;
+use \business\entity\Customer;
 
 class ScheduledMessageFacade
 {
@@ -35,7 +36,7 @@ SQL;
         
         $convert = function($data)
         {
-            return ScheduledMessage::CreateFromWpdb(($data);
+            return ScheduledMessage::CreateObjectFromWpdb($data);
         };
 
 	    return array_map($convert, $result);

@@ -2,7 +2,7 @@
 namespace cron;
 require_once(dirname(__FILE__)."/../business/entity/scheduled-message.php");
 require_once(dirname(__FILE__)."/../business/facade/scheduled-message.php");
-use \business\facade;
+use \business\facade\ScheduledMessageFacade;
 
 function run_scheduled_message()
 {
@@ -10,7 +10,7 @@ function run_scheduled_message()
 
     foreach($msg_list as $msg)
     {
-        wp_mail($msg->email, $msg->title, $msg->text);
+        \wp_mail($msg->email, $msg->title, $msg->text);
     }
 }
 
