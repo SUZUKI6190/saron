@@ -1,7 +1,5 @@
 <?php
 namespace cron;
-require_once(dirname(__FILE__)."/../business/entity/scheduled-message.php");
-require_once(dirname(__FILE__)."/../business/facade/scheduled-message.php");
 use \business\facade\ScheduledMessageFacade;
 
 function run_scheduled_message()

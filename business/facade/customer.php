@@ -173,13 +173,14 @@ SQL
 );
 }
 
-function delete_customer_by_last_visit_date($lapsed_month)
+function delete_customer_by_last_visit_date()
 {
 	global $wpdb;
+	$passWord = Customer::GetPassword();
 	$wpdb->query(
 	<<<SQL
-	DELETE FROM	yoyaku_customer
-	WHERE now() > (convert(AES_DECRYPT(last_visit_date, 'password') using utf8) + INTERVAL $lapsed_month MONTH)
+	delete from	yoyaku_customer
+	where (convert(AES_DECRYPT(last_visit_date, '$passWord')  using utf8) + interval (select value from yoyaku_config where id ='4') month) <= now()
 SQL
 );
 }
