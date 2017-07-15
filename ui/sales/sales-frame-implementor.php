@@ -4,6 +4,7 @@ require_once('sales-context.php');
 require_once('sub-category/sales-price.php');
 require_once('sub-category/sales-num.php');
 require_once('sub-category/sales-per-customer.php');
+require_once('sub-category/sales-mail-setting.php');
 use \ui\frame\ManageFrameImplementor;
 use ui\frame\HeaderFile;
 
@@ -19,6 +20,7 @@ class SalesFrameImplementor extends ManageFrameImplementor
 		$set_array(new SalesPriceSub());
 		$set_array(new SalesNumSub());
 		$set_array(new SalesPerCustomerSub());
+		$set_array(new SalesMailSettingSub());
 		return $ret;
 	}
 
