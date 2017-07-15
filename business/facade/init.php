@@ -114,6 +114,16 @@ SQL
 		);
 
 	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_sales_mail (
+			id int UNSIGNED NOT NULL AUTO_INCREMENT,
+			email text character set utf8,
+			PRIMARY KEY(id)
+		)
+SQL
+		);
+
+
+	dbDelta(<<<SQL
 		CREATE TABLE yoyaku_reserved_course (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			registration_id int UNSIGNED,

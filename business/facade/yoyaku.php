@@ -131,6 +131,27 @@ SQL;
     return get_group_yoyaku_registration($list);
 }
 
+function get_yoyaku_registration_last_month() : array
+{
+    global $wpdb;
+    $strSql = <<<SQL
+    SELECT * from yoyaku_registration
+        WHERE  Month(start_time) BETWEEN Month(NOW()) - 2 AND Month(NOW())
+        ORDER BY start_time ASC
+SQL;
+
+    $result = $wpdb->get_results($strSql);
+
+    $convert = function($data)
+	{
+		return YoyakuRegistration::CreateObjectFromWpdb($data);;
+	};
+
+    $list = array_map($convert, $result);
+
+    return get_group_yoyaku_registration($list);
+}
+
 function delete_yoyaku_registration_byid($id)
 {
 	global $wpdb;

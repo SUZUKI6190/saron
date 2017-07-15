@@ -42,9 +42,8 @@ function delete_reserved_course_by_registration_id($id)
         delete from yoyaku_reserved_course
         where registration_id = '$id'
 SQL;
-
+	global $wpdb;
 	$wpdb->query($strSql);
-	return $ret;
 }
 
 ?>
