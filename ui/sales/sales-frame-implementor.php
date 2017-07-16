@@ -32,7 +32,8 @@ class SalesFrameImplementor extends ManageFrameImplementor
 	protected function get_css_list()
 	{
 		return [
-			new HeaderFile('sales.css', 1.0)
+			new HeaderFile('sales.css', 1.0),
+			new HeaderFile('sales-mail.cs', 0.01)
 		];
 	}
 	

@@ -37,5 +37,18 @@ SQL;
         $wpdb->query($strSql);
     }
 
+    public static function insert(self $data)
+    {
+	$wpdb->query(
+		<<<SQL
+		insert into yoyaku_sales_mail (
+            email
+		)values(
+			'$data->email'
+		)
+SQL
+);
+    }
+
 }
 ?>
