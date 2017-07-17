@@ -64,21 +64,26 @@ class Login{
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
         <meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT"> 
-        <link rel="stylesheet" href="<?php echo $css_url."/login.css?ver=$cssvar"; ?>"  type="text/css" />
         <meta name="format-detection" content="telephone=no"/>
         <meta name="msapplication-config" content="none"/>
+        <link rel="stylesheet" href="<?php echo $css_url."/login.css?ver=$cssvar"; ?>"  type="text/css" />
         </head>
         <body>
-        <fieldset>
-            <h1>Login</h1>
             <form method='post' action='<?php echo "$d" ?>' name='<?php echo self::FormName; ?>'>
-            <div class="iconUser"></div>
-                <input type="text" placeholder="Username" name='<?php echo self::LoginUserKey; ?>' required>
-                <div class="iconPassword"></div>
-                <input type="password" placeholder="Password" name='<?php echo self::LoginPasswordKey; ?>' required>
-                <input type="submit" value="Enter" name='<?php echo self::SendBtnName; ?>'>
+                <fieldset class="login_wrap">
+                <span>予約システム管理ログイン画面</span>
+                    <div class='wrap'>
+                        <div class='input_area'>
+                            <input type="text" placeholder="Username" name='<?php echo self::LoginUserKey; ?>' required>
+                            <input type="password" placeholder="Password" name='<?php echo self::LoginPasswordKey; ?>' required>
+                        </div>
+                        <div class='btn_area'>
+                            <button type='submit' name='<?php echo self::SendBtnName; ?>'>ログイン</button>
+                        </div>
+                    </div>
+                </fieldset>
             </form>
-            </fieldset>
+         
         </body>
         <?php
     }
