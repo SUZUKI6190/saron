@@ -10,6 +10,11 @@ class SalesMailEditorEdit extends SalesMailEditorBase
 
     }
 
+    protected function get_page_value():string
+    {
+        return SalesMailContext::EditKeyValue;
+    }
+
     protected function save_inner(SalesMail $data)
     {
         SalesMailFacade::update($data);

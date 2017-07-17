@@ -45,11 +45,10 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
                 $viewer = new SalesMailEditorNew();  
             }
             $viewer->save();
-        }    
+        }
     
         if(isset($_POST[SalesMailContext::DeleteBtnName]))
         { 
-            
             $viewer = new SalesMailList();
             $viewer->save();
         }
@@ -89,7 +88,6 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
         $this->_viewer->view();
         ?>
         </div>
-        <input type="hidden" name='<?php echo SalesMailContext::SaveKey; ?>' value="<?php echo $this->_flg_value; ?>" >
     </form>
         <?php
 	}

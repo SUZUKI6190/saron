@@ -11,6 +11,8 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
     protected abstract function save_inner(SalesMail $data);
     protected abstract function get_mail():SalesMail;
 
+    protected abstract function get_page_value():string;
+
     public function init()
     {
         $this->init_inner();
@@ -48,6 +50,7 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
         <button class='manage_button' type='submit' name='<?php echo self::ConfirmName; ?>' >確定する</button>
         <input type='hidden' name='<?php echo SalesMailContext::EditBtnName;?>' value='<?php echo $id; ?>'>
         </div>
+                <input type="hidden" name='<?php echo SalesMailContext::SaveKey; ?>' value="<?php echo $this->get_page_value(); ?>" >
         <?php
     }
 

@@ -45,6 +45,7 @@ class SalesMailContext
     const EditBtnName = "EditFlg";
     const NewBtnName = "new_btn";
     const EditValueName = "EditValue";
+	const NewValueName = "NewValue";
     const EditKeyValue = "edit";
     const NewKeyValue = "new";
     const SaveKey = "SaveKey";
