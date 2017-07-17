@@ -1,7 +1,10 @@
 <?php
 namespace ui\sales;
+require_once('sales-mail/sales-mail-viewer.php');
+require_once('sales-mail/sales-mail-list.php');
 require_once('sales-mail/sales-mail-editor-base.php');
 require_once('sales-mail/sales-mail-editor-new.php');
+require_once('sales-mail/sales-mail-editor-edit.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \ui\util\SubmitButton;
@@ -14,27 +17,59 @@ use \business\facade\SalesMailFacade;
 class SalesMailSettingSub extends \ui\frame\SubCategory
 {
     private $_viewer;
-    const EditFlgName = "EditFlg";
-    const EditValueName = "EditValue";
+
     private $_mail_list;
+    private $_flg_value;
 
     private function is_edit():bool
     {
-        return isset($_POST[self::EditFlgName]);
+        return isset($_POST[SalesMailContext::EditBtnName]);
     }
     
-    private function get_edit_id()
+	public function init()
+	{
+        $this->save();
+        $this->_viewer = $this->create_viewer();
+        $this->_viewer->init();
+	}
+
+    private function save()
     {
-        if(isset($_POST[self::EditValueName])){
-            return $_POST[self::EditValueName];
-        }else{
-            return "";
+        if(isset($_POST[SalesMailContext::SaveKey]))
+        {                       
+            $viewer;
+            $v = $_POST[SalesMailContext::SaveKey];
+            if($v == SalesMailContext::EditKeyValue){
+                $viewer =new SalesMailEditorEdit();
+            }else{
+                $viewer = new SalesMailEditorNew();  
+            }
+            $viewer->init();
+            $viewer->save();
         }
     }
 
-	public function init()
-	{
-	}
+    private function create_viewer() : ISalesMailViewer
+    {
+        $sc = SalesContext::get_instance();
+        if($this->is_edit()){
+            $viewer;
+            $id = $sc->sales_mail_context->get_edit_sales_id();
+            if($id == ''){
+                $this->_flg_value = SalesMailContext::NewKeyValue;
+                $viewer = new SalesMailEditorNew();
+            }else{
+                $this->_flg_value = SalesMailContext::EditKeyValue;
+                $viewer = new SalesMailEditorEdit();
+            }
+            return $viewer;
+        }else{
+            $list =  new SalesMailList();
+            $list->edit_btn_name = SalesMailContext::EditBtnName;
+            $list->new_btn_name = SalesMailContext::EditBtnName;
+            return $list;
+        }
+    }
 
 	public function view()
 	{
@@ -43,65 +78,13 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
     <form method='post' action='<?php echo $d; ?>'>
         <div class='setting_width centering'>
         <?php
-        if($this->is_edit()){
-            $view;
-            if($this->get_edit_id()){
-                
-            }else{
-                $view = new SalesMailEditorNew();   
-            }
-            $view->view();
-        }else{
-            $this->view_list();
-        }
+        $this->_viewer->view();
         ?>
         </div>
+        <input type="hidden" name='<?php echo SalesMailContext::SaveKey; ?>' value="<?php echo $this->_flg_value; ?>" >
     </form>
         <?php
 	}
-
-    private function view_list()
-    {
-        $this->_mail_list = SalesMailFacade::get_all();
-        $edit_key = self::EditFlgName;
-    ?>
-    <div class='new_btn_area'>
-        <button class='manage_button' type='submit' name='<?php echo self::EditFlgName; ?>' value=''>新しく追加する</button>
-    </div>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        メールアドレス
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-            </thead>
-            <?php
-            foreach($this->_mail_list as $m)
-            {
-            ?>
-			<tr>
-				<td class="email">
-					<?php
-					echo $m->email;
-					?>
-				</td>
-				<td class='cmd_td'>
-					<?php echo "<button class='manage_button' type='submit' name='$edit_key' value='$m->id'>編集</button>"; ?>
-				</td>
-			</tr>
-			<?php
-            }
-            ?>
-        </table>
-    </div>
-    <?php
-    }
 
 	public function get_name()
 	{
