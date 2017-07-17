@@ -4,10 +4,13 @@ namespace ui\sales;
 class SalesContext
 {
 	private static $_instance;
+	public $sales_mail_context;
 	const FROM_KEY = 'from_month';
 	const TO_KEY = 'to_month';
+
 	private function __construct()
 	{
+		$this->sales_mail_context = new SalesMailContext();
 	}
 
 	public $view_mode;
@@ -35,6 +38,27 @@ class SalesContext
 		}
 		return self::$_instance;
 	}
+}
+
+class SalesMailContext
+{
+    const EditBtnName = "EditFlg";
+    const NewBtnName = "new_btn";
+    const EditValueName = "EditValue";
+    const EditKeyValue = "edit";
+    const NewKeyValue = "new";
+    const SaveKey = "SaveKey";
+
+	
+    public function get_edit_sales_id()
+    {
+        if(isset($_POST[self::EditBtnName])){
+            return $_POST[self::EditBtnName];
+        }else{
+            return "";
+        }
+    }
+
 }
 
 ?>

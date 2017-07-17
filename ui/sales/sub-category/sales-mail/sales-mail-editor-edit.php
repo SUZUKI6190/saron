@@ -3,21 +3,23 @@ namespace ui\sales;
 use business\entity\SalesMail;
 use business\facade\SalesMailFacade;
 
-class SalesMailEditorNew extends SalesMailEditorBase
+class SalesMailEditorEdit extends SalesMailEditorBase
 {
     protected function init_inner()
     {
-        
+
     }
 
     protected function save_inner(SalesMail $data)
     {
-        SalesMailFacade::insert($data);
+        SalesMailFacade::update($data);
     }
 
     protected function get_mail():SalesMail
     {
-        return new SalesMail();
+        $sc = SalesContext::get_instance();
+        $id = $sc->sales_mail_context->get_edit_sales_id();
+        return SalesMailFacade::get_by_id($id);
     }
 }
 ?>

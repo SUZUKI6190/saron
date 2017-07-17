@@ -6,7 +6,7 @@ class SalesMail
 	public $id;
 	public $email;
 	
-	public static function CreateObjectFromWpdb($wpdb) : self
+	public static function CreateFromWpdb($wpdb) : self
 	{
 		$ret = new self();
 		$ret->id = $wpdb->id;
