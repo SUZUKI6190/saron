@@ -48,7 +48,7 @@ class SalesMailContext
     const EditKeyValue = "edit";
     const NewKeyValue = "new";
     const SaveKey = "SaveKey";
-
+	const DeleteBtnName = "delete_btn";
 	
     public function get_edit_sales_id()
     {
@@ -59,6 +59,14 @@ class SalesMailContext
         }
     }
 
+    public function get_delete_sales_id()
+    {
+        if(isset($_POST[self::DeleteBtnName])){
+            return $_POST[self::DeleteBtnName];
+        }else{
+            return "";
+        }
+    }
 }
 
 ?>

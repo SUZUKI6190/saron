@@ -7,15 +7,23 @@ class SalesMailList implements ISalesMailViewer
 {
     private $_mail_list;
     public $edit_btn_name;
+    public $delete_btn_name;
     public  $new_btn_name;
+
     public function init()
     {
-        $this->_mail_list = SalesMailFacade::get_all();
+    }
+
+    public function save()
+    {
+        $sc = SalesContext::get_instance();
+        $id = $sc->sales_mail_context->get_edit_sales_id();
+        SalesMailFacade::delete_by_id($id);
     }
 
     public function view()
     {
-        
+        $this->_mail_list = SalesMailFacade::get_all();
     ?>
     <div class='new_btn_area'>
         <button class='manage_button' type='submit' name='<?php echo $this->new_btn_name; ?>' value=''>新しく追加する</button>
@@ -45,6 +53,9 @@ class SalesMailList implements ISalesMailViewer
 				</td>
 				<td class='cmd_td'>
 					<?php echo "<button class='manage_button' type='submit' name='$this->edit_btn_name' value='$m->id'>編集</button>"; ?>
+				</td>
+				<td class='cmd_td'>
+					<?php echo "<button class='manage_button' type='submit' name='$this->delete_btn_name' value='$m->id'>削除</button>"; ?>
 				</td>
 			</tr>
 			<?php

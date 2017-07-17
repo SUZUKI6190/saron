@@ -35,18 +35,25 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
 
     private function save()
     {
+        $viewer;
         if(isset($_POST[SalesMailContext::SaveKey]))
         {                       
-            $viewer;
             $v = $_POST[SalesMailContext::SaveKey];
             if($v == SalesMailContext::EditKeyValue){
-                $viewer =new SalesMailEditorEdit();
+                $viewer = new SalesMailEditorEdit();
             }else{
                 $viewer = new SalesMailEditorNew();  
             }
-            $viewer->init();
+            $viewer->save();
+        }    
+    
+        if(isset($_POST[SalesMailContext::DeleteBtnName]))
+        { 
+            
+            $viewer = new SalesMailList();
             $viewer->save();
         }
+    
     }
 
     private function create_viewer() : ISalesMailViewer
@@ -67,6 +74,7 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
             $list =  new SalesMailList();
             $list->edit_btn_name = SalesMailContext::EditBtnName;
             $list->new_btn_name = SalesMailContext::EditBtnName;
+            $list->delete_btn_name = SalesMailContext::DeleteBtnName;
             return $list;
         }
     }
