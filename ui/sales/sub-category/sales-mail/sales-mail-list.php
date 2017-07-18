@@ -20,6 +20,11 @@ class SalesMailList implements ISalesMailViewer
         }
     }
 
+    public function get_page_no() : int
+    {
+        
+    }
+
     public function view()
     {
         $this->_mail_list = SalesMailFacade::get_all();
