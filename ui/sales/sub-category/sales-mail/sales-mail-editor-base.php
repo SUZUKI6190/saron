@@ -6,7 +6,7 @@ use ui\sales\ISalesMailViewer;
 abstract class SalesMailEditorBase implements ISalesMailViewer
 {
     const MailName = "input_mail_name";
-    const ConfirmName = "confirm_btn";
+
     protected abstract function init_inner();
     protected abstract function save_inner(SalesMail $data);
     protected abstract function get_mail():SalesMail;
@@ -20,14 +20,7 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
 
     public function save()
     {
-        if($this->is_confirm()){
-            $this->save_inner($this->create_mail_data());
-        }     
-    }
-
-    private function is_confirm():bool
-    {
-        return isset($_POST[self::ConfirmName]);
+        $this->save_inner($this->create_mail_data());
     }
 
     private function create_mail_data() : SalesMail
@@ -47,14 +40,14 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
         ?>
         <div class='edit_wrap'>
             <div class='edit_confitm_area'>
-                <button class='manage_button' type='submit' name='<?php echo self::ConfirmName; ?>' >確定する</button>
+                <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ConfirmName; ?>' >確定する</button>
             </div>
             <div class='edit_input_area'>
                 <span>登録するメールアドレス：</span><br>
                 <input type='email' name='<?php echo self::MailName; ?>' value='<?php echo $m->email ?>' >
             </div>
         </div>
-        <input type="hidden" name='<?php echo SalesMailContext::SaveKey; ?>' value="<?php echo $this->get_page_value(); ?>" >
+        <input type="hidden" name='<?php echo SalesMailContext::NewBtnName; ?>' value="<?php echo $this->get_page_value(); ?>" >
         <?php
     }
 

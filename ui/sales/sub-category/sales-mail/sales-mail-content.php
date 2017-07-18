@@ -16,6 +16,17 @@ class SalesMailContent implements ISalesMailViewer
 
     public function view()
     {
+?>
+    <div clas='line'>
+        <h2>メールタイトル</h2>
+        <input type='text' >
+    </div>    
+    <div clas='line'>
+        <h2>メッセージ</h2>
+        <input type='text' >
+        
+    </div>
+<?php
     }
 }
 

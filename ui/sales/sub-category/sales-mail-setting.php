@@ -1,11 +1,6 @@
 <?php
 namespace ui\sales;
-require_once('sales-mail/sales-mail-viewer.php');
-require_once('sales-mail/sales-mail-list.php');
-require_once('sales-mail/sales-mail-content.php');
-require_once('sales-mail/sales-mail-editor-base.php');
-require_once('sales-mail/sales-mail-editor-new.php');
-require_once('sales-mail/sales-mail-editor-edit.php');
+require_once('sales-mail/sales-mail-viewer-facory.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
 use \ui\util\SubmitButton;
@@ -21,7 +16,11 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
 
     private $_mail_list;
     private $_flg_value;
-  
+    
+    const ListID = 0;
+    const NewID = 0;
+    const EditID = 0;
+    const ContentID = 0;
 	public function init()
 	{
         $this->save();
@@ -29,13 +28,39 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
         $this->_viewer->init();
 	}
 
+    private function create_viewer($id): ISalesMailViewer
+    {
+        $v;
+        switch($id){
+            case self::NewID:
+                $v = new SalesMailEditorNew();  
+                break;
+            case self::EditID:
+                $v = new SalesMailEditorEdit();
+                break; 
+            case ContentID:
+                $v = new SalesMailContent();
+                break;
+            case default:
+                $v = new SalesMailList()
+                $v->edit_btn_name = SalesMailContext::EditBtnName;
+                $v->new_btn_name = SalesMailContext::EditBtnName;
+                $v->delete_btn_name = SalesMailContext::DeleteBtnName;
+                $v->mail_edit_btn_name =SalesMailContext::MailEditBtnName;
+                break;
+        }
+        return $v;
+    }
+
     private function save()
     {
         $viewer;
-        if(isset($_POST[SalesMailContext::SaveKey]))
+        $sc = SalesContext::get_instancviewer = new SalesMailList();e();
+        
+        if($sc->sales_mail_context->is_edit_confirm_click())
         {                       
-            $v = $_POST[SalesMailContext::SaveKey];
-            if($v == SalesMailContext::EditKeyValue){
+            $v = $sc->sales_mail_context->get_edit_sales_id();
+            if($v != ''){
                 $viewer = new SalesMailEditorEdit();
             }else{
                 $viewer = new SalesMailEditorNew();  
@@ -54,12 +79,12 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
     private function create_viewer() : ISalesMailViewer
     {
         $sc = SalesContext::get_instance();
-        if($sc->sales_mail_context->is_edit()){
+        if($sc->sales_mail_context->is_edit_click()){
             return $this->get_edit_viwer();
         }else{
             $v;
             if($sc->sales_mail_context->is_mail_edit_click()){
-                  $v = new SalesMailContent();
+                $v = new SalesMailContent();
             }else{
                 $v =  new SalesMailList();
                 $v->edit_btn_name = SalesMailContext::EditBtnName;
@@ -96,6 +121,7 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
         $this->_viewer->view();
         ?>
         </div>
+        <input type='hidden' name='<?php echo self::PageFrg; ?>'>
     </form>
         <?php
 	}

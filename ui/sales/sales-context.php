@@ -51,11 +51,11 @@ class SalesMailContext
     const NewKeyValue = "new";
     const SaveKey = "SaveKey";
 	const DeleteBtnName = "delete_btn";
-
+    const ConfirmName = "confirm_btn";
     public function get_edit_sales_id()
     {
-        if(isset($_POST[self::EditBtnName])){
-            return $_POST[self::EditBtnName];
+        if(isset($_POST[self::NewBtnName])){
+            return $_POST[self::NewBtnName];
         }else{
             return "";
         }
@@ -70,11 +70,17 @@ class SalesMailContext
         }
     }
 	
-    public function is_edit():bool
+    public function is_edit_click():bool
     {
         return isset($_POST[self::EditBtnName]);
     }
+    
+    public function is_edit_confirm_click():bool
+    {
+        return isset($_POST[self::ConfirmName]);
+    }
   
+
 	public function is_mail_edit_click():bool
     {
         return isset($_POST[self::MailEditBtnName]);
