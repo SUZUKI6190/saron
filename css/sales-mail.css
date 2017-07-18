@@ -4,6 +4,41 @@
     margin-top: 10px;
 }
 
+.edit_wrap
+{
+
+}
+
+.edit_wrap  input
+{
+    width: 100%;
+}
+
+.edit_confitm_area
+{
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.edit_input_area
+{
+}
+
+.list_area
+{
+    margin-top: 10px;
+}
+
+.list_table
+{
+    width: 100%;
+}
+
+.list_table td
+{
+    padding: 0px;
+}
+
 .cmd_head
 {
     width:40px;

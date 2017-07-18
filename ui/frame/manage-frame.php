@@ -105,8 +105,9 @@
 			</head>
 			<body>
 			<div class='logout_area'>
-				<form action='' method='post'>
-					<button type='submit' name='<?php echo ManageFrameContext::LogoutBtnName; ?>'>ログアウト</button>
+				<form name='form1' action='' method='post'>
+					<input type='hidden' name='<?php echo ManageFrameContext::LogoutBtnName; ?>'>
+					<a href="#" onClick="document.form1.submit();">ログアウト</a>
 				</form>
 			</div>
 			<div class="main_wrap">

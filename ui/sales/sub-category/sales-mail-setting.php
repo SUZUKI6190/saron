@@ -20,12 +20,7 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
 
     private $_mail_list;
     private $_flg_value;
-
-    private function is_edit():bool
-    {
-        return isset($_POST[SalesMailContext::EditBtnName]);
-    }
-    
+  
 	public function init()
 	{
         $this->save();
@@ -58,7 +53,7 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
     private function create_viewer() : ISalesMailViewer
     {
         $sc = SalesContext::get_instance();
-        if($this->is_edit()){
+        if($sc->sales_mail_context->is_edit()){
             $viewer;
             $id = $sc->sales_mail_context->get_edit_sales_id();
             if($id == ''){

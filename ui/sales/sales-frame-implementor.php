@@ -33,7 +33,7 @@ class SalesFrameImplementor extends ManageFrameImplementor
 	{
 		return [
 			new HeaderFile('sales.css', 1.0),
-			new HeaderFile('sales-mail.cs', 0.01)
+			new HeaderFile('sales-mail.css', 0.01)
 		];
 	}
 	

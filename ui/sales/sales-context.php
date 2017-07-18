@@ -68,6 +68,12 @@ class SalesMailContext
             return "";
         }
     }
+	
+    public function is_edit():bool
+    {
+        return isset($_POST[self::EditBtnName]);
+    }
+  
 }
 
 ?>

@@ -46,11 +46,15 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
         $id = $smc->get_edit_sales_id();
         ?>
         <div class='edit_wrap'>
-        <input type='email' name='<?php echo self::MailName; ?>' value='<?php echo $m->email ?>' >
-        <button class='manage_button' type='submit' name='<?php echo self::ConfirmName; ?>' >確定する</button>
-        <input type='hidden' name='<?php echo SalesMailContext::EditBtnName;?>' value='<?php echo $id; ?>'>
+            <div class='edit_confitm_area'>
+                <button class='manage_button' type='submit' name='<?php echo self::ConfirmName; ?>' >確定する</button>
+            </div>
+            <div class='edit_input_area'>
+                <span>登録するメールアドレス：</span><br>
+                <input type='email' name='<?php echo self::MailName; ?>' value='<?php echo $m->email ?>' >
+            </div>
         </div>
-                <input type="hidden" name='<?php echo SalesMailContext::SaveKey; ?>' value="<?php echo $this->get_page_value(); ?>" >
+        <input type="hidden" name='<?php echo SalesMailContext::SaveKey; ?>' value="<?php echo $this->get_page_value(); ?>" >
         <?php
     }
 

@@ -28,8 +28,8 @@ class SalesMailList implements ISalesMailViewer
     <div class='new_btn_area'>
         <button class='manage_button' type='submit' name='<?php echo $this->new_btn_name; ?>' value=''>新しく追加する</button>
     </div>
-    <div>
-        <table>
+    <div class='list_area'>
+        <table class='list_table'>
             <thead>
                 <tr>
                     <th>
