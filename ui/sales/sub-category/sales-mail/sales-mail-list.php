@@ -8,7 +8,8 @@ class SalesMailList implements ISalesMailViewer
     private $_mail_list;
     public $edit_btn_name;
     public $delete_btn_name;
-    public  $new_btn_name;
+    public $new_btn_name;
+    public $mail_edit_btn_name;
 
     public function init()
     {
@@ -26,7 +27,8 @@ class SalesMailList implements ISalesMailViewer
         $this->_mail_list = SalesMailFacade::get_all();
     ?>
     <div class='new_btn_area'>
-        <button class='manage_button' type='submit' name='<?php echo $this->new_btn_name; ?>' value=''>新しく追加する</button>
+        <button class='manage_button' type='submit' name='<?php echo $this->mail_edit_btn_name; ?>' value=''>メール設定</button>
+        <button class='manage_button' type='submit' name='<?php echo $this->new_btn_name; ?>' value=''>新しくメールアドレスを追加する</button>
     </div>
     <div class='list_area'>
         <table class='list_table'>

@@ -44,13 +44,14 @@ class SalesMailContext
 {
     const EditBtnName = "EditFlg";
     const NewBtnName = "new_btn";
+	const MailEditBtnName = "mail_edit";
     const EditValueName = "EditValue";
 	const NewValueName = "NewValue";
     const EditKeyValue = "edit";
     const NewKeyValue = "new";
     const SaveKey = "SaveKey";
 	const DeleteBtnName = "delete_btn";
-	
+
     public function get_edit_sales_id()
     {
         if(isset($_POST[self::EditBtnName])){
@@ -74,6 +75,10 @@ class SalesMailContext
         return isset($_POST[self::EditBtnName]);
     }
   
+	public function is_mail_edit_click():bool
+    {
+        return isset($_POST[self::MailEditBtnName]);
+    }
 }
 
 ?>

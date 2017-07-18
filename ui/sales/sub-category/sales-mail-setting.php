@@ -2,6 +2,7 @@
 namespace ui\sales;
 require_once('sales-mail/sales-mail-viewer.php');
 require_once('sales-mail/sales-mail-list.php');
+require_once('sales-mail/sales-mail-content.php');
 require_once('sales-mail/sales-mail-editor-base.php');
 require_once('sales-mail/sales-mail-editor-new.php');
 require_once('sales-mail/sales-mail-editor-edit.php');
@@ -54,23 +55,35 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
     {
         $sc = SalesContext::get_instance();
         if($sc->sales_mail_context->is_edit()){
-            $viewer;
-            $id = $sc->sales_mail_context->get_edit_sales_id();
-            if($id == ''){
-                $this->_flg_value = SalesMailContext::NewKeyValue;
-                $viewer = new SalesMailEditorNew();
-            }else{
-                $this->_flg_value = SalesMailContext::EditKeyValue;
-                $viewer = new SalesMailEditorEdit();
-            }
-            return $viewer;
+            return $this->get_edit_viwer();
         }else{
-            $list =  new SalesMailList();
-            $list->edit_btn_name = SalesMailContext::EditBtnName;
-            $list->new_btn_name = SalesMailContext::EditBtnName;
-            $list->delete_btn_name = SalesMailContext::DeleteBtnName;
-            return $list;
+            $v;
+            if($sc->sales_mail_context->is_mail_edit_click()){
+                  $v = new SalesMailContent();
+            }else{
+                $v =  new SalesMailList();
+                $v->edit_btn_name = SalesMailContext::EditBtnName;
+                $v->new_btn_name = SalesMailContext::EditBtnName;
+                $v->delete_btn_name = SalesMailContext::DeleteBtnName;
+                $v->mail_edit_btn_name =SalesMailContext::MailEditBtnName;
+            }
+            return $v;
         }
+    }
+
+    private function get_edit_viwer(): ISalesMailViewer
+    {
+        $sc = SalesContext::get_instance();
+        $viewer;
+        $id = $sc->sales_mail_context->get_edit_sales_id();
+        if($id == ''){
+            $this->_flg_value = SalesMailContext::NewKeyValue;
+            $viewer = new SalesMailEditorNew();
+        }else{
+            $this->_flg_value = SalesMailContext::EditKeyValue;
+            $viewer = new SalesMailEditorEdit();
+        }
+        return $viewer;
     }
 
 	public function view()
