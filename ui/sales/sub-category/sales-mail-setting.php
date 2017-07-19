@@ -36,11 +36,11 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
     ?>
     <form method='post' action='<?php echo $d; ?>'>
         <div class='setting_width centering'>
-            <div class='new_btn_area'>
-                <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ContentID; ?>' >メール設定</button>
+            <div class='mail_btn_area'>
+                <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ListID; ?>' >送信先一覧</button>
                 <button class='manage_button' type='submit' name='<?php echo SalesMailContext::NewID; ?>'>新しく追加</button>
-            </div>
-            
+                <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ContentID; ?>' >メール設定</button>
+          </div>
             <?php
             $this->_viewer->view();
             ?>

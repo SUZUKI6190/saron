@@ -1,7 +1,13 @@
-.new_btn_area
+.mail_btn_area
 {
-    text-align: right;
+    text-align: center;
     margin-top: 10px;
+}
+
+.mail_btn_area button
+{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .edit_wrap

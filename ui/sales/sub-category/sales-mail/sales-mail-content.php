@@ -30,7 +30,7 @@ class SalesMailContent implements ISalesMailViewer
 ?>
     <div class='mail_setting_wrap'>
         <div class='setting_confirm_btn_area'>
-            <button class='manage_button' type='submit' name='<?php echo self::ConfirmSettingName; ?>'>確定</button>
+            <button class='manage_button' type='submit' name='<?php echo self::ConfirmSettingName; ?>'>保存</button>
         </div>
         <div class = 'line'>
             <h2>メールタイトル</h2>
