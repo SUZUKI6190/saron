@@ -40,7 +40,7 @@ class SalesMailSettingSub extends \ui\frame\SubCategory
                 <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ListID; ?>' >送信先一覧</button>
                 <button class='manage_button' type='submit' name='<?php echo SalesMailContext::NewID; ?>'>新しく追加</button>
                 <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ContentID; ?>' >メール設定</button>
-          </div>
+            </div>
             <?php
             $this->_viewer->view();
             ?>

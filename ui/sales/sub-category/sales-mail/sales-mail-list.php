@@ -58,7 +58,9 @@ class SalesMailList implements ISalesMailViewer
 					<?php echo "<button class='manage_button' type='submit' name='$edit_id' value='$m->id'>編集</button>"; ?>
 				</td>
 				<td class='cmd_td'>
-					<?php echo "<button class='manage_button' type='submit' name='$delete_id' value='$m->id'>削除</button>"; ?>
+                    <?php
+                    \ui\util\confirm_submit_button('削除', '本当に削除しますか？', $delete_id, $m->id);
+                    ?>
 				</td>
 			</tr>
 			<?php

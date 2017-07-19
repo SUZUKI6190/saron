@@ -148,14 +148,10 @@ function submit_button($text, $name = "", $add_style="")
 	<?php
 }
 
-
-function confirm_submit_button($text, $msg, $name = "", $add_style="")
+function confirm_submit_button($text, $msg, $name = "", $value="", $add_style="")
 {
-	?>
-	<input type='submit' value="<?php echo $text; ?>" name="<?php echo $name; ?>" class="manage_button <?php echo $add_style; ?>"  onClick="return check('<?php echo $msg; ?>');" />
-	<?php
+	echo "<button onClick='return check(\"$msg\");' type='submit' name='$name' value='$value' class='manage_button $add_style'>$text</button>";
 }
-
 
 function numeric_input($name, $value, $class = "")
 {
