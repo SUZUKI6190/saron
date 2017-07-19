@@ -10,10 +10,6 @@ class SalesMailEditorNew extends SalesMailEditorBase
         
     }
 
-    protected function get_page_value():string
-    {
-        return SalesMailContext::NewValueName;
-    }
 
     protected function save_inner(SalesMail $data)
     {

@@ -42,20 +42,38 @@ class SalesContext
 
 class SalesMailContext
 {
-    const EditBtnName = "EditFlg";
-    const NewBtnName = "new_btn";
-	const MailEditBtnName = "mail_edit";
-    const EditValueName = "EditValue";
-	const NewValueName = "NewValue";
-    const EditKeyValue = "edit";
-    const NewKeyValue = "new";
-    const SaveKey = "SaveKey";
 	const DeleteBtnName = "delete_btn";
-    const ConfirmName = "confirm_btn";
+
+	const PageIdKey = "PageNo";
+	const PrePageIdKey = "PrePageNo";
+
+	const ListID = 'ListPage';
+    const NewID = 'NewRegistPage';
+    const EditID = 'EditRegistPage';
+    const ContentID = 'MailContentPage';
+
+	public function get_page_id()
+	{
+		if(isset($_POST[self::PageIdKey])){
+			return $_POST[self::PageIdKey];    
+		}else{
+			return '';
+		}
+	}
+
+	public function get_pre_page_id()
+	{
+		if(isset($_POST[self::PrePageIdKey])){
+			return $_POST[self::PrePageIdKey];
+		}else{
+			return '';
+		}
+	}
+
     public function get_edit_sales_id()
     {
-        if(isset($_POST[self::NewBtnName])){
-            return $_POST[self::NewBtnName];
+        if(isset($_POST[self::EditID])){
+            return $_POST[self::EditID];
         }else{
             return "";
         }
@@ -68,22 +86,6 @@ class SalesMailContext
         }else{
             return "";
         }
-    }
-	
-    public function is_edit_click():bool
-    {
-        return isset($_POST[self::EditBtnName]);
-    }
-    
-    public function is_edit_confirm_click():bool
-    {
-        return isset($_POST[self::ConfirmName]);
-    }
-  
-
-	public function is_mail_edit_click():bool
-    {
-        return isset($_POST[self::MailEditBtnName]);
     }
 }
 

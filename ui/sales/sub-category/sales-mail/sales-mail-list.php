@@ -6,10 +6,6 @@ use business\facade\SalesMailFacade;
 class SalesMailList implements ISalesMailViewer
 {
     private $_mail_list;
-    public $edit_btn_name;
-    public $delete_btn_name;
-    public $new_btn_name;
-    public $mail_edit_btn_name;
 
     public function init()
     {
@@ -25,10 +21,12 @@ class SalesMailList implements ISalesMailViewer
     public function view()
     {
         $this->_mail_list = SalesMailFacade::get_all();
+        $edit_id = SalesMailContext::EditID;
+        $delete_id = SalesMailContext::DeleteBtnName;
     ?>
     <div class='new_btn_area'>
-        <button class='manage_button' type='submit' name='<?php echo $this->mail_edit_btn_name; ?>' value=''>メール設定</button>
-        <button class='manage_button' type='submit' name='<?php echo $this->new_btn_name; ?>' value=''>新しくメールアドレスを追加する</button>
+        <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ContentID; ?>' >メール設定</button>
+        <button class='manage_button' type='submit' name='<?php echo SalesMailContext::NewID; ?>'>新しくメールアドレスを追加する</button>
     </div>
     <div class='list_area'>
         <table class='list_table'>
@@ -54,10 +52,10 @@ class SalesMailList implements ISalesMailViewer
 					?>
 				</td>
 				<td class='cmd_td'>
-					<?php echo "<button class='manage_button' type='submit' name='$this->edit_btn_name' value='$m->id'>編集</button>"; ?>
+					<?php echo "<button class='manage_button' type='submit' name='$edit_id' value='$m->id'>編集</button>"; ?>
 				</td>
 				<td class='cmd_td'>
-					<?php echo "<button class='manage_button' type='submit' name='$this->delete_btn_name' value='$m->id'>削除</button>"; ?>
+					<?php echo "<button class='manage_button' type='submit' name='$delete_id' value='$m->id'>削除</button>"; ?>
 				</td>
 			</tr>
 			<?php
