@@ -13,13 +13,6 @@ class SalesMailViewerFactory
     private function __construct()
     {}
 
-    private const key_list = [
-        SalesMailContext::NewID,
-        SalesMailContext::EditID,
-        SalesMailContext::ListID,
-        SalesMailContext::ContentID
-    ];
-
     private static function create_viewer_by_id($id = SalesMailContext::ListID) : ISalesMailViewer
     {
         $v;
@@ -42,16 +35,11 @@ class SalesMailViewerFactory
 
     public static function create_viewer(): ISalesMailViewer
     {
-        foreach(self::key_list as $k)
-        {
-            if(isset($_POST[$k])){
-                 
-     
-                $smc = (SalesContext::get_instance())->sales_mail_context;
-                return self::create_viewer_by_id($k);
-            }
-        }
-          return self::create_viewer_by_id();
+
+        $smc = (SalesContext::get_instance())->sales_mail_context;
+        $id = $smc->get_page_id();
+    
+        return self::create_viewer_by_id($id);
     }
     
     public static function create_pre_viewer(): ISalesMailViewer

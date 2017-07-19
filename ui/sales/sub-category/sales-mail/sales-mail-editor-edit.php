@@ -10,6 +10,11 @@ class SalesMailEditorEdit extends SalesMailEditorBase
 
     }
 
+    protected  function get_text():string
+    {
+        return '変更するメールアドレス';
+    }
+
     protected function get_page_value():string
     {
         return SalesMailContext::EditKeyValue;
@@ -22,9 +27,9 @@ class SalesMailEditorEdit extends SalesMailEditorBase
 
     protected function get_mail():SalesMail
     {
-        $sc = SalesContext::get_instance();
-        $id = $sc->sales_mail_context->get_edit_sales_id();
+        $id = $this->get_edit_sales_id();
         return SalesMailFacade::get_by_id($id);
     }
+    
 }
 ?>

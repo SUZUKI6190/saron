@@ -10,6 +10,10 @@ class SalesMailEditorNew extends SalesMailEditorBase
         
     }
 
+    protected  function get_text():string
+    {
+        return '追加するメールアドレス';
+    }
 
     protected function save_inner(SalesMail $data)
     {

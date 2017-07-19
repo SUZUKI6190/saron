@@ -43,41 +43,40 @@ class SalesContext
 class SalesMailContext
 {
 	const DeleteBtnName = "delete_btn";
-
 	const PageIdKey = "PageNo";
-	const PrePageIdKey = "PrePageNo";
 
 	const ListID = 'ListPage';
     const NewID = 'NewRegistPage';
     const EditID = 'EditRegistPage';
     const ContentID = 'MailContentPage';
 
+    private const key_list = [
+        SalesMailContext::NewID,
+        SalesMailContext::EditID,
+        SalesMailContext::ListID,
+        SalesMailContext::ContentID
+    ];
+
 	public function get_page_id()
 	{
-		if(isset($_POST[self::PageIdKey])){
-			return $_POST[self::PageIdKey];    
-		}else{
-			return '';
-		}
+    	foreach(self::key_list as $k)
+        {
+            if(isset($_POST[$k])){
+                return $k;
+            }
+        }
+
+		return '';
 	}
 
 	public function get_pre_page_id()
 	{
-		if(isset($_POST[self::PrePageIdKey])){
-			return $_POST[self::PrePageIdKey];
+		if(isset($_POST[self::PageIdKey])){
+			return $_POST[self::PageIdKey];
 		}else{
 			return '';
 		}
 	}
-
-    public function get_edit_sales_id()
-    {
-        if(isset($_POST[self::EditID])){
-            return $_POST[self::EditID];
-        }else{
-            return "";
-        }
-    }
 
     public function get_delete_sales_id()
     {
