@@ -13,9 +13,11 @@ class SalesMailList implements ISalesMailViewer
 
     public function save()
     {
-        $sc = SalesContext::get_instance();
-        $id = $sc->sales_mail_context->get_delete_sales_id();
-        SalesMailFacade::delete_by_id($id);
+        if(isset($_POST[SalesMailContext::DeleteBtnName])){
+            $sc = SalesContext::get_instance();
+            $id = $sc->sales_mail_context->get_delete_sales_id();
+            SalesMailFacade::delete_by_id($id);
+        }
     }
 
     public function view()
