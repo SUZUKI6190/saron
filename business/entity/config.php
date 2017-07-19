@@ -5,10 +5,15 @@ class Config
 {
     private static $_instance;
     private $_value_table = [];
+    //予約送信メール設定
     public $YoyakuMailAddress;
     public $YoyakuMailTitle;
     public $YoyakuMailContent;
+    //お客様情報定期削除設定
     public $IntervalDeleateCusotomer;
+    //売上メール送信設定
+    public $SalesMailTitle;
+    public $SalesMailMessage;
 
     private function __construct()
 	{
@@ -17,6 +22,8 @@ class Config
         $this->YoyakuMailTitle = new ConfigParam(2, $this->_value_table);
         $this->YoyakuMailContent = new ConfigParam(3, $this->_value_table);
         $this->IntervalDeleateCustomers = new ConfigParam(4, $this->_value_table);
+        $this->SalesMailTitle = new ConfigParam(5, $this->_value_table);;
+        $this->SalesMailMessage = new ConfigParam(6, $this->_value_table);
     }
 
     public function set_value(int $id, string $value)

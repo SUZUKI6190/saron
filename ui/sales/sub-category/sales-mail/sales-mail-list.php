@@ -26,10 +26,6 @@ class SalesMailList implements ISalesMailViewer
         $edit_id = SalesMailContext::EditID;
         $delete_id = SalesMailContext::DeleteBtnName;
     ?>
-    <div class='new_btn_area'>
-        <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ContentID; ?>' >メール設定</button>
-        <button class='manage_button' type='submit' name='<?php echo SalesMailContext::NewID; ?>'>新しくメールアドレスを追加する</button>
-    </div>
     <div class='list_area'>
         <table class='list_table'>
             <thead>
