@@ -1,11 +1,12 @@
 <?php
 namespace cron;
-require_once(dirname(__FILE__)."/../business/entity/scheduled-message.php");
-require_once(dirname(__FILE__)."/../business/facade/scheduled-message.php");
-require_once(dirname(__FILE__)."/../business/entity/customer.php");
-require_once(dirname(__FILE__)."/../business/facade/customer.php");
-require_once(dirname(__FILE__)."/../business/entity/sales-mail.php");
-require_once(dirname(__FILE__)."/../business/facade/sales-mail.php");
+$src_dir = dirname(__FILE__)."/../business";
+require_once($src_dir."/entity/scheduled-message.php");
+require_once($src_dir."/facade/scheduled-message.php");
+require_once($src_dir."/entity/customer.php");
+require_once($src_dir."/facade/customer.php");
+require_once($src_dir."/entity/sales-mail.php");
+require_once($src_dir."/facade/sales-mail.php");
 require_once("scheduled-message.php");
 require_once("delete-customer.php");
 require_once("send-sales-mail.php");
