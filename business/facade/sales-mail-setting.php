@@ -1,8 +1,8 @@
 <?php
 namespace business\facade;
-use \business\entity\SalesMail;
+use \business\entity\SalesMailSetting;
 
-class SalesMailFacade
+class SalesMailSettingFacade
 {
     private function __construct()
     {
@@ -21,7 +21,7 @@ SQL;
         global $wpdb;
         $result = $wpdb->get_results($strSql);
         $ret = array_values(array_map(function($data) {
-            return SalesMail::CreateFromWpdb($data);
+            return SalesMailSetting::CreateFromWpdb($data);
         }, $result));
 
         return $ret;
@@ -39,7 +39,7 @@ SQL;
 
         global $wpdb;
         $result = $wpdb->get_results($strSql);
-        return SalesMail::CreateFromWpdb($result[0]);
+        return SalesMailSetting::CreateFromWpdb($result[0]);
     }
 
 
@@ -53,7 +53,7 @@ SQL;
         $wpdb->query($strSql);
     }
 
-    public static function insert(SalesMail $data)
+    public static function insert(SalesMailSetting $data)
     {
         global $wpdb;
         $wpdb->query(
@@ -67,7 +67,7 @@ SQL
 );
     }
 
-    public static function update(SalesMail $data)
+    public static function update(SalesMailSetting $data)
     {
         global $wpdb;
         $wpdb->query(

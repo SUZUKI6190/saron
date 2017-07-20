@@ -1,6 +1,6 @@
 <?php
 namespace ui\sales;
-use business\entity\SalesMail;
+use business\entity\SalesMailSetting;
 use ui\sales\ISalesMailViewer;
 
 abstract class SalesMailEditorBase implements ISalesMailViewer
@@ -9,8 +9,8 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
     const SalesIdName = 'sales_id';
 
     protected abstract function init_inner();
-    protected abstract function save_inner(SalesMail $data);
-    protected abstract function get_mail():SalesMail;
+    protected abstract function save_inner(SalesMailSetting $data);
+    protected abstract function get_mail():SalesMailSetting;
     
     protected abstract function get_text():string;
 
@@ -33,10 +33,10 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
         }
     }
     
-    private function create_save_mail_data() : SalesMail
+    private function create_save_mail_data() : SalesMailSetting
     {
 
-        $ret = new SalesMail();
+        $ret = new SalesMailSetting();
         $ret->email = $_POST[self::MailName];
         $sc = SalesContext::get_instance();
         $ret->id = $_POST[self::SalesIdName];

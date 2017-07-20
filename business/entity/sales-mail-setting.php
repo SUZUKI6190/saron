@@ -1,7 +1,7 @@
 <?php
 namespace business\entity;
 
-class SalesMail
+class SalesMailSetting
 {
 	public $id;
 	public $email;

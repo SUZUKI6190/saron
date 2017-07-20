@@ -1,7 +1,7 @@
 <?php
 namespace ui\sales;
-use business\entity\SalesMail;
-use business\facade\SalesMailFacade;
+use business\entity\SalesMailSetting;
+use business\facade\SalesMailSettingFacade;
 
 class SalesMailEditorEdit extends SalesMailEditorBase
 {
@@ -20,15 +20,15 @@ class SalesMailEditorEdit extends SalesMailEditorBase
         return SalesMailContext::EditKeyValue;
     }
 
-    protected function save_inner(SalesMail $data)
+    protected function save_inner(SalesMailSetting $data)
     {
-        SalesMailFacade::update($data);
+        SalesMailSettingFacade::update($data);
     }
 
-    protected function get_mail():SalesMail
+    protected function get_mail():SalesMailSetting
     {
         $id = $this->get_edit_sales_id();
-        return SalesMailFacade::get_by_id($id);
+        return SalesMailSettingFacade::get_by_id($id);
     }
     
 }

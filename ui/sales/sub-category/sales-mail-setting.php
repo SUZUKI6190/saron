@@ -8,7 +8,7 @@ use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
-use \business\facade\SalesMailFacade;
+use \business\facade\SalesMailSettingFacade;
 
 class SalesMailSettingSub extends \ui\frame\SubCategory
 {

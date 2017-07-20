@@ -1,7 +1,7 @@
 <?php
 namespace ui\sales;
-use business\entity\SalesMail;
-use business\facade\SalesMailFacade;
+use business\entity\SalesMailSetting;
+use business\facade\SalesMailSettingFacade;
 use business\entity\Config;
 
 class SalesMailContent implements ISalesMailViewer

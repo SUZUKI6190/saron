@@ -1,7 +1,7 @@
 <?php
 namespace ui\sales;
-use business\entity\SalesMail;
-use business\facade\SalesMailFacade;
+use business\entity\SalesMailSetting;
+use business\facade\SalesMailSettingFacade;
 
 class SalesMailEditorNew extends SalesMailEditorBase
 {
@@ -15,14 +15,14 @@ class SalesMailEditorNew extends SalesMailEditorBase
         return '追加するメールアドレス';
     }
 
-    protected function save_inner(SalesMail $data)
+    protected function save_inner(SalesMailSetting $data)
     {
-        SalesMailFacade::insert($data);
+        SalesMailSettingFacade::insert($data);
     }
 
-    protected function get_mail():SalesMail
+    protected function get_mail():SalesMailSetting
     {
-        return new SalesMail();
+        return new SalesMailSetting();
     }
 }
 ?>

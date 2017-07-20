@@ -1,7 +1,7 @@
 <?php
 namespace ui\sales;
-use business\entity\SalesMail;
-use business\facade\SalesMailFacade;
+use business\entity\SalesMailSetting;
+use business\facade\SalesMailSettingFacade;
 
 class SalesMailList implements ISalesMailViewer
 {
@@ -16,7 +16,7 @@ class SalesMailList implements ISalesMailViewer
         if(isset($_POST[SalesMailContext::DeleteBtnName])){
             $sc = SalesContext::get_instance();
             $id = $sc->sales_mail_context->get_delete_sales_id();
-            SalesMailFacade::delete_by_id($id);
+            SalesMailSettingFacade::delete_by_id($id);
         }
     }
 
@@ -27,7 +27,7 @@ class SalesMailList implements ISalesMailViewer
 
     public function view()
     {
-        $this->_mail_list = SalesMailFacade::get_all();
+        $this->_mail_list = SalesMailSettingFacade::get_all();
         $edit_id = SalesMailContext::EditID;
         $delete_id = SalesMailContext::DeleteBtnName;
     ?>
