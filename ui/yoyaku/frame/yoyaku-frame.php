@@ -21,7 +21,7 @@ abstract class YoyakuMenu
 
 	protected function transfer($url)
 	{
-		$d = "?date=".(new \DateTime())->format("Ymdhis");
+		$d = "?pagedate=".(new \DateTime())->format("Ymdhis");
 		$new_url = $url.$d;
 		header("Location:$new_url");
 		exit;
@@ -129,7 +129,7 @@ class YoyakuFrame
 {
 	private $_main_yoyaku;
 	const TransferHiddenName = "YoyakuPageTransfer";
-
+	const PageDate = "pagedate";
 	public function __construct(YoyakuMenu $m)
 	{
 		$this->_main_yoyaku = $m;
@@ -137,7 +137,7 @@ class YoyakuFrame
 
 	private function is_yoyaku_page_transfer() : bool
 	{
-		return isset($_GET["date"]);
+		return isset($_GET[self::PageDate]);
 	}
 
 	public function view()
@@ -156,7 +156,7 @@ class YoyakuFrame
 		$js_dir =  plugins_url()."/saron/js/";
 		$css_ver = '0.08';
 		$js_ver = '0.07';
-        $d = "?date=".(new \DateTime())->format("Ymdhis");
+        $d = "?".self::PageDate."=".(new \DateTime())->format("Ymdhis");
 		
         $mc = $yc->mail_contents;
 		?>	
