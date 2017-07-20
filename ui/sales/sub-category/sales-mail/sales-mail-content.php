@@ -15,10 +15,12 @@ class SalesMailContent implements ISalesMailViewer
 
     public function save()
     {
-        if(isset($_POST[self::ConfirmSettingName])){
-            $c = Config::get_instance();
-            $title = $c->SalesMailTitle->save_value($_POST[self::TitleName]);
-            $msg = $c->SalesMailMessage->save_value($_POST[self::MsgName]);
+        if(isset($_POST[SalesMailContext::ContentID])){
+            if($_POST[SalesMailContext::ContentID] == 'save'){
+                $c = Config::get_instance();
+                $title = $c->SalesMailTitle->save_value($_POST[self::TitleName]);
+                $msg = $c->SalesMailMessage->save_value($_POST[self::MsgName]);
+            }
         }
     }
 
@@ -30,7 +32,7 @@ class SalesMailContent implements ISalesMailViewer
 ?>
     <div class='mail_setting_wrap'>
         <div class='setting_confirm_btn_area'>
-            <button class='manage_button' type='submit' name='<?php echo self::ConfirmSettingName; ?>'>保存</button>
+            <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ContentID; ?>' value='save'>保存</button>
         </div>
         <div class = 'line'>
             <h2>メールタイトル</h2>
