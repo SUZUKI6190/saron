@@ -9,6 +9,11 @@ class SalesMail
     public $per_customer;
     public $sales_num;
 
+    public function create_text() : string
+    {
+        return "";
+    }
+
 	public static function CreateFromWpdb($wpdb) : self
 	{
         $ret = new self();
