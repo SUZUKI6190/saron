@@ -26,16 +26,11 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
 
     public function save()
     {
-        if(isset($_POST[$this->get_page_id()])){  
+        if(isset($_POST[SalesMailContext::ListID])){  
             $this->save_inner($this->create_save_mail_data());
         }
     }
     
-    protected function get_sales_id()
-    {
-        return $_POST[self::SalesIdName];
-    }
-
     private function create_save_mail_data() : SalesMail
     {
 
@@ -63,7 +58,7 @@ abstract class SalesMailEditorBase implements ISalesMailViewer
         ?>
         <div class='edit_wrap'>
             <div class='edit_confitm_area'>
-                <button class='manage_button' type='submit' name='<?php echo $this->get_page_id();?>' >確定する</button>
+                <button class='manage_button' type='submit' name='<?php echo SalesMailContext::ListID;?>' >確定する</button>
             </div>
             <div class='edit_input_area'>
                 <span><?php echo $this->get_text();?>：</span><br>
