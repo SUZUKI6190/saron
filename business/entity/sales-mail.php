@@ -14,6 +14,11 @@ class SalesMail
         return "";
     }
 
+    public function create_title() : string
+    {
+        return "";
+    }
+
 	public static function CreateFromWpdb($wpdb) : self
 	{
         $ret = new self();

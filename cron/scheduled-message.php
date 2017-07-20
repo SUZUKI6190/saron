@@ -8,7 +8,7 @@ function run_scheduled_message()
 
     foreach($msg_list as $msg)
     {
-        wp_mail($msg->email, $msg->title, $msg->text);
+        send_mail($msg->email, $msg->title, $msg->text);
     }
 }
 

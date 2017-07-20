@@ -10,7 +10,7 @@ function run_send_sales_mail()
 
     foreach($mail_list as $m)
     {
-        send_mail($m->email, $mail->title(), $mail->create_text());
+        send_mail($m->email, $mail->create_title(), $mail->create_text());
     }
 }
 
