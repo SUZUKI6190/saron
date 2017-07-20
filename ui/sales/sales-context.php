@@ -50,7 +50,7 @@ class SalesMailContext
     const EditID = 'EditRegistPage';
     const ContentID = 'MailContentPage';
 
-    private const key_list = [
+    const key_list = [
         SalesMailContext::NewID,
         SalesMailContext::EditID,
         SalesMailContext::ListID,
