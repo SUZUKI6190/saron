@@ -46,8 +46,8 @@ class StaffSelect extends YoyakuMenu
 
 	public function pre_render()
 	{
-		$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/day/";
 		$yc = YoyakuContext::get_instance();
+		$url =  get_bloginfo('url')."/".$yc->template_page_name."/yoyaku/day/";
 		$before_url = $yc->get_base_url()."/menu/".$this->get_menu_id();
   		
 		if(isset($_POST[self::back_btn_name])){

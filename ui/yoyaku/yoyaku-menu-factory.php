@@ -13,7 +13,7 @@ use ui\yoyaku\menu\Finish;
 function main_yoyaku_factory() : \ui\yoyaku\frame\YoyakuMenu
 {
 	$yc = YoyakuContext::get_instance();
-	$yc->template_page_name = get_query_var( 'pagename' );
+	$yc->template_page_name = \PluginConroller::get_head_url_name();
 
 	$menu;
 	switch($yc->sub_category)

@@ -14,7 +14,7 @@ class ImageDonwloader
 
 	private function create_url():string
 	{
-		return get_bloginfo('url')."/".get_query_var( 'pagename' ).'/image'."/$this->_id/$this->_sub_id";
+		return get_bloginfo('url')."/".\PluginConroller::get_head_url_name().'/image'."/$this->_id/$this->_sub_id";
 	}
 	
 	public function view()

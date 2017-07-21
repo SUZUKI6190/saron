@@ -6,6 +6,16 @@ class PluginConroller
     const SettingGroup = "YoyakuSettingGroup";
     const UrlName = 'YoyakuUrlName';
 
+    private static function get_option_inner($opname)
+    {
+        return get_option($opname);
+    }
+
+    public static function get_head_url_name()
+    {
+        return self::get_option_inner(self::UrlName);
+    }
+
     /** ステップ1 */
     public static function my_plugin_menu() {
         add_options_page( 'My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'PluginConroller::my_plugin_options' );

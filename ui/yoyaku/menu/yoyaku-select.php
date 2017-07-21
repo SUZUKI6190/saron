@@ -71,7 +71,7 @@ class YoyakuSelect extends YoyakuMenu
 		if($this->is_move_next())
 		{
 			$yc = YoyakuContext::get_instance();
-			$url =  get_bloginfo('url')."/".get_query_var( 'pagename' )."/yoyaku/staff/";
+			$url =  get_bloginfo('url')."/".$yc->template_page_name."/yoyaku/staff/";
             $this->transfer($url);
 		}
 	}
