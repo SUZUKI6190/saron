@@ -147,9 +147,9 @@ class ScheduleTable
 					if(strtotime($holyday_weekly_data->from_time) <= $key_time)
 					{
 						if($holyday_weekly_data->is_regular_holiday){
-							$col->cells[$key]->button->enable_yoyaku = strtotime($holyday_weekly_data->to_time) >= $key_time;
-						}else{
 							$col->cells[$key]->button->enable_yoyaku = false;
+						}else{
+							$col->cells[$key]->button->enable_yoyaku = strtotime($holyday_weekly_data->to_time) >= $key_time;
 						}
 					}
 				}
