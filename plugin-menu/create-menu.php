@@ -1,6 +1,6 @@
 <?php
 
-class PluginConroller
+class PluginController
 {
     private function __construct(){}
     const SettingGroup = "YoyakuSettingGroup";
@@ -18,7 +18,7 @@ class PluginConroller
 
     /** ステップ1 */
     public static function my_plugin_menu() {
-        add_options_page( 'My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'PluginConroller::my_plugin_options' );
+        add_options_page( 'My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'PluginController::my_plugin_options' );
     }
     
     /** ステップ3 */
@@ -33,7 +33,7 @@ class PluginConroller
 
     //管理画面にメニューを追加
     public static function add_pages(){
-        add_menu_page('予約システム管理', '予約システム管理', 'level_8', __FILE__, 'PluginConroller::view_setup', 'dashicons-upload',26);
+        add_menu_page('予約システム管理', '予約システム管理', 'level_8', __FILE__, 'PluginController::view_setup', 'dashicons-upload',26);
     }
     
    //プラグインの表示
@@ -61,13 +61,13 @@ do_settings_sections(self::SettingGroup);
 
     public static function run()
     {
-        add_action('admin_init', 'PluginConroller::register_settings' );
+        add_action('admin_init', 'PluginController::register_settings' );
     
         /** 上のテキストのステップ2 */
-        add_action('admin_menu', 'PluginConroller::my_plugin_menu' );
+        add_action('admin_menu', 'PluginController::my_plugin_menu' );
      
         // 管理メニューに追加するフック
-        add_action('admin_menu', 'PluginConroller::add_pages');
+        add_action('admin_menu', 'PluginController::add_pages');
 
     }
 }

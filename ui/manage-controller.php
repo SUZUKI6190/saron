@@ -43,7 +43,7 @@ class ManageController implements IController
 	{
 		$mc = \ui\frame\ManageFrameContext::get_instance();
 		$mc->main_category_list = $this->create_main_category();
-		$mc->template_page_name = \PluginConroller::get_head_url_name();
+		$mc->template_page_name = \PluginController::get_head_url_name();
 		$mc->selected_main_category_name = get_query_var("category");
 		$mc->selected_sub_category_name = get_query_var("sub_category");
 		

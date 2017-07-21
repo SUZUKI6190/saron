@@ -24,7 +24,7 @@ class YoyakuContext
 
 	public function get_base_url()
 	{
-		$this->template_page_name = \PluginConroller::get_head_url_name();
+		$this->template_page_name = \PluginController::get_head_url_name();
 		return get_bloginfo('url')."/".$this->template_page_name."/yoyaku";
 	}
 	

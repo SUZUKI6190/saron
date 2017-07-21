@@ -29,7 +29,7 @@ register_activation_hook( __FILE__, 'inno_add_rule' );
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
-	$h = PluginConroller::get_head_url_name();
+	$h = PluginController::get_head_url_name();
 	add_rewrite_rule( $h.'/customer/([^/]+)?$', 'index.php?category=customer&sub_category=$matches[1]', 'top');
 	add_rewrite_rule( $h.'/customer/([^/]+)/result?$', 'index.php?result=result&category=customer&sub_category=$matches[2]', 'top');
 	add_rewrite_rule( $h.'/customer/([^/]+)/new?$', 'index.php?category=customer&sub_category=$matches[1]&edit=new', 'top' );
@@ -53,7 +53,7 @@ function inno_add_rule() {
 	flush_rewrite_rules();
 }
 
-PluginConroller::run();
+PluginController::run();
 
 /*
 * $actionパラメータを受け取る準備
