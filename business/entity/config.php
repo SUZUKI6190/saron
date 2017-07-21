@@ -15,15 +15,27 @@ class Config
     public $SalesMailTitle;
     public $SalesMailMessage;
 
+    const YoyakuMailAddressId = 1;
+    const YoyakuMailTitleId = 2;
+    const YoyakuMailContentId = 3;
+    const IntervalDeleateCustomersId = 4;
+    const SalesMailTitleId = 5;
+    const SalesMailMessageId = 6;
+
     private function __construct()
 	{
         \business\facade\get_config($this);
-        $this->YoyakuMailAddress = new ConfigParam(1, $this->_value_table);
-        $this->YoyakuMailTitle = new ConfigParam(2, $this->_value_table);
-        $this->YoyakuMailContent = new ConfigParam(3, $this->_value_table);
-        $this->IntervalDeleateCustomers = new ConfigParam(4, $this->_value_table);
-        $this->SalesMailTitle = new ConfigParam(5, $this->_value_table);;
-        $this->SalesMailMessage = new ConfigParam(6, $this->_value_table);
+        $this->YoyakuMailAddress = $this->create_param(self::YoyakuMailAddressId);
+        $this->YoyakuMailTitle = $this->create_param(self::YoyakuMailTitleId);
+        $this->YoyakuMailContent = $this->create_param(self::YoyakuMailContentId);
+        $this->IntervalDeleateCustomers = $this->create_param(self::IntervalDeleateCustomersId);
+        $this->SalesMailTitle = $this->create_param(self::SalesMailTitleId);
+        $this->SalesMailMessage = $this->create_param(self::SalesMailMessageId);
+    }
+
+    private function create_param($id) : ConfigParam
+    {
+        return new ConfigParam($id, $this->_value_table);
     }
 
     public function set_value(int $id, string $value)
