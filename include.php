@@ -24,30 +24,36 @@ add_action( 'query_vars', 'inno_add_query_vars' );
 //プラグインを有効化した場合にURLルールを追加
 register_activation_hook( __FILE__, 'inno_add_rule' );
 
+function get_url_head_name()
+{
+	return '([^/]+)';
+}
+
 /*
 * rewrite_ruleの追加
 */
 function inno_add_rule() {
-	add_rewrite_rule( '([^/]+)/customer/([^/]+)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/customer/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=customer&sub_category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/customer/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&edit=new', 'top' );
-	add_rewrite_rule( '([^/]+)/customer/([^/]+)/([^/]+)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&id=$matches[4]&edit=$matches[3]', 'top' );
-	add_rewrite_rule( '([^/]+)/publish/([^/]+)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/publish/menu_regist/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&id=$matches[2]', 'top' );
-	add_rewrite_rule( '([^/]+)/publish/menu_regist/course/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&edit=course&id=$matches[2]', 'top' );
-	add_rewrite_rule( '([^/]+)/publish/menu_regist/course/([0-9]+)/([0-9]+)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&edit=course&id=$matches[2]&course_id=$matches[3]', 'top' );
-	add_rewrite_rule( '([^/]+)/yoyaku/([^/]+)?$', 'index.php?pagename=$matches[1]&category=yoyaku&sub_category=$matches[2]', 'top' );
-	add_rewrite_rule( '([^/]+)/yoyaku/([^/]+)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=yoyaku&sub_category=$matches[2]&id=$matches[3]', 'top' );
-	add_rewrite_rule( '([^/]+)/send_message/([^/]+)?$', 'index.php?pagename=$matches[1]&category=send_message&sub_category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/send_message/edit/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=send_message&sub_category=edit&id=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/staff/([^/]+)?$', 'index.php?pagename=$matches[1]&category=staff&sub_category=$matches[2]', 'top');
-	add_rewrite_rule( '([^/]+)/staff/edit/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=staff&sub_category=edit&id=$matches[2]', 'top' );
-	add_rewrite_rule( '([^/]+)/sales/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]', 'top' );
-	add_rewrite_rule( '([^/]+)/sales/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]&edit=$matches[3]', 'top' );
-	add_rewrite_rule( '([^/]+)/image/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=image&id=$matches[2]&sub_id=$matches[3]', 'top');
-	add_rewrite_rule( '([^/]+)/schedule/([^/]+)?$', 'index.php?pagename=$matches[1]&category=schedule&sub_category=$matches[2]', 'top' );
-	add_rewrite_rule( '([^/]+)/?$', 'index.php?pagename=$matches[1]', 'top');
-	add_rewrite_rule( '([^/]+)/download/?$', 'index.php?pagename=$matches[1]&category=download', 'top');
+	$h = get_url_head_name();
+	add_rewrite_rule( $h.'/customer/([^/]+)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( $h.'/customer/([^/]+)/result?$', 'index.php?pagename=$matches[1]&result=result&category=customer&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( $h.'/customer/([^/]+)/new?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&edit=new', 'top' );
+	add_rewrite_rule( $h.'/customer/([^/]+)/([^/]+)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=customer&sub_category=$matches[2]&id=$matches[4]&edit=$matches[3]', 'top' );
+	add_rewrite_rule( $h.'/publish/([^/]+)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( $h.'/publish/menu_regist/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&id=$matches[2]', 'top' );
+	add_rewrite_rule( $h.'/publish/menu_regist/course/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&edit=course&id=$matches[2]', 'top' );
+	add_rewrite_rule( $h.'/publish/menu_regist/course/([0-9]+)/([0-9]+)?$', 'index.php?pagename=$matches[1]&category=publish&sub_category=menu_regist&edit=course&id=$matches[2]&course_id=$matches[3]', 'top' );
+	add_rewrite_rule( $h.'/yoyaku/([^/]+)?$', 'index.php?pagename=$matches[1]&category=yoyaku&sub_category=$matches[2]', 'top' );
+	add_rewrite_rule( $h.'/yoyaku/([^/]+)/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=yoyaku&sub_category=$matches[2]&id=$matches[3]', 'top' );
+	add_rewrite_rule( $h.'/send_message/([^/]+)?$', 'index.php?pagename=$matches[1]&category=send_message&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( $h.'/send_message/edit/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=send_message&sub_category=edit&id=$matches[2]', 'top');
+	add_rewrite_rule( $h.'/staff/([^/]+)?$', 'index.php?pagename=$matches[1]&category=staff&sub_category=$matches[2]', 'top');
+	add_rewrite_rule( $h.'/staff/edit/([0-9]+$)?$', 'index.php?pagename=$matches[1]&category=staff&sub_category=edit&id=$matches[2]', 'top' );
+	add_rewrite_rule( $h.'/sales/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]', 'top' );
+	add_rewrite_rule( $h.'/sales/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=sales&sub_category=$matches[2]&edit=$matches[3]', 'top' );
+	add_rewrite_rule( $h.'/image/([^/]+)/([^/]+)?$', 'index.php?pagename=$matches[1]&category=image&id=$matches[2]&sub_id=$matches[3]', 'top');
+	add_rewrite_rule( $h.'/schedule/([^/]+)?$', 'index.php?pagename=$matches[1]&category=schedule&sub_category=$matches[2]', 'top' );
+	add_rewrite_rule( $h.'/?$', 'index.php?pagename=$matches[1]', 'top');
+	add_rewrite_rule( $h.'/download/?$', 'index.php?pagename=$matches[1]&category=download', 'top');
 	flush_rewrite_rules();
 }
 
