@@ -9,6 +9,7 @@ Author URI:
 */
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 require_once('business/facade/init.php');
+require_once('plugin-menu/create-menu.php');
 
 function InitTable()
 {
@@ -57,37 +58,8 @@ function inno_add_rule() {
 	flush_rewrite_rules();
 }
 
-/** 上のテキストのステップ2 */
-add_action( 'admin_menu', 'my_plugin_menu' );
+PluginConroller::run();
 
-/** ステップ1 */
-function my_plugin_menu() {
-	add_options_page( 'My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'my_plugin_options' );
-}
-
-/** ステップ3 */
-function my_plugin_options() {
-	if ( !current_user_can( 'manage_options' ) )  {
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	}
-	echo '<div class="wrap">';
-	echo '<p>オプション用のフォームをここに表示する。</p>';
-	echo '</div>';
-}
-
-//管理画面にメニューを追加
-function add_pages(){
-  add_menu_page('CSVアップローダー', 'CSVアップローダー', 'level_8', __FILE__, 'csv_upload', 'dashicons-upload',26);
-}
-
-//プラグインの表示
-function csv_upload(){
-?>
-<?php
-}
-
-// 管理メニューに追加するフック
-add_action('admin_menu', 'add_pages');
 /*
 * $actionパラメータを受け取る準備
 */
