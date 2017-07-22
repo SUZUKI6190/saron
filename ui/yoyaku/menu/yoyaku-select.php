@@ -95,6 +95,7 @@ class YoyakuSelect extends YoyakuMenu
 	
 	public function view()
 	{
+		$yc = YoyakuContext::get_instance();
 		?>
 		<input type='hidden' value=<?php echo implode(',', $this->_checkbox_id_list); ?> id='<?php echo self::ChkBoxIdListId; ?>' />
 		<?php 
