@@ -1,6 +1,7 @@
 <?php
 namespace cron;
 $src_dir = dirname(__FILE__)."/../business";
+require_once($src_dir."/entity/config.php");
 require_once($src_dir."/entity/scheduled-message.php");
 require_once($src_dir."/facade/scheduled-message.php");
 require_once($src_dir."/entity/customer.php");

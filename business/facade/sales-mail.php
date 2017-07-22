@@ -1,6 +1,7 @@
 <?php
 namespace business\facade;
 use \business\entity\SalesMail;
+use \business\entity\Config;
 
 class SalesMailFacade
 {
@@ -8,11 +9,14 @@ class SalesMailFacade
 
     public static function get_last_month() : SalesMail
     {
+        $title_id = Config::SalesMailTitleId;
+        $msg_id = Config::SalesMailMessageId;
+
         $strSql = <<<SQL
         select
-            (select value from yoyaku_config where id = '5') as title,
-            (select value from yoyaku_config where id = '6') as msg,
-            sum(rc.price) as sum_pride,
+            (select value from yoyaku_config where id = '$title_id') as title,
+            (select value from yoyaku_config where id = '$msg_id') as msg,
+            sum(rc.price) as price_sum,
             count(*) as sales_num,
             sum(rc.price) / (select count(*) from yoyaku_registration as yr
                     WHERE yr.start_time >= DATE_ADD(DATE_ADD(LAST_DAY(NOW()), INTERVAL 1 DAY), INTERVAL -2 MONTH)

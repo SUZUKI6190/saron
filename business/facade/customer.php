@@ -1,6 +1,7 @@
 <?php
 namespace business\facade;
 use business\entity\Customer;
+use business\entity\Config;
 
 function CreateDecQuery($value)
 {
@@ -177,10 +178,11 @@ function delete_customer_by_last_visit_date()
 {
 	global $wpdb;
 	$passWord = Customer::GetPassword();
+	$interval_id = Config::IntervalDeleateCustomersId;
 	$wpdb->query(
 	<<<SQL
 	delete from	yoyaku_customer
-	where (convert(AES_DECRYPT(last_visit_date, '$passWord')  using utf8) + interval (select value from yoyaku_config where id ='4') month) <= now()
+	where (convert(AES_DECRYPT(last_visit_date, '$passWord')  using utf8) + interval (select value from yoyaku_config where id ='$interval_id') month) <= now()
 SQL
 );
 }
