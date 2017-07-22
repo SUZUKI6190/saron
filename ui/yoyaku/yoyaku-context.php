@@ -19,12 +19,9 @@ class YoyakuContext
 		$this->mail_contents = new MailContents();
 	}
 
-	public $template_page_name;
-
 	public function get_base_url()
 	{
-		$this->template_page_name = \PluginController::get_head_url_name();
-		return get_bloginfo('url')."/".$this->template_page_name."/yoyaku";
+		return get_bloginfo('url')."/yoyaku";
 	}
 	
 	public $yoyaku_id;

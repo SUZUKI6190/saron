@@ -20,7 +20,6 @@ function create_iplementer($category_name)
 			$context->Page = get_query_var( 'sub_category' );;
 			$context->RegistMode = get_query_var( 'edit' );
 			$context->Id = get_query_var( 'id' );
-			$context->TemplatePageName = \PluginController::get_head_url_name();
 			$context->SearchResult = get_query_var( 'result' );
 			return new  customer\CustomerFameImplementor();
 			break;

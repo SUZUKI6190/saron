@@ -40,14 +40,13 @@ class ManageFrameContext
 	const LoginKey = 'Login';
 	const LogoutBtnName = 'LogoutBtn';
 	public $main_category_list = [];
-	public $template_page_name;
 
 	public $selected_main_category_name;
 	public $selected_sub_category_name;
 	
 	public function get_url()
 	{
-		return get_bloginfo('url')."/".$this->template_page_name;
+		return get_bloginfo('url');
 	}
 	
 	public function get_selected_main_category()
