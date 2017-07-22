@@ -12,7 +12,6 @@ class YoyakuContext
 
 	private function __construct()
 	{
-		session_id ("yoyakumenu");
 		session_start();
 		$this->course_id_list = new YoyakuParam("course_id");
 		$this->staff_id = new YoyakuParam("staff_id");
@@ -42,8 +41,15 @@ class YoyakuContext
 
 	public function session_destroy()
 	{
-		//$_SESSION = array();
-		session_destroy();
+		$this->course_id_list->clear();
+		$this->staff_id->clear();
+		$this->yoyaku_date_time->clear();
+		$this->mail_contents->name_kanji->clear();
+		$this->mail_contents->name_kana->clear();
+		$this->mail_contents->email->clear();
+		$this->mail_contents->tell->clear();
+		$this->mail_contents->visit->clear();
+		$this->mail_contents->consultation->clear();
 	}
 }
 
