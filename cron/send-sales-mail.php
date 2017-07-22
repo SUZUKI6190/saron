@@ -5,6 +5,12 @@ use \business\facade\SalesMailFacade;
 
 function run_send_sales_mail()
 {
+    $date = new \DateTime();
+    $day = (int)$date->format('d');
+    if($day != 1)
+    {
+        return;
+    }
     $mail = SalesMailFacade::get_last_month();
     $mail_list = SalesMailSettingFacade::get_all();
 
