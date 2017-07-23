@@ -11,12 +11,22 @@ class SalesMail
 
     public function create_text() : string
     {
-        return "";
+        $msg =
+        <<<MSG
+$this->msg
+
+  売上金額:$this->price_sum
+売り上げ数:$this->sales_num
+　　客単価:$this->per_customer
+
+MSG;
+
+        return $msg;
     }
 
     public function create_title() : string
     {
-        return "";
+        return $this->title;
     }
 
 	public static function CreateFromWpdb($wpdb) : self
