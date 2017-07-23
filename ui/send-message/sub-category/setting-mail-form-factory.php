@@ -1,6 +1,6 @@
 <?php
 namespace ui\send_message\sub_category;
-require_once(dirname(__FILE__).'/send-setting-form/send-mail-form.php');
+require_once(dirname(__FILE__).'/send-setting-form/setting-form.php');
 require_once(dirname(__FILE__).'/send-setting-form/customer-criteria-setting.php');
 require_once(dirname(__FILE__).'/send-setting-form/timing-criteria-setting.php');
 require_once(dirname(__FILE__).'/send-setting-form/content-setting.php');

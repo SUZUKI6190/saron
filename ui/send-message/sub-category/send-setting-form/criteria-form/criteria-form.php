@@ -1,7 +1,6 @@
 <?php
 namespace ui\send_message\sub_category;
 require_once(dirname(__FILE__).'/../../page-move-button.php');
-require_once(dirname(__FILE__).'/../send-mail-form.php');
 require_once(dirname(__FILE__).'/criteria.php');
 require_once(dirname(__FILE__).'/criteria-factory.php');
 use business\entity\SendMessage;
