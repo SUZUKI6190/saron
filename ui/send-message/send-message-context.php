@@ -123,6 +123,7 @@ class SendMessageContext
 
 	public function set_session(SendMessage $sm)
 	{
+		$this->_param_set->send_user_name->set_from_param($sm->send_user_name);
 		$this->_param_set->message->set_from_param($sm->message_text);
         $this->_param_set->sending_mail->set_from_param($sm->sending_mail);
 		$this->_param_set->confirm_mail->set_from_param($sm->confirm_mail);
@@ -138,6 +139,7 @@ class SendMessageContext
 	{
 		$this->_msg->id = $this->message_id;
 
+		$this->_msg->send_user_name = $this->_param_set->send_user_name->get_value();
 		$this->_msg->sending_mail = $this->_param_set->sending_mail->get_value();
 		$this->_msg->confirm_mail = $this->_param_set->confirm_mail->get_value();
 		$this->_msg->message_text = $this->_param_set->message->get_value();
@@ -154,7 +156,6 @@ class SendMessageContext
 		$this->_msg->birth = $this->_param_set->birth->get_value();
 		$this->_msg->last_visit = $this->_param_set->last_visit->get_value();
 		$this->_msg->next_visit =$this->_param_set->next_visit->get_value();
-
 		return $this->_msg;
 	}
 
@@ -211,7 +212,7 @@ class ManagePost
 
 class SendMessageParamSet
 {
-	public $title, $birth, $last_visit, $next_visit;
+	public $send_user_name, $title, $birth, $last_visit, $next_visit;
 	public $sending_mail, $confirm_mail;
 	public $message;
 	public $occupation;
@@ -223,6 +224,7 @@ class SendMessageParamSet
 	public $param_list = [];
 	public function __construct()
 	{
+		$this->send_user_name = new Param("send_user_name");
 		$this->title = new Param("title");
 		$this->birth = new DaySelectParam("birth_days");
 		$this->last_visit = new DaySelectParam("last_visit_days");
@@ -238,6 +240,7 @@ class SendMessageParamSet
 		$this->enable_dm = new RadioParam("enable_dm");
 
 		$this->param_list = [
+			$this->send_user_name,
 			$this->title ,
 			$this->birth ,
 			$this->last_visit,

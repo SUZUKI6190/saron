@@ -76,6 +76,7 @@ SQL
 			last_visit int,
 			next_visit int,
 			enable_dm tinyint UNSIGNED,
+			send_user_name text character set utf8,
 			sending_mail varchar(100),
 			confirm_mail varchar(100),
 			message_text text character set utf8,

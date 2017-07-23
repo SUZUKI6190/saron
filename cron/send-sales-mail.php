@@ -16,7 +16,8 @@ function run_send_sales_mail()
 
     foreach($mail_list as $m)
     {
-        send_mail($m->email, $mail->create_title(), $mail->create_text());
+        $headers = "From: $m->send_user_name <$m->sending_mail>" . "\r\n";
+        send_mail($m->email, $mail->create_title(), $mail->create_text(), $headers);
     }
 }
 
