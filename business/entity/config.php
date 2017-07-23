@@ -14,6 +14,8 @@ class Config
     //売上メール送信設定
     public $SalesMailTitle;
     public $SalesMailMessage;
+    public $SalesMailUserName;
+    public $SalesMailUserAddress;
 
     const YoyakuMailAddressId = 1;
     const YoyakuMailTitleId = 2;
@@ -21,6 +23,8 @@ class Config
     const IntervalDeleateCustomersId = 4;
     const SalesMailTitleId = 5;
     const SalesMailMessageId = 6;
+    const SalesMailUserNameId = 7;
+    const SalesMailUserAddressNameId = 8;
 
     private function __construct()
 	{
@@ -31,6 +35,8 @@ class Config
         $this->IntervalDeleateCustomers = $this->create_param(self::IntervalDeleateCustomersId);
         $this->SalesMailTitle = $this->create_param(self::SalesMailTitleId);
         $this->SalesMailMessage = $this->create_param(self::SalesMailMessageId);
+        $this->SalesMailUserName = $this->create_param(self::SalesMailUserNameId);
+        $this->SalesMailUserAddress = $this->create_param(self::SalesMailUserAddressNameId);
     }
 
     private function create_param($id) : ConfigParam
