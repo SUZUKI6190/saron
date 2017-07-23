@@ -141,21 +141,21 @@ function UpdateCustomer(Customer $data)
 	$strSql = <<<SQL
 	update `yoyaku_customer` set
 		tanto_id = '$data->tanto_id',
-		name_kanji = AES_ENCRYPT('$data->name_kanji', $passWord),
-		name_kana = AES_ENCRYPT('$data->name_kana', $passWord),
-		sex = AES_ENCRYPT('$data->sex',	 $passWord),
-		old = AES_ENCRYPT('$data->old', $passWord),
-		birthday = AES_ENCRYPT('$data->birthday', $passWord),
-		last_visit_date = AES_ENCRYPT('$data->last_visit_date', $passWord),
-		phone_number = AES_ENCRYPT('$data->phone_number ', $passWord),
-		address = AES_ENCRYPT('$data->address', $passWord),
-		occupation = AES_ENCRYPT('$data->occupation', $passWord),
+		name_kanji = AES_ENCRYPT(trim('$data->name_kanji'), $passWord),
+		name_kana = AES_ENCRYPT(trim('$data->name_kana'), $passWord),
+		sex = AES_ENCRYPT(trim('$data->sex'), $passWord),
+		old = AES_ENCRYPT(trim('$data->old'), $passWord),
+		birthday = AES_ENCRYPT(trim('$data->birthday'), $passWord),
+		last_visit_date = AES_ENCRYPT(trim('$data->last_visit_date'), $passWord),
+		phone_number = AES_ENCRYPT(trim('$data->phone_number'), $passWord),
+		address = AES_ENCRYPT(trim('$data->address'), $passWord),
+		occupation = AES_ENCRYPT(trim('$data->occupation'), $passWord),
 		number_of_visit = '$data->number_of_visit',
-		email = AES_ENCRYPT('$data->email', $passWord),
+		email = AES_ENCRYPT(trim('$data->email'), $passWord),
 		enable_dm = '$data->enable_dm',
-		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord),
-		reservation_route = AES_ENCRYPT('$data->reservation_route', $passWord),
-		remarks = AES_ENCRYPT('$data->remarks', $passWord)
+		next_visit_reservation_date = AES_ENCRYPT(trim('$data->next_visit_reservation_date'), $passWord),
+		reservation_route = AES_ENCRYPT(trim('$data->reservation_route'), $passWord),
+		remarks = AES_ENCRYPT(trim('$data->remarks'), $passWord)
 	where id = '$data->id'
 SQL;
 	
@@ -192,16 +192,16 @@ function update_from_yoyakumail(int $id, Customer $data)
 	$passWord = "'".Customer::GetPassword()."'";
 	$strSql = <<<SQL
 	update `yoyaku_customer` set
-		tanto_id = '$data->tanto_id',
-		name_kanji = AES_ENCRYPT('$data->name_kanji', $passWord),
-		name_kana = AES_ENCRYPT('$data->name_kana', $passWord),
-		phone_number = AES_ENCRYPT('$data->phone_number ', $passWord),
-		email = AES_ENCRYPT('$data->email', $passWord),
-		remarks = AES_ENCRYPT('$data->remarks', $passWord),
+		tanto_id = trim('$data->tanto_id'),
+		name_kanji = AES_ENCRYPT(trim('$data->name_kanji'), $passWord),
+		name_kana = AES_ENCRYPT(trim('$data->name_kana'), $passWord),
+		phone_number = AES_ENCRYPT(trim('$data->phone_number'), $passWord),
+		email = AES_ENCRYPT(trim('$data->email'), $passWord),
+		remarks = AES_ENCRYPT(trim('$data->remarks'), $passWord),
 		last_visit_date = next_visit_reservation_date,
-		reservation_route = AES_ENCRYPT('$data->reservation_route', $passWord), 
-		next_visit_reservation_date = AES_ENCRYPT('$data->next_visit_reservation_date', $passWord),
-		remarks = AES_ENCRYPT('$data->remarks', $passWord),
+		reservation_route = AES_ENCRYPT(trim('$data->reservation_route'), $passWord), 
+		next_visit_reservation_date = AES_ENCRYPT(trim('$data->next_visit_reservation_date'), $passWord),
+		remarks = AES_ENCRYPT(trim('$data->remarks'), $passWord),
 		number_of_visit = '$data->number_of_visit'
 	where id = '$id'
 SQL;
@@ -216,7 +216,7 @@ function update_nextvisit(int $id,  \DateTime $next_day)
 	$passWord = "'".Customer::GetPassword()."'";
 	$strSql = <<<SQL
 	update `yoyaku_customer` set
-		next_visit_reservation_date = AES_ENCRYPT('$strDate', $passWord)
+		next_visit_reservation_date = AES_ENCRYPT(trim('$strDate'), $passWord)
 	where id = '$id'
 SQL;
 	global $wpdb;
@@ -248,21 +248,21 @@ INSERT INTO `yoyaku_customer` (
 	)
   VALUES (
 	'$data->tanto_id',
-	AES_ENCRYPT('$data->name_kanji', $passWord),
-	AES_ENCRYPT('$data->name_kana', $passWord),
-	AES_ENCRYPT('$data->sex', $passWord),
-	AES_ENCRYPT('$data->old', $passWord),
-	AES_ENCRYPT('$data->birthday', $passWord),
-	AES_ENCRYPT('$data->last_visit_date', $passWord),
-	AES_ENCRYPT('$data->phone_number', $passWord),
-	AES_ENCRYPT('$data->address', $passWord),
-	AES_ENCRYPT('$data->occupation', $passWord),
+	AES_ENCRYPT(trim('$data->name_kanji'), $passWord),
+	AES_ENCRYPT(trim('$data->name_kana'), $passWord),
+	AES_ENCRYPT(trim('$data->sex'), $passWord),
+	AES_ENCRYPT(trim('$data->old'), $passWord),
+	AES_ENCRYPT(trim('$data->birthday'), $passWord),
+	AES_ENCRYPT(trim('$data->last_visit_date'), $passWord),
+	AES_ENCRYPT(trim('$data->phone_number'), $passWord),
+	AES_ENCRYPT(trim('$data->address'), $passWord),
+	AES_ENCRYPT(trim('$data->occupation'), $passWord),
 	'$data->number_of_visit',
-	AES_ENCRYPT('$data->email', $passWord),
+	AES_ENCRYPT(trim('$data->email'), $passWord),
 	'$data->enable_dm',
-	AES_ENCRYPT('$data->next_visit_reservation_date', $passWord),
-	AES_ENCRYPT('$data->reservation_route', $passWord),
-	AES_ENCRYPT('$data->remarks', $passWord)
+	AES_ENCRYPT(trim('$data->next_visit_reservation_date'), $passWord),
+	AES_ENCRYPT(trim('$data->reservation_route'), $passWord),
+	AES_ENCRYPT(trim('$data->remarks'), $passWord)
   )
 SQL;
 	dbDelta($strSql);
