@@ -25,7 +25,8 @@ class ViewMessageSub extends \ui\frame\SubCategory
 			$sc = SendMessageContext::get_instance();
 			$sc->set_session($send_message);
 			$mc = ManageFrameContext::get_instance();
-			$url = $mc->get_url()."/send_message/edit/$msg_id";
+			$d = "?d=".(new \DateTime())->format("Ymdhis");
+			$url = $mc->get_url()."/send_message/edit/$msg_id".$d;
 			header("Location:$url");
 			exit;
 		}
