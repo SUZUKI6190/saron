@@ -11,11 +11,15 @@ class SalesMailFacade
     {
         $title_id = Config::SalesMailTitleId;
         $msg_id = Config::SalesMailMessageId;
+        $user_id = Config::SalesMailUserNameId;
+        $user_address_id = Config::SalesMailUserAddressNameId;
 
         $strSql = <<<SQL
         select
             (select value from yoyaku_config where id = '$title_id') as title,
             (select value from yoyaku_config where id = '$msg_id') as msg,
+            (select value from yoyaku_config where id = '$user_id') as send_user_name,
+            (select value from yoyaku_config where id = '$user_address_id') as send_user_address,
             sum(rc.price) as price_sum,
             count(*) as sales_num,
             sum(rc.price) / (select count(*) from yoyaku_registration as yr

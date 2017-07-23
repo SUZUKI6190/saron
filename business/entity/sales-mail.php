@@ -8,6 +8,8 @@ class SalesMail
     public $price_sum;
     public $per_customer;
     public $sales_num;
+    public $send_user_name;
+    public $send_user_address;
 
     public function create_text() : string
     {
@@ -37,6 +39,8 @@ MSG;
         $ret->price_sum = $wpdb->price_sum;
         $ret->per_customer = $wpdb->per_customer;
         $ret->sales_num = $wpdb->sales_num;
+        $ret->send_user_name = $wpdb->send_user_name;
+        $ret->send_user_address = $wpdb->send_user_address;
 		return $ret;
 	}
 }
