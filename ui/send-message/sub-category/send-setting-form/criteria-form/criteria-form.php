@@ -30,6 +30,8 @@ abstract class CriteriaForm extends SettingForm
 
     protected function view_inner()
     {
+        $open_text = "指定しない";
+        $close_text = "入力する";
         foreach($this->_criteria_list as $c)
         {
             $area_id = $c->name."_area";
@@ -37,8 +39,6 @@ abstract class CriteriaForm extends SettingForm
             $btn_id = $c->name."_btn";
             $hdn_id = $c->get_hidden_id();
             $hdn_value;
-            $open_text = "指定しない";
-            $close_text = "入力する";
             $hdn_value;
             $disabled;
 
