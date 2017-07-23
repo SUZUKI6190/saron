@@ -8,7 +8,8 @@ function run_scheduled_message()
 
     foreach($msg_list as $msg)
     {
-        send_mail($msg->email, $msg->title, $msg->text);
+        $headers = "From: test <harp6662002@yahoo.co.jp>" . "\r\n";
+        send_mail($msg->email, $msg->title, $msg->text, $headers);
     }
 }
 

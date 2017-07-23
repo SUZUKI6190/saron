@@ -14,9 +14,10 @@ require_once(dirname(__FILE__)."/send-sales-mail.php");
 require_once(dirname(__FILE__).'/../../../../wp-load.php');
 //require_once(dirname(__FILE__).'/../../../../wp-mail.php');
 
-function send_mail($email, $title, $text)
+function send_mail($email, $title, $text, $headers)
 {
-    wp_mail($email, $title, $text);    
+    mb_send_mail($email, $title, $text, $headers);
+    //wp_mail($email, $title, $text , $headers);  
 }
 
 run_scheduled_message();
