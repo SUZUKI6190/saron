@@ -7,7 +7,7 @@ require_once(dirname(__FILE__).'/send-setting-form/content-setting.php');
 
 use ui\send_message\SendMessageContext;
 
-function SendingFormFactory() :SettingForm
+function SettingFormFactory() :SettingForm
 {
     $sc = SendMessageContext::get_instance();
     $page_no = (int)$sc->get_page_no();

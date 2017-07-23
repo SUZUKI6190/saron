@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/../../frame/manage-frame.php');
 require_once(dirname(__FILE__)."/../../staff.php");
 require_once(dirname(__FILE__).'/../../../business/entity/send-message.php');
 require_once(dirname(__FILE__).'/../../../business/facade/send-message.php');
-require_once(dirname(__FILE__).'/send-mail-form-factory.php');
+require_once(dirname(__FILE__).'/setting-mail-form-factory.php');
 use ui\frame\ManageFrameContext;
 use ui\util\view_date_input;
 use ui\util\InputBase;
@@ -29,7 +29,7 @@ abstract class ViewMessageDetail
 		$sc = SendMessageContext::get_instance();
 		$this->_save_button = new SubmitButton("save_button", "保存する", $this->_form_id);
 		$this->_default_msg = $sc->get_sendmessage();
-		$this->_input_form = SendingFormFactory();
+		$this->_input_form = SettingFormFactory();
 		$this->_input_form->set_msg($this->_default_msg);
 		$this->_input_form->init();
 	}
