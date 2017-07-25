@@ -44,7 +44,24 @@ class ScheduleTimeTable extends ScheduleBase
         if(isset($_POST[StaffShceduleSub::date_name])){
             return $_POST[StaffShceduleSub::date_name];
         }else{
-            return "";
+            if(count($this->_param_list) == 0)
+            {
+                return '';
+            }
+            $ret = '';
+            foreach($this->_param_list as $p)
+            {
+                $temp = new \DateTime($p->start_datetime);
+                if($ret == ''){
+                    $ret = $temp;
+                }else{
+                    if($ret > $temp){
+                        $ret = $temp;
+                    }
+                }
+            }
+            
+            return $ret->format('Y-m-d');
         }
     }
 
@@ -62,9 +79,9 @@ class ScheduleTimeTable extends ScheduleBase
         <span>日時選択：</span>
         <?php
         $date_value = "";
-        if($this->is_update_click()){
+        
             $date_value =  "value = '".$this->get_selected_date()."'";
-        }
+        
         ?>
         <input type='date' name='<?php echo self::date_name; ?>' <?php echo  $date_value; ?> />
         <?php
