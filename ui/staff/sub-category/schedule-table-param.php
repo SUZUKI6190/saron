@@ -45,7 +45,9 @@ class ScheduleTableParam
         $ret->minites_len = $s->minutes;
 
         $customer = \business\facade\SelectCustomerById($yoyaku->customer_id);
-        $ret->customer_name = $customer->name_kanji;
+        if(!is_null($customer)){
+            $ret->customer_name = $customer->name_kanji;
+        }
 
         return $ret;
     }

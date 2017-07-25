@@ -132,7 +132,12 @@ SQL;
 
 	global $wpdb;
 	$result = $wpdb->get_row($strSql);
-	return Customer::CreateObjectFromWpdb($result);
+	
+	if(is_null($result)){
+		return null;
+	}else{
+		return Customer::CreateObjectFromWpdb($result);
+	}
 }
 
 function UpdateCustomer(Customer $data)
