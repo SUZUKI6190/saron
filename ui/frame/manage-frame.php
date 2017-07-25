@@ -26,7 +26,18 @@
 		{
 			return [];
 		}
-		
+			
+		public function is_empty():bool
+		{
+			return false;
+		}
+
+		public function get_selected_main_category()
+		{
+			$mc = \ui\frame\ManageFrameContext::get_instance();
+			return $mc->main_category_list[$mc->selected_main_category_name];
+		}
+			
 		protected function get_js_list()
 		{
 			return [];
@@ -60,20 +71,29 @@
 		private $_main_category;
 		private $_sub_list;
 
+		private function is_empty_imp():bool
+		{
+			return $this->_frame_implementor->is_empty();
+		}
+
 		public function __construct($main_list, $frame_implementor)
 		{
 			$mc = ManageFrameContext::get_instance();
 
 			$this->_frame_implementor = $frame_implementor;
 			$this->_main_catgory_list = $main_list;
-			$this->_selected_main_category = $mc->get_selected_main_category();
+			$this->_selected_main_category = $this->_frame_implementor->get_selected_main_category();
 			$this->_sub_list = $this->_frame_implementor->get_sub_category_list();
-			$this->_selected_sub = $this->_sub_list[$mc->selected_sub_category_name];
+			if(!$this->is_empty_imp()){
+				$this->_selected_sub = $this->_sub_list[$mc->selected_sub_category_name];
+			}
 		}
 
 		public function pre_view()
 		{
-			$this->_selected_sub->pre_view();
+			if(!$this->is_empty_imp()){
+				$this->_selected_sub->pre_view();
+			}
 		}
 
 		public function view()
@@ -112,9 +132,7 @@
 			</div>
 			<div class="main_wrap">
 			<?php
-				
 			$this->view_sub();
-
 			?>
 			</div>
 			<iframe style="height:0px;width:0px;visibility:hidden" src="about:blank">
@@ -148,7 +166,12 @@
 				?>
 				</div>
 			</div>
-			
+			<?php
+			if($this->is_empty_imp()){
+				return;
+			}
+			?>
+
 			<div class = "sub_header_area">
 				<div class="centering">
 				<?php

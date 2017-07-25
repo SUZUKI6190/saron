@@ -1,6 +1,6 @@
 <?php
 namespace ui;
-
+require_once("frame/empty-frame-implementer.php");
 require_once("frame/manage-frame.php");
 require_once("customer/customer-frame-implementer.php");
 require_once(dirname(__FILE__).'/../business/entity/image.php');
@@ -57,7 +57,7 @@ function create_iplementer($category_name)
 			return new schedule\ScheduleFrameImplementor();
 			break;
 		default:
-			echo "invalid url error : $category_name";
+			return new \ui\frame\EmptyFrameImplementor();
 			break;
 	}
 }
