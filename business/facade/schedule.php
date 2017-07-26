@@ -41,6 +41,17 @@ SQL;
 	$wpdb->query($s);
 }
 
+function delete_schedule_by_id($id)
+{
+	global $wpdb;
+	$s = <<<SQL
+		delete from yoyaku_schedule
+		where id = '$id'
+SQL;
+
+	$wpdb->query($s);
+}
+
 function get_schedule_by_staffid($id) : array
 {
 	global $wpdb;
