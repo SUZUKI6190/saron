@@ -63,7 +63,6 @@ SQL;
 
 	$result = $wpdb->get_results($strSql);
 
-	
     $convert = function($data)
 	{
 		return Schedule::CreateObjectFromWpdb($data);;
@@ -71,6 +70,21 @@ SQL;
 
     return array_map($convert, $result);
 }
+
+
+function get_schedule_by_id($id) : Schedule
+{
+	global $wpdb;
+	$strSql = <<<SQL
+		select * from yoyaku_schedule
+		where id = '$id'
+		order by id
+SQL;
+
+	$result = $wpdb->get_results($strSql);
+	return Schedule::CreateObjectFromWpdb($result[0]);
+}
+
 
 
 ?>

@@ -155,7 +155,6 @@ SQL;
 function delete_yoyaku_registration_byid($id)
 {
 	global $wpdb;
-    $course_id_list = implode($y->coutse_id_list);
 	$wpdb->query(
 		<<<SQL
 		delete from yoyaku_registration where id = '$id'

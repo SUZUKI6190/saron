@@ -45,6 +45,12 @@ class ScheduleEdit extends ScheduleBase
 
         if($this->_delete_btn->is_submit()){
             $schedule_id = $this->_schedule_id_input->get_value();
+            $schedule = \business\facade\get_schedule_by_id($schedule_id);
+            if($schedule->is_yoyaku_schedule()){
+                $regist_id = $schedule->extend_data;
+                \business\facade\delete_yoyaku_registration_byid($regist_id);
+                \business\facade\delete_reserved_course_by_registration_id($regist_id);
+            }
             \business\facade\delete_schedule_by_id($schedule_id);
         }
     }

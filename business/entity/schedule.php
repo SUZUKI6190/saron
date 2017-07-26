@@ -23,6 +23,16 @@ class Schedule
 		$ret->extend_data = $wpdb->extend_data;
 		return $ret;
 	}
+
+	private function check_schedule_div($id):bool
+	{
+		return $this->schedule_division == $id;
+	}
+
+	public function is_yoyaku_schedule():bool
+	{
+		return $this->check_schedule_div(self::Yoyaku);
+	}
 }
 
 ?>
