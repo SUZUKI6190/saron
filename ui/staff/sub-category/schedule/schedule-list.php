@@ -42,9 +42,9 @@ class ScheduleList extends ScheduleBase
             <th>
                 予定名
             </th>
-            <th>
+            <!-- <th>
                 お客様名
-            </th>
+            </th> -->
             <th>
                 開始日時
             </th>
@@ -64,11 +64,11 @@ class ScheduleList extends ScheduleBase
                     echo $p->schedule_name;
                 ?>
                 </td>
-                <td>
+                <!-- <td>
                 <?php
-                    echo $p->customer_name;
+                    // echo $p->customer_name;
                 ?>
-                </td>
+                </td> -->
                 <td>
                 <?php
                     echo $p->start_datetime;

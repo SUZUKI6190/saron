@@ -11,6 +11,9 @@ class Schedule
 	public $name;
 	public $extend_data;
 	const Yoyaku = 0;
+	const Holyday = 1;
+	const Other = 99;
+
 	public static function CreateObjectFromWpdb($wpdb) : self
 	{
 		$ret = new self();
