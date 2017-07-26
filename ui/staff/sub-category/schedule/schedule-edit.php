@@ -14,6 +14,7 @@ class ScheduleEdit extends ScheduleDetail
 {
     private $_selected_schedule_id;
     private $_delete_btn;
+    private $_schedule_id_input;
 
     private function get_edit_value() : string
     {
@@ -22,7 +23,9 @@ class ScheduleEdit extends ScheduleDetail
 
     public function __construct()
     {
+        parent::__construct();
         $this->_delete_btn = new ConfirmSubmitButton('delete_schedule_btn', '削除', '', '本当に削除しますか？');
+        $this->_schedule_id_input = new InputControll("hidden", StaffShceduleSub::schedule_id);
     }
 
     protected function get_default_schedule(): Schedule
@@ -36,6 +39,7 @@ class ScheduleEdit extends ScheduleDetail
 
     protected function update_inner(Schedule $new_schedule)
     {
+        $new_schedule->id = $this->_schedule_id_input->get_value();
         \business\facade\update_schedule($new_schedule);
     }
 
@@ -53,38 +57,9 @@ class ScheduleEdit extends ScheduleDetail
         }
     }
 
-    public function update()
-    {
-        if($this->is_update_schedule_btn_click()){
-            $new_schedule = new Schedule();
-            $new_schedule->id = $this->_schedule_id_input->get_value();
-            $new_schedule->name = $this->_name_input->get_value();
-            $datetime = $this->_date_input->get_value()." ".$this->_time_input->get_value();
-            $new_schedule->start_time = $datetime;
-            $new_schedule->minutes = $this->_minutes_input->get_value();
-            
-        }
-
-        if($this->_delete_btn->is_submit()){
-            $schedule_id = $this->_schedule_id_input->get_value();
-            $schedule = \business\facade\get_schedule_by_id($schedule_id);
-            if($schedule->is_yoyaku_schedule()){
-                $regist_id = $schedule->extend_data;
-                \business\facade\delete_yoyaku_registration_byid($regist_id);
-                \business\facade\delete_reserved_course_by_registration_id($regist_id);
-            }
-            \business\facade\delete_schedule_by_id($schedule_id);
-        }
-    }
-
     protected function add_button()
     {
         $this->_delete_btn->view();
-    }
-
-    private function is_update_schedule_btn_click() : bool
-    {
-        return isset($_POST[StaffShceduleSub::update_schedule_btn_name]);
     }
 
     private function view_update_schedule_btn()
@@ -93,6 +68,16 @@ class ScheduleEdit extends ScheduleDetail
         <button class="manage_button" name='<?php echo StaffShceduleSub::update_schedule_btn_name; ?>'>更新</button>
 <?php
     }
+
+    protected function on_view()
+    {
+        $this->_schedule_id_input->set_value($this->_selected_schedule_id);
+        $this->_schedule_id_input->view();
+        ?>
+        <input type="hidden" name="<?php echo StaffShceduleSub::edit_btn_name; ?>" value="<?php echo $this->_selected_schedule_id;?>" >
+        <?php
+    }
+
 
 }
 
