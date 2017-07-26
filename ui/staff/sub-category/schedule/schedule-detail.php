@@ -20,11 +20,6 @@ abstract class ScheduleDetail extends ScheduleBase
     protected abstract function add_button();
     protected abstract function on_view();
 
-    private function get_edit_value() : string
-    {
-        return $_POST[StaffShceduleSub::edit_btn_name];
-    }
-
     public function __construct()
     {
         $this->_name_input = new InputControll("text", StaffShceduleSub::schedule_name);

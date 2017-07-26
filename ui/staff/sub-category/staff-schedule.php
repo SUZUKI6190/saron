@@ -3,7 +3,8 @@ namespace ui\staff;
 require_once(dirname(__FILE__).'/schedule-table-param.php');
 require_once(dirname(__FILE__).'/schedule/schedule-base.php');
 require_once(dirname(__FILE__).'/schedule/schedule-detail.php');
-require_once(dirname(__FILE__).'/schedule/schedule-edit.php');
+require_once(dirname(__FILE__).'/schedule/schedule-detail-edit.php');
+require_once(dirname(__FILE__).'/schedule/schedule-detail-new.php');
 require_once(dirname(__FILE__).'/schedule/schedule-list.php');
 require_once(dirname(__FILE__).'/schedule/schedule-timetable.php');
 require_once(dirname(__FILE__).'/schedule/schedule-empty.php');
@@ -70,7 +71,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }
 
         if($this->is_edit_click()){
-            return new ScheduleEdit();
+            return new ScheduleDetailEdit();
         }
 
         return new ScheduleEmpty();

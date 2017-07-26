@@ -10,7 +10,7 @@ use \business\entity\StaffSchedule;
 use \business\entity\Schedule;
 use ui\staff\ScheduleBase;
 
-class ScheduleEdit extends ScheduleDetail
+class ScheduleDetailEdit extends ScheduleDetail
 {
     private $_selected_schedule_id;
     private $_delete_btn;
@@ -60,13 +60,6 @@ class ScheduleEdit extends ScheduleDetail
     protected function add_button()
     {
         $this->_delete_btn->view();
-    }
-
-    private function view_update_schedule_btn()
-    {
-?>
-        <button class="manage_button" name='<?php echo StaffShceduleSub::update_schedule_btn_name; ?>'>更新</button>
-<?php
     }
 
     protected function on_view()
