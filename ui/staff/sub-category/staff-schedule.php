@@ -2,6 +2,7 @@
 namespace ui\staff;
 require_once(dirname(__FILE__).'/schedule-table-param.php');
 require_once(dirname(__FILE__).'/schedule/schedule-base.php');
+require_once(dirname(__FILE__).'/schedule/schedule-detail.php');
 require_once(dirname(__FILE__).'/schedule/schedule-edit.php');
 require_once(dirname(__FILE__).'/schedule/schedule-list.php');
 require_once(dirname(__FILE__).'/schedule/schedule-timetable.php');
