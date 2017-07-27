@@ -102,8 +102,8 @@ abstract class ScheduleDetail extends ScheduleBase
         ?>
         <select name = '<?php echo self::YoteiDivName; ?>'>
         <?php
-            $view_opt(Schedule::Yoyaku, '予約');
             $view_opt(Schedule::Other, 'その他');
+            $view_opt(Schedule::Yoyaku, '予約');  
         ?>
         </select>
         <h2 class='edit_midasi'>

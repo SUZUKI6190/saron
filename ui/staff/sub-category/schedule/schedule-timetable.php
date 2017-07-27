@@ -102,7 +102,11 @@ class ScheduleTimeTable extends ScheduleBase
                 }
                 ?>
             </div>
-            <div class='schedule_col'>
+            <?php
+            $onclick_script = 'edit_schedule("%s","%d","%s")';
+            $col_script = sprintf($onclick_script, StaffShceduleSub::new_btn_name, '0', StaffShceduleSub::form_id);
+            ?>
+            <div class='schedule_col' onclick='<?php echo $col_script;?>'>
                 <?php
                 
                 $selected_date = (new \DateTime($this->get_selected_date()))->format("Ymd");
@@ -116,8 +120,7 @@ class ScheduleTimeTable extends ScheduleBase
                     $px = $p->start_minutes * self::minutes_px;
                     $px = $px + $px / self::minutes_30_px;
                     $height = $p->minites_len;
-                    $str = 'edit_schedule("%s","%d","%s")';
-                    $script = sprintf($str, self::selected_id, $p->schedule_id, StaffShceduleSub::form_id);
+                    $script = sprintf($onclick_script, StaffShceduleSub::edit_btn_name, $p->schedule_id, StaffShceduleSub::form_id);
                     ?>                   
                     <div onclick='<?php echo $script;?>' class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
                         <span class='yoyaku_name'>
@@ -131,8 +134,7 @@ class ScheduleTimeTable extends ScheduleBase
                 }
                 
                 ?>
-                <input id="<?php echo self::selected_id; ?>" type="hidden" name="<?php echo StaffShceduleSub::edit_btn_name; ?>"  >
-            </div>
+             </div>
         </div>
         <?php
     }

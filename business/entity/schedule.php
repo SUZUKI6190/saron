@@ -6,9 +6,9 @@ class Schedule
 	public $id;
 	public $staff_id;
 	public $start_time;
-	public $minutes;
+	public $minutes = 0;
 	public $schedule_division;
-	public $name;
+	public $name = '';
 	public $extend_data;
 	const Yoyaku = 0;
 	const Holyday = 1;

@@ -29,6 +29,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const list_btn_name = "list_btn";
     const timetable_btn_name = "time_table_btn";
     const edit_btn_name = "edit_btn";
+    const new_btn_name = 'new_schedule_btn';
     const date_name = "date_name";
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
@@ -73,6 +74,10 @@ class StaffShceduleSub extends \ui\frame\SubCategory
             return new ScheduleDetailEdit();
         }
 
+        if($this->is_new_click()){
+            return new ScheduleDetailNew();
+        }
+
         return new ScheduleEmpty();
     }
 
@@ -99,6 +104,11 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private function is_edit_click() : bool
     {
         return isset($_POST[self::edit_btn_name]) || $this->is_update_schedule_btn_click();
+    }
+
+    private function is_new_click() : bool
+    {
+        return isset($_POST[self::new_btn_name]);
     }
 
     private function get_edit_value() : string
