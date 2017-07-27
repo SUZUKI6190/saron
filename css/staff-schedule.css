@@ -24,6 +24,7 @@ div.time_col
 
 div.schedule_col
 {
+    position: relative;
     width:40%;
     display: flex;
     flex-direction: row;
@@ -73,8 +74,8 @@ div.time_area span{
 
 div.schedule_cell
 {
-    position: relative;
-    width: 200px;
+    position: absolute;
+    width: 100%;
     border: none;
     border-radius: 10px;
     -webkit-border-radius: 10px;

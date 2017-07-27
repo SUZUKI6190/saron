@@ -48,8 +48,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $this->_staff_list = \business\facade\get_staff_all();
         $this->_schedule = $this->create_schedule();
 
-        if($this->is_select_staff())
-        {              
+        if($this->is_select_staff()){
             $this->_schedule->update();
 
             $this->_selected_staff_id = $this->get_selected_staff_id();
