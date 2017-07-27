@@ -20,6 +20,7 @@ abstract class ScheduleDetail extends ScheduleBase
     protected abstract function on_update();
     protected abstract function add_button();
     protected abstract function on_view();
+    protected abstract function get_btn_caption():string;
     
     public function __construct()
     {
@@ -56,7 +57,7 @@ abstract class ScheduleDetail extends ScheduleBase
     private function view_schedule_btn()
     {
 ?>
-        <button class="manage_button" name='<?php echo StaffShceduleSub::update_schedule_btn_name; ?>'>更新</button>
+        <button class="manage_button" name='<?php echo StaffShceduleSub::update_schedule_btn_name; ?>'><?php echo $this->get_btn_caption(); ?></button>
 <?php
         $this->add_button();
     }
@@ -64,9 +65,13 @@ abstract class ScheduleDetail extends ScheduleBase
     protected function view_inner()
     {
         $selected_schedule = $this->get_default_schedule();
-        $datetime  = new \DateTime($selected_schedule->start_time);
-        $date = $datetime->format("Y-m-d"); 
-        $time = $datetime->format("H:s");
+        $date = "";
+        $time = "";
+        if(isset($selected_schedule->start_time)){
+            $datetime  = new \DateTime($selected_schedule->start_time);
+            $date = $datetime->format("Y-m-d"); 
+            $time = $datetime->format("H:s");
+        }
         $this->_name_input->set_value($selected_schedule->name);
         $this->_date_input->set_value($date );
         $this->_time_input->set_value($time);

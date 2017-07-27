@@ -17,7 +17,9 @@ class ScheduleDetailNew extends ScheduleDetail
 
     protected function get_default_schedule(): Schedule
     {
-        return new Schedule();
+        $s = new Schedule();
+        $s->schedule_division = Schedule::Other;
+        return $s;
     }
 
     protected function update_inner(Schedule $new_schedule)
@@ -25,6 +27,11 @@ class ScheduleDetailNew extends ScheduleDetail
         \business\facade\insert_schedule($new_schedule);
     }
 
+    protected function get_btn_caption():string
+    {
+        return "追加";
+    }
+  
     protected function on_update()
     {
 

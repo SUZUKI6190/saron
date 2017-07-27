@@ -57,6 +57,11 @@ class ScheduleDetailEdit extends ScheduleDetail
         }
     }
 
+    protected function get_btn_caption():string
+    {
+        return "更新";
+    }
+  
     protected function add_button()
     {
         $this->_delete_btn->view();
