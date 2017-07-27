@@ -66,7 +66,7 @@ abstract class ScheduleDetail extends ScheduleBase
         $selected_schedule = $this->get_default_schedule();
         $datetime  = new \DateTime($selected_schedule->start_time);
         $date = $datetime->format("Y-m-d"); 
-        $time = $datetime->format("h:s");
+        $time = $datetime->format("H:s");
         $this->_name_input->set_value($selected_schedule->name);
         $this->_date_input->set_value($date );
         $this->_time_input->set_value($time);
@@ -103,7 +103,6 @@ abstract class ScheduleDetail extends ScheduleBase
         <select name = '<?php echo self::YoteiDivName; ?>'>
         <?php
             $view_opt(Schedule::Yoyaku, '予約');
-            $view_opt(Schedule::Holyday, '休日');
             $view_opt(Schedule::Other, 'その他');
         ?>
         </select>
