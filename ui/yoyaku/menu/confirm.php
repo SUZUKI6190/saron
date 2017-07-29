@@ -169,9 +169,7 @@ class Confirm extends YoyakuMenu
         {
             $new_data = new ReservedCourse();
             $new_data->registration_id= $regist_id;
-            $new_data->name = $c->name;
-            $new_data->price = $c->price;
-            $new_data->time_required = $c->time_required;
+            $new_data->course_id = $c->id;
             $ret[] = $new_data;
         }
 

@@ -123,9 +123,18 @@ SQL
 SQL
 		);
 
+	dbDelta(<<<SQL
+		CREATE TABLE yoyaku_reserved (
+			id int UNSIGNED NOT NULL AUTO_INCREMENT,
+			course_id int UNSIGNED NOT NULL,
+			registration_id int UNSIGNED,
+			PRIMARY KEY(id)
+		)
+SQL
+		);
 
 	dbDelta(<<<SQL
-		CREATE TABLE yoyaku_reserved_course (
+		CREATE TABLE yoyaku_sold (
 			id int UNSIGNED NOT NULL AUTO_INCREMENT,
 			registration_id int UNSIGNED,
 			price int UNSIGNED,

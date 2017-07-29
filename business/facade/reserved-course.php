@@ -6,16 +6,12 @@ function insert_reserved_course(ReservedCourse $r)
 {
 	global $wpdb;
     $strSql = <<<SQL
-		insert into yoyaku_reserved_course (
+		insert into yoyaku_reserved (
 			registration_id,
-			price,
-			time_required,
-			name
+			course_id
 		)values(
             '$r->registration_id',
-            '$r->price',
-            '$r->time_required',
-            '$r->name'
+            '$r->course_id'
 		)
 SQL;
 	$wpdb->query($strSql);
@@ -24,7 +20,7 @@ SQL;
 function get_reserved_course_by_registration_id($id) : array
 {
     $strSql = <<<SQL
-            select * from yoyaku_reserved_course
+            select * from yoyaku_reserved
             where registration_id = '$id'
 SQL;
 
@@ -39,7 +35,7 @@ SQL;
 function delete_reserved_course_by_registration_id($id) 
 {
     $strSql = <<<SQL
-        delete from yoyaku_reserved_course
+        delete from yoyaku_reserved
         where registration_id = '$id'
 SQL;
 	global $wpdb;
