@@ -8,6 +8,7 @@ require_once(dirname(__FILE__).'/schedule/schedule-detail-new.php');
 require_once(dirname(__FILE__).'/schedule/schedule-list.php');
 require_once(dirname(__FILE__).'/schedule/schedule-timetable.php');
 require_once(dirname(__FILE__).'/schedule/schedule-empty.php');
+require_once(dirname(__FILE__).'/schedule/schedule-select-course.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
@@ -30,6 +31,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const timetable_btn_name = "time_table_btn";
     const edit_btn_name = "edit_btn";
     const new_btn_name = 'new_schedule_btn';
+    const select_course_name = "select_course_btn";
     const date_name = "date_name";
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
@@ -78,12 +80,21 @@ class StaffShceduleSub extends \ui\frame\SubCategory
             return new ScheduleDetailNew();
         }
 
+        if($this->is_select_course()){
+            return new ScheduleCourseSelect();
+        }
+
         return new ScheduleEmpty();
     }
 
     private function is_select_staff() : bool
     {
         return $this->is_timetable_click() || $this->is_list_click() || $this->is_edit_click() || $this->is_update_schedule_btn_click(); 
+    }
+
+    private function is_select_course():bool
+    {
+        return isset($_POST[self::select_course_name]);
     }
 
     private function get_selected_staff_id() : string

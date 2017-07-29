@@ -73,6 +73,28 @@ SQL
 );
 }
 
+function get_menu_course_in_group()
+{
+	$strSql = <<<SQL
+SELECT m.name as menu_name, mc.* FROM 
+yoyaku_menu_course as mc,
+yoyaku_menu as m
+WHERE mc.id in (select id from yoyaku_menu)
+ORDER by m.id
+SQL;
+
+	global $wpdb;
+	$ret = [];
+	$result = $wpdb->get_results($strSql);
+	foreach($result as $r)
+	{
+		$ret[$r->menu_name][] = MenuCourse::CreateFromWpdb($r);
+	}
+
+	return $ret;	
+
+}
+
 function get_menu_course_by_menuid($menu_id)
 {
 	$strSql = <<<SQL
