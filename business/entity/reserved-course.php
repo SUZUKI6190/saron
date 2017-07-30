@@ -1,7 +1,7 @@
 <?php
 namespace business\entity;
 
-class ReservedCourse
+class Reserved
 {
 	public $id;
 	public $course_id;

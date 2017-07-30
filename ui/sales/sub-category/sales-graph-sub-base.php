@@ -8,7 +8,7 @@ use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
-use business\entity\ReservedCourse;
+use business\entity\Reserved;
 
 abstract class SalesGraphSubBase extends \ui\frame\SubCategory
 {

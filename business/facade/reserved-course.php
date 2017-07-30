@@ -1,8 +1,8 @@
 <?php
 namespace business\facade;
-use business\entity\ReservedCourse;
+use business\entity\Reserved;
 
-function insert_reserved_course(ReservedCourse $r)
+function insert_reserved_course(Reserved $r)
 {
 	global $wpdb;
     $strSql = <<<SQL
@@ -27,7 +27,7 @@ SQL;
 	global $wpdb;
 	$result = $wpdb->get_results($strSql);
 	$ret = array_values(array_map(function($data) {
-		return ReservedCourse::CreateFromWpdb($data);
+		return Reserved::CreateFromWpdb($data);
 	}, $result));
 	return $ret;
 }

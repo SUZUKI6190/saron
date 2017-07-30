@@ -9,7 +9,7 @@ use business\entity\YoyakuRegistration;
 use business\entity\Schedule;
 use business\entity\Customer;
 use business\entity\Config;
-use business\entity\ReservedCourse;
+use business\entity\Reserved;
 
 class YoyakuInfo
 {
@@ -167,7 +167,7 @@ class Confirm extends YoyakuMenu
 
         foreach($this->_course_list as $c)
         {
-            $new_data = new ReservedCourse();
+            $new_data = new Reserved();
             $new_data->registration_id= $regist_id;
             $new_data->course_id = $c->id;
             $ret[] = $new_data;

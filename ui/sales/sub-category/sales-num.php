@@ -4,7 +4,7 @@ require_once('sales-graph-sub-base.php');
 require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
-use \business\entity\ReservedCourse;
+use \business\entity\Reserved;
 use \business\entity\YoyakuRegistration;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;

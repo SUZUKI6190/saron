@@ -7,7 +7,7 @@ use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
-use business\entity\ReservedCourse;
+use business\entity\Reserved;
 use \business\entity\YoyakuRegistration;
 
 abstract class DataCalculator
