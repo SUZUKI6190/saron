@@ -9,15 +9,11 @@ function insert_reserved_sold(Sold $r)
 		insert into yoyaku_sold (
 			registration_id,
             name,
-            price,
-            time_required,
-            first_discount
-		)values(
+            price
+  		)values(
             '$r->registration_id',
             '$r->name',
-            '$r->price',
-            '$r->time_required',
-            '$r->first_discount'
+            '$r->price'
 		)
 SQL;
 	$wpdb->query($strSql);
