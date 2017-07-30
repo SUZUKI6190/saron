@@ -26,7 +26,7 @@ class SalesMailFacade
                     WHERE yr.start_time >= DATE_ADD(DATE_ADD(LAST_DAY(NOW()), INTERVAL 1 DAY), INTERVAL -2 MONTH)
                     AND yr.start_time <  DATE_ADD(DATE_ADD(LAST_DAY(NOW()), INTERVAL 1 DAY), INTERVAL -1 MONTH)
                 ) as per_customer
-            FROM  yoyaku_reserved_course as rc
+            FROM  yoyaku_sold as rc
             where id in (select id from yoyaku_registration as yr
                     WHERE yr.start_time >= DATE_ADD(DATE_ADD(LAST_DAY(NOW()), INTERVAL 1 DAY), INTERVAL -2 MONTH)
                     AND yr.start_time <  DATE_ADD(DATE_ADD(LAST_DAY(NOW()), INTERVAL 1 DAY), INTERVAL -1 MONTH)
