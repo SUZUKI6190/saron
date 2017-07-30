@@ -51,7 +51,7 @@ class ScheduleDetailEdit extends ScheduleDetail
             if($schedule->is_yoyaku_schedule()){
                 $regist_id = $schedule->extend_data;
                 \business\facade\delete_yoyaku_registration_byid($regist_id);
-                \business\facade\delete_reserved_course_by_registration_id($regist_id);
+                \business\facade\delete_reserved_by_registration_id($regist_id);
             }
             \business\facade\delete_schedule_by_id($schedule_id);
         }

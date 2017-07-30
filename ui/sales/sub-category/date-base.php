@@ -104,7 +104,7 @@ abstract class MonthlyForm extends DateInputForm
 				foreach($yr_list as $y)
 				{
 					$culc->catch_registration($y);
-					$reserved_course = \business\facade\get_reserved_course_by_registration_id($y->id);
+					$reserved_course = \business\facade\get_reserved_by_registration_id($y->id);
 					foreach($reserved_course as $rc)
 					{
 						$culc->catch_reservedcourse($rc);
@@ -191,7 +191,7 @@ abstract class DaylyForm extends DateInputForm
 				{
 					$yr = $dayly_list[$day];
 					$culc->catch_registration($yr);
-					$reserved_course = \business\facade\get_reserved_course_by_registration_id($yr->id);
+					$reserved_course = \business\facade\get_reserved_by_registration_id($yr->id);
 					foreach($reserved_course as $rc)
 					{			
 						$culc->catch_reservedcourse($rc);

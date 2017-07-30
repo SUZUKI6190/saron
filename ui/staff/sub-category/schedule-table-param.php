@@ -33,7 +33,7 @@ class ScheduleTableParam
         $ret->start_datetime = $s->start_time;
         $ret->start_minutes = self::get_minutes(new \DateTime($s->start_time)) - self::get_minutes(new \DateTime('9:00'));
 
-        $course_list = \business\facade\get_reserved_course_by_registration_id($yoyaku->id);
+        $course_list = \business\facade\get_reserved_by_registration_id($yoyaku->id);
 
         foreach($course_list as $c)
         {

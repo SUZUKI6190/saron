@@ -157,7 +157,7 @@ class Confirm extends YoyakuMenu
         $reserved_course_list = $this->create_reserved_course($regist_id);
         foreach($reserved_course_list as $rc)
         {
-            \business\facade\insert_reserved_course($rc);
+            \business\facade\insert_reserved($rc);
         }
     }
 

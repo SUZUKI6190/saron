@@ -2,7 +2,7 @@
 namespace business\facade;
 use business\entity\Reserved;
 
-function insert_reserved_course(Reserved $r)
+function insert_reserved(Reserved $r)
 {
 	global $wpdb;
     $strSql = <<<SQL
@@ -17,7 +17,7 @@ SQL;
 	$wpdb->query($strSql);
 }
 
-function get_reserved_course_by_registration_id($id) : array
+function get_reserved_by_registration_id($id) : array
 {
     $strSql = <<<SQL
             select * from yoyaku_reserved
@@ -32,7 +32,7 @@ SQL;
 	return $ret;
 }
 
-function delete_reserved_course_by_registration_id($id) 
+function delete_reserved_by_registration_id($id) 
 {
     $strSql = <<<SQL
         delete from yoyaku_reserved
