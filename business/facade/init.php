@@ -140,7 +140,7 @@ SQL
 			registration_id int UNSIGNED,
 			price int UNSIGNED,
 			time_required tinyint UNSIGNED,
-			name text character set utf8
+			name text character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL
