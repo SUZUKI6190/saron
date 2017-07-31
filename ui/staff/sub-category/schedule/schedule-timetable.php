@@ -13,10 +13,10 @@ use ui\staff\ScheduleBase;
 class ScheduleTimeTable extends ScheduleBase
 {
     private $_param_list;
-    const date_name = "date_name";
     const minutes_30_px = 30;
     const minutes_px = 30 / self::minutes_30_px;
     const selected_id = "selected_id";
+    const date_name = "date_name";
 
     protected function update_inner()
     {
@@ -41,8 +41,8 @@ class ScheduleTimeTable extends ScheduleBase
 
     private function get_selected_date()
     {
-        if(isset($_POST[StaffShceduleSub::date_name])){
-            return $_POST[StaffShceduleSub::date_name];
+        if(isset($_POST[self::date_name])){
+            return $_POST[self::date_name];
         }else{
             if(count($this->_param_list) == 0)
             {
