@@ -47,7 +47,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $this->_staff_list = \business\facade\get_staff_all();
         $this->_schedule = $this->create_schedule();
 
-        if($this->is_select_staff()){
+        if(!$this->_schedule->is_empty()){
             $this->_schedule->update();
 
             $this->_selected_staff_id = $this->get_selected_staff_id();
@@ -77,12 +77,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     private function is_edit_page() : bool
     {
-        return isset($_POST[self::edit_page_name]);
-    }
-
-    private function is_select_staff() : bool
-    {
-        return $this->is_timetable_click() || $this->is_list_click() || $this->is_edit_click() || $this->is_update_schedule_btn_click(); 
+        return isset($_POST[self::edit_page_name]) || isset($_POST[self::edit_btn_name]);
     }
 
     private function get_selected_staff_id() : string
@@ -93,21 +88,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private function is_update_click() : bool
     {
         return isset($_POST[self::update_btn_name]);
-    }
-
-    private function is_update_schedule_btn_click() : bool
-    {
-        return isset($_POST[self::update_schedule_btn_name]);
-    }
-
-    private function is_edit_click() : bool
-    {
-        return isset($_POST[self::edit_btn_name]) || $this->is_update_schedule_btn_click();
-    }
-
-    private function get_edit_value() : string
-    {
-        return $_POST[self::edit_btn_name];
     }
 
     public function is_timetable_click():bool

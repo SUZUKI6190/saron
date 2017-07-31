@@ -12,6 +12,12 @@ class ScheduleEmpty extends ScheduleBase
     {
 
     }
+
+    public function is_empty():bool
+    {
+        return true;
+    }
+
 }
 
 ?>

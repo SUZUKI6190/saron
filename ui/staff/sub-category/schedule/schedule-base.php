@@ -20,6 +20,11 @@ abstract class ScheduleBase
         $this->init_inner();
     }
 
+    public function is_empty():bool
+    {
+        return false;   
+    }
+
     public function update()
     {
         
