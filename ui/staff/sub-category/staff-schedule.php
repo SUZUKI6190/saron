@@ -2,13 +2,11 @@
 namespace ui\staff;
 require_once(dirname(__FILE__).'/schedule-table-param.php');
 require_once(dirname(__FILE__).'/schedule/schedule-base.php');
-require_once(dirname(__FILE__).'/schedule/schedule-detail.php');
-require_once(dirname(__FILE__).'/schedule/schedule-detail-edit.php');
-require_once(dirname(__FILE__).'/schedule/schedule-detail-new.php');
 require_once(dirname(__FILE__).'/schedule/schedule-list.php');
 require_once(dirname(__FILE__).'/schedule/schedule-timetable.php');
 require_once(dirname(__FILE__).'/schedule/schedule-empty.php');
-require_once(dirname(__FILE__).'/schedule/schedule-select-course.php');
+require_once(dirname(__FILE__).'/schedule/edit/schedule-edit.php');
+
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
@@ -29,13 +27,11 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const staff_select_id = "staff_select_id";
     const list_btn_name = "list_btn";
     const timetable_btn_name = "time_table_btn";
-    const edit_btn_name = "edit_btn";
-    const new_btn_name = 'new_schedule_btn';
-    const select_course_name = "select_course_btn";
-    const date_name = "date_name";
-    const minutes_30_px = 30;
-    const minutes_px = 30 / self::minutes_30_px;
 
+    const edit_page_name = 'edit_page_name';
+    const new_btn_name = 'new_schedule_btn';
+    const edit_btn_name = "edit_btn";
+     
     const schedule_name = "schedule_name";
     const schedule_date = "schedule_date";
     const schedule_minutes = "schedule_minutes";
@@ -72,29 +68,21 @@ class StaffShceduleSub extends \ui\frame\SubCategory
             return new ScheduleList();
         }
 
-        if($this->is_edit_click()){
-            return new ScheduleDetailEdit();
-        }
-
-        if($this->is_new_click()){
-            return new ScheduleDetailNew();
-        }
-
-        if($this->is_select_course()){
-            return new ScheduleCourseSelect();
+        if($this->is_edit_page()){
+            return new ScheduleEdit();
         }
 
         return new ScheduleEmpty();
     }
 
+    private function is_edit_page() : bool
+    {
+        return isset($_POST[self::edit_page_name]);
+    }
+
     private function is_select_staff() : bool
     {
         return $this->is_timetable_click() || $this->is_list_click() || $this->is_edit_click() || $this->is_update_schedule_btn_click(); 
-    }
-
-    private function is_select_course():bool
-    {
-        return isset($_POST[self::select_course_name]);
     }
 
     private function get_selected_staff_id() : string
@@ -117,23 +105,9 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         return isset($_POST[self::edit_btn_name]) || $this->is_update_schedule_btn_click();
     }
 
-    private function is_new_click() : bool
-    {
-        return isset($_POST[self::new_btn_name]);
-    }
-
     private function get_edit_value() : string
     {
         return $_POST[self::edit_btn_name];
-    }
-
-    private function get_selected_date()
-    {
-        if(isset($_POST[self::date_name])){
-            return $_POST[self::date_name];
-        }else{
-            return "";
-        }
     }
 
     public function is_timetable_click():bool
