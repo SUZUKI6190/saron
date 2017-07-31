@@ -38,14 +38,19 @@ class ScheduleEdit extends ScheduleBase
 
     }
 
+    private function is_edit_click() : bool
+    {
+        return isset($_POST[StaffShceduleSub::edit_btn_name]);
+    }
+
     private function is_new_click() : bool
     {
-        return isset($_POST[self::new_btn_name]);
+        return isset($_POST[StaffShceduleSub::new_btn_name]);
     }
 
     private function is_select_course():bool
     {
-        return isset($_POST[self::select_course_name]);
+        return isset($_POST[StaffShceduleSub::select_course_name]);
     }
 
     protected function update_inner()
@@ -55,12 +60,17 @@ class ScheduleEdit extends ScheduleBase
 
     protected function init_inner()
     {
-        $this->_inner_schedule_base->init($this->schedule_list);
+        $this->_inner_schedule_base = $this->create_inner_schedule_base();
+        $this->_inner_schedule_base->init($this->_schedule_list);
     }
 
     protected function view_inner()
     {
        $this->_inner_schedule_base->view();
+
+       ?>
+       <input type='hidden' name='<?php echo StaffShceduleSub::edit_page_name; ?>' value=''>
+       <?php
     }
 }
 
