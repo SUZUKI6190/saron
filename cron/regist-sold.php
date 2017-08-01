@@ -1,6 +1,6 @@
 <?php
 namespace cron;
-namespace business\facade\RegistSold;
+use \business\facade\RegistSold;
 
 function regist_sold()
 {
