@@ -1,5 +1,6 @@
 <?php
 namespace ui\staff;
+
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
@@ -8,12 +9,13 @@ use \ui\frame\Result;
 use ui\frame\ManageFrameContext;
 use \business\entity\StaffSchedule;
 use \business\entity\Schedule;
+use ui\staff\ScheduleBase;
 
-abstract class ScheduleDetail extends EditFlowBase
+abstract class FlowOtherDetailBase extends FlowBase
 {
     protected $_name_input, $_date_input, $_time_input, $_minutes_input;
     const YoteiDivName = 'YoteiDivName';
-
+    protected $_schedule_list;
     protected abstract function get_default_schedule(): Schedule;
     protected abstract function update_inner(Schedule $new_schedule);
     protected abstract function on_update();
@@ -23,10 +25,6 @@ abstract class ScheduleDetail extends EditFlowBase
     
     public function __construct()
     {
-        $this->_name_input = new InputControll("text", StaffShceduleSub::schedule_name);
-        $this->_date_input = new InputControll("date", StaffShceduleSub::schedule_date);
-        $this->_time_input = new InputControll("time", StaffShceduleSub::schedule_time);
-        $this->_minutes_input = new InputControll("number", StaffShceduleSub::schedule_minutes);
     }
 
     protected function save_inner()
@@ -46,6 +44,10 @@ abstract class ScheduleDetail extends EditFlowBase
 
     protected function init_inner()
     {
+        $this->_name_input = new InputControll("text", StaffShceduleSub::schedule_name);
+        $this->_date_input = new InputControll("date", StaffShceduleSub::schedule_date);
+        $this->_time_input = new InputControll("time", StaffShceduleSub::schedule_time);
+        $this->_minutes_input = new InputControll("number", StaffShceduleSub::schedule_minutes);
     }
 
     private function is_update_schedule_btn_click() : bool
