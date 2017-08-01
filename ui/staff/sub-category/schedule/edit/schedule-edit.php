@@ -24,15 +24,19 @@ class ScheduleEdit extends ScheduleBase
     const MoveName = 'move_next';
     const PrePageNoName = 'pre_flow_no_name';
 
-    protected function init_inner()
+    public function __construct()
     {
         $this->pre_page_no = $this->get_pre_page_no();
         $this->_flow_list = FlowFactory::GetOtherEditFlow();
         $this->_current_flow = $this->get_current_flow();
-        $this->_current_flow->init();
     }
 
-    protected function update_inner()
+    protected function init_inner()
+    {
+        $this->_current_flow->init($this->_schedule_list);
+    }
+
+    public function update()
     {
         $this->_current_flow->save();
     }

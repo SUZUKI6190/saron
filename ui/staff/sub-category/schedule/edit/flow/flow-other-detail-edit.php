@@ -21,9 +21,9 @@ class FlowOtherDetailEdit extends FlowOtherDetailBase
         return $_POST[StaffShceduleSub::edit_btn_name];
     }
 
-    protected function init_inner()
-    {
-        parent::init_inner();
+    public function __construct()
+    {    
+        parent::__construct();
         $this->_delete_btn = new ConfirmSubmitButton('delete_schedule_btn', '削除', '', '本当に削除しますか？');
         $this->_schedule_id_input = new InputControll("hidden", StaffShceduleSub::schedule_id);
     }
@@ -47,12 +47,6 @@ class FlowOtherDetailEdit extends FlowOtherDetailBase
     {
         if($this->_delete_btn->is_submit()){
             $schedule_id = $this->_schedule_id_input->get_value();
-            $schedule = \business\facade\get_schedule_by_id($schedule_id);
-            if($schedule->is_yoyaku_schedule()){
-                $regist_id = $schedule->extend_data;
-                \business\facade\delete_yoyaku_registration_byid($regist_id);
-                \business\facade\delete_reserved_by_registration_id($regist_id);
-            }
             \business\facade\delete_schedule_by_id($schedule_id);
         }
     }

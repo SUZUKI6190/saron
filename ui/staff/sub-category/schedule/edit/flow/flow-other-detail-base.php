@@ -14,7 +14,6 @@ use ui\staff\ScheduleBase;
 abstract class FlowOtherDetailBase extends FlowBase
 {
     protected $_name_input, $_date_input, $_time_input, $_minutes_input;
-    const YoteiDivName = 'YoteiDivName';
     protected $_schedule_list;
     protected abstract function get_default_schedule(): Schedule;
     protected abstract function update_inner(Schedule $new_schedule);
@@ -24,7 +23,11 @@ abstract class FlowOtherDetailBase extends FlowBase
     protected abstract function get_btn_caption():string;
     
     public function __construct()
-    {
+    {    
+        $this->_name_input = new InputControll("text", StaffShceduleSub::schedule_name);
+        $this->_date_input = new InputControll("date", StaffShceduleSub::schedule_date);
+        $this->_time_input = new InputControll("time", StaffShceduleSub::schedule_time);
+        $this->_minutes_input = new InputControll("number", StaffShceduleSub::schedule_minutes);
     }
 
     protected function save_inner()
@@ -35,7 +38,6 @@ abstract class FlowOtherDetailBase extends FlowBase
             $datetime = $this->_date_input->get_value()." ".$this->_time_input->get_value();
             $new_schedule->start_time = $datetime;
             $new_schedule->minutes = $this->_minutes_input->get_value();
-            $new_schedule->schedule_division = $_POST[self::YoteiDivName];
             $this->update_inner($new_schedule);
         }
         
@@ -44,10 +46,7 @@ abstract class FlowOtherDetailBase extends FlowBase
 
     protected function init_inner()
     {
-        $this->_name_input = new InputControll("text", StaffShceduleSub::schedule_name);
-        $this->_date_input = new InputControll("date", StaffShceduleSub::schedule_date);
-        $this->_time_input = new InputControll("time", StaffShceduleSub::schedule_time);
-        $this->_minutes_input = new InputControll("number", StaffShceduleSub::schedule_minutes);
+
     }
 
     private function is_update_schedule_btn_click() : bool
@@ -94,24 +93,6 @@ abstract class FlowOtherDetailBase extends FlowBase
         予定名
         </h2>
         <?php $this->_name_input->view() ?>
-        <h2 class='edit_midasi'>
-        予定種類
-        </h2>
-        <?php
-            $view_opt = function($name, $r) use(&$selected_schedule){
-                if($selected_schedule->schedule_division == $name){
-                    echo "<option value='$name' selected>$r</option>";
-                }else{
-                    echo "<option value='$name'>$r</option>";
-                }
-            }
-        ?>
-        <select name = '<?php echo self::YoteiDivName; ?>'>
-        <?php
-            $view_opt(Schedule::Other, 'その他');
-            $view_opt(Schedule::Yoyaku, '予約');  
-        ?>
-        </select>
         <h2 class='edit_midasi'>
         開始日
         </h2>
