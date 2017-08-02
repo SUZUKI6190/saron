@@ -4,6 +4,8 @@ require_once(dirname(__FILE__).'/flow-other-detail-base.php');
 require_once(dirname(__FILE__).'/flow-other-detail-edit.php');
 require_once(dirname(__FILE__).'/flow-other-detail-new.php');
 
+use ui\staff\StaffContext;
+
 class FlowFactory
 {
     private function __construct()
@@ -11,7 +13,7 @@ class FlowFactory
 
     }
 
-    public static function GetOtherEditFlow()
+    public static function GetEditFlow()
     {
         $ret = [
             new FlowOtherDetailEdit()

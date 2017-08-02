@@ -27,7 +27,7 @@ class ScheduleEdit extends ScheduleBase
     public function __construct()
     {
         $this->pre_page_no = $this->get_pre_page_no();
-        $this->_flow_list = FlowFactory::GetOtherEditFlow();
+        $this->_flow_list = FlowFactory::GetEditFlow();
         $this->_current_flow = $this->get_current_flow();
     }
 

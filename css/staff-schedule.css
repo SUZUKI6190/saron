@@ -10,6 +10,11 @@
     margin-top: 10px;
 }
 
+.new_btn_area
+{
+    margin-top: 10px;
+    text-align: right;
+}
 
 div.time_col,
 div.schedule_col

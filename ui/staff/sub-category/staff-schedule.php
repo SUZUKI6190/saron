@@ -25,13 +25,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const update_btn_name = "update_btn";
     const update_schedule_btn_name = "update_schedule_btn";
     const staff_select_id = "staff_select_id";
-    const list_btn_name = "list_btn";
-    const timetable_btn_name = "time_table_btn";
-
-    const edit_page_name = 'edit_page_name';
-    const new_btn_name = 'new_schedule_btn';
-    const edit_btn_name = "edit_btn";
-     
+ 
     const schedule_name = "schedule_name";
     const schedule_date = "schedule_date";
     const schedule_minutes = "schedule_minutes";
@@ -77,7 +71,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     private function is_edit_page() : bool
     {
-        return isset($_POST[self::edit_page_name]) || isset($_POST[self::edit_btn_name]);
+        return isset($_POST[self::edit_page_name]) || isset($_POST[self::edit_btn_name]) || isset($_POST[self::new_btn_name]);
     }
 
     private function get_selected_staff_id() : string
@@ -97,7 +91,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     public function is_list_click():bool
     {
-        return isset($_POST[self::list_btn_name]);
+        return isset($_POST[StaffContext::list_btn_name]);
     }
 
     private function view_update_btn()
@@ -114,13 +108,16 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         ?>
         <form method="post" action='<?php echo "$d" ?>' id='<?php echo self::form_id; ?>'>
             <div class="wrap">
-            <?php
-                $this->view_staff_select();
-            ?>
-            <div class="btn_area">
-                <button class="manage_button" type="submit" name='<?php echo self::list_btn_name; ?>'>予定一覧</button>
-                <button class="manage_button" type="submit" name='<?php echo self::timetable_btn_name; ?>'>タイムスケジュール表</button>
-            </div>
+                <?php
+                    $this->view_staff_select();
+                ?>
+                <div class="btn_area">
+                    <button class="manage_button" type="submit" name='<?php echo StaffContext::list_btn_name; ?>'>予定一覧</button>
+                    <button class="manage_button" type="submit" name='<?php echo self::timetable_btn_name; ?>'>タイムスケジュール表</button>
+                </div>
+                <div class="new_btn_area">
+                    <button class="manage_button" type="submit" name='<?php echo self::new_btn_name; ?>'>新しい予定を追加</button>
+                </div>
             </div>
             <div class='time_schedule_table_area'>
             <?php
