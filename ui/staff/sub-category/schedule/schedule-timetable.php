@@ -35,7 +35,7 @@ class ScheduleTimeTable extends ScheduleBase
     private function view_update_btn()
     {
 ?>
-        <button class="manage_button" name='<?php echo StaffShceduleSub::update_btn_name; ?>'>更新する</button>
+        <button class="manage_button" name='<?php echo StaffContext::update_btn_name; ?>'>更新する</button>
 <?php
     }
 
@@ -67,7 +67,7 @@ class ScheduleTimeTable extends ScheduleBase
 
     private function is_update_click() : bool
     {
-         return isset($_POST[StaffShceduleSub::update_btn_name]);
+         return isset($_POST[StaffContext::update_btn_name]);
     }
 
     protected function view_inner()
@@ -104,7 +104,7 @@ class ScheduleTimeTable extends ScheduleBase
             </div>
             <?php
             $onclick_script = 'edit_schedule("%s","%d","%s")';
-            $col_script = sprintf($onclick_script, StaffShceduleSub::new_btn_name, '0', StaffShceduleSub::form_id);
+            $col_script = sprintf($onclick_script, StaffContext::new_btn_name, '0', StaffShceduleSub::form_id);
             ?>
             <div class='schedule_col' onclick='<?php echo $col_script;?>'>
                 <?php
@@ -120,7 +120,7 @@ class ScheduleTimeTable extends ScheduleBase
                     $px = $p->start_minutes * self::minutes_px;
                     $px = $px + $px / self::minutes_30_px;
                     $height = $p->minites_len;
-                    $script = sprintf($onclick_script, StaffShceduleSub::edit_btn_name, $p->schedule_id, StaffShceduleSub::form_id);
+                    $script = sprintf($onclick_script, StaffContext::edit_btn_name, $p->schedule_id, StaffShceduleSub::form_id);
                     ?>                   
                     <div onclick='<?php echo $script;?>' class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
                         <span class='yoyaku_name'>

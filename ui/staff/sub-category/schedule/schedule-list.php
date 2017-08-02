@@ -80,7 +80,7 @@ class ScheduleList extends ScheduleBase
                 ?>
                 </td>
                 <td>
-                    <button type='submit' class="manage_button" name="<?php echo StaffShceduleSub::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
+                    <button type='submit' class="manage_button" name="<?php echo StaffContext::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
                 </td>
             </tr>
             <?php

@@ -18,7 +18,7 @@ class FlowOtherDetailEdit extends FlowOtherDetailBase
 
     private function get_edit_value() : string
     {
-        return $_POST[StaffShceduleSub::edit_btn_name];
+        return $_POST[StaffContext::edit_btn_name];
     }
 
     public function __construct()
@@ -66,7 +66,7 @@ class FlowOtherDetailEdit extends FlowOtherDetailBase
         $this->_schedule_id_input->set_value($this->_selected_schedule_id);
         $this->_schedule_id_input->view();
         ?>
-        <input type="hidden" name="<?php echo StaffShceduleSub::edit_btn_name; ?>" value="<?php echo $this->_selected_schedule_id;?>" >
+        <input type="hidden" name="<?php echo StaffContext::edit_btn_name; ?>" value="<?php echo $this->_selected_schedule_id;?>" >
         <?php
     }
 

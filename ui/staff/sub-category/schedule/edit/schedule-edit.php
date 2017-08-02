@@ -64,7 +64,7 @@ class ScheduleEdit extends ScheduleBase
     {
        $this->_current_flow->view();
        ?>
-       <input type='hidden' name='<?php echo StaffShceduleSub::edit_page_name; ?>' value=''>
+       <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>
        <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $this->pre_page_no; ?>'>
        <?php
     }
