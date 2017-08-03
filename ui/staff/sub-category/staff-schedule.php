@@ -1,12 +1,6 @@
 <?php
 namespace ui\staff;
-require_once(dirname(__FILE__).'/schedule-table-param.php');
-require_once(dirname(__FILE__).'/schedule/schedule-base.php');
-require_once(dirname(__FILE__).'/schedule/schedule-list.php');
-require_once(dirname(__FILE__).'/schedule/schedule-timetable.php');
-require_once(dirname(__FILE__).'/schedule/schedule-empty.php');
-require_once(dirname(__FILE__).'/schedule/edit/schedule-edit.php');
-
+require_once(dirname(__FILE__).'/schedule/schedule-base-factory.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
@@ -39,7 +33,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 	{
 		$context = StaffContext::get_instance();
         $this->_staff_list = \business\facade\get_staff_all();
-        $this->_schedule = $this->create_schedule();
+        $this->_schedule = ScheduleBaseFactory::create_schedule_base();
 
         if(!$this->_schedule->is_empty()){
             $this->_schedule->update();
@@ -54,44 +48,12 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     private function create_schedule() : ScheduleBase
     {
-        if($this->is_timetable_click()){
-            return new ScheduleTimeTable();
-        }
-
-        if($this->is_list_click()){
-            return new ScheduleList();
-        }
-
-        if($this->is_edit_page()){
-            return new ScheduleEdit();
-        }
-
-        return new ScheduleEmpty();
-    }
-
-    private function is_edit_page() : bool
-    {
-        return isset($_POST[StaffContext::edit_page_name]) || isset($_POST[StaffContext::edit_btn_name]) || isset($_POST[StaffContext::new_btn_name]);
+      
     }
 
     private function get_selected_staff_id() : string
     {
         return $_POST[self::staff_select_id];
-    }
-
-    private function is_update_click() : bool
-    {
-        return isset($_POST[StaffContext::update_btn_name]);
-    }
-
-    public function is_timetable_click():bool
-    {
-        return isset($_POST[StaffContext::timetable_btn_name]) || $this->is_update_click();
-    }
-
-    public function is_list_click():bool
-    {
-        return isset($_POST[StaffContext::list_btn_name]);
     }
 
     private function view_update_btn()
