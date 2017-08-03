@@ -12,14 +12,8 @@ use ui\staff\ScheduleBase;
 
 class FlowOtherDetailEdit extends FlowOtherDetailBase
 {
-    private $_selected_schedule_id;
     private $_delete_btn;
     private $_schedule_id_input;
-
-    private function get_edit_value() : string
-    {
-        return $_POST[StaffContext::edit_btn_name];
-    }
 
     public function __construct()
     {    
@@ -30,11 +24,7 @@ class FlowOtherDetailEdit extends FlowOtherDetailBase
 
     protected function get_default_schedule(): Schedule
     {
-        $this->_selected_schedule_id = $this->get_edit_value();
-        $f = array_values(array_filter($this->_schedule_list,function($d){
-            return $this->_selected_schedule_id == $d->id;
-        }));
-        return $f[0];
+        return $this->get_selected_shcedule();
     }
 
     protected function update_inner(Schedule $new_schedule)

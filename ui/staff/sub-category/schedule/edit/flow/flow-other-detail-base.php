@@ -14,7 +14,6 @@ use ui\staff\ScheduleBase;
 abstract class FlowOtherDetailBase extends FlowBase
 {
     protected $_name_input, $_date_input, $_time_input, $_minutes_input;
-    protected $_schedule_list;
     protected abstract function get_default_schedule(): Schedule;
     protected abstract function update_inner(Schedule $new_schedule);
     protected abstract function on_update();

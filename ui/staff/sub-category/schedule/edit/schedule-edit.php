@@ -18,22 +18,29 @@ class ScheduleEdit extends ScheduleBase
     private $_flow_list;
     private $_current_flow;
 	private $pre_page_no;
+    private $current_page_no;
 
     const select_course_name = "select_course_btn";
  
-    const MoveName = 'move_next';
     const PrePageNoName = 'pre_flow_no_name';
 
     public function __construct()
     {
         $this->pre_page_no = $this->get_pre_page_no();
+        $this->current_page_no = $this->get_current_page_no();
         $this->_flow_list = FlowFactory::GetEditFlow();
         $this->_current_flow = $this->get_current_flow();
+        $this->_current_flow->set_base_schedule_edit($this);
     }
 
     protected function init_inner()
     {
         $this->_current_flow->init($this->_schedule_list);
+    }
+
+    public function is_save():bool
+    {
+        return false;   
     }
 
     public function update()
@@ -42,13 +49,24 @@ class ScheduleEdit extends ScheduleBase
     }
 
     private function get_current_flow() : FlowBase
+    { 
+        return $this->_flow_list[$this->current_page_no];
+    }
+
+    private function get_current_page_no()
     {
-        if(isset($_POST[self::MoveName])){
-            $index = $this->pre_page_no + $_POST[self::MoveName];
-            return $this->_flow_list[$index];
+        if(isset($_POST[StaffContext::MoveName])){
+            return $this->pre_page_no + $_POST[StaffContext::MoveName];
         }else{
-            return $this->_flow_list[0];
-        }
+            return 0;
+        }        
+    }
+
+    public function view_next_button($text, $move_value)
+    {
+        ?>
+        <button class='manage_button' name='<?php echo StaffContext::MoveName; ?>' value='<?php echo $move_value; ?>'><?php echo $text; ?></button>
+        <?php
     }
 
     private function get_pre_page_no()
@@ -65,7 +83,7 @@ class ScheduleEdit extends ScheduleBase
        $this->_current_flow->view();
        ?>
        <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>
-       <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $this->pre_page_no; ?>'>
+       <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $this->current_page_no; ?>'>
        <?php
     }
 }

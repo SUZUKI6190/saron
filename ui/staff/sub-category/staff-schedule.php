@@ -22,6 +22,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private $_selected_staff_id;
     private $_param_list;
     private $_schedule_list;
+    private $_schedule;
 
     const update_schedule_btn_name = "update_schedule_btn";
     const staff_select_id = "staff_select_id";
@@ -34,7 +35,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
 
     const form_id = "form";
 
-    private $_schedule;
 	public function init()
 	{
 		$context = StaffContext::get_instance();
@@ -114,8 +114,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 <div class="btn_area">
                     <button class="manage_button" type="submit" name='<?php echo StaffContext::list_btn_name; ?>'>予定一覧</button>
                     <button class="manage_button" type="submit" name='<?php echo StaffContext::timetable_btn_name; ?>'>タイムスケジュール表</button>
-                </div>
-                <div class="new_btn_area">
                     <button class="manage_button" type="submit" name='<?php echo StaffContext::new_btn_name; ?>'>新しい予定を追加</button>
                 </div>
             </div>

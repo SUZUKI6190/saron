@@ -12,7 +12,6 @@ use ui\staff\ScheduleBase;
 
 class FlowOtherDetailNew extends FlowOtherDetailBase
 {
-    private $_selected_schedule_id;
     private $_schedule_id_input;
 
     protected function get_default_schedule(): Schedule

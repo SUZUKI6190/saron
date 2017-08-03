@@ -10,6 +10,8 @@ class StaffContext
     const new_btn_name = 'new_schedule_btn';
     const edit_btn_name = "edit_btn";
 	const update_btn_name = "update_btn";
+    const MoveName = 'move_next';
+  	const ScheduleTypeName = 'schedule_type';
 
 	private static $_instance;
 	private function __construct()
