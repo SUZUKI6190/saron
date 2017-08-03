@@ -50,13 +50,13 @@ abstract class FlowOtherDetailBase extends FlowBase
 
     private function is_update_schedule_btn_click() : bool
     {
-        return isset($_POST[StaffShceduleSub::update_schedule_btn_name]);
+        return isset($_POST[StaffContext::update_schedule_btn_name]);
     }
 
     private function view_schedule_btn()
     {
 ?>
-        <button class="manage_button" name='<?php echo StaffShceduleSub::update_schedule_btn_name; ?>'><?php echo $this->get_btn_caption(); ?></button>
+        <button class="manage_button" name='<?php echo StaffContext::update_schedule_btn_name; ?>'><?php echo $this->get_btn_caption(); ?></button>
 <?php
         $this->add_button();
     }

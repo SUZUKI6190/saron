@@ -18,7 +18,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     private $_schedule_list;
     private $_schedule;
 
-    const update_schedule_btn_name = "update_schedule_btn";
     const staff_select_id = "staff_select_id";
  
     const schedule_name = "schedule_name";
