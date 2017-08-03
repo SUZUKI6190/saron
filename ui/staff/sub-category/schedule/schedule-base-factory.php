@@ -1,6 +1,5 @@
 <?php
 namespace ui\staff;
-require_once(dirname(__FILE__).'/schedule-table-param.php');
 require_once(dirname(__FILE__).'/schedule-base.php');
 require_once(dirname(__FILE__).'/schedule-list.php');
 require_once(dirname(__FILE__).'/schedule-timetable.php');

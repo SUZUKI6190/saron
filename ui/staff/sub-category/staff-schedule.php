@@ -46,11 +46,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         }
 	}
 
-    private function create_schedule() : ScheduleBase
-    {
-      
-    }
-
     private function get_selected_staff_id() : string
     {
         return $_POST[self::staff_select_id];

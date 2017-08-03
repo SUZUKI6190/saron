@@ -1,5 +1,6 @@
 <?php
 namespace ui\staff;
+require_once(dirname(__FILE__).'/schedule-table-param.php');
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
