@@ -1,0 +1,66 @@
+
+
+table.menu_view_table
+{
+    
+}
+
+
+table.menu_view_table,
+table.menu_view_table td,
+table.menu_view_table th
+{
+    border:1px solid #CCC;
+    border-collapse: collapse;
+    height:20px;
+    padding: 0px;
+}
+
+table.menu_view_table th.price,
+table.menu_view_table th.first_discount,
+table.menu_view_table th.required_time
+{
+    width:150px;   
+}
+
+.course_row td.value
+{
+    text-align:right;
+}
+
+table.menu_view_table th.dummy_th
+{
+    border:none;
+}
+
+table.menu_view_table th.menu_name
+{
+    width:400px;
+}
+
+
+table.menu_view_table thead
+{
+    background-color:#E2EFDA;
+    color:#726250;
+    font-weight: bold;
+}
+
+.menu_row
+{
+    color:#595959;
+    background-color:#F2F2F2 ;
+    font-weight:bold;
+}
+
+.course_row
+{
+    color:#393939;
+    background-color:#fff;
+}
+
+.course_row.selected
+{
+    color:#393939;
+    background-color:#FCE4D6;
+}

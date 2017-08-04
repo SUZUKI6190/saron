@@ -1,26 +1,20 @@
 <?php
 namespace ui\staff;
-use \business\entity\Staff;
-use \ui\util\SubmitButton;
-use \ui\util\ConfirmSubmitButton;
-use \ui\util\InputControll;
-use \ui\frame\Result;
+use business\entity\Staff;
 use ui\frame\ManageFrameContext;
-use \business\entity\StaffSchedule;
-use \business\entity\Schedule;
+use business\entity\Schedule;
 use ui\staff\ScheduleBase;
 
-class ScheduleCourseSelect extends ScheduleBase
+class FlowSelectCourse extends FlowBase
 {
-	private $_menu_list = [];
+    private $_menu_list = [];
 	private $_chk_list = [];
 	private $_id_list = [];
 
     protected function init_inner()
     {
         $this->_menu_list = \business\facade\get_menu_course_in_group();
-		
-		foreach($menu_list as $key => $course_list)
+		foreach($this->_menu_list as $key => $course_list)
 		{
 			foreach($course_list as $c)
 			{
@@ -30,10 +24,19 @@ class ScheduleCourseSelect extends ScheduleBase
 				$add_atribute['onclick'] = $onclick;
 				$add_atribute['id'] = $c->id;
 				$this->_id_list[] = $c->id;
-				$this->_chk_list[$c->id] =  new InputBase('checkbox', 'course_id[]', $c->id, '', $add_atribute);
+				$this->_chk_list[$c->id] =  new \ui\util\InputBase('checkbox', 'course_id[]', $c->id, '', $add_atribute);
 			}
 		}
     }
+
+	private function td($value, $class_name='')
+	{
+		?>
+		<td class='<?php echo $class_name; ?>' >
+		<?php echo $value; ?>
+		</td>
+		<?php
+	}
 
     protected function view_inner()
     {
@@ -50,13 +53,9 @@ class ScheduleCourseSelect extends ScheduleBase
 			<th class='price dummy_th' rowspan='2'>
 				料金
 			</th>
-			<th class='dummy_th' >
-				
-			</th>
-		</tr>
-		<th class='first_discount' >
-				初回割引
-			</th>
+            <th class='first_discount' >
+                    初回割引
+            </th>
 		</tr>
 		</thead>
 		<?php
@@ -102,6 +101,11 @@ class ScheduleCourseSelect extends ScheduleBase
 		</table>
 
 	<?php
+    }
+
+    protected function save_inner()
+    {
+
     }
 }
 

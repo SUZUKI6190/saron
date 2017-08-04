@@ -36,7 +36,8 @@ class StaffFrameImplementor extends ManageFrameImplementor
 	{
 		return [
 		new \ui\frame\HeaderFile('staff.css', 0.04),
-		new \ui\frame\HeaderFile('staff-schedule.css', 0.04)
+		new \ui\frame\HeaderFile('staff-schedule.css', 0.04),
+		new \ui\frame\HeaderFile('staff-menu-table.css', 1.00)
 		];
 	}
 	
