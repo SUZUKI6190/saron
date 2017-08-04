@@ -32,7 +32,7 @@ class ScheduleBaseFactory
     
     private static function create_edit_schedule_base(): ScheduleBase
     {
-;
+
         $flow_id = StaffContext::EditYoyakuID;
         if(isset($_POST[StaffContext::FlowDivisionName])){
             //編集ページ内遷移中
