@@ -67,11 +67,6 @@ class StaffShceduleSub extends \ui\frame\SubCategory
                 <?php
                     $this->view_staff_select();
                 ?>
-                <div class="btn_area">
-                    <button class="manage_button" type="submit" name='<?php echo StaffContext::list_btn_name; ?>'>予定一覧</button>
-                    <button class="manage_button" type="submit" name='<?php echo StaffContext::timetable_btn_name; ?>'>タイムスケジュール表</button>
-                    <button class="manage_button" type="submit" name='<?php echo StaffContext::new_btn_name; ?>'>新しい予定を追加</button>
-                </div>
             </div>
             <div class='time_schedule_table_area'>
             <?php

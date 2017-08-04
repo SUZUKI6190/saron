@@ -5,9 +5,16 @@
     margin-top: 10px;
 }
 
-.btn_area
+.top_btn_area
 {
+    display: flex;
+    flex-direction: column;
+}
+
+.top_btn_area button{
+    margin: auto;
     margin-top: 10px;
+    width: 50%;
 }
 
 .new_btn_area

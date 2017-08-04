@@ -4,6 +4,7 @@ require_once(dirname(__FILE__).'/schedule-base.php');
 require_once(dirname(__FILE__).'/schedule-list.php');
 require_once(dirname(__FILE__).'/schedule-timetable.php');
 require_once(dirname(__FILE__).'/schedule-empty.php');
+require_once(dirname(__FILE__).'/schedule-top.php');
 require_once(dirname(__FILE__).'/edit/schedule-edit.php');
 
 use \business\entity\Schedule;
@@ -27,7 +28,7 @@ class ScheduleBaseFactory
             return self::create_edit_schedule_base();
         }
 
-        return new ScheduleEmpty();
+        return new ScheduleTop();
     }
     
     private static function create_edit_schedule_base(): ScheduleBase
