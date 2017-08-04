@@ -32,7 +32,9 @@ class FlowSelectCourse extends FlowBase
     protected function save_inner()
     {
         $selected_course_id_list = $_POST['course'];
+        foreach($selected_course_id_list as $c)
         {
+
         }
     }
 
