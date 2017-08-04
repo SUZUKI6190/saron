@@ -42,19 +42,20 @@ class ScheduleEdit extends ScheduleBase
         $this->_current_flow->init($this->_schedule_list);
     }
 
-    public function is_save():bool
-    {
-        return false;   
-    }
-
     public function update()
     {
-        $this->_current_flow->save();
+        $pre_flow = $this->get_pre_current_flow();
+        $pre_flow->save();   
     }
 
     private function get_current_flow() : FlowBase
     { 
         return $this->_flow_list[$this->current_page_no];
+    }
+
+    private function get_pre_current_flow() : FlowBase
+    { 
+        return $this->_flow_list[$this->pre_page_no];
     }
 
     private function get_current_page_no()
@@ -78,7 +79,7 @@ class ScheduleEdit extends ScheduleBase
         if(isset($_POST[self::PrePageNoName])){
             return $_POST[self::PrePageNoName];
         }else{
-            return '';
+            return 0;
         }
     }
 

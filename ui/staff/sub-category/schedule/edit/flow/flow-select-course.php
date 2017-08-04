@@ -29,6 +29,13 @@ class FlowSelectCourse extends FlowBase
 		}
     }
 
+    protected function save_inner()
+    {
+        $selected_course_id_list = $_POST['course'];
+        {
+        }
+    }
+
 	private function td($value, $class_name='')
 	{
 		?>
@@ -103,10 +110,6 @@ class FlowSelectCourse extends FlowBase
 	<?php
     }
 
-    protected function save_inner()
-    {
-
-    }
 }
 
 ?>
