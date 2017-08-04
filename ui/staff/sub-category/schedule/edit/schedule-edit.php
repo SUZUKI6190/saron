@@ -19,18 +19,22 @@ class ScheduleEdit extends ScheduleBase
     private $_current_flow;
 	private $pre_page_no;
     private $current_page_no;
-
+    private $_flow_id;
     const select_course_name = "select_course_btn";
  
     const PrePageNoName = 'pre_flow_no_name';
 
-    public function __construct()
+    public function __construct($flow_id)
     {
+        $this->_flow_id = $flow_id;
         $this->pre_page_no = $this->get_pre_page_no();
         $this->current_page_no = $this->get_current_page_no();
-        $this->_flow_list = FlowFactory::GetEditFlow();
+
+        $this->_flow_list = FlowFactory::GetEditFlow($this->_flow_id);
+        
         $this->_current_flow = $this->get_current_flow();
         $this->_current_flow->set_base_schedule_edit($this);
+        $this->_current_flow->set_flow_id($this->_flow_id);
     }
 
     protected function init_inner()
@@ -80,11 +84,11 @@ class ScheduleEdit extends ScheduleBase
 
     protected function view_inner()
     {
-       $this->_current_flow->view();
-       ?>
-       <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>
-       <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $this->current_page_no; ?>'>
-       <?php
+        $this->_current_flow->view();
+        ?>
+        <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>
+        <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $this->current_page_no; ?>'>
+        <?php
     }
 }
 

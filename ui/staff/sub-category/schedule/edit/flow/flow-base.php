@@ -10,6 +10,7 @@ abstract class FlowBase
     protected $_schedule_list;
     protected $_base_schedule_edit;
     protected $_selected_schedule_id;
+    private $_flow_id;
 
     protected function get_selected_schedule_id() : int
     {
@@ -31,14 +32,30 @@ abstract class FlowBase
         $this->init_inner();
     }
 
+    public function set_flow_id($id)
+    {
+        $this->_flow_id = $id;
+    }
+
     public function set_base_schedule_edit($s)
     {
         $this->_base_schedule_edit = $s;
     }
 
+    private function get_division_name()
+    {
+        if(isset($_POST[StaffContext::FlowDivisionName])){
+            return $_POST[StaffContext::FlowDivisionName];
+        }else{
+            return '';
+        }
+    } 
+
     public function view()
     {
         $this->view_inner();
+        $name = StaffContext::FlowDivisionName;
+        echo "<input type='hidden' name='$name' value='$this->_flow_id'>";
     }
 
     public function save()

@@ -9,13 +9,40 @@ use ui\staff\StaffContext;
 
 class FlowFactory
 {
-    private function __construct()
-    {
+    
+    private function __construct(){}
 
-    }
-
-    public static function GetEditFlow()
+    public static function GetEditFlow($flow_id)
     {
+        $ret = [];
+        switch($flow_id){
+            case StaffContext::EditYoyakuID:
+                $ret = [
+                    new FlowOtherDetailEdit()
+                ];
+                break;
+            case StaffContext::EditOtherID:
+                $ret = [
+                    new FlowMode(),
+                    new FlowOtherDetailNew()
+                ];
+                break;
+            case StaffContext::NewYoyakuID:
+                $ret = [
+                    new FlowMode(),
+                    new FlowOtherDetailNew()
+                ];
+                break;
+            case StaffContext::NewOtherID:
+                $ret = [
+                    new FlowMode(),
+                    new FlowOtherDetailNew()
+                ];
+                break;
+        }
+
+        return $ret;
+
         if(isset($_POST[StaffContext::new_btn_name])){
             return [
                 new FlowMode(),
@@ -27,7 +54,6 @@ class FlowFactory
             $value = $_POST[StaffContext::ScheduleTypeName];
             if($value == Schedule::Yoyaku){
                 return [
-                    new FlowMode(),
                     new FlowOtherDetailEdit()
                 ];
             }else{

@@ -12,6 +12,12 @@ class StaffContext
 	const update_btn_name = "update_btn";
     const MoveName = 'move_next';
   	const ScheduleTypeName = 'schedule_type';
+	const FlowDivisionName = 'flow_div_name';
+
+    const EditYoyakuID = 0;
+    const EditOtherID = 1;
+    const NewYoyakuID = 2;
+    const NewOtherID = 3;
 
 	private static $_instance;
 	private function __construct()

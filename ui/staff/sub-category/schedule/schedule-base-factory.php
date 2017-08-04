@@ -24,13 +24,40 @@ class ScheduleBaseFactory
         }
 
         if(self::is_edit_page()){
-            return new ScheduleEdit();
+            return self::create_edit_schedule_base();
         }
 
         return new ScheduleEmpty();
     }
-
     
+    private static function create_edit_schedule_base(): ScheduleBase
+    {
+;
+        $flow_id = StaffContext::EditYoyakuID;
+        if(isset($_POST[StaffContext::FlowDivisionName])){
+            //編集ページ内遷移中
+            $flow_id = ($_POST[StaffContext::FlowDivisionName]);
+        }else{
+            //初回遷移時
+            $flow_id = StaffContext::EditYoyakuID;
+    
+            if(isset($_POST[StaffContext::new_btn_name])){
+                $flow_id = StaffContext::NewYoyakuID;
+            }
+
+            if(isset($_POST[StaffContext::ScheduleTypeName])){
+                $value = $_POST[StaffContext::ScheduleTypeName];
+                if($value == Schedule::Yoyaku){
+                    $flow_id = StaffContext::NewYoyakuID;
+                }else{
+                    $flow_id = StaffContext::NewOtherID;
+                }
+            }
+        }
+
+        return new ScheduleEdit($flow_id);
+    }
+
     private static function is_edit_page() : bool
     {
         return isset($_POST[StaffContext::edit_page_name]) || isset($_POST[StaffContext::edit_btn_name]) || isset($_POST[StaffContext::new_btn_name]);
