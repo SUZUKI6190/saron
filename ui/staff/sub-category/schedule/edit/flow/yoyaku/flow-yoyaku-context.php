@@ -21,7 +21,7 @@ class FlowYoyakuContext
 
 	public function init()
 	{
-
+		$this->save_by_post();
 	}
 
 	private function create_param($name)
