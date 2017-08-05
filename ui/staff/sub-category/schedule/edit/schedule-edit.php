@@ -85,14 +85,21 @@ class ScheduleEdit extends ScheduleBase
         }
     }
 
+    private function view_move_button() : bool
+    {
+        return count($this->_flow_list) > 1;
+    }
+
     protected function view_inner()
     {
+        if($this->view_move_button()){
         ?>
-        <div class='move_btn_area'>
-            <?php $this->view_next_button('前へ', -1); ?>
-            <?php $this->view_next_button('次へ', 1); ?>
-        </div>
+            <div class='move_btn_area'>
+                <?php $this->view_next_button('前へ', -1); ?>
+                <?php $this->view_next_button('次へ', 1); ?>
+            </div>
         <?php
+        }
         $this->_current_flow->view();
         ?>
         <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>

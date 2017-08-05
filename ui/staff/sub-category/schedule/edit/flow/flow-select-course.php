@@ -5,7 +5,7 @@ use ui\frame\ManageFrameContext;
 use business\entity\Schedule;
 use ui\staff\ScheduleBase;
 
-class FlowSelectCourse extends FlowBase
+class FlowSelectCourse extends FlowYoyakuBase
 {
     private $_menu_list = [];
 	private $_chk_list = [];
