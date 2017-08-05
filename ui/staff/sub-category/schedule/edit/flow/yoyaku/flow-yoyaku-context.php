@@ -7,6 +7,7 @@ class FlowYoyakuContext
 	public $course_id_list;
 	public $yoyaku_date_time;
 	public $staff_id;
+	public $customer_id;
 	private $_param_list = [];
 
 	private function __construct()
@@ -14,9 +15,10 @@ class FlowYoyakuContext
 		if( !isset($_SESSION) ) {
 		  session_start();
 		}
-		$this->course_id_list = $this->create_param("course_id");
-		$this->staff_id = $this->create_param("staff_id");
-		$this->yoyaku_date_time = $this->create_param("yoyaku_date_time");
+		$this->course_id_list = $this->create_param("staff_yoyaku_course_id");
+		$this->staff_id = $this->create_param("staff_yoyaku_staff_id");
+		$this->yoyaku_date_time = $this->create_param("staff_yoyaku_date_time");
+		$this->customer_id = $this->create_param("staff_yoyaku_customer_id");
 	}
 
 	public function init()

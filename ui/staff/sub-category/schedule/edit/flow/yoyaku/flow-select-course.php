@@ -24,18 +24,10 @@ class FlowSelectCourse extends FlowYoyakuBase
 				$add_atribute['onclick'] = $onclick;
 				$add_atribute['id'] = $c->id;
 				$this->_id_list[] = $c->id;
-				$this->_chk_list[$c->id] =  new \ui\util\InputBase('checkbox', 'course_id[]', $c->id, '', $add_atribute);
+				$input_name = FlowYoyakuContext::get_instance()->course_id_list->get_key().'[]';
+				$this->_chk_list[$c->id] =  new \ui\util\InputBase('checkbox', $input_name, $c->id, '', $add_atribute);
 			}
 		}
-    }
-
-    protected function save_inner()
-    {
-        $selected_course_id_list = $_POST['course'];
-        foreach($selected_course_id_list as $c)
-        {
-
-        }
     }
 
 	private function td($value, $class_name='')
