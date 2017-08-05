@@ -70,7 +70,9 @@ class ScheduleEdit extends ScheduleBase
     public function view_next_button($text, $move_value)
     {
         ?>
+        
         <button class='manage_button' name='<?php echo StaffContext::MoveName; ?>' value='<?php echo $move_value; ?>'><?php echo $text; ?></button>
+        
         <?php
     }
 
@@ -85,6 +87,12 @@ class ScheduleEdit extends ScheduleBase
 
     protected function view_inner()
     {
+        ?>
+        <div class='move_btn_area'>
+            <?php $this->view_next_button('前へ', -1); ?>
+            <?php $this->view_next_button('次へ', 1); ?>
+        </div>
+        <?php
         $this->_current_flow->view();
         ?>
         <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>

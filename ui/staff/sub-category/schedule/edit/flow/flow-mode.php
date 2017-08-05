@@ -25,10 +25,6 @@ class FlowMode extends FlowBase
         }
     ?>
     <div class='schedule_type_wrap'>
-        <div class='new_btn_area'>
-            <?php $this->_base_schedule_edit->view_next_button('前へ', -1); ?>
-            <?php $this->_base_schedule_edit->view_next_button('次へ', 1); ?>
-        </div>
         <div class='line'>
             <h2>スケジュールの種類を選択</h2>
             <?php

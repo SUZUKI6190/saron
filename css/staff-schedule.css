@@ -17,10 +17,12 @@
     width: 50%;
 }
 
-.new_btn_area
+.move_btn_area
 {
     margin-top: 10px;
-    text-align: right;
+    margin-bottom: 10px;
+    display:flex;
+    justify-content: space-between;
 }
 
 div.time_col,
