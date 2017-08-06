@@ -5,7 +5,8 @@ class FlowYoyakuContext
 {
 	private static $_instance;
 	public $course_id_list;
-	public $yoyaku_date_time;
+	public $yoyaku_date;
+	public $yoyaku_time;
 	public $staff_id;
 	public $customer_id;
 	private $_param_list = [];
@@ -17,7 +18,8 @@ class FlowYoyakuContext
 		}
 		$this->course_id_list = $this->create_param("staff_yoyaku_course_id");
 		$this->staff_id = $this->create_param("staff_yoyaku_staff_id");
-		$this->yoyaku_date_time = $this->create_param("staff_yoyaku_date_time");
+		$this->yoyaku_date = $this->create_param("staff_yoyaku_date");
+		$this->yoyaku_time = $this->create_param("staff_yoyaku_time");
 		$this->customer_id = $this->create_param("staff_yoyaku_customer_id");
 	}
 

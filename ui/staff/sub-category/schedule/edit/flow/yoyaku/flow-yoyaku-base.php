@@ -11,15 +11,20 @@ abstract class FlowYoyakuBase extends FlowBase
 
     protected function save_inner()
     {
+        if(!isset($_POST[StaffContext::update_schedule_btn_name])){
+            return;
+        }
+
 		$fc = FlowYoyakuContext::get_instance();
 		$list_key = $fc->course_id_list->get_key();
-		if(isset($_POST[$list_key])){
-			$selected_course_id_list = $_POST[$list_key];
-			foreach($selected_course_id_list as $c)
-			{
+        
+        if($fc->course_id_list->is_set()){
+            foreach($fc->course_id_list->get_value() as $c)
+            {
 
-			}
-		}
+            }
+        }
+    
     }
 
 }
