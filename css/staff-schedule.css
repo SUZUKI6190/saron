@@ -110,3 +110,13 @@ div.schedule_cell:hover
     text-align: left;
     margin: 10px;
 }
+
+.customer_table
+{
+    width:100%;
+}
+
+.customer_table th.input
+{
+    width: 10%;
+}

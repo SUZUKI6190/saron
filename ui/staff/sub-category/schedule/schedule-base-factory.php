@@ -40,6 +40,8 @@ class ScheduleBaseFactory
             $flow_id = ($_POST[StaffContext::FlowDivisionName]);
         }else{
             //初回遷移時
+            FlowYoyakuContext::get_instance()->session_destroy();
+
             $flow_id = StaffContext::EditYoyakuID;
     
             if(isset($_POST[StaffContext::new_btn_name])){

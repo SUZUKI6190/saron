@@ -13,10 +13,12 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
     protected function view_inner()
     {
 ?>
-        <table class='customer_tbl'>
+        <div class='line'>
+        <h2>お客様の選択</h2>
+        <table class='customer_table'>
             <thead>
                 <tr>
-                    <th></th>
+                    <th class='input'></th>
                     <th>名前</th>
                     <th>email</th>
                 </tr>
@@ -35,6 +37,7 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
         }
 ?>
         </table>
+        </div>
 <?php
     }
 }

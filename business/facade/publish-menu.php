@@ -79,7 +79,7 @@ function get_menu_course_in_group()
 SELECT m.name as menu_name, mc.* FROM 
 yoyaku_menu_course as mc,
 yoyaku_menu as m
-WHERE mc.menu_id in (select id from yoyaku_menu)
+WHERE mc.menu_id = m.id
 ORDER by m.id
 SQL;
 

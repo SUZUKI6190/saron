@@ -9,8 +9,6 @@ abstract class FlowYoyakuBase extends FlowBase
         $fc->init();
     }
 
-    
-
     protected function save_inner()
     {
 		$fc = FlowYoyakuContext::get_instance();

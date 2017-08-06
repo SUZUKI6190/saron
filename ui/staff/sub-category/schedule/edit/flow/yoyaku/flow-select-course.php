@@ -13,6 +13,7 @@ class FlowSelectCourse extends FlowYoyakuBase
 
     protected function init_inner()
     {
+		$fc = FlowYoyakuContext::get_instance();
         $this->_menu_list = \business\facade\get_menu_course_in_group();
 		foreach($this->_menu_list as $key => $course_list)
 		{
@@ -23,9 +24,18 @@ class FlowSelectCourse extends FlowYoyakuBase
 				$onclick = sprintf ( 'on_check_menu("%s", "%d")', $row_id, $c->id);
 				$add_atribute['onclick'] = $onclick;
 				$add_atribute['id'] = $c->id;
+				$style = '';
+				if($fc->course_id_list->is_set()){
+					foreach($fc->course_id_list->get_value() as $id)
+					{
+						if($c->id == $id){
+							$add_atribute['checked'] = '';
+						}
+					}
+				}
 				$this->_id_list[] = $c->id;
 				$input_name = FlowYoyakuContext::get_instance()->course_id_list->get_key().'[]';
-				$this->_chk_list[$c->id] =  new \ui\util\InputBase('checkbox', $input_name, $c->id, '', $add_atribute);
+				$this->_chk_list[$c->id] = new \ui\util\InputBase('checkbox', $input_name, $c->id, $style, $add_atribute);
 			}
 		}
     }
@@ -41,7 +51,10 @@ class FlowSelectCourse extends FlowYoyakuBase
 
     protected function view_inner()
     {
-		?>
+		$fc = FlowYoyakuContext::get_instance();
+?>
+        <div class='line'>
+        <h2>コースの選択</h2>
 		<table class='menu_view_table'>
 		<thead>
 		<tr class='menu_header'>
@@ -55,7 +68,7 @@ class FlowSelectCourse extends FlowYoyakuBase
 				料金
 			</th>
             <th class='first_discount' >
-                    初回割引
+				初回割引
             </th>
 		</tr>
 		</thead>
@@ -72,14 +85,26 @@ class FlowSelectCourse extends FlowYoyakuBase
 			?>
 			</tr>
 			<?php
+			
 			foreach($menu_course_list as $course)
 			{
 				$id = $course->id;
 				$row_id = "row_".$id;
+				$th_style = 'course_row';
+				if($fc->course_id_list->is_set())
+				{
+					foreach($fc->course_id_list->get_value() as $selected_id)
+					{
+						if($course->id == $selected_id){
+							$th_style = 'course_row selected';
+						}
+					}
+				}
+		
 				?>
-				<tr class='course_row' id = '<?php echo $row_id; ?>'>
+				<tr class='<?php echo $th_style; ?>' id = '<?php echo $row_id; ?>'>
 				<td>
-				<?php
+				<?php	
 				$this->_chk_list[$id]->view();
 				echo $course->name; ?>
 				</td>
@@ -100,7 +125,7 @@ class FlowSelectCourse extends FlowYoyakuBase
 		}
 		?>
 		</table>
-
+		<div>
 	<?php
     }
 
