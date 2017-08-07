@@ -25,6 +25,11 @@
     justify-content: space-between;
 }
 
+.schedule_save_btn_area
+{
+    text-align: right;
+}
+
 div.time_col,
 div.schedule_col
 {

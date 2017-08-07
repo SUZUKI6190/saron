@@ -90,8 +90,21 @@ class ScheduleEdit extends ScheduleBase
         return count($this->_flow_list) > 1;
     }
 
+    private function view_save_button()
+    {
+        $filter = array_values(array_filter($this->_flow_list, function($f){
+            return !$f->enable_save();
+        }));
+
+        if(count($filter) == 0){
+            $save_name = StaffContext::update_schedule_btn_name;
+            echo "<div class='schedule_save_btn_area'><button class='manage_button' type='submit' name='$save_name'>保存</button></div>";
+        }
+    }
+
     protected function view_inner()
     {
+        $this->view_save_button();
         if($this->view_move_button()){
         ?>
             <div class='move_btn_area'>

@@ -7,6 +7,7 @@ abstract class FlowBase
     protected abstract function init_inner();
     protected abstract function view_inner();
     protected abstract function save_inner();
+
     protected $_schedule_list;
     protected $_base_schedule_edit;
     protected $_selected_schedule_id;
@@ -50,6 +51,16 @@ abstract class FlowBase
             return '';
         }
     } 
+
+    protected  function enable_save_inner() : bool
+    {
+        return false;
+    }
+
+    public function enable_save() : bool
+    {
+        return $this->enable_save_inner();
+    }
 
     public function view()
     {
