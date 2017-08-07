@@ -10,6 +10,12 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
         $this->_customer_list = \business\facade\GetCustomers('');
     }
 
+    protected function enable_save_inner() : bool
+    {
+        $fc = FlowYoyakuContext::get_instance();
+        return $fc->customer_id->is_set();
+    }
+
     protected function view_inner()
     {
 ?>
@@ -25,11 +31,11 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
             </thead>
 <?php
         $fc = FlowYoyakuContext::get_instance();
-        $input_name =  $fc->customer_id->get_key().'[]';
+        $input_name =  $fc->customer_id->get_key();
         foreach($this->_customer_list as $c)
         {?>
             <tr>
-                <td><input type='radio' name='<?php echo $input_name;?>'></td>
+                <td><input type='radio' name='<?php echo $input_name;?>' value='<?php echo $c->id;?>'></td>
                 <td><?php echo $c->name_kanji; ?></td>
                 <td><?php echo $c->email;?></td>
             <tr>

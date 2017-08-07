@@ -49,6 +49,12 @@ class FlowSelectCourse extends FlowYoyakuBase
 		<?php
 	}
 
+    protected function enable_save_inner() : bool
+    {
+        $fc = FlowYoyakuContext::get_instance();
+        return $fc->customer_id->is_set();
+    }
+
     protected function view_inner()
     {
 		$fc = FlowYoyakuContext::get_instance();

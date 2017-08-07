@@ -13,6 +13,11 @@ class FlowMode extends FlowBase
         
     }
 
+    protected function enable_save_inner() : bool
+    {
+        return true;
+    }
+
     protected function view_inner()
     {
         $view_input = function(string $text, int $value, bool $is_checked){

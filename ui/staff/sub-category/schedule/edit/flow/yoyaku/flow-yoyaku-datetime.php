@@ -9,6 +9,12 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
        
     }
 
+    protected  function enable_save_inner() : bool
+    {
+        $fc = FlowYoyakuContext::get_instance();
+        return $fc->yoyaku_date->is_set() && $fc->yoyaku_time->is_set();
+    }
+
     protected function view_inner()
     {
         $fc = FlowYoyakuContext::get_instance();
