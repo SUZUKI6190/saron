@@ -1,7 +1,8 @@
-function edit_schedule(hiden_name, hidden_value, form_id)
+function edit_schedule(hiden_name, hidden_value, edit_name, edit_value, form_id)
 {
     var frm = document.getElementById(form_id);
-    frm.innerHTML += '<input type="hidden" name="' + hiden_name + '" value="' + hidden_value +'">';
+	frm.innerHTML += '<input type="hidden" name="' + hiden_name + '" value="' + hidden_value +'">';
+	frm.innerHTML += '<input type="hidden" name="' + edit_name + '" value="' + edit_value +'">';
     frm.submit();
 }
 
