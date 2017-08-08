@@ -2,6 +2,8 @@
 namespace ui\staff;
 require_once(dirname(__FILE__).'/flow/flow-base.php');
 require_once(dirname(__FILE__).'/flow/flow-factory.php');
+require_once(dirname(__FILE__).'/flow/flow-save-base.php');
+require_once(dirname(__FILE__).'/flow/flow-save-factory.php');
 
 use \business\entity\Staff;
 use \ui\util\SubmitButton;
@@ -20,6 +22,7 @@ class ScheduleEdit extends ScheduleBase
 	private $pre_page_no;
     private $current_page_no;
     private $_flow_id;
+    private $_flow_save;
     const select_course_name = "select_course_btn";
  
     const PrePageNoName = 'pre_flow_no_name';
@@ -35,6 +38,8 @@ class ScheduleEdit extends ScheduleBase
         $this->_current_flow = $this->get_current_flow();
         $this->_current_flow->set_base_schedule_edit($this);
         $this->_current_flow->set_flow_id($this->_flow_id);
+
+        $this->_flow_save = FlowSaveFactory::create($this->_flow_id);
     }
 
     protected function init_inner()
@@ -44,8 +49,7 @@ class ScheduleEdit extends ScheduleBase
 
     public function update()
     {
-        $pre_flow = $this->get_pre_current_flow();
-        $pre_flow->save();   
+        $this->_flow_save->save();
     }
 
     private function get_current_flow() : FlowBase
