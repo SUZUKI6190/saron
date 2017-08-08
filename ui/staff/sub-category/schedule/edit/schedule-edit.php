@@ -49,7 +49,9 @@ class ScheduleEdit extends ScheduleBase
 
     public function update()
     {
-        $this->_flow_save->save();
+        $pre_flow = $this->get_pre_current_flow();
+        $pre_flow->save();
+        // $this->_flow_save->save();
     }
 
     private function get_current_flow() : FlowBase

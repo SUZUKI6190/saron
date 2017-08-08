@@ -25,7 +25,6 @@ class FlowFactory
         switch($flow_id){
             case StaffContext::EditYoyakuID:
                 $ret = [
-                    new FlowMode(),
                     new FlowSelectCourse(),
                     new FlowYoyakuCustomer(),
                     new FlowYoyakuDateTime()
@@ -33,7 +32,7 @@ class FlowFactory
                 break;
             case StaffContext::EditOtherID:
                 $ret = [
-                    new FlowOtherDetailNew()
+                    new FlowOtherDetailEdit()
                 ];
                 break;
             case StaffContext::NewYoyakuID:

@@ -44,6 +44,10 @@ class ScheduleBaseFactory
 
             $flow_id = StaffContext::EditYoyakuID;
     
+            if(isset($_POST[StaffContext::edit_btn_name])){
+                $flow_id = StaffContext::EditOtherID;
+            }
+
             if(isset($_POST[StaffContext::new_btn_name])){
                 $flow_id = StaffContext::NewYoyakuID;
             }
