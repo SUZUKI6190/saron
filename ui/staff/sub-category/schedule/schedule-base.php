@@ -14,6 +14,8 @@ abstract class ScheduleBase
     protected abstract function init_inner();
     protected abstract function view_inner();
     protected $_schedule_list;
+    protected $_staff_id;
+
     public function init($schedule_list)
     {
         $this->_schedule_list = $schedule_list;
@@ -34,6 +36,12 @@ abstract class ScheduleBase
     {
         $this->view_inner();
     }
+
+    public function set_staff_id($id)
+    {
+        $this->_staff_id = $id;
+    }
+
 }
 
 ?>

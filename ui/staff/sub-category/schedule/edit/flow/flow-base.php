@@ -7,7 +7,7 @@ abstract class FlowBase
     protected abstract function init_inner();
     protected abstract function view_inner();
     protected abstract function save_inner();
-
+    protected $_staff_id;
     protected $_schedule_list;
     protected $_base_schedule_edit;
     protected $_selected_schedule_id;
@@ -31,6 +31,12 @@ abstract class FlowBase
     {
         $this->_schedule_list = $schedule_list;
         $this->init_inner();
+    }
+
+    public function set_staff_id($id)
+    {
+        $this->_staff_id = $id;
+
     }
 
     public function set_flow_id($id)

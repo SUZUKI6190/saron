@@ -35,13 +35,15 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         $this->_schedule = ScheduleBaseFactory::create_schedule_base();
 
         if(!$this->_schedule->is_empty()){
-            $this->_schedule->update();
-
             $this->_selected_staff_id = $this->get_selected_staff_id();
 
             $this->_schedule_list = \business\facade\get_schedule_by_staffid($this->_selected_staff_id);
-            
+         
+            $this->_schedule->set_staff_id($this->_selected_staff_id);
+   
             $this->_schedule->init($this->_schedule_list);
+
+            $this->_schedule->update();
         }
 	}
 

@@ -32,7 +32,9 @@ abstract class FlowOtherDetailBase extends FlowBase
     protected function save_inner()
     {
         if($this->is_update_schedule_btn_click()){
+
             $new_schedule = new Schedule();
+            $new_schedule->staff_id = $this->_staff_id;
             $new_schedule->name = $this->_name_input->get_value();
             $datetime = $this->_date_input->get_value()." ".$this->_time_input->get_value();
             $new_schedule->start_time = $datetime;

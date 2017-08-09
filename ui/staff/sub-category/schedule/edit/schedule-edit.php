@@ -22,7 +22,7 @@ class ScheduleEdit extends ScheduleBase
 	private $pre_page_no;
     private $current_page_no;
     private $_flow_id;
-    private $_flow_save;
+
     const select_course_name = "select_course_btn";
  
     const PrePageNoName = 'pre_flow_no_name';
@@ -39,17 +39,18 @@ class ScheduleEdit extends ScheduleBase
         $this->_current_flow->set_base_schedule_edit($this);
         $this->_current_flow->set_flow_id($this->_flow_id);
 
-        $this->_flow_save = FlowSaveFactory::create($this->_flow_id);
     }
 
     protected function init_inner()
     {
+        $this->_current_flow->set_staff_id($this->_staff_id);
         $this->_current_flow->init($this->_schedule_list);
     }
 
     public function update()
     {
         $pre_flow = $this->get_pre_current_flow();
+        $pre_flow->set_staff_id($this->_staff_id);
         $pre_flow->save();
         // $this->_flow_save->save();
     }
