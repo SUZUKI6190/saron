@@ -20,7 +20,19 @@ class ScheduleTableParam
         return ($hours * 60) + $minites; 
     }
 
-    public static function create_from_yoyaku(Schedule $s) : self
+    public static function create_from_schedule(Schedule $s) : self
+    {
+        $ret;
+        if($s->schedule_division == Schedule::Yoyaku){
+            $ret = self::create_from_yoyaku($s);
+        }else{
+            $ret = self::create_from_other($s);
+        }
+
+        return $ret;
+    }
+
+    private static function create_from_yoyaku(Schedule $s) : self
     {
         $ret = new self();
         $name = "";
@@ -50,6 +62,25 @@ class ScheduleTableParam
         }
 
         return $ret;
+    }
+
+    private static function create_from_other(Schedule $s) : self
+    {
+        $ret = new self();
+        $name = "";
+        $sum_time = 0;
+
+        $yoyaku_registration_id = $s->extend_data;
+   
+        $ret->schedule_id = $s->id;
+        $ret->start_datetime = $s->start_time;
+        $ret->start_minutes = self::get_minutes(new \DateTime($s->start_time)) - self::get_minutes(new \DateTime('9:00'));
+
+        $ret->schedule_name = $s->name;
+        $ret->minites_len = $s->minutes;
+
+        return $ret;
+    
     }
 
 }

@@ -39,6 +39,7 @@ abstract class FlowOtherDetailBase extends FlowBase
             $datetime = $this->_date_input->get_value()." ".$this->_time_input->get_value();
             $new_schedule->start_time = $datetime;
             $new_schedule->minutes = $this->_minutes_input->get_value();
+            $new_schedule->schedule_division = Schedule::Other;
             $this->update_inner($new_schedule);
         }
         

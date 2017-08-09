@@ -23,7 +23,7 @@ class ScheduleList extends ScheduleBase
         
         $this->_param_list = array_map(
             function($d) {
-                    return ScheduleTableParam::create_from_yoyaku($d);
+                    return ScheduleTableParam::create_from_schedule($d);
                 },
                 $this->_schedule_list
             );

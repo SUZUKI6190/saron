@@ -27,7 +27,7 @@ class ScheduleTimeTable extends ScheduleBase
     {
         $this->_param_list = array_map(
             function($d) {
-                    return ScheduleTableParam::create_from_yoyaku($d);
+                    return ScheduleTableParam::create_from_schedule($d);
                 },
                 $this->_schedule_list
             );
@@ -115,11 +115,10 @@ class ScheduleTimeTable extends ScheduleBase
                 foreach($this->_schedule_list as $s)
                 {
                     $edit_flow_id;
-                    if($s->schedule_division == Schedule::Yoyaku){
-                        $p = ScheduleTableParam::create_from_yoyaku($s);
+                    $p = ScheduleTableParam::create_from_schedule($s);
+                    if($s->schedule_division == Schedule::Yoyaku){ 
                         $edit_flow_id = StaffContext::EditYoyakuID;
                     }else{
-                        $p = ScheduleTableParam::create_from_yoyaku($s);
                         $edit_flow_id = StaffContext::EditOtherID;
                     }
                     if($selected_date != (new \DateTime($p->start_datetime))->format("Ymd"))
