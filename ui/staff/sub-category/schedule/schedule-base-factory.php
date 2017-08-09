@@ -38,6 +38,16 @@ class ScheduleBaseFactory
         if(isset($_POST[StaffContext::FlowDivisionName])){
             //編集ページ内遷移中
             $flow_id = ($_POST[StaffContext::FlowDivisionName]);
+            
+            if(isset($_POST[StaffContext::ScheduleTypeName])){
+                $value = $_POST[StaffContext::ScheduleTypeName];
+                if($value == Schedule::Yoyaku){
+                    $flow_id = StaffContext::NewYoyakuID;
+                }else{
+                    $flow_id = StaffContext::NewOtherID;
+                }
+            }
+
         }else{
             //初回遷移時
             FlowYoyakuContext::get_instance()->session_destroy();
@@ -52,14 +62,6 @@ class ScheduleBaseFactory
                 $flow_id = StaffContext::NewYoyakuID;
             }
 
-            if(isset($_POST[StaffContext::ScheduleTypeName])){
-                $value = $_POST[StaffContext::ScheduleTypeName];
-                if($value == Schedule::Yoyaku){
-                    $flow_id = StaffContext::NewYoyakuID;
-                }else{
-                    $flow_id = StaffContext::NewOtherID;
-                }
-            }
         }
 
         return new ScheduleEdit($flow_id);

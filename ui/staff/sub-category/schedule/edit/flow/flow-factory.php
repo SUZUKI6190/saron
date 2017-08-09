@@ -21,7 +21,6 @@ class FlowFactory
     public static function GetEditFlow($flow_id)
     {
         $ret = [];
-
         switch($flow_id){
             case StaffContext::EditYoyakuID:
                 $ret = [

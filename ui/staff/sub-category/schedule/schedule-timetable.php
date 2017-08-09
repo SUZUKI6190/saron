@@ -105,15 +105,23 @@ class ScheduleTimeTable extends ScheduleBase
             </div>
             <?php
             $onclick_script = 'edit_schedule("%s","%d","%s","%d", "%s")';
-            $col_script = sprintf($onclick_script, StaffContext::new_btn_name, '0', StaffContext::FlowDivisionName, StaffContext::NewOtherID, StaffShceduleSub::form_id);
+            $col_script = sprintf($onclick_script, StaffContext::new_btn_name, '0', StaffContext::FlowDivisionName, StaffContext::EditYoyakuID, StaffShceduleSub::form_id);
             ?>
             <div class='schedule_col' >
                 <?php
                 
                 $selected_date = (new \DateTime($this->get_selected_date()))->format("Ymd");
 
-                foreach($this->_param_list as $p)
+                foreach($this->_schedule_list as $s)
                 {
+                    $edit_flow_id;
+                    if($s->schedule_division == Schedule::Yoyaku){
+                        $p = ScheduleTableParam::create_from_yoyaku($s);
+                        $edit_flow_id = StaffContext::EditYoyakuID;
+                    }else{
+                        $p = ScheduleTableParam::create_from_yoyaku($s);
+                        $edit_flow_id = StaffContext::EditOtherID;
+                    }
                     if($selected_date != (new \DateTime($p->start_datetime))->format("Ymd"))
                     {
                         continue;
@@ -121,7 +129,7 @@ class ScheduleTimeTable extends ScheduleBase
                     $px = $p->start_minutes * self::minutes_px;
                     $px = $px + $px / self::minutes_30_px;
                     $height = $p->minites_len;
-                    $script = sprintf($onclick_script, StaffContext::edit_btn_name, $p->schedule_id, StaffContext::FlowDivisionName, StaffContext::EditYoyakuID, StaffShceduleSub::form_id);
+                    $script = sprintf($onclick_script, StaffContext::edit_btn_name, $p->schedule_id, StaffContext::FlowDivisionName, $edit_flow_id, StaffShceduleSub::form_id);
                     ?>                   
                     <div onclick='<?php echo $script;?>' class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
                         <span class='yoyaku_name'>
