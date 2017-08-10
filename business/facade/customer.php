@@ -192,7 +192,7 @@ SQL
 );
 }
 
-function update_from_yoyakumail(int $id, Customer $data)
+function customer_update_from_yoyakumail(int $id, Customer $data)
 {
 	$passWord = "'".Customer::GetPassword()."'";
 	$strSql = <<<SQL

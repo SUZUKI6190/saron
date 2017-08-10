@@ -113,7 +113,7 @@ class Confirm extends YoyakuMenu
         $id_and_visitnum = $this->get_customer_id_and_visitnum();
         $customr_id = $id_and_visitnum->id;
         $new_customer = $this->get_new_custoemr_data($id_and_visitnum->number_of_visit);
-        \business\facade\update_from_yoyakumail($customr_id, $new_customer);
+        \business\facade\customer_update_from_yoyakumail($customr_id, $new_customer);
 
         $this->save_yoyaku_registration($customr_id, $id_and_visitnum->number_of_visit);
         $regist_id = \business\facade\get_last_insert_id();
