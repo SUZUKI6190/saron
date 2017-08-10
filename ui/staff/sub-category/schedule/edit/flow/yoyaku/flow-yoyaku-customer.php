@@ -33,9 +33,15 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
         $fc = FlowYoyakuContext::get_instance();
         $input_name =  $fc->customer_id->get_key();
         foreach($this->_customer_list as $c)
-        {?>
+        {
+            $selected_id = $fc->customer_id->get_value();
+            $checked = '';
+            if($selected_id == $c->id){
+                $checked = 'checked';
+            }
+        ?>
             <tr>
-                <td><input type='radio' name='<?php echo $input_name;?>' value='<?php echo $c->id;?>'></td>
+                <td><input type='radio' name='<?php echo $input_name;?>' value='<?php echo $c->id;?>' <?php echo $checked; ?>></td>
                 <td><?php echo $c->name_kanji; ?></td>
                 <td><?php echo $c->email;?></td>
             <tr>
