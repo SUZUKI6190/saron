@@ -76,10 +76,19 @@ class ScheduleEdit extends ScheduleBase
 
     public function view_next_button($text, $move_value)
     {
+        $css = 'manage_button';
+        if($move_value == -1){
+            if($this->current_page_no == 0){
+                $css = 'manage_button hidden_btn';
+            }
+        }
+       if($move_value == 1){
+            if($this->current_page_no == count($this->_flow_list) - 1){
+                $css = 'manage_button hidden_btn';
+            }
+        }
         ?>
-        
-        <button class='manage_button' name='<?php echo StaffContext::MoveName; ?>' value='<?php echo $move_value; ?>'><?php echo $text; ?></button>
-        
+        <button class='<?php echo $css; ?>' name='<?php echo StaffContext::MoveName; ?>' value='<?php echo $move_value; ?>'><?php echo $text; ?></button>       
         <?php
     }
 

@@ -36,7 +36,6 @@ abstract class FlowBase
     public function set_staff_id($id)
     {
         $this->_staff_id = $id;
-
     }
 
     public function set_flow_id($id)

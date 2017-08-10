@@ -25,6 +25,11 @@
     justify-content: space-between;
 }
 
+.hidden_btn
+{
+    visibility: hidden;
+}
+
 .schedule_save_btn_area
 {
     text-align: right;
