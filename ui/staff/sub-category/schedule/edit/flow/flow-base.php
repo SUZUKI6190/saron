@@ -18,6 +18,11 @@ abstract class FlowBase
         return (int)($_POST[StaffContext::edit_btn_name]);
     }
 
+    public function input_check() : bool
+    {
+        return true;
+    }
+
     protected function get_selected_shcedule(): Schedule
     {
         $this->_selected_schedule_id = $this->get_selected_schedule_id();

@@ -22,6 +22,7 @@ class ScheduleEdit extends ScheduleBase
 	private $pre_page_no;
     private $current_page_no;
     private $_flow_id;
+    private $_input_check;
 
     const select_course_name = "select_course_btn";
  
@@ -32,32 +33,37 @@ class ScheduleEdit extends ScheduleBase
         $this->_flow_id = $flow_id;
         $this->pre_page_no = $this->get_pre_page_no();
         $this->current_page_no = $this->get_current_page_no();
-
         $this->_flow_list = FlowFactory::GetEditFlow($this->_flow_id);
-        
-        $this->_current_flow = $this->get_current_flow();
-        $this->_current_flow->set_base_schedule_edit($this);
-        $this->_current_flow->set_flow_id($this->_flow_id);
-
+        $this->_input_check = $this->get_pre_current_flow()->input_check();
     }
 
     protected function init_inner()
     {
+        $this->_current_flow = $this->get_current_flow();
+        $this->_current_flow->set_base_schedule_edit($this);
+        $this->_current_flow->set_flow_id($this->_flow_id);
+
         $this->_current_flow->set_staff_id($this->_staff_id);
         $this->_current_flow->init($this->_schedule_list);
     }
 
     public function update()
     {
-        $pre_flow = $this->get_pre_current_flow();
-        $pre_flow->set_staff_id($this->_staff_id);
-        $pre_flow->save();
-        // $this->_flow_save->save();
+        if($this->_input_check){
+            $pre_flow = $this->get_pre_current_flow();
+            $pre_flow->set_staff_id($this->_staff_id);
+            $pre_flow->save();
+            // $this->_flow_save->save();
+        }
     }
 
     private function get_current_flow() : FlowBase
     { 
-        return $this->_flow_list[$this->current_page_no];
+        if( $this->_input_check ){
+            return $this->_flow_list[$this->current_page_no];
+        }else{
+            return $pre_flow;
+        }
     }
 
     private function get_pre_current_flow() : FlowBase
