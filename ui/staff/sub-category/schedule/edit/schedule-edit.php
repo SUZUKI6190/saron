@@ -19,6 +19,7 @@ class ScheduleEdit extends ScheduleBase
 {
     private $_flow_list;
     private $_current_flow;
+    private $_pre_flow;
 	private $pre_page_no;
     private $current_page_no;
     private $_flow_id;
@@ -34,7 +35,7 @@ class ScheduleEdit extends ScheduleBase
         $this->pre_page_no = $this->get_pre_page_no();
         $this->current_page_no = $this->get_current_page_no();
         $this->_flow_list = FlowFactory::GetEditFlow($this->_flow_id);
-        $this->_input_check = $this->get_pre_current_flow()->input_check();
+
     }
 
     protected function init_inner()
@@ -45,6 +46,9 @@ class ScheduleEdit extends ScheduleBase
 
         $this->_current_flow->set_staff_id($this->_staff_id);
         $this->_current_flow->init($this->_schedule_list);
+
+        $this->_pre_flow = $this->get_pre_current_flow();
+        $this->_input_check = $this->_pre_flow->input_check();
     }
 
     public function update()
@@ -59,11 +63,7 @@ class ScheduleEdit extends ScheduleBase
 
     private function get_current_flow() : FlowBase
     { 
-        if( $this->_input_check ){
-            return $this->_flow_list[$this->current_page_no];
-        }else{
-            return $pre_flow;
-        }
+        return $this->_flow_list[$this->current_page_no];
     }
 
     private function get_pre_current_flow() : FlowBase
@@ -80,16 +80,16 @@ class ScheduleEdit extends ScheduleBase
         }        
     }
 
-    public function view_next_button($text, $move_value)
+    public function view_next_button($next_page_no, $text, $move_value)
     {
         $css = 'manage_button';
         if($move_value == -1){
-            if($this->current_page_no == 0){
+            if($next_page_no == 0){
                 $css = 'manage_button hidden_btn';
             }
         }
        if($move_value == 1){
-            if($this->current_page_no == count($this->_flow_list) - 1){
+            if($next_page_no == count($this->_flow_list) - 1){
                 $css = 'manage_button hidden_btn';
             }
         }
@@ -126,19 +126,28 @@ class ScheduleEdit extends ScheduleBase
 
     protected function view_inner()
     {
+        $next_flow;
+        $next_current_page_no;
+        if($this->_input_check){
+            $next_current_page_no =  $this->current_page_no;
+            $next_flow =  $this->_current_flow;
+        }else{
+            $next_current_page_no =  $this->pre_page_no;
+            $next_flow =  $this->_pre_flow;
+        }
         $this->view_save_button();
         if($this->view_move_button()){
         ?>
             <div class='move_btn_area'>
-                <?php $this->view_next_button('前へ', -1); ?>
-                <?php $this->view_next_button('次へ', 1); ?>
+                <?php $this->view_next_button($next_current_page_no, '前へ', -1); ?>
+                <?php $this->view_next_button($next_current_page_no, '次へ', 1); ?>
             </div>
         <?php
         }
-        $this->_current_flow->view();
+        $next_flow->view();
         ?>
         <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>
-        <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $this->current_page_no; ?>'>
+        <input type='hidden' name='<?php echo self::PrePageNoName; ?>' value='<?php echo $next_current_page_no; ?>'>
         <?php
     }
 }
