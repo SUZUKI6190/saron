@@ -35,7 +35,8 @@ class ScheduleEdit extends ScheduleBase
         $this->pre_page_no = $this->get_pre_page_no();
         $this->current_page_no = $this->get_current_page_no();
         $this->_flow_list = FlowFactory::GetEditFlow($this->_flow_id);
-
+        //echo $this->pre_page_no;
+        //echo $this->current_page_no;
     }
 
     protected function init_inner()
@@ -48,15 +49,18 @@ class ScheduleEdit extends ScheduleBase
         $this->_current_flow->init($this->_schedule_list);
 
         $this->_pre_flow = $this->get_pre_current_flow();
+        $this->_pre_flow->set_flow_id($this->_flow_id);
+        $this->_pre_flow->set_staff_id($this->_staff_id);
+        $this->_pre_flow->init($this->_schedule_list);
+
         $this->_input_check = $this->_pre_flow->input_check();
     }
 
     public function update()
     {
         if($this->_input_check){
-            $pre_flow = $this->get_pre_current_flow();
-            $pre_flow->set_staff_id($this->_staff_id);
-            $pre_flow->save();
+            $this->_pre_flow->set_staff_id($this->_staff_id);
+                $this->_pre_flow->save();
             // $this->_flow_save->save();
         }
     }
@@ -80,6 +84,15 @@ class ScheduleEdit extends ScheduleBase
         }        
     }
 
+    private function get_pre_page_no()
+    {
+        if(isset($_POST[self::PrePageNoName])){
+            return $_POST[self::PrePageNoName];
+        }else{
+            return 0;
+        }
+    }
+
     public function view_next_button($next_page_no, $text, $move_value)
     {
         $css = 'manage_button';
@@ -96,15 +109,6 @@ class ScheduleEdit extends ScheduleBase
         ?>
         <button class='<?php echo $css; ?>' name='<?php echo StaffContext::MoveName; ?>' value='<?php echo $move_value; ?>'><?php echo $text; ?></button>       
         <?php
-    }
-
-    private function get_pre_page_no()
-    {
-        if(isset($_POST[self::PrePageNoName])){
-            return $_POST[self::PrePageNoName];
-        }else{
-            return 0;
-        }
     }
 
     private function view_move_button() : bool
@@ -129,10 +133,10 @@ class ScheduleEdit extends ScheduleBase
         $next_flow;
         $next_current_page_no;
         if($this->_input_check){
-            $next_current_page_no =  $this->current_page_no;
+            $next_current_page_no = $this->current_page_no;
             $next_flow =  $this->_current_flow;
         }else{
-            $next_current_page_no =  $this->pre_page_no;
+            $next_current_page_no = $this->pre_page_no;
             $next_flow =  $this->_pre_flow;
         }
         $this->view_save_button();

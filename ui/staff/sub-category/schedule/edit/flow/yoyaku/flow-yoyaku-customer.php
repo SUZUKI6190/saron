@@ -10,6 +10,18 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
         $this->_customer_list = \business\facade\GetCustomers('');
     }
 
+    protected function input_check_inner()
+    {
+        $fc = FlowYoyakuContext::get_instance();
+        $param_list = [
+            $fc->customer_id
+        ];
+
+        return count(array_filter($param_list, function($p){
+            return !$p->is_set();
+        })) == 0;
+    }
+
     protected function enable_save_inner() : bool
     {
         $fc = FlowYoyakuContext::get_instance();

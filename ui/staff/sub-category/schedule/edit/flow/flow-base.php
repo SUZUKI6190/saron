@@ -7,6 +7,7 @@ abstract class FlowBase
     protected abstract function init_inner();
     protected abstract function view_inner();
     protected abstract function save_inner();
+
     protected $_staff_id;
     protected $_schedule_list;
     protected $_base_schedule_edit;
@@ -18,9 +19,14 @@ abstract class FlowBase
         return (int)($_POST[StaffContext::edit_btn_name]);
     }
 
-    public function input_check() : bool
+    protected function input_check_inner()
     {
         return true;
+    }
+
+    public function input_check() : bool
+    {
+        return $this->input_check_inner();
     }
 
     protected function get_selected_shcedule(): Schedule
