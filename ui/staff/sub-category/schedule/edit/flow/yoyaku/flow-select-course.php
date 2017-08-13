@@ -21,15 +21,14 @@ class FlowSelectCourse extends FlowYoyakuBase
     {
         $fc = FlowYoyakuContext::get_instance();
 
-		if(!isset($_POST[$fc->course_id_list->get_key()])){
-			$fc->course_id_list->clear();
-		}
-
 		$param_list = [
             $fc->course_id_list
         ];
 
         return count(array_filter($param_list, function($p){
+			if(!isset($_POST[$p->get_key()])){
+				$p->clear();
+			}
             return !$p->is_set();
         })) == 0;
     }

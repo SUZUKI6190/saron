@@ -9,20 +9,24 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
        
     }
 
-    // protected function input_check_inner()
-    // {
-    //     $fc = FlowYoyakuContext::get_instance();
-    //     $param_list = [
-    //         $fc->yoyaku_date,
-    //         $fc->yoyaku_date,
-    //         $fc->yoyaku_time,
-    //         $fc->yoyaku_time
-    //     ];
+    protected function input_check_inner()
+    {
+        $fc = FlowYoyakuContext::get_instance();
+        $param_list = [
+            $fc->yoyaku_date,
+            $fc->yoyaku_date,
+            $fc->yoyaku_time,
+            $fc->yoyaku_time
+        ];
 
-    //     return count(array_filter($param_list, function($p){
-    //         return !$p->is_set();
-    //     })) == 0;
-    // }
+        return count(array_filter($param_list, function($p){
+            if(!isset($_POST[$p->get_key()])){
+                $p->clear();
+            }
+
+            return !$p->is_set();
+        })) == 0;
+    }
 
     protected  function enable_save_inner() : bool
     {

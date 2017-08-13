@@ -63,7 +63,7 @@ class ScheduleEdit extends ScheduleBase
             $this->_pre_flow->save();
             // $this->_flow_save->save();
         }else{
-            $this->attention_message($this->_current_flow);
+            //$this->attention_message($this->_current_flow);
         }
     }
 
