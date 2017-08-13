@@ -13,7 +13,6 @@ class ScheduleBaseFactory
 {
     private function __construct(){}
 
-
     public static function create_schedule_base() : ScheduleBase
     {
         if(self::is_timetable_click()){
@@ -54,7 +53,7 @@ class ScheduleBaseFactory
             $flow_id = StaffContext::EditYoyakuID;
     
             if(isset($_POST[StaffContext::edit_btn_name])){
-                $flow_id = StaffContext::EditOtherID;
+                $flow_id = self::create_edit_flow_id();
             }
 
             if(isset($_POST[StaffContext::new_btn_name])){
@@ -64,6 +63,17 @@ class ScheduleBaseFactory
         }
 
         return new ScheduleEdit($flow_id);
+    }
+
+    private static function create_edit_flow_id()
+    {
+        $send_id = $_POST[StaffContext::edit_btn_name];
+        $schedule = \business\facade\get_schedule_by_id($send_id);
+        if($schedule->schedule_division == Schedule::Yoyaku){
+            return StaffContext::EditYoyakuID;
+        }else{
+            return StaffContext::EditOtherID;
+        }
     }
 
     private static function is_edit_page() : bool
