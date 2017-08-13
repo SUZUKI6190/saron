@@ -133,9 +133,14 @@ class ScheduleEdit extends ScheduleBase
         }
     }
 
+    private function is_edit_click() : bool
+    {
+        return isset($_POST[StaffContext::edit_btn_name]);
+    }
+
     private function attention_message(FlowBase $flow)
     {
-        if($this->_input_check){
+        if($this->is_edit_click() || $this->_input_check){
             return;
         }
 
