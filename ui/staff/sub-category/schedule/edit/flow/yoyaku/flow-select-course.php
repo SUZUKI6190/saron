@@ -14,7 +14,45 @@ class FlowSelectCourse extends FlowYoyakuBase
     protected function init_inner()
     {
 		$fc = FlowYoyakuContext::get_instance();
-        $this->_menu_list = \business\facade\get_menu_course_in_group();
+       
+    }
+
+    protected function input_check_inner()
+    {
+        $fc = FlowYoyakuContext::get_instance();
+
+		if(!isset($_POST[$fc->course_id_list->get_key()])){
+			$fc->course_id_list->clear();
+		}
+
+		$param_list = [
+            $fc->course_id_list
+        ];
+
+        return count(array_filter($param_list, function($p){
+            return !$p->is_set();
+        })) == 0;
+    }
+
+	private function td($value, $class_name='')
+	{
+		?>
+		<td class='<?php echo $class_name; ?>' >
+		<?php echo $value; ?>
+		</td>
+		<?php
+	}
+
+    protected function enable_save_inner() : bool
+    {
+        $fc = FlowYoyakuContext::get_instance();
+        return $fc->customer_id->is_set();
+    }
+
+    protected function view_inner()
+    {
+		$fc = FlowYoyakuContext::get_instance();
+ 		$this->_menu_list = \business\facade\get_menu_course_in_group();
 		foreach($this->_menu_list as $key => $course_list)
 		{
 			foreach($course_list as $c)
@@ -38,26 +76,6 @@ class FlowSelectCourse extends FlowYoyakuBase
 				$this->_chk_list[$c->id] = new \ui\util\InputBase('checkbox', $input_name, $c->id, $style, $add_atribute);
 			}
 		}
-    }
-
-	private function td($value, $class_name='')
-	{
-		?>
-		<td class='<?php echo $class_name; ?>' >
-		<?php echo $value; ?>
-		</td>
-		<?php
-	}
-
-    protected function enable_save_inner() : bool
-    {
-        $fc = FlowYoyakuContext::get_instance();
-        return $fc->customer_id->is_set();
-    }
-
-    protected function view_inner()
-    {
-		$fc = FlowYoyakuContext::get_instance();
 ?>
         <div class='line'>
         <h2>コースの選択</h2>
