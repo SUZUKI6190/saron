@@ -60,8 +60,10 @@ class ScheduleEdit extends ScheduleBase
     {
         if($this->_input_check){
             $this->_pre_flow->set_staff_id($this->_staff_id);
-                $this->_pre_flow->save();
+            $this->_pre_flow->save();
             // $this->_flow_save->save();
+        }else{
+            $this->attention_message($this->_current_flow);
         }
     }
 
@@ -122,10 +124,26 @@ class ScheduleEdit extends ScheduleBase
             return !$f->enable_save();
         }));
 
-        if(count($filter) == 0){
+        $flow_no_check = count($this->_flow_list) - 1 <= $this->current_page_no;
+        $enable_sabe_check = count($filter) == 0;
+
+        if($flow_no_check || $enable_sabe_check){
             $save_name = StaffContext::update_schedule_btn_name;
             echo "<div class='schedule_save_btn_area'><button class='manage_button' type='submit' name='$save_name'>保存</button></div>";
         }
+    }
+
+    private function attention_message(FlowBase $flow)
+    {
+        if($this->_input_check){
+            return;
+        }
+
+        ?>
+        <div class='attention_are'>
+            <span><?php echo $flow->attention_message(); ?></span>
+        <div>
+        <?php
     }
 
     protected function view_inner()
@@ -139,7 +157,6 @@ class ScheduleEdit extends ScheduleBase
             $next_current_page_no = $this->pre_page_no;
             $next_flow =  $this->_pre_flow;
         }
-        $this->view_save_button();
         if($this->view_move_button()){
         ?>
             <div class='move_btn_area'>
@@ -148,6 +165,8 @@ class ScheduleEdit extends ScheduleBase
             </div>
         <?php
         }
+        $this->view_save_button();
+        $this->attention_message($next_flow);
         $next_flow->view();
         ?>
         <input type='hidden' name='<?php echo StaffContext::edit_page_name; ?>' value=''>

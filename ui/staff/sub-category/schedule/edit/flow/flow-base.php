@@ -14,6 +14,11 @@ abstract class FlowBase
     protected $_selected_schedule_id;
     private $_flow_id;
 
+    public function attention_message():string
+    {
+        return '入力されていない項目があります。';
+    }
+
     protected function get_selected_schedule_id() : int
     {
         return (int)($_POST[StaffContext::edit_btn_name]);

@@ -127,6 +127,40 @@ SQL;
 	return $ret;
 }
 
+
+function get_menu_course_by_id($id)
+{
+	$strSql = <<<SQL
+		select
+		id,
+		menu_id,
+		name,
+		price,
+		sequence_no,
+		first_discount,
+		time_required
+		from yoyaku_menu_course
+		where id = '$id'
+SQL;
+
+	global $wpdb;
+	$result = $wpdb->get_results($strSql);
+	$ret = array_values(array_map(function($data) {
+		$temp = new MenuCourse();
+		$temp->id = $data->id;
+		$temp->menu_id = $data->menu_id;
+		$temp->name = $data->name;
+		$temp->price = $data->price;
+		$temp->time_required = $data->time_required;
+		$temp->sequence_no = $data->sequence_no;
+		$temp->first_discount = $data->first_discount;
+		return $temp;
+	}, $result));
+
+	return $ret[0];
+}
+
+
 function get_menu_course($id, $menu_id)
 {
 	$strSql = <<<SQL

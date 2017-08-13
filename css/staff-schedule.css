@@ -5,6 +5,15 @@
     margin-top: 10px;
 }
 
+.attention_are
+{
+    margin: 10px;
+}
+
+.attention_are span{
+    color:red;
+ }
+
 .top_btn_area
 {
     display: flex;

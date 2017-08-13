@@ -45,10 +45,11 @@ class ScheduleTableParam
         $ret->start_datetime = $s->start_time;
         $ret->start_minutes = self::get_minutes(new \DateTime($s->start_time)) - self::get_minutes(new \DateTime('9:00'));
 
-        $course_list = \business\facade\get_reserved_by_registration_id($yoyaku->id);
+        $reserved_list = \business\facade\get_reserved_by_registration_id($yoyaku->id);
 
-        foreach($course_list as $c)
+        foreach($reserved_list as $r)
         {
+            $c = \business\facade\get_menu_course_by_id($r->course_id);
             $sum_time = $sum_time + $c->time_required;
             $name = $c->name."<br>";
         }
