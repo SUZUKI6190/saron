@@ -9,17 +9,29 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
        
     }
 
-    protected function input_check_inner()
-    {
-        $fc = FlowYoyakuContext::get_instance();
-        $param_list = [
+	private function param_list()
+	{
+		$fc = FlowYoyakuContext::get_instance();
+		return [
             $fc->yoyaku_date,
             $fc->yoyaku_date,
             $fc->yoyaku_time,
             $fc->yoyaku_time
         ];
+	}
 
-        return count(array_filter($param_list, function($p){
+    public function clear_temp_data()
+    {
+		foreach($this->param_list() as $p){    
+			if(!isset($_POST[$p->get_key()])){
+				$p->clear();
+			}
+        }
+    }
+
+    protected function input_check_inner()
+    {
+        return count(array_filter($this->param_list(), function($p){
             if(!isset($_POST[$p->get_key()])){
                 $p->clear();
             }

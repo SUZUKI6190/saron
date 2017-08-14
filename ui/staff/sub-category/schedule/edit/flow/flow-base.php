@@ -24,6 +24,11 @@ abstract class FlowBase
         return (int)($_POST[StaffContext::edit_btn_name]);
     }
 
+    public function clear_temp_data()
+    {
+
+    }
+
     protected function input_check_inner()
     {
         return true;
