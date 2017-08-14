@@ -40,7 +40,7 @@ class ScheduleEdit extends ScheduleBase
     }
 
     protected function init_inner()
-    {
+    {        
         $this->_current_flow = $this->get_current_flow();
         $this->_current_flow->set_base_schedule_edit($this);
         $this->_current_flow->set_flow_id($this->_flow_id);
