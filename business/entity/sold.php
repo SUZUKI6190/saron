@@ -1,51 +1,31 @@
 <?php
-namespace business\facade;
-use business\entity\Sold;
+namespace business\entity;
 
-class SoldFacade
+class Sold
 {
-	public static function insert(Sold $r)
+	public $id;
+	public $registration_id;
+	public $price;
+	public $time_required;
+	public $name;
+	public $number_of_visit;
+
+	public static function get_empty_object() : MenuCourse
 	{
-		global $wpdb;
-		$strSql = <<<SQL
-insert into yoyaku_sold (
-	registration_id,
-	name,
-	price
-)values(
-	'$r->registration_id',
-	'$r->name',
-	'$r->price'
-)
-SQL;
-		$wpdb->query($strSql);
+		return new MenuCourse();
 	}
 
-	public static function get_by_registration_id($id) : array
+	public static function CreateFromWpdb($wpdb) : self
 	{
-		$strSql = <<<SQL
-select * from yoyaku_sold
-where registration_id = '$id'
-SQL;
-
-		global $wpdb;
-		$result = $wpdb->get_results($strSql);
-		$ret = array_values(array_map(function($data) {
-			return Sold::CreateFromWpdb($data);
-		}, $result));
+		$ret = new self();
+		$ret->id = $wpdb->id;
+		$ret->registration_id = $wpdb->registration_id;
+		$ret->name = $wpdb->name;
+		$ret->price = $wpdb->price;
+		$ret->time_required = $wpdb->time_required;
+		$ret->name = $wpdb->name;
+		$ret->number_of_visit = $wpdb->number_of_visit;
 		return $ret;
 	}
-
-	public static function  delete_by_registration_id($id) 
-	{
-		$strSql = <<<SQL
-delete from yoyaku_sold
-where registration_id = '$id'
-SQL;
-		global $wpdb;
-		$wpdb->query($strSql);
-	}
-
 }
-
 ?>
