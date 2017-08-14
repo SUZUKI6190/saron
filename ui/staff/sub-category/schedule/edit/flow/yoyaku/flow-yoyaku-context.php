@@ -1,5 +1,6 @@
 <?php
 namespace ui\staff;
+use business\entity\StaffSchedule;
 
 class FlowYoyakuContext
 {
@@ -26,6 +27,16 @@ class FlowYoyakuContext
 	public function init()
 	{
 		$this->save_by_post();
+	}
+
+	public function set_edit_data()
+	{
+		$schedule_id = $_POST[StaffContext::edit_btn_name];
+		$data = \business\facade\StaffScheduleFacade::get_by_schedule_id($schedule_id);
+		$this->course_id_list->set_value($data->course_id_list);
+		$this->yoyaku_date->set_value($data->start_time->format('Ymd'));
+		$this->yoyaku_time->set_value($data->start_time->format('H:i'));
+		$this->customer_id->set_value($data->customer_id);		
 	}
 
 	private function create_param($name)

@@ -7,12 +7,7 @@ use business\entity\Schedule;
 abstract class FlowYoyakuBase extends FlowBase
 {
     private $_course_list;
-    public function __construct()
-    {
-        $fc = FlowYoyakuContext::get_instance();
-        $fc->init();
-    }
-
+  
     protected function save_inner()
     {
         $fc = FlowYoyakuContext::get_instance();

@@ -114,11 +114,12 @@ class FlowSelectCourse extends FlowYoyakuBase
 				$id = $course->id;
 				$row_id = "row_".$id;
 				$th_style = 'course_row';
+	
 				if($fc->course_id_list->is_set())
 				{
 					foreach($fc->course_id_list->get_value() as $selected_id)
 					{
-						if($course->id == $selected_id){
+							if($course->id == $selected_id){
 							$th_style = 'course_row selected';
 						}
 					}

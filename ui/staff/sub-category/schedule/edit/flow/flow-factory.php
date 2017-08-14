@@ -20,9 +20,12 @@ class FlowFactory
 
     public static function GetEditFlow($flow_id)
     {
+        $fc = FlowYoyakuContext::get_instance();
+        $fc->init();
         $ret = [];
         switch($flow_id){
             case StaffContext::EditYoyakuID:
+                $fc->set_edit_data();
                 $ret = [
                     new FlowSelectCourse(),
                     new FlowYoyakuCustomer(),
