@@ -12,7 +12,7 @@ abstract class FlowBase
     protected $_schedule_list;
     protected $_base_schedule_edit;
     protected $_selected_schedule_id;
-    private $_flow_id;
+    protected $_flow_id;
 
     public function attention_message():string
     {

@@ -44,27 +44,35 @@ SQL;
     {
         global $wpdb;
 
-        $strsSql = <<<SQL
+        $strSql = <<<SQL
         select extend_data from yoyaku_schedule where id = '$s->schedule_id'
 SQL;
 
-		$registlation_id = $wpdb->get_results($strSql)[0];
+		$registlation_id = $wpdb->get_results($strSql)[0]->extend_data;
 
         $strSql = <<<SQL
         UPDATE yoyaku_schedule SET 
             start_time = '$s->start_time'
         where id = '$s->schedule_id'
+SQL;
 
+        $wpdb->query($strSql);
+
+        $strSql = <<<SQL
         UPDATE yoyaku_registration SET
             start_time = '$s->start_time',
             consultation = '$s->consultation'
-        where yr.id = '$registlation_id'
+        where id = '$registlation_id'
+SQL;
 
+        $wpdb->query($strSql);
+
+        $strSql = <<<SQL
         delete from yoyaku_reserved
         where registration_id = '$registlation_id'
 SQL;
-        $wpdb->query($strSql);
 
+        $wpdb->query($strSql);
 
         foreach($s->course_id_list as $course_id){
 
@@ -77,7 +85,6 @@ SQL;
                 '$course_id'
             )
 SQL;
-
             $wpdb->query($strSql);
         }
 	    

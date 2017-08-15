@@ -3,12 +3,34 @@ namespace ui\staff;
 use business\entity\YoyakuRegistration;
 use business\entity\Reserved;
 use business\entity\Schedule;
+use business\entity\StaffSchedule;
 
 abstract class FlowYoyakuBase extends FlowBase
 {
     private $_course_list;
-  
+    
     protected function save_inner()
+    {
+        if($this->_flow_id == StaffContext::EditYoyakuID){
+            $this->save_edit();
+        }else{
+            $this->save_new();
+        }
+    }
+
+    private function save_edit()
+    {
+        if(!isset($_POST[StaffContext::update_schedule_btn_name])){
+            return;
+        }
+
+        $fc = FlowYoyakuContext::get_instance();
+        $s = $fc->create_input_scheule_data();
+
+        \business\facade\StaffScheduleFacade::update($s);
+    }
+
+    private function save_new()
     {
         $fc = FlowYoyakuContext::get_instance();
 

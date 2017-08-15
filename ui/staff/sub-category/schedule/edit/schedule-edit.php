@@ -62,10 +62,8 @@ class ScheduleEdit extends ScheduleBase
     {
         if($this->_input_check){
             $this->_pre_flow->set_staff_id($this->_staff_id);
+            $this->_pre_flow->set_flow_id($this->_flow_id);
             $this->_pre_flow->save();
-            // $this->_flow_save->save();
-        }else{
-            //$this->attention_message($this->_current_flow);
         }
     }
 
