@@ -38,7 +38,52 @@ SQL;
         }
         
 		return $ret;
-    }    
+    }
+
+    public static function update(StaffSchedule $s)
+    {
+        global $wpdb;
+
+        $strsSql = <<<SQL
+        select extend_data from yoyaku_schedule where id = '$s->schedule_id'
+SQL;
+
+		$registlation_id = $wpdb->get_results($strSql)[0];
+
+        $strSql = <<<SQL
+        UPDATE yoyaku_schedule SET 
+            start_time = '$s->start_time'
+        where id = '$s->schedule_id'
+
+        UPDATE yoyaku_registration SET
+            start_time = '$s->start_time',
+            consultation = '$s->consultation'
+        where yr.id = '$registlation_id'
+
+        delete from yoyaku_reserved
+        where registration_id = '$registlation_id'
+SQL;
+        $wpdb->query($strSql);
+
+
+        foreach($s->course_id_list as $course_id){
+
+            $strSql = <<<SQL
+            insert into yoyaku_reserved (
+                registration_id,
+                course_id
+            )values(
+                '$registlation_id',
+                '$course_id'
+            )
+SQL;
+
+            $wpdb->query($strSql);
+        }
+	    
+
+    }
+
 }
 
 ?>
