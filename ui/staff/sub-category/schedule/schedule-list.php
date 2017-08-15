@@ -42,9 +42,6 @@ class ScheduleList extends ScheduleBase
             <th>
                 予定名
             </th>
-            <!-- <th>
-                お客様名
-            </th> -->
             <th>
                 開始日時
             </th>
@@ -52,6 +49,7 @@ class ScheduleList extends ScheduleBase
                 所要時間
             </th>
             <th>
+                予約種類
             </th>
         </thead>
         <?php
@@ -77,6 +75,15 @@ class ScheduleList extends ScheduleBase
                 <td>
                 <?php
                     echo $p->minites_len;
+                ?>
+                </td>
+                <td>
+                <?php
+                    if($p->schedule_division == Schedule::Yoyaku){
+                        echo '予約';
+                    }else{
+                        echo 'その他';
+                    }
                 ?>
                 </td>
                 <td>

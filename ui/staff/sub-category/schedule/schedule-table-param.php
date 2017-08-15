@@ -12,6 +12,7 @@ class ScheduleTableParam
     public $staff_name;
     public $schedule_name;
     public $customer_name;
+    public $schedule_division;
     
     private static function get_minutes(\DateTime $d) : int
     {
@@ -25,8 +26,10 @@ class ScheduleTableParam
         $ret;
         if($s->schedule_division == Schedule::Yoyaku){
             $ret = self::create_from_yoyaku($s);
+            $ret->schedule_division = Schedule::Yoyaku;
         }else{
             $ret = self::create_from_other($s);
+            $ret->schedule_division = Schedule::Other;
         }
 
         return $ret;
