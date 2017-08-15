@@ -61,7 +61,8 @@ SQL;
         $strSql = <<<SQL
         UPDATE yoyaku_registration SET
             start_time = '$s->start_time',
-            consultation = '$s->consultation'
+            consultation = '$s->consultation',
+            customer_id = '$s->customer_id'
         where id = '$registlation_id'
 SQL;
 
