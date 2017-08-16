@@ -57,7 +57,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
         <form method="post" action='<?php echo "$d" ?>' id='<?php echo self::form_id; ?>'>
             <div class='time_schedule_table_area'>
             <?php
-                $this->_schedule->view();
+                 $this->_schedule->view();
             ?>
             </div>
         </form>

@@ -32,8 +32,22 @@ abstract class ScheduleBase
         
     }
 
+    protected function view_staff_name_area()
+    {
+        $context = StaffContext::get_instance();
+        $staff = \business\facade\get_staff_byid( $context->get_selected_staff_id());
+        $name = $staff->name_first.$staff->name_last;
+        ?>
+        <div class='staff_name_area'>
+        <span>スタッフ名：</span>
+        <span><?php echo $name; ?></span>
+        </div>
+        <?php
+    }
+
     public function view()
     {
+        $this->view_staff_name_area();
         $this->view_inner();
     }
 

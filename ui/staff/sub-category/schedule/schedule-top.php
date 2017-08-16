@@ -22,7 +22,11 @@ class ScheduleTop extends ScheduleBase
 
     protected function init_inner()
     {
-    }     
+    }
+
+    protected function view_staff_name_area()
+    {
+    }
 
     public function is_empty():bool
     {
