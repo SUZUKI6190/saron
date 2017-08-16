@@ -14,6 +14,8 @@ class StaffContext
   	const ScheduleTypeName = 'schedule_type';
 	const FlowDivisionName = 'flow_div_name';
 
+    const staff_select_id = "staff_select_id";
+
     const EditYoyakuID = 0;
     const EditOtherID = 1;
     const NewYoyakuID = 2;
@@ -34,6 +36,21 @@ class StaffContext
 		}
 		return self::$_instance;
 	}
+
+	
+    public function get_selected_staff_id() : string
+    {
+        if(isset($_POST[self::staff_select_id])){
+            $_SESSION[self::staff_select_id] = $_POST[self::staff_select_id];
+        }
+		if(isset($_SESSION[self::staff_select_id])){
+			return $_SESSION[self::staff_select_id];
+		}else{
+			return "";
+		}
+        
+    }
+
 }
 
 ?>
