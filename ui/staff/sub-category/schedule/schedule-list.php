@@ -49,7 +49,7 @@ class ScheduleList extends ScheduleBase
                 所要時間
             </th>
             <th>
-                予約種類
+                予定種別
             </th>
         </thead>
         <?php
