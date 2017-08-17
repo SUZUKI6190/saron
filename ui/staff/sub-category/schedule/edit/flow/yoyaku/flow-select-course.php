@@ -29,7 +29,6 @@ class FlowSelectCourse extends FlowYoyakuBase
     {
 		foreach($this->param_list() as $p){    
 			if(!isset($_POST[$p->get_key()])){
-				echo 'clear';
 				$p->clear();
 			}
         }
