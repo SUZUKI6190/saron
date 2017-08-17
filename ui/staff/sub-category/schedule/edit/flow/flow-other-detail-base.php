@@ -24,8 +24,12 @@ abstract class FlowOtherDetailBase extends FlowBase
     public function __construct()
     {    
         $this->_name_input = new InputControll("text", StaffShceduleSub::schedule_name);
+        $min_date = new \DateTime();
         $this->_date_input = new InputControll("date", StaffShceduleSub::schedule_date);
+        $this->_date_input->set_attribute(['min' => $min_date->format("Y-m-d")]);
         $this->_time_input = new InputControll("time", StaffShceduleSub::schedule_time);
+        $min_date = new \DateTime('9:00');
+        $this->_time_input->set_attribute(['min' => $min_date->format("H:i")]);
         $this->_minutes_input = new InputControll("number", StaffShceduleSub::schedule_minutes);
     }
 

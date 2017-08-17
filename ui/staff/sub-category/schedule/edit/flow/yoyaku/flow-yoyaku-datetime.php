@@ -53,12 +53,14 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
         $date_value = $fc->yoyaku_date->get_value();
         $time_name = $fc->yoyaku_time->get_key();
         $time_value = $fc->yoyaku_time->get_value();
+        $min_date = new \DateTime();
+        $min_time = new \DateTime('9:00');
 ?>
         <div class='line'>
             <h2>開始日</h2>
-            <input type='date' name='<?php echo $date_name; ?>' value='<?php echo $date_value; ?>'>
+            <input type='date' name='<?php echo $date_name; ?>' value='<?php echo $date_value; ?>' min='<?php echo $min_date->format("Y-m-d"); ?>'>
             <h2>開始時刻</h2>
-            <input type='time' name='<?php echo $time_name; ?>' value='<?php echo $time_value; ?>'>
+            <input type='time' name='<?php echo $time_name; ?>' value='<?php echo $time_value; ?>' min='<?php echo $min_time->format("H:i"); ?>'>
         </div>
 <?php
     }
