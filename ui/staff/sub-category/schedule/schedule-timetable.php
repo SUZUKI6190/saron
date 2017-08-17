@@ -36,7 +36,7 @@ class ScheduleTimeTable extends ScheduleBase
     private function view_update_btn()
     {
 ?>
-        <button class="manage_button" name='<?php echo StaffContext::update_btn_name; ?>'>更新する</button>
+        <button class="manage_button" name='<?php echo StaffContext::change_datetime; ?>'>日時を変更</button>
 <?php
     }
 
