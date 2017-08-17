@@ -20,7 +20,7 @@ abstract class FlowYoyakuBase extends FlowBase
 
     private function save_edit()
     {
-        if(!isset($_POST[StaffContext::update_schedule_btn_name])){
+        if(!isset($_POST[StaffContext::update_btn_name])){
             return;
         }
 
@@ -36,7 +36,7 @@ abstract class FlowYoyakuBase extends FlowBase
 
         $this->_course_list = \business\facade\get_menu_course_by_idlist($fc->course_id_list->get_value());
 
-        if(!isset($_POST[StaffContext::update_schedule_btn_name])){
+        if(!isset($_POST[StaffContext::update_btn_name])){
             return;
         }
 

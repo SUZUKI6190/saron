@@ -3,7 +3,6 @@ namespace ui\staff;
 
 class StaffContext
 {
-    const update_schedule_btn_name = "update_schedule_btn";
 	const list_btn_name = "list_btn";
     const timetable_btn_name = "time_table_btn";
     const edit_page_name = 'edit_page_name';

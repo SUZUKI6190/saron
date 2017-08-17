@@ -128,7 +128,7 @@ class ScheduleEdit extends ScheduleBase
         $enable_sabe_check = count($filter) == 0;
 
         if($flow_no_check || $enable_sabe_check){
-            $save_name = StaffContext::update_schedule_btn_name;
+            $save_name = StaffContext::update_btn_name;
             echo "<div class='schedule_save_btn_area'><button class='manage_button' type='submit' name='$save_name'>保存</button></div>";
         }
     }

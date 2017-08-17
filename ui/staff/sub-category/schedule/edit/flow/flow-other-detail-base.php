@@ -53,7 +53,7 @@ abstract class FlowOtherDetailBase extends FlowBase
 
     private function is_update_schedule_btn_click() : bool
     {
-        return isset($_POST[StaffContext::update_schedule_btn_name]);
+        return isset($_POST[StaffContext::update_btn_name]);
     }
 
 
