@@ -13,8 +13,6 @@ class FlowSelectCourse extends FlowYoyakuBase
 
     protected function init_inner()
     {
-		$fc = FlowYoyakuContext::get_instance();
-       
     }
 
 	private function param_list()

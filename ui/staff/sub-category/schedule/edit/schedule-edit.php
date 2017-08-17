@@ -44,12 +44,12 @@ class ScheduleEdit extends ScheduleBase
         $this->_current_flow->set_flow_id($this->_flow_id);
 
         $this->_current_flow->set_staff_id($this->_staff_id);
-        $this->_current_flow->init($this->_schedule_list);
+        $this->_current_flow->init();
 
         $this->_pre_flow = $this->get_pre_current_flow();
         $this->_pre_flow->set_flow_id($this->_flow_id);
         $this->_pre_flow->set_staff_id($this->_staff_id);
-        $this->_pre_flow->init($this->_schedule_list);
+        $this->_pre_flow->init();
 
         if(!$this->is_edit_click()){
             $this->_pre_flow->clear_temp_data();

@@ -88,7 +88,7 @@ class ScheduleBaseFactory
 
     public static function is_timetable_click():bool
     {
-        return isset($_POST[StaffContext::timetable_btn_name]) || self::is_update_click();
+        return isset($_POST[StaffContext::timetable_btn_name]);
     }
 
     public static function is_list_click():bool

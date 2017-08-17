@@ -7,7 +7,7 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
 
     protected function init_inner()
     {
-        $this->_customer_list = \business\facade\GetCustomers('');
+
     }
 
 	private function param_list()
@@ -42,6 +42,7 @@ class FlowYoyakuCustomer extends FlowYoyakuBase
 
     protected function view_inner()
     {
+        $this->_customer_list = \business\facade\GetCustomers('');
 ?>
         <div class='line'>
         <h2>お客様の選択</h2>

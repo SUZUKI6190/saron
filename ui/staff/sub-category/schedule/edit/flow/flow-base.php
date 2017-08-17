@@ -9,7 +9,6 @@ abstract class FlowBase
     protected abstract function save_inner();
 
     protected $_staff_id;
-    protected $_schedule_list;
     protected $_base_schedule_edit;
     protected $_selected_schedule_id;
     protected $_flow_id;
@@ -42,15 +41,11 @@ abstract class FlowBase
     protected function get_selected_shcedule(): Schedule
     {
         $this->_selected_schedule_id = $this->get_selected_schedule_id();
-        $f = array_values(array_filter($this->_schedule_list,function($d){
-            return $this->_selected_schedule_id == $d->id;
-        }));
-        return $f[0];
+        return \business\facade\get_schedule_by_id($this->_selected_schedule_id);
     }
 
-    public function init($schedule_list)
+    public function init()
     {
-        $this->_schedule_list = $schedule_list;
         $this->init_inner();
     }
 
