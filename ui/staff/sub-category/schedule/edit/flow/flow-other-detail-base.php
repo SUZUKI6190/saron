@@ -56,13 +56,6 @@ abstract class FlowOtherDetailBase extends FlowBase
         return isset($_POST[StaffContext::update_schedule_btn_name]);
     }
 
-    private function view_schedule_btn()
-    {
-?>
-        <button class="manage_button" name='<?php echo StaffContext::update_schedule_btn_name; ?>'><?php echo $this->get_btn_caption(); ?></button>
-<?php
-        $this->add_button();
-    }
 
     protected function view_inner()
     {
@@ -82,14 +75,6 @@ abstract class FlowOtherDetailBase extends FlowBase
         $this->_minutes_input->set_attribute( [
             "min"=>"0"
         ]);
-
-        ?>
-        <div class="update_btn_area">
-        <?php
-        $this->view_schedule_btn();
-        ?>
-        </div>
-        <?
 ?>
         <h2 class='edit_midasi'>
         予定名
