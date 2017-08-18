@@ -1,6 +1,5 @@
 <?php
 namespace ui\customer;
-require_once('search-sub.php');
 
 class CustomerListViwer implements SearchViewer
 {

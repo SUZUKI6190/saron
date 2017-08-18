@@ -54,7 +54,7 @@ class SearchSub extends CustomerSubBase
 	{
 		$cc = CustomerContext::get_instance();
 		if($cc->RegistMode == 'detail'){
-			return new CustomerDetailEditViewer();
+			return new CreateForm();
 		}
 		return new CustomerListViwer();
 	}

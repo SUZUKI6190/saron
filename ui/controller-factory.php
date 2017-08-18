@@ -38,6 +38,7 @@ function create_controller() : IController
 	}else{
 		require_once(dirname(__FILE__).'/../business/facade/staff-schedule.php');
 		require_once(dirname(__FILE__).'/../business/entity/staff-schedule.php');
+		require_once(dirname(__FILE__).'/frame/sub-cotegory.php');
 		return new ManageController();	
 	}
 }

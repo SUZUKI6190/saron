@@ -2,7 +2,6 @@
 namespace ui;
 require_once("frame/empty-frame-implementer.php");
 require_once("frame/manage-frame.php");
-require_once("customer/customer-frame-implementer.php");
 require_once(dirname(__FILE__).'/../business/entity/image.php');
 use ui\publish\PublishContext;
 use ui\staff\StaffContext;
@@ -16,6 +15,9 @@ function create_iplementer($category_name)
 	{
 		case "customer":
 			require_once("customer/customer-context.php");
+			require_once('customer/sub-category/customer-sub-base.php');
+			require_once("customer/customer-frame-implementer.php");
+		
 			$context = CustomerContext::get_instance();
 			$context->Page = get_query_var( 'sub_category' );;
 			$context->RegistMode = get_query_var( 'edit' );

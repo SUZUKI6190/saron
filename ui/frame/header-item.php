@@ -1,6 +1,5 @@
 <?php
 namespace ui\frame;
-require_once("manage-frame-context.php");
 
 abstract class HeaderItem
 {
