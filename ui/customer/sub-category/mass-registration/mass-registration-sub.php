@@ -44,6 +44,9 @@ class MassRegistrationSub extends CustomerSubBase
 		$customer_data_list = [];
 		foreach($file as $line)
 		{
+			if(substr($line[0], 0 , 1) == "#"){
+				continue;
+			}
 			$data = \business\entity\Customer::create_from_csv($line);
 			if(!is_null($data)){
 				$customer_data_list[] = $data;
