@@ -14,7 +14,7 @@ use ui\sales\salesContext;
 class SumDataCalculator extends DataCalculator
 {
 	private $_sum = 0;
-	public function catch_reservedcourse(ReservedCourse $y)
+	public function catch_reservedcourse(Reserved $y)
 	{
 		$this->_sum += $y->price;
 	}

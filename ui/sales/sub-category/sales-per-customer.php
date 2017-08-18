@@ -15,7 +15,7 @@ class PerCustomerDataCalculator extends DataCalculator
 {
 	private $_customer_num = 0;
 	private $_price_num = 0;
-	public function catch_reservedcourse(ReservedCourse $y)
+	public function catch_reservedcourse(Reserved $y)
 	{
 		$this->_price_num += $y->price;
 	}

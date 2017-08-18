@@ -7,12 +7,12 @@ use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
-use business\entity\Reserved;
+use \business\entity\Reserved;
 use \business\entity\YoyakuRegistration;
 
 abstract class DataCalculator
 {
-	public abstract function catch_reservedcourse(ReservedCourse $y);
+	public abstract function catch_reservedcourse(Reserved $y);
 	public abstract function catch_registration(YoyakuRegistration $y);
 	public abstract function get_data();
 }
