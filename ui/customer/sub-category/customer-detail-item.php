@@ -2,6 +2,53 @@
 namespace ui\customer;
 use business\entity\Customer;
 
+abstract class DetailItem
+{
+	protected $_customer_data;
+	public function __construct(Customer $cd)
+	{
+		$this->_customer_data = $cd;
+	}
+	public abstract function view();
+	public abstract function get_name();
+	public abstract function save();
+
+	public function input_check()
+	{
+		return true;
+	}
+	public function get_err_msg()
+	{
+		return "";
+	}
+	
+	protected function required_text()
+	{
+		return "<span style='color:red';>※入力必須</span>";
+	}
+
+	protected function CreateOprionValue($text, $value, $selectedValue)
+	{	
+		if($value == $selectedValue){
+			echo "<option value='$value' selected>$text</option>";
+		}else{
+			echo "<option value='$value'>$text</option>";
+		}
+		echo "\n";
+	}
+	
+	protected function GetDatePostData($key)
+	{
+		return date('Ymd',strtotime($_POST[$key]));
+	}
+	
+	protected function ConvertInputDateFormat($strDate)
+	{
+		return date('Y-m-d',strtotime($strDate));
+	}
+
+}
+
 class KanjiNameDetailItem extends DetailItem
 {
 	public function view()
