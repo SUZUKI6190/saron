@@ -32,7 +32,7 @@ class Customer{
 	
 	public static function create_csv_header()
 	{
-		$strHeader = "";
+		$strHeader = "#";
 	
 		$concat = function($value) use(&$strHeader)
 		{
