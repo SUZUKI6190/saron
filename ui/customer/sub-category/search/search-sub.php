@@ -54,16 +54,13 @@ class SearchSub extends CustomerSubBase
 	{
 		$cc = CustomerContext::get_instance();
 		if($cc->RegistMode == 'detail'){
-			return new CreateForm();
+			return new CustomerDetailEditViewer();
 		}
 		return new CustomerListViwer();
 	}
 
 	public function view()
 	{
-		$cc = CustomerContext::get_instance();
-		$newUrl = $cc->get_customer_url()."/new/";
-		$searchUrl = $cc->get_customer_url()."/search/";
 		$d = "?date=".(new \DateTime())->format("Ymdhis");
 ?>
 	<form method='post' action='<?php echo "$d" ?>'>
