@@ -13,6 +13,8 @@ class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 	private $_delete_button;
 	private $_update_button;
 
+	private $_result_flg = false;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -31,7 +33,18 @@ class CustomerDetailEditViewer extends CustomerDetail implements SearchViewer
 		if($this->_delete_button->is_submit())
 		{
 			\business\facade\delete_customer_byid($this->_id);
+			$this->_result_flg = true;
 		}
+	}
+
+	public function get_result_message():string
+	{
+		return "削除完了しました。";
+	}
+
+	public function is_result_message():bool
+	{
+		return $this->_result_flg;
 	}
 
 	protected function create_header()

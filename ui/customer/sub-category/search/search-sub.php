@@ -65,7 +65,13 @@ class SearchSub extends CustomerSubBase
 ?>
 	<form method='post' action='<?php echo "$d" ?>'>
 	<?php
-		$this->_viewer->view();
+		if($this->_viewer->is_result_message()){
+			$msg = $this->_viewer->get_result_message();
+			echo $msg;
+		}else{
+			$this->_viewer->view();
+		}
+		
 	?>
 	</form>
 	<?php

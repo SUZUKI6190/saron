@@ -8,6 +8,16 @@ class CustomerListViwer implements SearchViewer
 
 	}
 
+	public function get_result_message():string
+	{
+		return "";
+	}
+
+	public function is_result_message():bool
+	{
+		return false;
+	}
+
 	public function view()
 	{
 		$item = [
