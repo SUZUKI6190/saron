@@ -80,11 +80,11 @@ table td {
     margin:0 auto;
     margin-top:10px;
     padding:5px;
-    border:outset 1px;
+    /* border:outset 1px;
     background-color:#ddeeff;
     border-radius:10px;
     -webkit-border-radius:10px;
-    -moz-border-radius:10px;
+    -moz-border-radius:10px; */
    
 }
 
