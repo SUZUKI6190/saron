@@ -59,7 +59,10 @@ class MassRegistrationSub extends CustomerSubBase
 				if(is_null($result)){
 					$customer_data_list[] = $data;
 				}else{
-					$_err_data_list[] = $data;
+					$err_obj = new ErrObj();
+					$err_obj->set_email($data->email);
+					$err_obj->set_err_msg('重複したemailです。');		
+					$this->_err_data_list[] = $err_obj;
 				}
 			}
 		}
@@ -72,7 +75,35 @@ class MassRegistrationSub extends CustomerSubBase
 		?>
 		<span>登録完了しました。</span>
 		<?php
-		
+
+		if(count($this->_err_data_list) > 0){
+			?>
+			<div clas='err_area'>
+			<table class='err_table'>
+			<thead>
+				<tr>
+					<th>email</th>
+					<th>詳細</th>
+				</tr>
+			</thead>
+			<?php
+			foreach($this->_err_data_list as $err_obj){
+			?>
+				<tr>
+					<td>
+					<?php echo $err_obj->get_email(); ?>
+					</td>
+					<td>
+					<?php echo $err_obj->get_err_msg(); ?>
+					</td>
+				</tr>
+			<?php
+			}
+			?>
+			</table>
+			</div>
+			<?php
+		}
 	}
 
 	public function get_name()
@@ -86,5 +117,27 @@ class MassRegistrationSub extends CustomerSubBase
 	}
 }
 
+class ErrObj
+{
+	public function get_email():string
+	{
+		return $this->_email;
+	}
+
+	public function get_err_msg():string
+	{
+		return $this->_err_msg;
+	}
+
+	public function set_email(string $email)
+	{
+		$this->_email = $email;
+	}
+
+	public function set_err_msg(string $msg)
+	{
+		$this->_err_msg= $msg;
+	}
+}
 
 ?>
