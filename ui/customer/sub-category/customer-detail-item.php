@@ -142,7 +142,7 @@ class MailDetailItem extends DetailItem
 	}
 	public function get_name() : string
 	{
-		return 	"E-mail".$this->required_text();;
+		return "E-mail <span style='color:red'>※重複不可</span> ".$this->required_text();
 	}
 	
 	public function save()
