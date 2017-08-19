@@ -96,13 +96,6 @@ abstract class CustomerDetail
 		];
 	}
 
-	private function required_text()
-	{
-		?>
-		<span style="color:red;">※入力必須</span>
-		<?php
-	}
-	
 	protected function on_pre_view()
 	{
 	}

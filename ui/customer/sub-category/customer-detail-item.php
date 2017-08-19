@@ -137,12 +137,12 @@ class MailDetailItem extends DetailItem
 	public function view()
 	{
 		?>
-		<input name="email" type="email" value='<?php echo $this->_customer_data->email; ?>' />
+		<input name="email" type="email" value='<?php echo $this->_customer_data->email; ?>'  required/>
 		<?php
 	}
 	public function get_name() : string
 	{
-		return 	"E-mail";
+		return 	"E-mail".$this->required_text();;
 	}
 	
 	public function save()
