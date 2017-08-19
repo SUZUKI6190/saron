@@ -36,6 +36,12 @@ abstract class CustomerDetail
 		return date('Y-m-d',strtotime($strDate));
 	}
 
+	private function check_customer_data(Customer $data)
+	{
+		$result = \business\facade\select_customer_id_and_visitnum_by_email($data->email);
+		return is_null($result);
+	}
+
 	public function save()
 	{
 		$data = new Customer();
@@ -55,16 +61,23 @@ abstract class CustomerDetail
 		{
 			$item->save();
 		}
-		
-		$this->save_inner($data);
 
-		?>
+		$msg = "";
 
-		<div class="regist_finish">
-			<span>登録が完了しました。</span>
-		</div>
-
-		<?php
+		if($this->check_customer_data($data)){
+			?>
+			<div class="regist_error">
+				<span>e-mailが重複しています。</span>
+			</div>
+			<?php
+		}else{
+			$this->save_inner($data);
+			?>
+			<div class="regist_finish">
+				<span>登録が完了しました。</span>
+			</div>
+			<?php
+		}
 	}
 
 	protected static $SavePostKey = 'save';
