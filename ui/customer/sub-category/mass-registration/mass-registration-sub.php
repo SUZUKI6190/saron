@@ -7,6 +7,8 @@ use \business\facade;
 class MassRegistrationSub extends CustomerSubBase
 {
 	private static $post_key = "up_file";
+
+	private $_err_data_list = [];
 	
 	public function view()
 	{
@@ -47,9 +49,18 @@ class MassRegistrationSub extends CustomerSubBase
 			if(substr($line[0], 0 , 1) == "#"){
 				continue;
 			}
+
 			$data = \business\entity\Customer::create_from_csv($line);
+
 			if(!is_null($data)){
-				$customer_data_list[] = $data;
+
+				$result = \business\facade\select_customer_id_and_visitnum_by_email($data->email);
+
+				if(is_null($result)){
+					$customer_data_list[] = $data;
+				}else{
+					$_err_data_list[] = $data;
+				}
 			}
 		}
 	
