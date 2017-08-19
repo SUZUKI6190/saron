@@ -21,6 +21,8 @@ require_once(dirname(__FILE__).'/../business/entity/schedule.php');
 require_once(dirname(__FILE__)."/../business/facade/publish-menu.php");
 require_once(dirname(__FILE__)."/../business/facade/config.php");
 require_once(dirname(__FILE__)."/../business/entity/config.php");
+require_once(dirname(__FILE__).'/../business/facade/customer.php');
+require_once(dirname(__FILE__).'/../business/entity/customer.php');
 
 function create_controller() : IController
 {

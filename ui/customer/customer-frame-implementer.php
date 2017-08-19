@@ -1,10 +1,7 @@
 <?php
 namespace ui\customer;
-require_once(dirname(__FILE__).'/../../business/facade/customer.php');
-require_once(dirname(__FILE__).'/../../business/entity/customer.php');
 require_once(dirname(__FILE__).'/customer-context.php');
 require_once(dirname(__FILE__).'/../frame/manage-frame.php');
-require_once(dirname(__FILE__).'/../../business/facade/customer.php');
 require_once(dirname(__FILE__).'/sub-category/search/search-sub.php');
 
 class CustomerFameImplementor extends \ui\frame\ManageFrameImplementor
