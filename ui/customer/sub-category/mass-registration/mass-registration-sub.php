@@ -49,6 +49,12 @@ class MassRegistrationSub extends CustomerSubBase
 		foreach($file as $line)
 		{
 			if(substr($line[0], 0 , 1) == "#"){
+				//コメントアウト行
+				continue;
+			}
+
+			if(count($line) <= 1){
+				//空行対策
 				continue;
 			}
 
