@@ -10,7 +10,7 @@ class ErrObjDuplicateEmail extends ErrObjBase
         <span>重複したemailです</span><br>
         <?php
         $email = $this->_customer->email;
-        echo "<span>$email;</span>";
+        echo "<span>$email</span>";
     }
 }
 

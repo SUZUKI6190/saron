@@ -79,35 +79,39 @@ class MassRegistrationSub extends CustomerSubBase
 		}
 		
 		?>
+		<div class='massregist_wrap'>
 		<span>登録完了しました。</span>
 		<?php
 
 		if(count($this->_err_data_list) > 0){
 			?>
-			<div clas='err_area'>
-			<table class='err_table'>
-			<thead>
-				<tr>
-					<th>行番号</th>
-					<th>エラー内容</th>
-				</tr>
-			</thead>
+			<div class='err_area'>
+				<table class='err_table'>
+					<thead>
+						<tr>
+							<th class='col_rowno'>行</th>
+							<th>エラー内容</th>
+						</tr>
+					</thead>
 			<?php
 			foreach($this->_err_data_list as $row_no => $err_obj){
 			?>
-				<tr>
-					<td><?php echo $row_no; ?></td>
-					<td>
-					<?php $err_obj->view_err_msg(); ?>
-					</td>
-				</tr>
+					<tr>
+						<td><?php echo $row_no; ?></td>
+						<td>
+						<?php $err_obj->view_err_msg(); ?>
+						</td>
+					</tr>
 			<?php
 			}
 			?>
-			</table>
+				</table>
 			</div>
 			<?php
 		}
+		?>
+		</div class='wrap'>
+		<?php
 	}
 
 	public function get_name()

@@ -77,3 +77,37 @@ input[type="submit"].manage_button.search_delete
     color: red;
     margin: 10px;
 }
+
+.massregist_wrap
+{
+    margin: auto;
+    margin-top: 10px;
+    width:320px;
+}
+
+.err_area
+{
+    margin-top: 20px;
+}
+
+.err_table
+{
+    width:100%;
+    margin: auto;
+}
+
+.err_table th
+{
+    padding: 0px;
+    padding-left: 10px;
+}
+
+.col_rowno
+{
+    width: 10px;
+}
+
+.err_msg
+{
+    color: red;
+}
