@@ -119,20 +119,9 @@ class Customer{
 		};
 		
 		$ret = self::CreateEmptyObject();
-		
-		$ret->name_kanji = $get_value();
-		
-		if($ret->name_kanji == "")
-		{
-			return null;
-		}
-		
-		$ret->name_kana = $get_value();
-		if($ret->name_kana == "")
-		{
-			return null;
-		}
 
+		$ret->name_kanji = $get_value();	
+		$ret->name_kana = $get_value();
 		$ret->sex = $get_value();
 		$ret->old = $get_value();
 		$ret->birthday = $get_value();

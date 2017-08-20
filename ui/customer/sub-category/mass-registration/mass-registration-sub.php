@@ -3,6 +3,7 @@ namespace ui\customer;
 use \SplFileObject;
 use \business\entity\Config;
 use \business\facade;
+require_once(dirname(__FILE__).'/err-obj-factory.php');
 
 class MassRegistrationSub extends CustomerSubBase
 {
@@ -53,18 +54,16 @@ class MassRegistrationSub extends CustomerSubBase
 			$data = \business\entity\Customer::create_from_csv($line);
 
 			if(!is_null($data)){
+				$err_obj = ErrObjBaseFactory::create_err_obj($data);
 
-				$result = \business\facade\select_customer_id_and_visitnum_by_email($data->email);
-
-				if(is_null($result)){
+				if(is_null($err_obj)){
 					$customer_data_list[] = $data;
 				}else{
-					$err_obj = new ErrObj();
-					$err_obj->set_email($data->email);
-					$err_obj->set_err_msg('重複したemailです。');		
 					$this->_err_data_list[] = $err_obj;
-				}
+				}			
 			}
+
+
 		}
 	
 		foreach($customer_data_list as $customer)
@@ -82,8 +81,7 @@ class MassRegistrationSub extends CustomerSubBase
 			<table class='err_table'>
 			<thead>
 				<tr>
-					<th>email</th>
-					<th>詳細</th>
+					<th>エラー内容</th>
 				</tr>
 			</thead>
 			<?php
@@ -91,10 +89,7 @@ class MassRegistrationSub extends CustomerSubBase
 			?>
 				<tr>
 					<td>
-					<?php echo $err_obj->get_email(); ?>
-					</td>
-					<td>
-					<?php echo $err_obj->get_err_msg(); ?>
+					<?php $err_obj->view_err_msg(); ?>
 					</td>
 				</tr>
 			<?php
@@ -114,29 +109,6 @@ class MassRegistrationSub extends CustomerSubBase
 	public function get_title_name()
 	{
 		return "一括登録";
-	}
-}
-
-class ErrObj
-{
-	public function get_email():string
-	{
-		return $this->_email;
-	}
-
-	public function get_err_msg():string
-	{
-		return $this->_err_msg;
-	}
-
-	public function set_email(string $email)
-	{
-		$this->_email = $email;
-	}
-
-	public function set_err_msg(string $msg)
-	{
-		$this->_err_msg= $msg;
 	}
 }
 

@@ -64,7 +64,7 @@ abstract class CustomerDetail
 
 		$msg = "";
 
-		if($this->check_customer_data($data)){
+		if(!$this->check_customer_data($data)){
 			?>
 			<div class="regist_error">
 				<span>e-mailが重複しています。</span>
