@@ -45,6 +45,7 @@ class MassRegistrationSub extends CustomerSubBase
 		$file->setFlags(SplFileObject::READ_CSV); 
 	
 		$customer_data_list = [];
+		$row_count = 1;
 		foreach($file as $line)
 		{
 			if(substr($line[0], 0 , 1) == "#"){
@@ -59,11 +60,11 @@ class MassRegistrationSub extends CustomerSubBase
 				if(is_null($err_obj)){
 					$customer_data_list[] = $data;
 				}else{
-					$this->_err_data_list[] = $err_obj;
+					$this->_err_data_list[$row_count] = $err_obj;
 				}			
 			}
 
-
+			$row_count++;
 		}
 	
 		foreach($customer_data_list as $customer)
@@ -81,13 +82,15 @@ class MassRegistrationSub extends CustomerSubBase
 			<table class='err_table'>
 			<thead>
 				<tr>
+					<th>行番号</th>
 					<th>エラー内容</th>
 				</tr>
 			</thead>
 			<?php
-			foreach($this->_err_data_list as $err_obj){
+			foreach($this->_err_data_list as $row_no => $err_obj){
 			?>
 				<tr>
+					<td><?php echo $row_no; ?></td>
 					<td>
 					<?php $err_obj->view_err_msg(); ?>
 					</td>
