@@ -7,7 +7,7 @@ class ErrObjEmptyEmail extends ErrObjBase
 	public function view_err_msg()
     {
         ?>
-        <span>重複したemailです</span><br>
+        <span>emailが未入力です</span><br>
         <?php
         $email = $this->_customer->email;
         echo "<span>$email;</span>";

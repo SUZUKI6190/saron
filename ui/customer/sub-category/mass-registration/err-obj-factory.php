@@ -9,14 +9,14 @@ require_once(dirname(__FILE__).'/err-obj-duplicate-email.php');
 
 class ErrObjBaseFactory
 {
-	public static function create_err_obj(Customer $c) : ErrObjBase
+	public static function create_err_obj(Customer $c) 
     {
         $ret = null;
 
-        if(!isset($data->email)){
+        if(empty($c->email)){
             $ret = new ErrObjEmptyEmail($c);
         }else{            
-            $result = \business\facade\select_customer_id_and_visitnum_by_email($data->email);
+            $result = \business\facade\select_customer_id_and_visitnum_by_email($c->email);
             if(is_null($result)){
                 
             }else{
@@ -24,11 +24,11 @@ class ErrObjBaseFactory
             }
         }
 
-        if(isset($data->name_kanji)){
+        if(empty($c->name_kanji)){
             $ret = new ErrObjEmptyKanji($c);
         }
 
-        if(isset($data->name_kana)){
+        if(empty($c->name_kana)){
             $ret = new ErrObjEmptyKana($c);
         }
 
