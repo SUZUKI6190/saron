@@ -1,5 +1,6 @@
 <?php
 namespace ui\image;
+require_once(dirname(__FILE__).'/../../business/entity/staff.php');
 require_once(dirname(__FILE__).'/../../business/facade/staff.php');
 use business\entity\Image;
 
