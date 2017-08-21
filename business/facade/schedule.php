@@ -13,6 +13,7 @@ function insert_schedule(Schedule $s)
 			minutes,
 			schedule_division,
 			name,
+			comment,
 			extend_data
 		)values(
 			'$s->staff_id',
@@ -20,6 +21,7 @@ function insert_schedule(Schedule $s)
 			'$s->minutes',
 			'$s->schedule_division',
 			'$s->name',
+			'$s->comment',
 			'$s->extend_data'
 		)
 SQL
@@ -33,7 +35,8 @@ function update_schedule(Schedule $s)
 		update yoyaku_schedule  set
 			start_time = '$s->start_time',
 			minutes = '$s->minutes',
-			name = '$s->name'
+			name = '$s->name',
+			comment = '$s->comment'
 		where id = '$s->id'
 SQL;
 

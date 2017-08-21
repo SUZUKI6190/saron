@@ -9,6 +9,7 @@ class Schedule
 	public $minutes = 0;
 	public $schedule_division;
 	public $name = '';
+	public $comment = '';
 	public $extend_data;
 	const Yoyaku = 0;
 	const Holyday = 1;
@@ -23,6 +24,7 @@ class Schedule
 		$ret->minutes = $wpdb->minutes;
 		$ret->schedule_division = $wpdb->schedule_division;
 		$ret->name = $wpdb->name;
+		$ret->comment = $wpdb->comment;
 		$ret->extend_data = $wpdb->extend_data;
 		return $ret;
 	}
