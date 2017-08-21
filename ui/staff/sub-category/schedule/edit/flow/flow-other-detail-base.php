@@ -31,6 +31,7 @@ abstract class FlowOtherDetailBase extends FlowBase
         $min_date = new \DateTime('9:00');
         $this->_time_input->set_attribute(['min' => $min_date->format("H:i")]);
         $this->_minutes_input = new InputControll("number", StaffShceduleSub::schedule_minutes);
+
     }
 
     protected function save_inner()
@@ -44,6 +45,7 @@ abstract class FlowOtherDetailBase extends FlowBase
             $new_schedule->start_time = $datetime;
             $new_schedule->minutes = $this->_minutes_input->get_value();
             $new_schedule->schedule_division = Schedule::Other;
+            $new_schedule->comment = $_POST[StaffShceduleSub::schedule_comment];
             $this->update_inner($new_schedule);
         }
         
@@ -79,6 +81,8 @@ abstract class FlowOtherDetailBase extends FlowBase
         $this->_minutes_input->set_attribute( [
             "min"=>"0"
         ]);
+
+        $comment_value = $selected_schedule->comment;
 ?>
         <h2 class='edit_midasi'>
         予定名
@@ -96,7 +100,12 @@ abstract class FlowOtherDetailBase extends FlowBase
         所要時間
         </h2>
         <?php
-        $this->_minutes_input->view(); 
+        $this->_minutes_input->view(); ?>
+        <h2 class='edit_midasi' />
+        備考
+        </h2>
+        <textarea class='edit_comment' name='<?php echo StaffShceduleSub::schedule_comment; ?>'><?php echo $comment_value; ?></textarea>
+        <?php
         $this->on_view();
     }
 }

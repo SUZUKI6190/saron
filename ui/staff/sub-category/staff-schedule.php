@@ -19,6 +19,7 @@ class StaffShceduleSub extends \ui\frame\SubCategory
     const schedule_name = "schedule_name";
     const schedule_date = "schedule_date";
     const schedule_minutes = "schedule_minutes";
+    const schedule_comment = "schedule_comment";
     const schedule_time = "schedule_time";
     const schedule_id = "schedule_id";
 

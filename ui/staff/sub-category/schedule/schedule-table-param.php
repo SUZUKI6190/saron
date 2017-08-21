@@ -13,6 +13,7 @@ class ScheduleTableParam
     public $schedule_name;
     public $customer_name;
     public $schedule_division;
+    public $comment;
     
     private static function get_minutes(\DateTime $d) : int
     {
@@ -82,6 +83,7 @@ class ScheduleTableParam
 
         $ret->schedule_name = $s->name;
         $ret->minites_len = $s->minutes;
+        $ret->comment = $s->comment;
 
         return $ret;
     
