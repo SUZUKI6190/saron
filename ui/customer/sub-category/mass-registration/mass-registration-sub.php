@@ -86,6 +86,7 @@ class MassRegistrationSub extends CustomerSubBase
 		if(count($this->_err_data_list) > 0){
 			?>
 			<div class='err_area'>
+				<span class='err_msg'>※登録できなかったデータがあります。</span>
 				<table class='err_table'>
 					<thead>
 						<tr>
