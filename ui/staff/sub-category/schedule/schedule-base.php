@@ -36,7 +36,7 @@ abstract class ScheduleBase
     {
         $context = StaffContext::get_instance();
         $staff = \business\facade\get_staff_byid( $context->get_selected_staff_id());
-        $name = $staff->name_first.$staff->name_last;
+        $name = $staff->name_last.$staff->name_first;
         ?>
         <div class='staff_name_area'>
         <span>スタッフ名：</span>
