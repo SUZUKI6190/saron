@@ -4,6 +4,7 @@ use business\entity\YoyakuRegistration;
 use business\entity\Reserved;
 use business\entity\Schedule;
 use business\entity\StaffSchedule;
+use business\entity\Customer;
 
 abstract class FlowYoyakuBase extends FlowBase
 {
@@ -12,6 +13,15 @@ abstract class FlowYoyakuBase extends FlowBase
     
     protected function save_inner()
     {
+        if(!isset($_POST[StaffContext::update_btn_name])){
+            return;
+        }
+
+        $fc = FlowYoyakuContext::get_instance();
+        
+        $customr_id = $fc->customer_id->get_value();
+        $this->_selected_customer = \business\facade\SelectCustomerById($customr_id);
+
         if($this->_flow_id == StaffContext::EditYoyakuID){
             $this->save_edit();
         }else{
@@ -21,12 +31,10 @@ abstract class FlowYoyakuBase extends FlowBase
 
     private function save_edit()
     {
-        if(!isset($_POST[StaffContext::update_btn_name])){
-            return;
-        }
-
         $fc = FlowYoyakuContext::get_instance();
         $s = $fc->create_input_scheule_data();
+    
+        $s->name = $this->create_schedule_name($this->_selected_customer);
 
         \business\facade\StaffScheduleFacade::update($s);
     }
@@ -36,10 +44,6 @@ abstract class FlowYoyakuBase extends FlowBase
         $fc = FlowYoyakuContext::get_instance();
 
         $this->_course_list = \business\facade\get_menu_course_by_idlist($fc->course_id_list->get_value());
-
-        if(!isset($_POST[StaffContext::update_btn_name])){
-            return;
-        }
 
 		$list_key = $fc->course_id_list->get_key();
         
@@ -65,14 +69,18 @@ abstract class FlowYoyakuBase extends FlowBase
 
     }
 
+    private function create_schedule_name(Customer $c) : string
+    {
+        return $c->name_kanji."様 予約";
+    }
+
     private function create_yoyaku_registration() : YoyakuRegistration
     {
         $fc = FlowYoyakuContext::get_instance();
 
         $customr_id = $fc->customer_id->get_value();
-        $customer = \business\facade\SelectCustomerById($customr_id);
         
-        $visit_num = $customer->number_of_visit;
+        $visit_num = $this->_selected_customer->number_of_visit;
 
         $yj = new YoyakuRegistration();
 
@@ -119,7 +127,7 @@ abstract class FlowYoyakuBase extends FlowBase
 
         $ret->minutes = $sum_time;
 
-        $ret->name = $name;
+        $ret->name = $this->create_schedule_name($this->_selected_customer);
 
         return $ret;
     }

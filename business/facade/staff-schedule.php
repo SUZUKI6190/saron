@@ -51,12 +51,11 @@ SQL;
 		$registlation_id = $wpdb->get_results($strSql)[0]->extend_data;
 
         $strSql = <<<SQL
-        UPDATE yoyaku_schedule, yoyaku_customer SET
-            yoyaku_schedule.start_time = '$s->start_time',
-            yoyaku_schedule.comment = '$s->comment',
-            yoyaku_schedule.name = concat(yoyaku_customer.name_kanji, '様 予約')
-        where yoyaku_customer.id = '$s->customer_id'
-        and yoyaku_schedule.id = '$s->schedule_id'
+        UPDATE yoyaku_schedule SET
+            start_time = '$s->start_time',
+            comment = '$s->comment',
+            name = '$s->name'
+        where yoyaku_schedule.id = '$s->schedule_id'
 SQL;
 
         $wpdb->query($strSql);
