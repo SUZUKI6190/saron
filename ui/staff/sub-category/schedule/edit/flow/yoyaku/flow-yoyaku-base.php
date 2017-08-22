@@ -8,6 +8,7 @@ use business\entity\StaffSchedule;
 abstract class FlowYoyakuBase extends FlowBase
 {
     private $_course_list;
+    private $_selected_customer;
     
     protected function save_inner()
     {
