@@ -117,9 +117,14 @@ class Confirm extends YoyakuMenu
 
         $this->save_yoyaku_registration($customr_id, $id_and_visitnum->number_of_visit);
         $regist_id = \business\facade\get_last_insert_id();
-        $this->save_schedule($customr_id, $regist_id);
+        $this->save_schedule($customr_id, $regist_id, $this->create_schedule_name($new_customer));
 
         $this->save_reserved_course($regist_id);
+    }
+
+    private function create_schedule_name(Customer $c) : string
+    {
+        return $c->name_kanji."様 予約";
     }
 
     private function is_first_visit() : bool
@@ -139,9 +144,10 @@ class Confirm extends YoyakuMenu
         }
     }
 
-    private function save_schedule($customr_id, $regist_id)
+    private function save_schedule($customr_id, $regist_id, $schedule_name)
     {
         $schedule = $this->create_schedule();
+        $schedule->name = $schedule_name;
         $schedule->extend_data = $regist_id;
         \business\facade\insert_schedule($schedule);
     }
@@ -223,7 +229,6 @@ class Confirm extends YoyakuMenu
         }else{
             $yj->number_of_visit = $visit_num + 1;
         }
-        
 
         return $yj;
     }
