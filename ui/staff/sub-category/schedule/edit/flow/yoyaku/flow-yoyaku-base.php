@@ -118,7 +118,7 @@ abstract class FlowYoyakuBase extends FlowBase
 
         $ret->minutes = $sum_time;
 
-        $ret->schedule_name = $name;
+        $ret->name = $name;
 
         return $ret;
     }

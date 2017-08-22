@@ -141,7 +141,7 @@ class Confirm extends YoyakuMenu
 
     private function save_schedule($customr_id, $regist_id)
     {
-        $schedule = $this->create_schedule($customr_id);
+        $schedule = $this->create_schedule();
         $schedule->extend_data = $regist_id;
         \business\facade\insert_schedule($schedule);
     }
@@ -176,7 +176,7 @@ class Confirm extends YoyakuMenu
         return $ret;
     }
 
-    private function create_schedule($customr_id) : Schedule
+    private function create_schedule() : Schedule
     {
         $ret = new Schedule();
         $yc = YoyakuContext::get_instance();
@@ -198,7 +198,7 @@ class Confirm extends YoyakuMenu
 
         $ret->minutes = $sum_time;
 
-        $ret->schedule_name = $name;
+        $ret->name = $name;
 
         return $ret;
     }

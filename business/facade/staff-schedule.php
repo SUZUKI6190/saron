@@ -52,7 +52,8 @@ SQL;
 
         $strSql = <<<SQL
         UPDATE yoyaku_schedule SET 
-            start_time = '$s->start_time'
+            start_time = '$s->start_time',
+            comment = '$s->comment'
         where id = '$s->schedule_id'
 SQL;
 
