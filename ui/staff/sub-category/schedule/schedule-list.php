@@ -13,14 +13,10 @@ use \business\facade\StaffScheduleFacade;
 
 class ScheduleList extends ScheduleBase
 {
-    private $_param_list;
+    private $_param_list = [];
     const checked_list_name = "checked_schedule";
 
-    protected function update_inner()
-    {
-    }
-
-    protected function init_inner()
+    public function __construct()
     {
         if(isset($_POST[self::checked_list_name])){
             $checked_list = $_POST[self::checked_list_name];
@@ -28,7 +24,19 @@ class ScheduleList extends ScheduleBase
                 StaffScheduleFacade::delete_by_id($c);
             }
         }
-        
+    }
+
+    protected function update_inner()
+    {
+    }
+
+    protected function init_inner()
+    {
+
+        if(count($this->_schedule_list) < 1){
+            return;
+        }
+
         $this->_param_list = array_map(
             function($d) {
                     return ScheduleTableParam::create_from_schedule($d);
