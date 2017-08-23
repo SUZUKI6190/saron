@@ -93,7 +93,7 @@ class ScheduleBaseFactory
 
     public static function is_list_click():bool
     {
-        return isset($_POST[StaffContext::list_btn_name]) || isset($_POST[StaffContext::delete_btn_name]);
+        return isset($_POST[StaffContext::list_btn_name]) || isset($_POST[StaffContext::delete_btn_name]) || isset($_POST[StaffContext::delete_confirm_btn_name]);
     }
 
 }

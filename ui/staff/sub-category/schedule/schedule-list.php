@@ -14,15 +14,32 @@ use \business\facade\StaffScheduleFacade;
 class ScheduleList extends ScheduleBase
 {
     private $_param_list = [];
+    private $_view_func;
     const checked_list_name = "checked_schedule";
+    const delete_schedule_id_list = "delete_schedule_id_list";
 
     public function __construct()
     {
         if(isset($_POST[self::checked_list_name])){
-            $checked_list = $_POST[self::checked_list_name];
-            foreach($checked_list as $c){
-                StaffScheduleFacade::delete_by_id($c);
+
+            $this->_view_func = function(){
+                $this->view_delete();
+            };
+
+        }else{
+
+            if(isset($_POST[StaffContext::delete_confirm_btn_name])){
+                $checked_list = explode(",",$_POST[self::delete_schedule_id_list]);
+
+                foreach($checked_list as $c){
+                    StaffScheduleFacade::delete_by_id($c);
+                }
             }
+
+            $this->_view_func = function(){
+                $this->view_list();
+            };
+
         }
     }
 
@@ -45,8 +62,43 @@ class ScheduleList extends ScheduleBase
             );
     }
       
-
     protected function view_inner()
+    {
+        call_user_func($this->_view_func);
+    }
+
+    private function view_delete()
+    {
+        ?>
+        <div class='delete_btn_area'>
+            <button type='submit' class="manage_button list_button" name='<?php echo StaffContext::delete_confirm_btn_name; ?>' value="<?php echo $p->schedule_id; ?>">削除</button>
+        </div>
+        <span>以下のスケジュールを削除します。</span>
+        <table class='deleat_schedule_list_table'>
+            <thead>
+                <tr>
+                    <th>
+                    スケジュール名
+                    </th>
+                </tr>
+            </thead>
+            <?php
+            foreach($this->_schedule_list as $s)
+            {?>
+            <tr>
+                <td>
+                    <?php echo $s->name; ?>
+                </td>
+            </tr>
+            <?php
+            }
+            ?>
+        </table>
+        <input type='hidden' name='<?php echo self::delete_schedule_id_list; ?>' value=<?php echo implode(',', $_POST[self::checked_list_name]); ?> />
+        <?php
+    }
+
+    private function view_list()
     {
         if(count($this->_param_list )== 0)
         {

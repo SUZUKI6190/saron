@@ -161,3 +161,8 @@ div.schedule_cell:hover
     text-align: right;
     margin: 10px;
 }
+
+.deleat_schedule_list_table
+{
+    width: 100%;
+}
