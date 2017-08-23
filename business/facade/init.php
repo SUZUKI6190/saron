@@ -111,6 +111,7 @@ SQL
 			consultation text character set utf8,
 			number_of_visit INT UNSIGNED NOT NULL DEFAULT '0',
 			is_first_visit_check tinyint UNSIGNED DEFAULT '0',
+			remark text character set utf8,
 			PRIMARY KEY(id)
 		)
 SQL
