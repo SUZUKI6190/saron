@@ -40,6 +40,39 @@ SQL;
 		return $ret;
     }
 
+
+    public static function delete_by_id($id)
+    {
+        
+        global $wpdb;
+
+        $strSql = <<<SQL
+        select extend_data from yoyaku_schedule where id = '$id'
+SQL;
+
+	    $registlation_id = $wpdb->get_results($strSql)[0]->extend_data;
+
+        $strSql = <<<SQL
+        delete from yoyaku_registration 
+        where id = '$registlation_id'
+SQL;
+        $wpdb->query($strSql);
+
+        $strSql = <<<SQL
+        delete from yoyaku_reserved
+        where registration_id = '$registlation_id'
+SQL;
+
+        $wpdb->query($strSql);
+
+        $strSql = <<<SQL
+        delete from yoyaku_schedule 
+        where id = '$id'
+SQL;
+
+        $wpdb->query($strSql);
+    }
+
     public static function update(StaffSchedule $s)
     {
         global $wpdb;

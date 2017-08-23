@@ -9,10 +9,12 @@ use ui\frame\ManageFrameContext;
 use \business\entity\StaffSchedule;
 use \business\entity\Schedule;
 use ui\staff\ScheduleBase;
+use \business\facade\StaffScheduleFacade;
 
 class ScheduleList extends ScheduleBase
 {
     private $_param_list;
+    const checked_list_name = "checked_schedule";
 
     protected function update_inner()
     {
@@ -20,6 +22,12 @@ class ScheduleList extends ScheduleBase
 
     protected function init_inner()
     {
+        if(isset($_POST[self::checked_list_name])){
+            $checked_list = $_POST[self::checked_list_name];
+            foreach($checked_list as $c){
+                StaffScheduleFacade::delete_by_id($c);
+            }
+        }
         
         $this->_param_list = array_map(
             function($d) {
@@ -36,9 +44,13 @@ class ScheduleList extends ScheduleBase
         {
             return;
         }
-        ?>
+?>
+        <div class='delete_btn_area'>
+            <button type='submit' class="manage_button list_button" name='<?php echo StaffContext::delete_btn_name; ?>' value="<?php echo $p->schedule_id; ?>">チェックされた予定を削除</button>
+        </div>
         <table class='schedule_list'>
          <thead>
+            <th></th>
             <th>
                 予定名
             </th>
@@ -46,17 +58,22 @@ class ScheduleList extends ScheduleBase
                 開始日時
             </th>
             <th>
-                所要時間
+                時間
             </th>
             <th>
-                予定種別
+                種別
             </th>
+            <th></th>
         </thead>
         <?php
+        $chech_box_name = self::checked_list_name."[]";
         foreach($this->_param_list as $p)
         {
             ?>
             <tr>
+                <td>
+                    <input type='checkbox' value="<?php echo $p->schedule_id; ?>" name='<?php echo $chech_box_name; ?>'>
+                </td>
                 <td>
                 <?php
                     echo $p->schedule_name;
@@ -86,8 +103,8 @@ class ScheduleList extends ScheduleBase
                     }
                 ?>
                 </td>
-                <td>
-                    <button type='submit' class="manage_button" name="<?php echo StaffContext::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
+                <td class='button_td'>
+                    <button type='submit' class="manage_button list_button" name="<?php echo StaffContext::edit_btn_name; ?>" value="<?php echo $p->schedule_id; ?>">編集</button>
                 </td>
             </tr>
             <?php

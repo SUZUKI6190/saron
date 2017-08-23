@@ -145,3 +145,19 @@ div.schedule_cell:hover
 {
     width: 10%;
 }
+
+.button_td
+{
+    padding: 0px;
+}
+
+.list_button
+{
+    font-size: small;    
+}
+
+.delete_btn_area
+{
+    text-align: right;
+    margin: 10px;
+}

@@ -10,6 +10,7 @@ class StaffContext
     const edit_btn_name = "edit_btn";
 	const update_btn_name = "update_btn";
     const change_datetime = 'change_date';
+	const delete_btn_name = "delete_btn";
     
 	const MoveName = 'move_next';
   	const ScheduleTypeName = 'schedule_type';
