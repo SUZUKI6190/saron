@@ -162,18 +162,6 @@ SQL
 );
 }
 
-function update_yoyaku_registration_byid(YoyakuRegistration $y)
-{
-    $strSql = <<<SQL
-            update `customer` set
-            name = '$menu->name',
-            description = '$menu->description',
-            enable_reservation = '$menu->enable_reservation',
-        where id = '$data->id'
-SQL;
-
-}
-
 function insert_yoyaku_registration($y)
 {
 	global $wpdb;
@@ -183,13 +171,15 @@ function insert_yoyaku_registration($y)
             customer_id,
             start_time,
             consultation,
-            number_of_visit
+            number_of_visit,
+            is_first_visit_check
 		)values(
             '$y->staff_id',
             '$y->customer_id',
             '$y->start_time',
             '$y->consultation',
-            '$y->number_of_visit'
+            '$y->number_of_visit',
+            '$y->is_first_visit_check'
 		)
 SQL;
 	$wpdb->query($strSql);

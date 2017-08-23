@@ -226,8 +226,10 @@ class Confirm extends YoyakuMenu
 
         if($this->is_first_visit()){
             $yj->number_of_visit = 1;
+            $yj->is_first_visit_check = 1;
         }else{
             $yj->number_of_visit = $visit_num + 1;
+            $yj->is_first_visit_check = 0;
         }
 
         return $yj;

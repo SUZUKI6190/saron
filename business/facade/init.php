@@ -110,6 +110,7 @@ SQL
 			start_time DATETIME not null,
 			consultation text character set utf8,
 			number_of_visit INT UNSIGNED NOT NULL DEFAULT '0',
+			is_first_visit_check tinyint UNSIGNED DEFAULT '0',
 			PRIMARY KEY(id)
 		)
 SQL
