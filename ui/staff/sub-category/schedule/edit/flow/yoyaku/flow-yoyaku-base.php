@@ -90,7 +90,7 @@ abstract class FlowYoyakuBase extends FlowBase
         
         $yj->start_time = $this->create_start_time();
        
-        $yj->consultation = '';
+        $yj->consultation = $fc->consultation->get_value();;
 
         $yj->number_of_visit = $visit_num + 1;
 

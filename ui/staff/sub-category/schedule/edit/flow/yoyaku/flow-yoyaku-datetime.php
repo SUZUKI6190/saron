@@ -53,6 +53,8 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
         $date_value = $fc->yoyaku_date->get_value();
         $time_name = $fc->yoyaku_time->get_key();
         $time_value = $fc->yoyaku_time->get_value();
+        $bikou_name = $fc->consultation->get_key();
+        $bikou_value = $fc->consultation->get_value();
         $min_date = new \DateTime();
         $min_time = new \DateTime('9:00');
 ?>
@@ -61,6 +63,7 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
             <input type='date' name='<?php echo $date_name; ?>' value='<?php echo $date_value; ?>' min='<?php echo $min_date->format("Y-m-d"); ?>'>
             <h2>開始時刻</h2>
             <input type='time' name='<?php echo $time_name; ?>' value='<?php echo $time_value; ?>' min='<?php echo $min_time->format("H:i"); ?>'>
+            <textarea class='edit_comment' name='<?php echo $bikou_name; ?>'><?php echo $bikou_value; ?></textarea>
         </div>
 <?php
     }

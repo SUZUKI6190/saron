@@ -11,6 +11,7 @@ class FlowYoyakuContext
 	public $staff_id;
 	public $customer_id;
 	public $schedule_id;
+	public $consultation;
 	private $_param_list = [];
 
 	private function __construct()
@@ -24,6 +25,7 @@ class FlowYoyakuContext
 		$this->yoyaku_time = $this->create_param("staff_yoyaku_time");
 		$this->customer_id = $this->create_param("staff_yoyaku_customer_id");
 		$this->schedule_id = $this->create_param(StaffContext::edit_btn_name);
+		$this->consultation = $this->create_param("staff_yoyaku_consultation");
 	}
 
 	public function init()
@@ -43,6 +45,7 @@ class FlowYoyakuContext
 		$this->yoyaku_time->set_value($data->start_time->format('H:i'));
 		$this->customer_id->set_value($data->customer_id);
 		$this->schedule_id->set_value($data->schedule_id);
+		$this->consultation->set_value($data->consultation);
 	}
 
 	public function create_input_scheule_data() : StaffSchedule
@@ -52,6 +55,7 @@ class FlowYoyakuContext
 		$new_data->start_time = $this->yoyaku_date->get_value().' '.$this->yoyaku_time->get_value();
 		$new_data->customer_id = $this->customer_id->get_value();
 		$new_data->schedule_id = $this->schedule_id->get_value();
+		$new_data->consultation = $this->consultation->get_value();
 		return $new_data;
 	}
 
