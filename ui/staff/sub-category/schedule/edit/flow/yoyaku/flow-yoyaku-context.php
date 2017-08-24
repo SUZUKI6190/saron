@@ -12,6 +12,7 @@ class FlowYoyakuContext
 	public $customer_id;
 	public $schedule_id;
 	public $consultation;
+	public $is_first_visit;
 	private $_param_list = [];
 
 	private function __construct()
@@ -26,6 +27,8 @@ class FlowYoyakuContext
 		$this->customer_id = $this->create_param("staff_yoyaku_customer_id");
 		$this->schedule_id = $this->create_param(StaffContext::edit_btn_name);
 		$this->consultation = $this->create_param("staff_yoyaku_consultation");
+		$this->is_first_visit_check = $this->create_radio_param("staff_yoyaku_is_first_visit_check");
+
 	}
 
 	public function init()
@@ -46,6 +49,7 @@ class FlowYoyakuContext
 		$this->customer_id->set_value($data->customer_id);
 		$this->schedule_id->set_value($data->schedule_id);
 		$this->consultation->set_value($data->consultation);
+		$this->is_first_visit_check->set_value($data->is_first_visit_check);
 	}
 
 	public function create_input_scheule_data() : StaffSchedule
@@ -56,7 +60,16 @@ class FlowYoyakuContext
 		$new_data->customer_id = $this->customer_id->get_value();
 		$new_data->schedule_id = $this->schedule_id->get_value();
 		$new_data->consultation = $this->consultation->get_value();
+		$new_data->is_first_visit_check = $this->is_first_visit_check->get_value();
 		return $new_data;
+	}
+
+	
+	private function create_radio_param($name)
+	{
+		$p = new RadioParam($name);
+		$this->_param_list[] = $p;
+		return $p;
 	}
 
 	private function create_param($name)
@@ -91,6 +104,22 @@ class FlowYoyakuContext
 		return self::$_instance;
 	}
 
+}
+
+class RadioParam extends Param
+{
+	
+	public function get_key():string
+	{
+		return $this->_key."[]";
+	}
+
+	public function set_session_from_post()
+	{
+		if(isset($_POST[$this->_key])){
+			$_SESSION[$this->_key] = $_POST[$this->_key][0];
+		}
+	}
 }
 
 class Param

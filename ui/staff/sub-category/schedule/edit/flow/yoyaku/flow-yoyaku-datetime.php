@@ -55,6 +55,20 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
         $time_value = $fc->yoyaku_time->get_value();
         $bikou_name = $fc->consultation->get_key();
         $bikou_value = $fc->consultation->get_value();
+
+        $view_is_firsit_visit_radio = function($text, $value){
+            $fc = FlowYoyakuContext::get_instance();
+            $is_first_visit_name = $fc->is_first_visit_check->get_key();
+            $checked = '';
+            if( $fc->is_first_visit_check->get_value() == $value){
+                $checked= 'checked';
+            }
+            ?>
+            <input type='radio' name='<?php echo $is_first_visit_name; ?>' value='<?php echo $value; ?>' <?php echo $checked; ?>><?php echo $text; ?>
+            <?php
+        };
+        
+
         $min_date = new \DateTime();
         $min_time = new \DateTime('9:00');
 ?>
@@ -63,6 +77,11 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
             <input type='date' name='<?php echo $date_name; ?>' value='<?php echo $date_value; ?>' min='<?php echo $min_date->format("Y-m-d"); ?>'>
             <h2>開始時刻</h2>
             <input type='time' name='<?php echo $time_name; ?>' value='<?php echo $time_value; ?>' min='<?php echo $min_time->format("H:i"); ?>'>
+            <h2>ご来店</h2>
+            <?php
+            $view_is_firsit_visit_radio('初めて', 1);
+            $view_is_firsit_visit_radio('再来店', 0);
+            ?>
             <h2>ご相談・お問合わせ等</h2>
             <textarea class='edit_comment' name='<?php echo $bikou_name; ?>'><?php echo $bikou_value; ?></textarea>
         </div>
