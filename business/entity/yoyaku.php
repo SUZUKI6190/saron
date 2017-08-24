@@ -10,7 +10,6 @@ class YoyakuRegistration
 	public $consultation;
 	public $number_of_visit;
 	public $is_first_visit_check;
-	public $remark;
 	public static function CreateObjectFromWpdb($wpdb) : YoyakuRegistration
 	{
 		$ret = new YoyakuRegistration();
@@ -21,7 +20,6 @@ class YoyakuRegistration
 		$ret->consultation = $wpdb->consultation;
 		$ret->number_of_visit = $wpdb->number_of_visit;
 		$ret->is_first_visit_check = $wpdb->is_first_visit_check;
-		$ret->remark = $wpdb->remark;
 		return $ret;
 	}
 }

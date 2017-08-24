@@ -224,8 +224,6 @@ class Confirm extends YoyakuMenu
        
         $yj->consultation = $mc->consultation->get_value();
 
-        $yj->remark = $mc->consultation->get_value();
-
         if($this->is_first_visit()){
             $yj->number_of_visit = 1;
             $yj->is_first_visit_check = 1;
@@ -248,6 +246,7 @@ class Confirm extends YoyakuMenu
         $new_customer->name_kana = $mc->name_kana->get_value();
         $new_customer->phone_number = $mc->tell->get_value();
         $new_customer->email = $mc->email->get_value();
+        $new_customer->remarks = $mc->consultation->get_value();
         $new_customer->reservation_route = 2;
         $new_customer->number_of_visit = $visit_num  + 1;
         return $new_customer;
