@@ -63,6 +63,7 @@ class FlowYoyakuDateTime extends FlowYoyakuBase
             <input type='date' name='<?php echo $date_name; ?>' value='<?php echo $date_value; ?>' min='<?php echo $min_date->format("Y-m-d"); ?>'>
             <h2>開始時刻</h2>
             <input type='time' name='<?php echo $time_name; ?>' value='<?php echo $time_value; ?>' min='<?php echo $min_time->format("H:i"); ?>'>
+            <h2>ご相談・お問合わせ等</h2>
             <textarea class='edit_comment' name='<?php echo $bikou_name; ?>'><?php echo $bikou_value; ?></textarea>
         </div>
 <?php
