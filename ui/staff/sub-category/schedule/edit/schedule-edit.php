@@ -133,6 +133,11 @@ class ScheduleEdit extends ScheduleBase
         }
     }
 
+    public function is_save_click() : bool
+    {
+        return isset($_POST[StaffContext::update_btn_name]);
+    }
+
     private function is_edit_click() : bool
     {
         return isset($_POST[StaffContext::edit_btn_name]);
@@ -153,6 +158,15 @@ class ScheduleEdit extends ScheduleBase
 
     protected function view_inner()
     {
+        if($this->is_save_click()){
+            ?>
+            <div class='regist_finish'>
+            <span>登録完了しました。</span>
+            </div>
+            <?php
+            return;
+        }
+
         $next_flow;
         $next_current_page_no;
         if($this->_input_check){
