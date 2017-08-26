@@ -130,6 +130,11 @@ div.schedule_cell:hover
     margin: 10px;
 }
 
+.yoyaku_comment
+{
+    font-size:x-small;
+}
+
 .edit_comment
 {
     width: 95%;

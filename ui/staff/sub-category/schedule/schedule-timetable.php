@@ -136,9 +136,9 @@ class ScheduleTimeTable extends ScheduleBase
                     <div onclick='<?php echo $script;?>' class='schedule_cell' style='height:<?php echo $height; ?>px;top:<?php echo $px; ?>px;'>
                         <span class='yoyaku_name'>
                             <?php echo $p->schedule_name; ?>
-                        </span>
-                        <span class='customer_name'>
-                            <?php echo $p->customer_name; ?> 様
+                        </span><br>
+                        <span class='yoyaku_comment'>
+                            <?php echo $p->comment; ?>
                         </span>
                     </div>
                     <?php

@@ -11,8 +11,7 @@ class ScheduleTableParam
     public $start_minutes;
     public $staff_name;
     public $schedule_name;
-    public $customer_name;
-    public $schedule_division;
+public $schedule_division;
     public $comment;
     
     private static function get_minutes(\DateTime $d) : int
@@ -50,7 +49,7 @@ class ScheduleTableParam
         $ret->start_minutes = self::get_minutes(new \DateTime($s->start_time)) - self::get_minutes(new \DateTime('9:00'));
 
         $reserved_list = \business\facade\get_reserved_by_registration_id($yoyaku->id);
-
+        
         foreach($reserved_list as $r)
         {
             $c = \business\facade\get_menu_course_by_id($r->course_id);
@@ -62,9 +61,8 @@ class ScheduleTableParam
         $ret->minites_len = $s->minutes;
 
         $customer = \business\facade\SelectCustomerById($yoyaku->customer_id);
-        if(!is_null($customer)){
-            $ret->customer_name = $customer->name_kanji;
-        }
+        
+        $ret->comment = $yoyaku->consultation;
 
         return $ret;
     }
