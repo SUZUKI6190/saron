@@ -18,7 +18,7 @@ class SumDataCalculator extends DataCalculator
 	{
 		$this->_sum += $y->price;
 	}
-	public function catch_registration(YoyakuRegistration $y)
+	public function catch_sold(YoyakuRegistration $y)
 	{
 
 	}

@@ -19,7 +19,7 @@ class PerCustomerDataCalculator extends DataCalculator
 	{
 		$this->_price_num += $y->price;
 	}
-	public function catch_registration(YoyakuRegistration $y)
+	public function catch_sold(YoyakuRegistration $y)
 	{
 		$this->_customer_num += 1;
 	}

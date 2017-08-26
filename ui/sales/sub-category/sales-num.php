@@ -18,7 +18,7 @@ class SumNumDataCalculator extends DataCalculator
 	{
 		
 	}
-	public function catch_registration(YoyakuRegistration $y)
+	public function catch_sold(YoyakuRegistration $y)
 	{
 		if(isset($_POST[SalesNumSub::CustomerTypeName]))
 		{

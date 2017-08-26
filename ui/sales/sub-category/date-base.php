@@ -14,7 +14,7 @@ use \business\entity\YoyakuRegistration;
 abstract class DataCalculator
 {
 	public abstract function catch_reservedcourse(Sold $y);
-	public abstract function catch_registration(YoyakuRegistration $y);
+	public abstract function catch_sold(YoyakuRegistration $y);
 	public abstract function get_data();
 }
 
@@ -104,7 +104,7 @@ abstract class MonthlyForm extends DateInputForm
 				$culc = $this->create_calculator();
 				foreach($yr_list as $y)
 				{
-					$culc->catch_registration($y);
+					$culc->catch_sold($y);
 					$reserved_course = SoldFacade::get_by_registration_id($y->id);
 					foreach($reserved_course as $rc)
 					{
@@ -191,7 +191,7 @@ abstract class DaylyForm extends DateInputForm
 				foreach($dayly as $day)
 				{
 					$yr = $dayly_list[$day];
-					$culc->catch_registration($yr);
+					$culc->catch_sold($yr);
 					$reserved_course = \business\facade\get_reserved_by_registration_id($yr->id);
 					foreach($reserved_course as $rc)
 					{			
