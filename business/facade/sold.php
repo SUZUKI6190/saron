@@ -1,7 +1,6 @@
-
 <?php
 namespace business\facade;
-use business\entity\Sold;
+use \business\entity\Sold;
 
 class SoldFacade
 {

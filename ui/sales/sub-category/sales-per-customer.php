@@ -4,7 +4,7 @@ require_once('sales-graph-sub-base.php');
 require_once('graph-data.php');
 use ui\frame\ManageFrameContext;
 use \business\facade;
-use \business\entity\Reserved;
+use \business\entity\Sold;
 use \business\entity\YoyakuRegistration;
 use \ui\util\SubmitButton;
 use \ui\util\ConfirmSubmitButton;
@@ -15,7 +15,7 @@ class PerCustomerDataCalculator extends DataCalculator
 {
 	private $_customer_num = 0;
 	private $_price_num = 0;
-	public function catch_reservedcourse(Reserved $y)
+	public function catch_reservedcourse(Sold $y)
 	{
 		$this->_price_num += $y->price;
 	}

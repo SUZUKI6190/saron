@@ -7,12 +7,13 @@ use \ui\util\InputBase;
 use \ui\util\ConfirmSubmitButton;
 use \ui\frame\Result;
 use ui\sales\SalesContext;
-use \business\entity\Reserved;
+use \business\facade\SoldFacade;
+use \business\entity\Sold;
 use \business\entity\YoyakuRegistration;
 
 abstract class DataCalculator
 {
-	public abstract function catch_reservedcourse(Reserved $y);
+	public abstract function catch_reservedcourse(Sold $y);
 	public abstract function catch_registration(YoyakuRegistration $y);
 	public abstract function get_data();
 }
@@ -104,7 +105,7 @@ abstract class MonthlyForm extends DateInputForm
 				foreach($yr_list as $y)
 				{
 					$culc->catch_registration($y);
-					$reserved_course = \business\facade\get_reserved_by_registration_id($y->id);
+					$reserved_course = SoldFacade::get_by_registration_id($y->id);
 					foreach($reserved_course as $rc)
 					{
 						$culc->catch_reservedcourse($rc);

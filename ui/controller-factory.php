@@ -24,6 +24,9 @@ require_once(dirname(__FILE__)."/../business/entity/config.php");
 require_once(dirname(__FILE__).'/../business/facade/customer.php');
 require_once(dirname(__FILE__).'/../business/entity/customer.php');
 
+require_once(dirname(__FILE__).'/../business/entity/sold.php');
+require_once(dirname(__FILE__).'/../business/facade/sold.php');
+
 function create_controller() : IController
 {
 	$category = get_query_var("category");
