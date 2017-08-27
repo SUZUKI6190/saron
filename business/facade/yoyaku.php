@@ -10,17 +10,27 @@ function get_group_yoyaku_registration($list)
 
     foreach($list as $yr)
     {
+        $month_conut = 1;
+        while($month_conut <= 12)
+        {
+            $d = new \DateTime($yr->start_time);
+            $year = ($d)->format('Y');
+            $group[$year][$month_conut] = [];
+            $month_conut++;
+        }
+    }
+
+    foreach($list as $yr)
+    {
         $d = new \DateTime($yr->start_time);
         $year = ($d)->format('Y');
         $month =(int)($d)->format('m');
         $month_conut = 1;
-        $group[$year] = [];
+
         while($month_conut <= 12)
         {
             if($month_conut == $month){
                 $group[$year][$month_conut][] = $yr;
-            }else{
-                $group[$year][$month_conut] = [];
             }
             $month_conut++;
         }
