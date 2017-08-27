@@ -58,7 +58,7 @@ public $schedule_division;
         }
 
         $ret->schedule_name = $s->name;
-        $ret->minites_len = $s->minutes;
+        $ret->minites_len = $sum_time;
 
         $customer = \business\facade\SelectCustomerById($yoyaku->customer_id);
         
