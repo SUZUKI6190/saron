@@ -33,7 +33,7 @@ class FlowMode extends FlowBase
         <div class='line'>
             <h2>スケジュールの種類を選択</h2>
             <?php
-            $view_input('メニューの予定', Schedule::Yoyaku, true);
+            $view_input('お客様の予約', Schedule::Yoyaku, true);
             $view_input('その他の予定', Schedule::Other, false);
             ?>
         </div>
