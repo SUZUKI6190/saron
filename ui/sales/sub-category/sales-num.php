@@ -14,11 +14,11 @@ use ui\sales\salesContext;
 class SumNumDataCalculator extends DataCalculator
 {
 	private $_sum = 0;
-	public function catch_reservedcourse(Sold $y)
+	public function catch_sold(Sold $y)
 	{
 		
 	}
-	public function catch_sold(YoyakuRegistration $y)
+	public function catch_registration(YoyakuRegistration $y)
 	{
 		if(isset($_POST[SalesNumSub::CustomerTypeName]))
 		{

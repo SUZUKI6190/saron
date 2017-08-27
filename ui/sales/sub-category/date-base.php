@@ -13,8 +13,8 @@ use \business\entity\YoyakuRegistration;
 
 abstract class DataCalculator
 {
-	public abstract function catch_reservedcourse(Sold $y);
-	public abstract function catch_sold(YoyakuRegistration $y);
+	public abstract function catch_sold(Sold $y);
+	public abstract function catch_registration(YoyakuRegistration $y);
 	public abstract function get_data();
 }
 
@@ -104,11 +104,11 @@ abstract class MonthlyForm extends DateInputForm
 				$culc = $this->create_calculator();
 				foreach($yr_list as $y)
 				{
-					$culc->catch_sold($y);
-					$reserved_course = SoldFacade::get_by_registration_id($y->id);
-					foreach($reserved_course as $rc)
+					$culc->catch_registration($y);
+					$sold_list= SoldFacade::get_by_registration_id($y->id);
+					foreach($sold_list as $s)
 					{
-						$culc->catch_reservedcourse($rc);
+						$culc->catch_sold($s);
 					}
 				}	
 				$new_dataset->data[] = $culc->get_data();
@@ -191,11 +191,11 @@ abstract class DaylyForm extends DateInputForm
 				foreach($dayly as $day)
 				{
 					$yr = $dayly_list[$day];
-					$culc->catch_sold($yr);
-					$reserved_course = \business\facade\get_reserved_by_registration_id($yr->id);
-					foreach($reserved_course as $rc)
+					$culc->catch_registration($yr);
+					$sold_list= \business\facade\SoldFacade::get_by_registration_id($yr->id);
+					foreach($sold_list as $s)
 					{			
-						$culc->catch_reservedcourse($rc);
+						$culc->catch_sold($s);
 					}
 				}
 				$new_dataset->data[] = $culc->get_data();
