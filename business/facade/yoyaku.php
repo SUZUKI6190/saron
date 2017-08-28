@@ -48,6 +48,38 @@ function get_day_group_yoyaku_registration($list)
     {
         $d = new \DateTime($yr->start_time);
         $year = ($d)->format('Y');
+        $group[$year] = [];
+    }
+
+    $month_conut = 1;
+    foreach($group as $year => $value)
+    {
+        while($month_conut <= 12)
+        {
+            $lastdate = new \DateTime(date('Y-m-d',        //日付の形式 Y：年(西暦4桁)、m：月(01～12)、d：日(01～31)
+                                            mktime(0,       //時
+                                                    0,       //分
+                                                    0,       //秒
+                                                    $month_conut+1,  //月(翌月)
+                                                    0,       //日(0を指定すると前月の末日)
+                                                    $year    //年
+                                                )));
+            $max_day = (int)$lastdate->format("d");
+            $day_conut = 1;
+            while($day_conut <= $max_day)
+            {
+                $group[$year][$day_conut] = [];
+                $day_conut++;
+            }
+            $month_conut++;
+        }
+            
+    }
+
+    foreach($list as $yr)
+    {
+        $d = new \DateTime($yr->start_time);
+        $year = ($d)->format('Y');
         $month =(int)($d)->format('m');
         $day =(int)($d)->format('d');
         $lastdate = new \DateTime(date('Y-m-d',        //日付の形式 Y：年(西暦4桁)、m：月(01～12)、d：日(01～31)
@@ -60,17 +92,8 @@ function get_day_group_yoyaku_registration($list)
                                             )));
 
         $day_conut = 1;
-        $group[$year] = [];
         $max_day = (int)$lastdate->format("d");
-        while($day_conut <= $max_day)
-        {
-            if($day_conut == $day){
-                $group[$year][$day_conut][] = $yr;
-            }else{
-                $group[$year][$day_conut] = [];
-            }
-            $day_conut++;
-        }
+        $group[$year][$day][] = $yr;
     }
 
     return $group;
