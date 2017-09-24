@@ -15,7 +15,7 @@ price,
 time_required,
 name
     )
-    select r.id, c.price, c.time_required, c.name
+    select r.registration_id, c.price, c.time_required, c.name
     from
     yoyaku_menu_course as c,
     yoyaku_reserved as r
